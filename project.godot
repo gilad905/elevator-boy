@@ -14,3 +14,9 @@ config/name="elevator boy"
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=470
+window/size/viewport_height=520
+window/handheld/orientation=1
