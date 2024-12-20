@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://6ump4l8coktj"]
+[gd_scene load_steps=3 format=3 uid="uid://6ump4l8coktj"]
+
+[ext_resource type="Script" path="res://scripts/floor.gd" id="1_f8nr8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nhsl5"]
 size = Vector2(225, 58)
@@ -6,6 +8,7 @@ size = Vector2(225, 58)
 [node name="Floor" type="Area2D"]
 monitoring = false
 monitorable = false
+script = ExtResource("1_f8nr8")
 metadata/_edit_lock_ = true
 
 [node name="Line2D" type="Line2D" parent="."]
