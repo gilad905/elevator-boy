@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://b4x3k3rw7jlkp"]
+[gd_scene load_steps=6 format=3 uid="uid://b4x3k3rw7jlkp"]
 
 [ext_resource type="PackedScene" uid="uid://6ump4l8coktj" path="res://scenes/floor.tscn" id="1_ec1if"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_u3v8c"]
 [ext_resource type="Script" path="res://scripts/persons.gd" id="3_ag5il"]
+[ext_resource type="Script" path="res://scripts/elevator.gd" id="4_iffau"]
 
 [sub_resource type="GDScript" id="GDScript_pim70"]
 
@@ -44,6 +45,8 @@ metadata/_edit_lock_ = true
 [node name="Elevator" type="Line2D" parent="ElevatorWrap"]
 points = PackedVector2Array(7, 6, 49, 6, 49, 54, 6, 54, 6, 3.5)
 width = 5.0
+script = ExtResource("4_iffau")
+one_floor_duration_sec = 5
 metadata/_edit_lock_ = true
 
 [node name="Building" type="Line2D" parent="."]
