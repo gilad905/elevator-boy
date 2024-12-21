@@ -1,12 +1,10 @@
 extends Line2D
 
 @export var one_floor_duration_sec: int
-@export var door_move_duration_sec: int
 
 var current_floor_num: int
 var floor_height: int
 var is_moving: bool = false
-var is_door_open: bool = false
 var persons: Node2D
 
 func _ready() -> void:
@@ -37,18 +35,6 @@ func go_to_floor(floor_num: int) -> void:
 func move_one_floor(go_up: bool) -> void:
 	var target_floor: int = current_floor_num + (1 if go_up else -1)
 	go_to_floor(target_floor)
-
-func toggle_door() -> void:
-	await set_door(not is_door_open)
-
-func set_door(to_open: bool) -> void:
-	var target_y = 0 if to_open else 1
-	var door = get_node("Door")
-	var tween = create_tween()
-
-	tween.tween_property(door, "scale:y", target_y, door_move_duration_sec)
-	is_door_open = to_open
-	await tween.finished
 
 func add_person(person):
 	persons.add_child(person)

@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://b4x3k3rw7jlkp"]
+[gd_scene load_steps=8 format=3 uid="uid://b4x3k3rw7jlkp"]
 
 [ext_resource type="PackedScene" uid="uid://6ump4l8coktj" path="res://scenes/floor.tscn" id="1_ec1if"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_u3v8c"]
 [ext_resource type="Script" path="res://scripts/floors.gd" id="2_pfc4s"]
+[ext_resource type="Script" path="res://scripts/door.gd" id="3_3jsbd"]
 [ext_resource type="Script" path="res://scripts/persons.gd" id="3_ag5il"]
 [ext_resource type="Script" path="res://scripts/elevator.gd" id="4_iffau"]
 
@@ -27,13 +28,14 @@ points = PackedVector2Array(55, 6, 6, 6, 6, 54, 55, 54)
 width = 5.0
 script = ExtResource("4_iffau")
 one_floor_duration_sec = 2
-door_move_duration_sec = 1
 metadata/_edit_lock_ = true
 
 [node name="Door" type="Line2D" parent="ElevatorWrap/Elevator"]
 points = PackedVector2Array(53.5, 8, 53.5, 52)
 width = 3.0
 default_color = Color(0.720467, 0.720468, 0.720467, 1)
+script = ExtResource("3_3jsbd")
+move_speed = 1.0
 metadata/_edit_lock_ = true
 
 [node name="Persons" type="Node2D" parent="ElevatorWrap/Elevator"]
@@ -69,4 +71,5 @@ script = ExtResource("3_ag5il")
 [node name="PersonsTimer" type="Timer" parent="Persons"]
 wait_time = 6.0
 
+[connection signal="door_opened" from="ElevatorWrap/Elevator/Door" to="." method="_on_door_opened"]
 [connection signal="timeout" from="Persons/PersonsTimer" to="." method="_on_persons_timer_timeout"]
