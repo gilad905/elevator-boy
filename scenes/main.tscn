@@ -11,33 +11,11 @@
 [node name="Main" type="Node2D"]
 script = ExtResource("1_u3v8c")
 metadata/test = SubResource("GDScript_pim70")
-
-[node name="Floors" type="Node2D" parent="."]
-position = Vector2(153, 202)
-script = ExtResource("2_pfc4s")
-
-[node name="Floor_1" parent="Floors" instance=ExtResource("1_ec1if")]
-position = Vector2(0, 240)
-
-[node name="Floor_2" parent="Floors" instance=ExtResource("1_ec1if")]
-position = Vector2(0, 180)
-
-[node name="Floor_3" parent="Floors" instance=ExtResource("1_ec1if")]
-position = Vector2(0, 120)
-
-[node name="Floor_4" parent="Floors" instance=ExtResource("1_ec1if")]
-position = Vector2(0, 60)
-
-[node name="Floor_5" parent="Floors" instance=ExtResource("1_ec1if")]
-
-[node name="Persons" type="Node" parent="."]
-script = ExtResource("3_ag5il")
-
-[node name="PersonsTimer" type="Timer" parent="Persons"]
-wait_time = 6.0
+metadata/_edit_lock_ = true
 
 [node name="ElevatorWrap" type="Node2D" parent="."]
 position = Vector2(94, 206)
+metadata/_edit_lock_ = true
 
 [node name="Shaft" type="Line2D" parent="ElevatorWrap"]
 points = PackedVector2Array(55, 0, 0, 0, 0, 295, 55, 295)
@@ -53,15 +31,42 @@ door_move_duration_sec = 1
 metadata/_edit_lock_ = true
 
 [node name="Door" type="Line2D" parent="ElevatorWrap/Elevator"]
-points = PackedVector2Array(53, 8, 53, 52)
+points = PackedVector2Array(53.5, 8, 53.5, 52)
 width = 3.0
+default_color = Color(0.720467, 0.720468, 0.720467, 1)
 metadata/_edit_lock_ = true
 
 [node name="Persons" type="Node2D" parent="ElevatorWrap/Elevator"]
+metadata/_edit_lock_ = true
+
+[node name="Floors" type="Node2D" parent="."]
+position = Vector2(153, 202)
+script = ExtResource("2_pfc4s")
+metadata/_edit_lock_ = true
+
+[node name="Floor_1" parent="Floors" instance=ExtResource("1_ec1if")]
+position = Vector2(0, 240)
+
+[node name="Floor_2" parent="Floors" instance=ExtResource("1_ec1if")]
+position = Vector2(0, 180)
+
+[node name="Floor_3" parent="Floors" instance=ExtResource("1_ec1if")]
+position = Vector2(0, 120)
+
+[node name="Floor_4" parent="Floors" instance=ExtResource("1_ec1if")]
+position = Vector2(0, 60)
+
+[node name="Floor_5" parent="Floors" instance=ExtResource("1_ec1if")]
 
 [node name="Building" type="Line2D" parent="."]
 position = Vector2(10, 10)
 points = PackedVector2Array(75, 500, 375, 500, 375, 133, 450, 200, 225, 0, 0, 200, 75, 133, 75, 505)
 metadata/_edit_lock_ = true
+
+[node name="Persons" type="Node" parent="."]
+script = ExtResource("3_ag5il")
+
+[node name="PersonsTimer" type="Timer" parent="Persons"]
+wait_time = 6.0
 
 [connection signal="timeout" from="Persons/PersonsTimer" to="." method="_on_persons_timer_timeout"]
