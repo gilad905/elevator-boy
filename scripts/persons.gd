@@ -15,7 +15,6 @@ func add_person(floor_num: int = 0, dest: int = 0) -> void:
 	_floor.add_person(person)
 
 func create_person(dest: int) -> Node:
-	# var test = Person.new(1)
 	var person = person_scene.instantiate()
 	person.set_dest(dest)
 	return person
@@ -24,7 +23,7 @@ func get_random_floor_num() -> int:
 	return randi_range(1, Global.floor_count)
 
 func get_random_dest(floor_num: int) -> int:
-	var random_floor = randi_range(0, Global.floor_count - 1)
+	var random_floor = randi_range(1, Global.floor_count - 1)
 	if random_floor >= floor_num:
 		random_floor += 1
 	return random_floor

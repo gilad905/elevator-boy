@@ -1,9 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://6ump4l8coktj"]
+[gd_scene load_steps=5 format=3 uid="uid://6ump4l8coktj"]
 
 [ext_resource type="Script" path="res://scripts/floor.gd" id="1_f8nr8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nhsl5"]
 size = Vector2(225, 58)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_meogm"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uhogq"]
+texture = SubResource("CanvasTexture_meogm")
+modulate_color = Color(0, 0.219608, 1, 0.227451)
 
 [node name="Floor" type="Area2D"]
 monitoring = false
@@ -18,3 +24,19 @@ points = PackedVector2Array(0, 7, 225, 7)
 position = Vector2(112, 31)
 shape = SubResource("RectangleShape2D_nhsl5")
 disabled = true
+
+[node name="Persons" type="Node2D" parent="."]
+position = Vector2(0, 13)
+
+[node name="FloorNum" type="Label" parent="."]
+offset_left = 204.0
+offset_top = 13.0
+offset_right = 223.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(0, 0, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxTexture_uhogq")
+text = "1"
+horizontal_alignment = 1

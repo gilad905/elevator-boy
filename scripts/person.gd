@@ -1,12 +1,12 @@
-class_name Person extends Area2D
+extends Area2D
 
 var dest: int = -1
+var circle_center = Vector2(Global.person_radius, Global.person_radius)
 
-func _init(_dest: int) -> void:
-    set_dest(_dest)
+func _draw() -> void:
+	draw_circle(circle_center, Global.person_radius, Color.WHITE, false)
 
 func set_dest(_dest: int) -> void:
-    dest = _dest
-    print(get_children())
-    var label = get_node("./Label")
-    label.text = str(_dest)
+	dest = _dest
+	var label = get_node("./Label")
+	label.text = str(_dest)

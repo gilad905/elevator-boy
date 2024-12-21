@@ -1,12 +1,9 @@
 extends Node2D
 
 func _ready() -> void:
-	$Persons.add_person()
-	# pass
-
-func _process(_delta: float) -> void:
-	pass
+	await get_tree().create_timer(2).timeout
+	_on_persons_timer_timeout()
+	$Persons/PersonsTimer.start()
 
 func _on_persons_timer_timeout() -> void:
-	pass
-	# $Persons.add_person()
+	$Persons.add_person()

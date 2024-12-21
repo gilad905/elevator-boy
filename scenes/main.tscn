@@ -1,11 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://b4x3k3rw7jlkp"]
+[gd_scene load_steps=5 format=3 uid="uid://b4x3k3rw7jlkp"]
 
 [ext_resource type="PackedScene" uid="uid://6ump4l8coktj" path="res://scenes/floor.tscn" id="1_ec1if"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_u3v8c"]
 [ext_resource type="Script" path="res://scripts/persons.gd" id="3_ag5il"]
 
+[sub_resource type="GDScript" id="GDScript_pim70"]
+
 [node name="Main" type="Node2D"]
 script = ExtResource("1_u3v8c")
+metadata/test = SubResource("GDScript_pim70")
 
 [node name="Floors" type="Node2D" parent="."]
 position = Vector2(153, 202)
@@ -27,6 +30,9 @@ position = Vector2(0, 60)
 [node name="Persons" type="Node" parent="."]
 script = ExtResource("3_ag5il")
 
+[node name="PersonsTimer" type="Timer" parent="Persons"]
+wait_time = 6.0
+
 [node name="ElevatorWrap" type="Node2D" parent="."]
 position = Vector2(94, 206)
 
@@ -45,7 +51,4 @@ position = Vector2(10, 10)
 points = PackedVector2Array(75, 500, 375, 500, 375, 133, 450, 200, 225, 0, 0, 200, 75, 133, 75, 505)
 metadata/_edit_lock_ = true
 
-[node name="PersonsTimer" type="Timer" parent="."]
-wait_time = 6.0
-
-[connection signal="timeout" from="PersonsTimer" to="." method="_on_persons_timer_timeout"]
+[connection signal="timeout" from="Persons/PersonsTimer" to="." method="_on_persons_timer_timeout"]

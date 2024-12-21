@@ -1,6 +1,7 @@
 extends Node
 
 var floor_count: int
+var person_radius: int = 10
 
 func _ready() -> void:
     var root = get_tree().root
