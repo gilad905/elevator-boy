@@ -8,5 +8,4 @@ func _draw() -> void:
 
 func set_dest(_dest: int) -> void:
 	dest = _dest
-	var label = get_node("./Label")
-	label.text = str(_dest)
+	$Label.text = str(_dest)
