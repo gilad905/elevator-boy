@@ -1,16 +1,15 @@
 extends Node
 
 var person_scene
-var floors
 
 func _ready() -> void:
 	person_scene = preload("res://scenes/person.tscn")
-	floors = get_node("../Floors")
 
 func add_person(floor_num: int = 0, dest: int = 0) -> void:
 	floor_num = floor_num if floor_num else get_random_floor_num()
 	dest = dest if dest else get_random_dest(floor_num)
-	var _floor = floors.get_node("Floor_" + str(floor_num))
+	var floors = get_node("../Floors")
+	var _floor = floors.get_floor(floor_num)
 	var person = create_person(dest)
 	_floor.add_person(person)
 
