@@ -15,6 +15,7 @@ modulate_color = Color(0, 0.219608, 1, 0.227451)
 monitoring = false
 monitorable = false
 script = ExtResource("1_f8nr8")
+person_enter_interval_sec = 1.0
 metadata/_edit_lock_ = true
 
 [node name="Line2D" type="Line2D" parent="."]

@@ -5,8 +5,8 @@ extends Line2D
 enum State {closed, opening, open, closing}
 var current_state: State = State.closed
 
-signal has_opened
 signal has_closed
+signal state_changed(state: State)
 
 func _process(delta: float) -> void:
 	if [State.opening, State.closing].has(current_state):
@@ -16,10 +16,9 @@ func _process(delta: float) -> void:
 			scale.y = target_y
 			var target_state = State.open if is_opening else State.closed
 			current_state = target_state
-			var to_emit = has_opened if target_state == State.open else has_closed
-			# var emit_desc = "open" if target_state == State.open else "close"
-			# print("Emitting signal: " + emit_desc)
-			to_emit.emit()
+			state_changed.emit(target_state)
+			if target_state == State.closed:
+				has_closed.emit()
 
 		else:
 			var delta_factor = -1 if is_opening else 1
@@ -35,3 +34,4 @@ func set_state(state: State) -> void:
 	var is_opening = [State.open, State.opening].has(state)
 	var target_state = State.opening if is_opening else State.closing
 	current_state = target_state
+	state_changed.emit(target_state)

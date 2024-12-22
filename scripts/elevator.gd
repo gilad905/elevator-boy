@@ -31,7 +31,7 @@ func go_to_floor(floor_num: int) -> void:
 
 	is_moving = true
 	if $Door.current_state != $Door.State.closed:
-		$Door.set_state($Door.State.closed)
+		$Door.set_state($Door.State.closing)
 		await $Door.has_closed
 
 	var floor_delta = current_floor_num - floor_num
