@@ -13,3 +13,7 @@ func enter_elevator_next() -> void:
 	$Persons.remove_child(person)
 	elevator.add_person(person)
 	update_person_positions()
+
+func get_person_position(i: int) -> Vector2:
+	var x = spacing + (spacing + radius * 2) * i
+	return Vector2(x, 25)

@@ -46,8 +46,6 @@ func move_one_floor(go_up: bool) -> void:
 		go_to_floor(target_floor)
 
 func get_person_position(i: int) -> Vector2:
-	var spacing = Global.person_spacing
-	var radius = Global.person_radius
 	var x = spacing + (spacing + radius * 2) * i
 	return Vector2(x, 25)
 
@@ -56,6 +54,7 @@ func remove_persons_in_dest() -> void:
 		if person.dest == current_floor_num:
 			$Persons.remove_child(person)
 			person.queue_free()
+			get_node("/root/Main/Counter").increment()
 	update_person_positions()
 
 func is_floor_in_bounds(floor_num: int) -> bool:
