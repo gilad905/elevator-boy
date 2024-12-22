@@ -15,17 +15,15 @@ script = ExtResource("1_u3v8c")
 metadata/test = SubResource("GDScript_pim70")
 metadata/_edit_lock_ = true
 
-[node name="Elevator" type="Line2D" parent="."]
-position = Vector2(94, 206)
-points = PackedVector2Array(58, 6, 0, 6, 0, 60, 58, 60)
-width = 5.0
+[node name="Elevator" type="Area2D" parent="."]
+position = Vector2(94, 212)
 script = ExtResource("4_iffau")
 one_floor_duration_sec = 2
 metadata/_edit_lock_ = true
 
 [node name="Door" type="Line2D" parent="Elevator"]
-position = Vector2(0, 8.5)
-points = PackedVector2Array(55.5, 0, 55.5, 49)
+position = Vector2(0, 2.5)
+points = PackedVector2Array(54, 0, 54, 49)
 width = 5.0
 default_color = Color(0.720467, 0.720468, 0.720467, 1)
 script = ExtResource("3_3jsbd")
@@ -33,6 +31,14 @@ move_speed = 1.0
 metadata/_edit_lock_ = true
 
 [node name="Persons" type="Node2D" parent="Elevator"]
+metadata/_edit_lock_ = true
+
+[node name="Frame" type="Line2D" parent="Elevator"]
+points = PackedVector2Array(54, 0, 0, 0, 0, 54, 54, 54)
+width = 5.0
+joint_mode = 1
+begin_cap_mode = 1
+end_cap_mode = 1
 metadata/_edit_lock_ = true
 
 [node name="Floors" type="Node2D" parent="."]
@@ -58,12 +64,13 @@ position = Vector2(0, 60)
 script = ExtResource("3_ag5il")
 
 [node name="PersonsTimer" type="Timer" parent="Persons"]
-wait_time = 0.1
-; wait_time = 6.0
+wait_time = 6.0
 
 [node name="Building" type="Line2D" parent="."]
 position = Vector2(10, 10)
-points = PackedVector2Array(75, 500, 375, 500, 375, 133, 450, 200, 225, 0, 0, 200, 75, 133, 75, 505)
+points = PackedVector2Array(75, 500, 375, 500, 375, 133, 450, 200, 225, 0, 0, 200, 75, 133)
+closed = true
+joint_mode = 2
 metadata/_edit_lock_ = true
 
 [node name="Counter" type="Label" parent="."]

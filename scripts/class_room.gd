@@ -1,15 +1,13 @@
-extends Node2D
+extends Area2D
 
 var person_limit: int = 0
-var spacing: int = Global.person_spacing
-var radius: int = Global.person_radius
 
 func add_person(person) -> void:
     assert(has_room(), name + " is full")
     $Persons.add_child(person)
     update_person_position(person)
 
-func get_person_position(i: int) -> Vector2:
+func get_person_position(_i: int) -> Vector2:
     return Vector2.ZERO
 
 func update_person_position(person: Node2D):

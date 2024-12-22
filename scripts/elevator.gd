@@ -5,6 +5,8 @@ extends Room
 var current_floor_num: int
 var floor_height: int
 var is_moving: bool = false
+var persons_offset: Vector2
+var inner_size: Vector2
 
 func _ready() -> void:
 	self.person_limit = 4
@@ -12,6 +14,9 @@ func _ready() -> void:
 	var floor_1 = get_node("/root/Main/Floors/Floor_1")
 	var floor_2 = get_node("/root/Main/Floors/Floor_2")
 	floor_height = floor_1.position.y - floor_2.position.y
+	inner_size.x = $Frame.points[0].x - $Frame.points[1].x - $Frame.width
+	inner_size.y = $Frame.points[3].y - $Frame.points[0].y - $Frame.width
+	persons_offset = Vector2.ONE * ($Frame.width / 2 - Global.person_radius)
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("door_toggle"):
@@ -46,8 +51,11 @@ func move_one_floor(go_up: bool) -> void:
 		go_to_floor(target_floor)
 
 func get_person_position(i: int) -> Vector2:
-	var x = spacing + (spacing + radius * 2) * i
-	return Vector2(x, 25)
+	var _position = Vector2.ZERO
+	_position.x += 1 if i % 2 else 0
+	_position.y += 1 if i > 1 else 0
+	_position = persons_offset + inner_size / 4 * (_position * 2 + Vector2.ONE)
+	return _position
 
 func remove_persons_in_dest() -> void:
 	for person in $Persons.get_children():

@@ -15,5 +15,7 @@ func enter_elevator_next() -> void:
 	update_person_positions()
 
 func get_person_position(i: int) -> Vector2:
+	var spacing: int = Global.person_spacing
+	var radius: int = Global.person_radius
 	var x = spacing + (spacing + radius * 2) * i
 	return Vector2(x, 25)

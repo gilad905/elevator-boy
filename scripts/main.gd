@@ -22,3 +22,8 @@ func _on_door_opened():
 	$Elevator.remove_persons_in_dest()
 	var current_floor = $Floors.get_floor($Elevator.current_floor_num)
 	current_floor.enter_elevator_next()
+
+func debug_fill_elevator_with_persons():
+	for i in 4:
+		var person = $Persons.create_person(i + 1)
+		$Elevator.add_person(person)
