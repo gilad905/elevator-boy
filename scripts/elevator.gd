@@ -1,4 +1,4 @@
-extends Line2D
+extends Room
 
 @export var one_floor_duration_sec: int
 
@@ -7,6 +7,7 @@ var floor_height: int
 var is_moving: bool = false
 
 func _ready() -> void:
+	self.person_limit = 4
 	current_floor_num = Global.floor_count
 	var floor_1 = get_node("/root/Main/Floors/Floor_1")
 	var floor_2 = get_node("/root/Main/Floors/Floor_2")
@@ -41,15 +42,8 @@ func go_to_floor(floor_num: int) -> void:
 
 func move_one_floor(go_up: bool) -> void:
 	var target_floor: int = current_floor_num + (1 if go_up else -1)
-	if not is_floor_in_bounds(target_floor):
-		return
-	go_to_floor(target_floor)
-
-func add_person(person):
-	$Persons.add_child(person)
-	var i = person.get_index()
-	var _position = get_person_position(i)
-	person.position = _position
+	if is_floor_in_bounds(target_floor):
+		go_to_floor(target_floor)
 
 func get_person_position(i: int) -> Vector2:
 	var spacing = Global.person_spacing
@@ -62,6 +56,7 @@ func remove_persons_in_dest() -> void:
 		if person.dest == current_floor_num:
 			$Persons.remove_child(person)
 			person.queue_free()
+	update_person_positions()
 
 func is_floor_in_bounds(floor_num: int) -> bool:
 	return floor_num >= 1 and floor_num <= Global.floor_count

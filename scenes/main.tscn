@@ -14,32 +14,24 @@ script = ExtResource("1_u3v8c")
 metadata/test = SubResource("GDScript_pim70")
 metadata/_edit_lock_ = true
 
-[node name="ElevatorWrap" type="Node2D" parent="."]
+[node name="Elevator" type="Line2D" parent="."]
 position = Vector2(94, 206)
-metadata/_edit_lock_ = true
-
-[node name="Shaft" type="Line2D" parent="ElevatorWrap"]
-points = PackedVector2Array(55, 0, 0, 0, 0, 295, 55, 295)
-width = 5.0
-metadata/_edit_lock_ = true
-
-[node name="Elevator" type="Line2D" parent="ElevatorWrap"]
-points = PackedVector2Array(55, 6, 6, 6, 6, 54, 55, 54)
+points = PackedVector2Array(58, 6, 0, 6, 0, 60, 58, 60)
 width = 5.0
 script = ExtResource("4_iffau")
 one_floor_duration_sec = 2
 metadata/_edit_lock_ = true
 
-[node name="Door" type="Line2D" parent="ElevatorWrap/Elevator"]
+[node name="Door" type="Line2D" parent="Elevator"]
 position = Vector2(0, 8.5)
-points = PackedVector2Array(53.5, 0, 53.5, 43)
-width = 3.0
+points = PackedVector2Array(55.5, 0, 55.5, 49)
+width = 5.0
 default_color = Color(0.720467, 0.720468, 0.720467, 1)
 script = ExtResource("3_3jsbd")
 move_speed = 1.0
 metadata/_edit_lock_ = true
 
-[node name="Persons" type="Node2D" parent="ElevatorWrap/Elevator"]
+[node name="Persons" type="Node2D" parent="Elevator"]
 metadata/_edit_lock_ = true
 
 [node name="Floors" type="Node2D" parent="."]
@@ -61,16 +53,16 @@ position = Vector2(0, 60)
 
 [node name="Floor_5" parent="Floors" instance=ExtResource("1_ec1if")]
 
-[node name="Building" type="Line2D" parent="."]
-position = Vector2(10, 10)
-points = PackedVector2Array(75, 500, 375, 500, 375, 133, 450, 200, 225, 0, 0, 200, 75, 133, 75, 505)
-metadata/_edit_lock_ = true
-
 [node name="Persons" type="Node" parent="."]
 script = ExtResource("3_ag5il")
 
 [node name="PersonsTimer" type="Timer" parent="Persons"]
 wait_time = 6.0
 
-[connection signal="has_opened" from="ElevatorWrap/Elevator/Door" to="." method="_on_door_opened"]
+[node name="Building" type="Line2D" parent="."]
+position = Vector2(10, 10)
+points = PackedVector2Array(75, 500, 375, 500, 375, 133, 450, 200, 225, 0, 0, 200, 75, 133, 75, 505)
+metadata/_edit_lock_ = true
+
+[connection signal="has_opened" from="Elevator/Door" to="." method="_on_door_opened"]
 [connection signal="timeout" from="Persons/PersonsTimer" to="." method="_on_persons_timer_timeout"]
