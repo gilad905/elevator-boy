@@ -19,7 +19,7 @@ func _input(event: InputEvent) -> void:
 		get_tree().quit()
 
 func _on_persons_timer_timeout() -> void:
-	$Persons.add_person()
+	$Persons.add_random_person()
 
 func _on_door_opened():
 	elevator.remove_persons_in_dest()

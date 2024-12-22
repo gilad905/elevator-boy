@@ -72,5 +72,5 @@ script = ExtResource("3_ag5il")
 [node name="PersonsTimer" type="Timer" parent="Persons"]
 wait_time = 6.0
 
-[connection signal="door_opened" from="ElevatorWrap/Elevator/Door" to="." method="_on_door_opened"]
+[connection signal="has_opened" from="ElevatorWrap/Elevator/Door" to="." method="_on_door_opened"]
 [connection signal="timeout" from="Persons/PersonsTimer" to="." method="_on_persons_timer_timeout"]

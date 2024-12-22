@@ -1,9 +1,12 @@
 class_name Floor extends Area2D
 
+const person_limit: int = 9
+
 func _ready() -> void:
 	$FloorNum.text = str(get_index() + 1)
 
 func add_person(person) -> void:
+	assert(has_room(), name + " is full")
 	$Persons.add_child(person)
 	var i = person.get_index()
 	var _position = get_person_position(i)
@@ -23,3 +26,6 @@ func enter_elevator_next() -> void:
 	$Persons.remove_child(person)
 	var elevator = get_node("/root/Main/ElevatorWrap/Elevator")
 	elevator.add_person(person)
+
+func has_room() -> bool:
+	return $Persons.get_child_count() < person_limit

@@ -8,8 +8,9 @@ var is_moving: bool = false
 
 func _ready() -> void:
 	current_floor_num = Global.floor_count
-	var floor_shape: CollisionShape2D = get_node("/root/Main/Floors/Floor_1/CollisionShape2D")
-	floor_height = floor_shape.shape.size.y
+	var floor_1 = get_node("/root/Main/Floors/Floor_1")
+	var floor_2 = get_node("/root/Main/Floors/Floor_2")
+	floor_height = floor_1.position.y - floor_2.position.y
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("door_toggle"):
@@ -22,12 +23,16 @@ func go_to_floor(floor_num: int) -> void:
 
 	assert(is_floor_in_bounds(floor_num), "Target floor is out of bounds")
 
+	is_moving = true
+	if $Door.current_state != $Door.State.closed:
+		$Door.set_state($Door.State.closed)
+		await $Door.has_closed
+
 	var floor_delta = current_floor_num - floor_num
 	var target_y = position.y + floor_delta * floor_height
 	var duration = abs(floor_delta) * one_floor_duration_sec
 	var tween = create_tween()
 
-	is_moving = true
 	tween.tween_property(self, "position:y", target_y, duration)
 	await tween.finished
 	is_moving = false
