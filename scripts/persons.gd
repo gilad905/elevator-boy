@@ -1,5 +1,7 @@
 extends Node
 
+@export var timeout_sec: int
+
 var person_scene
 var floors
 
