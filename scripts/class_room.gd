@@ -23,6 +23,5 @@ func update_person_positions() -> void:
 func has_room() -> bool:
     return $Persons.get_child_count() < person_limit
 
-func _on_person_timeout_reached(person: Node2D) -> void:
-    $Persons.remove_child(person)
-    update_person_positions()
+func _on_person_timeout_reached(_person: Node2D) -> void:
+    pass

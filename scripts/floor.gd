@@ -21,3 +21,7 @@ func enter_elevator_next():
 		$Persons.remove_child(person)
 		elevator.add_person(person)
 		update_person_positions()
+
+func _on_person_timeout_reached(person: Node2D) -> void:
+	$Persons.remove_child(person)
+	update_person_positions()

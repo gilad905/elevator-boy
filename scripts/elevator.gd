@@ -59,12 +59,16 @@ func get_person_position(i: int) -> Vector2:
 	return _position
 
 func remove_persons_in_dest() -> void:
+	var was_removed = false
 	for person in $Persons.get_children():
 		if person.dest == current_floor_num:
+			was_removed = true
 			$Persons.remove_child(person)
 			person.queue_free()
-			get_node("/root/Main/Counter").increment()
-	update_person_positions()
+			if not person.timeout_reached:
+				get_node("/root/Main/Counter").increment()
+	if was_removed:
+		update_person_positions()
 
 func is_floor_in_bounds(floor_num: int) -> bool:
 	return floor_num >= 1 and floor_num <= Global.floor_count
