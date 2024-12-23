@@ -1,6 +1,6 @@
 extends Area2D
 
-signal timeout_reached(person: Area2D)
+signal timeout_reached(person: Node2D)
 
 var dest: int = -1
 var radius = Global.person_radius

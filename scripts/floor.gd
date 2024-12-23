@@ -9,6 +9,10 @@ func _ready() -> void:
 	self.person_limit = 9
 	$FloorNum.text = str(get_index() + 1)
 
+func add_person(person) -> void:
+	super(person)
+	person.timeout_reached.connect(_on_person_timeout_reached)
+
 func get_person_position(i: int) -> Vector2:
 	var spacing: int = Global.person_spacing
 	var radius: int = Global.person_radius
@@ -22,3 +26,7 @@ func enter_elevator_next():
 		$Persons.remove_child(person)
 		elevator.add_person(person)
 		update_person_positions()
+
+func _on_person_timeout_reached(person: Node2D) -> void:
+	$Persons.remove_child(person)
+	update_person_positions()
