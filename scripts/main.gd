@@ -24,7 +24,7 @@ func set_time_scale(to_increase: bool):
 	var shift = 2.0 if to_increase else 0.5
 	time_scale = clamp(time_scale * shift, 0.125, 16.0)
 	Engine.set_time_scale(time_scale)
-	$TimeScale.text = str(time_scale)
+	$Labels/TimeScale.text = str(time_scale)
 
 func _on_persons_timer_timeout() -> void:
 	$Persons.add_random_person()
@@ -32,7 +32,6 @@ func _on_persons_timer_timeout() -> void:
 func _on_door_state_changed(state: int) -> void:
 	if state == $Elevator/Door.State.open:
 		$Elevator.remove_persons_in_dest()
-		await get_tree().create_timer(0.5).timeout
 		_on_elevator_enter_timer_timeout()
 		$ElevatorEnterTimer.start()
 	elif state == $Elevator/Door.State.closing:

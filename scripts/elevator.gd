@@ -65,8 +65,8 @@ func remove_persons_in_dest() -> void:
 			was_removed = true
 			$Persons.remove_child(person)
 			person.queue_free()
-			if not person.timeout_reached:
-				get_node("/root/Main/Counter").increment()
+			if not person.is_timeout_reached:
+				get_node("/root/Main/Labels/Counter").increment()
 	if was_removed:
 		update_person_positions()
 
