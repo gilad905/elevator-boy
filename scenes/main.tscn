@@ -16,7 +16,7 @@ metadata/test = SubResource("GDScript_pim70")
 metadata/_edit_lock_ = true
 
 [node name="Elevator" type="Area2D" parent="."]
-position = Vector2(94, 212)
+position = Vector2(50, 212)
 script = ExtResource("4_iffau")
 one_floor_duration_sec = 2
 metadata/_edit_lock_ = true
@@ -42,7 +42,7 @@ end_cap_mode = 1
 metadata/_edit_lock_ = true
 
 [node name="Floors" type="Node2D" parent="."]
-position = Vector2(153, 202)
+position = Vector2(109, 202)
 script = ExtResource("2_pfc4s")
 metadata/_edit_lock_ = true
 
@@ -69,15 +69,15 @@ wait_time = 5.0
 
 [node name="Building" type="Line2D" parent="."]
 position = Vector2(10, 10)
-points = PackedVector2Array(75, 500, 375, 500, 375, 133, 450, 200, 225, 0, 0, 200, 75, 133)
+points = PackedVector2Array(31, 500, 331, 500, 331, 133, 363, 160, 181, 0, 0, 160, 31, 133)
 closed = true
 joint_mode = 2
 metadata/_edit_lock_ = true
 
 [node name="Counter" type="Label" parent="."]
-offset_left = 215.0
+offset_left = 171.0
 offset_top = 131.0
-offset_right = 255.0
+offset_right = 211.0
 offset_bottom = 154.0
 theme_override_colors/font_color = Color(0, 0.759174, 0, 1)
 text = "0"
@@ -87,14 +87,13 @@ script = ExtResource("7_obsw0")
 metadata/_edit_lock_ = true
 
 [node name="TimeScale" type="Label" parent="."]
-offset_left = 215.0
+offset_left = 171.0
 offset_top = 168.0
-offset_right = 255.0
+offset_right = 211.0
 offset_bottom = 191.0
 metadata/_edit_lock_ = true
 
 [node name="ElevatorEnterTimer" type="Timer" parent="."]
-wait_time = 1.0
 
 [connection signal="state_changed" from="Elevator/Door" to="." method="_on_door_state_changed"]
 [connection signal="timeout" from="Persons/PersonsTimer" to="." method="_on_persons_timer_timeout"]
