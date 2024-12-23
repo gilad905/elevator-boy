@@ -10,6 +10,10 @@ func _process(_delta: float) -> void:
 		$Elevator.move_one_floor(true)
 	elif Input.is_action_pressed("elevator_move_down"):
 		$Elevator.move_one_floor(false)
+	elif Input.is_action_just_pressed("door_toggle"):
+		$Elevator._on_door_toggle_pressed()
+	elif Input.is_action_just_pressed("elevator_touch"):
+		$Elevator._on_door_toggle_pressed()
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("exit"):

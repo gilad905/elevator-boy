@@ -18,11 +18,6 @@ func _ready() -> void:
 	inner_size.y = $Frame.points[3].y - $Frame.points[0].y - $Frame.width
 	persons_offset = Vector2.ONE * ($Frame.width / 2 - Global.person_radius)
 
-func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("door_toggle"):
-		if not is_moving:
-			$Door.toggle_state()
-
 func go_to_floor(floor_num: int) -> void:
 	if is_moving:
 		return
@@ -72,3 +67,7 @@ func remove_persons_in_dest() -> void:
 
 func is_floor_in_bounds(floor_num: int) -> bool:
 	return floor_num >= 1 and floor_num <= Global.floor_count
+
+func _on_door_toggle_pressed() -> void:
+	if not is_moving:
+		$Door.toggle_state()
