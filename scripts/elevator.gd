@@ -39,6 +39,7 @@ func go_to_floor(floor_num: int) -> void:
 	var duration = abs(floor_delta) * one_floor_duration_sec
 	var tween = create_tween()
 
+	tween.set_trans(Tween.TRANS_SINE)
 	tween.tween_property(self, "position:y", target_y, duration)
 	await tween.finished
 	is_moving = false

@@ -62,7 +62,7 @@ position = Vector2(0, 60)
 
 [node name="Persons" type="Node" parent="."]
 script = ExtResource("3_ag5il")
-timeout_sec = 10
+timeout_sec = 30
 
 [node name="PersonsTimer" type="Timer" parent="Persons"]
 wait_time = 5.0
@@ -94,6 +94,7 @@ offset_bottom = 191.0
 metadata/_edit_lock_ = true
 
 [node name="ElevatorEnterTimer" type="Timer" parent="."]
+wait_time = 1.0
 
 [connection signal="state_changed" from="Elevator/Door" to="." method="_on_door_state_changed"]
 [connection signal="timeout" from="Persons/PersonsTimer" to="." method="_on_persons_timer_timeout"]

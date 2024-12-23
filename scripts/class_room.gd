@@ -6,6 +6,7 @@ func add_person(person) -> void:
     assert(has_room(), name + " is full")
     $Persons.add_child(person)
     update_person_position(person)
+    person.timeout_reached.connect(_on_person_timeout_reached)
 
 func get_person_position(_i: int) -> Vector2:
     return Vector2.ZERO
@@ -21,3 +22,7 @@ func update_person_positions() -> void:
 
 func has_room() -> bool:
     return $Persons.get_child_count() < person_limit
+
+func _on_person_timeout_reached(person: Node2D) -> void:
+    $Persons.remove_child(person)
+    update_person_positions()
