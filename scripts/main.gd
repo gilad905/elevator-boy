@@ -14,8 +14,6 @@ func _process(_delta: float) -> void:
 		$Elevator._on_door_toggle_pressed()
 
 func _input(event: InputEvent) -> void:
-	# if event is InputEventScreenTouch and event.is_pressed() and event.is_action("elevator_touch"):
-	# 	print("Elevator touch")
 	if event.is_action_pressed("exit"):
 		get_tree().quit()
 	elif event.is_action_pressed("time_scale_increase"):

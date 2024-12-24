@@ -21,14 +21,14 @@ func _ready() -> void:
 	persons_offset = Vector2.ONE * ($Frame.width / 2 - Global.person_radius)
 
 func go_to_floor(floor_num: int) -> void:
-	if is_moving:
+	if is_moving or floor_num == current_floor_num:
 		return
 
 	assert(is_floor_in_bounds(floor_num), "Target floor is out of bounds")
 
 	is_moving = true
 
-	floors.set_floor_pressed(current_floor_num)
+	floors.set_floor_pressed(floor_num)
 	if $Door.current_state != $Door.State.closed:
 		$Door.set_state($Door.State.closing)
 		await $Door.has_closed
