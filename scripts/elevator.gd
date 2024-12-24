@@ -2,6 +2,7 @@ extends Room
 
 @export var one_floor_duration_sec: int
 
+var floors: Node
 var current_floor_num: int
 var floor_height: int
 var is_moving: bool = false
@@ -13,6 +14,7 @@ func _ready() -> void:
 	current_floor_num = Global.floor_count
 	var floor_1 = get_node("/root/Main/Floors/Floor_1")
 	var floor_2 = get_node("/root/Main/Floors/Floor_2")
+	floors = get_node("/root/Main/Floors")
 	floor_height = floor_1.position.y - floor_2.position.y
 	inner_size.x = $Frame.points[0].x - $Frame.points[1].x - $Frame.width
 	inner_size.y = $Frame.points[3].y - $Frame.points[0].y - $Frame.width
@@ -25,6 +27,8 @@ func go_to_floor(floor_num: int) -> void:
 	assert(is_floor_in_bounds(floor_num), "Target floor is out of bounds")
 
 	is_moving = true
+
+	floors.set_floor_pressed(current_floor_num)
 	if $Door.current_state != $Door.State.closed:
 		$Door.set_state($Door.State.closing)
 		await $Door.has_closed
@@ -37,6 +41,7 @@ func go_to_floor(floor_num: int) -> void:
 	tween.set_trans(Tween.TRANS_SINE)
 	tween.tween_property(self, "position:y", target_y, duration)
 	await tween.finished
+	$Door.set_state($Door.State.opening)
 	is_moving = false
 
 	current_floor_num = floor_num

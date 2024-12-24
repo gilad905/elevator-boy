@@ -2,14 +2,14 @@
 
 [ext_resource type="Script" path="res://scripts/floor.gd" id="1_f8nr8"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nhsl5"]
-size = Vector2(225, 58)
-
 [sub_resource type="CanvasTexture" id="CanvasTexture_meogm"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uhogq"]
 texture = SubResource("CanvasTexture_meogm")
 modulate_color = Color(0, 0.219608, 1, 0.227451)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_euo4v"]
+size = Vector2(225, 58)
 
 [node name="Floor" type="Area2D"]
 monitoring = false
@@ -19,11 +19,6 @@ metadata/_edit_lock_ = true
 
 [node name="Line2D" type="Line2D" parent="."]
 points = PackedVector2Array(0, 7, 225, 7)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(112, 31)
-shape = SubResource("RectangleShape2D_nhsl5")
-disabled = true
 
 [node name="Persons" type="Node2D" parent="."]
 position = Vector2(0, 13)
@@ -40,3 +35,8 @@ theme_override_font_sizes/font_size = 13
 theme_override_styles/normal = SubResource("StyleBoxTexture_uhogq")
 text = "1"
 horizontal_alignment = 1
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+position = Vector2(112.5, 31)
+shape = SubResource("RectangleShape2D_euo4v")
+shape_visible = false
