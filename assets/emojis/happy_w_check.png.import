@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2m2ark0wrnow"
-path="res://.godot/imported/1F621_color.png-efdcf8dc0952e408f8f100921d135eb3.ctex"
+uid="uid://tm51r437lb38"
+path="res://.godot/imported/happy_w_check.png-966fb59e17cf604649814c75de66978e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/1F621_color.png"
-dest_files=["res://.godot/imported/1F621_color.png-efdcf8dc0952e408f8f100921d135eb3.ctex"]
+source_file="res://assets/emojis/happy_w_check.png"
+dest_files=["res://.godot/imported/happy_w_check.png-966fb59e17cf604649814c75de66978e.ctex"]
 
 [params]
 

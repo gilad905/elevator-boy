@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdtim8jpnuhws"
-path="res://.godot/imported/happy_w_check.png-18a1b3069d7e1fbd35386893467cf637.ctex"
+uid="uid://cyw3o7yn01wd7"
+path="res://.godot/imported/angry_2.png-f39f9df7e8e9d3d4c64e57fb54d17667.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/happy_w_check.png"
-dest_files=["res://.godot/imported/happy_w_check.png-18a1b3069d7e1fbd35386893467cf637.ctex"]
+source_file="res://assets/emojis/angry_2.png"
+dest_files=["res://.godot/imported/angry_2.png-f39f9df7e8e9d3d4c64e57fb54d17667.ctex"]
 
 [params]
 
