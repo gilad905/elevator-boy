@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cvr2vq3jarlk6"]
+[gd_scene load_steps=9 format=3 uid="uid://cvr2vq3jarlk6"]
 
 [ext_resource type="Script" path="res://scripts/person.gd" id="1_x0uka"]
 [ext_resource type="Texture2D" uid="uid://dm2w75s1gyqvb" path="res://assets/1F642_color.png" id="2_sfuh0"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://v7h2rd62tu3c" path="res://assets/1F928_color.png" id="4_g0sk8"]
 [ext_resource type="Texture2D" uid="uid://b2m2ark0wrnow" path="res://assets/1F621_color.png" id="5_tyhg7"]
 [ext_resource type="Texture2D" uid="uid://r42c0vey6m6f" path="res://assets/1F60D_color.png" id="6_b3qbw"]
+[ext_resource type="Texture2D" uid="uid://bo5v7k3jv5ebk" path="res://assets/check-mark.png" id="7_3amgx"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dj0us"]
 animations = [{
@@ -73,4 +74,11 @@ sprite_frames = SubResource("SpriteFrames_dj0us")
 animation = &"smile"
 speed_scale = 0.0
 centered = false
+metadata/_edit_lock_ = true
+
+[node name="Checkmark" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(10, -8)
+scale = Vector2(0.20979, 0.20979)
+texture = ExtResource("7_3amgx")
 metadata/_edit_lock_ = true

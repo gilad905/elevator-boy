@@ -62,12 +62,13 @@ func set_dest(_dest: int) -> void:
 
 func show_reached_dest():
 	$Face.play("happy")
-	$Label.text = "✔"
-	$Label.add_theme_color_override("font_color", Color.GREEN)
+	$Label.hide()
+	$Checkmark.show()
+	var new_scale = $Checkmark.scale.x * 2
 	var tween = create_tween()
 	tween.set_parallel(true)
 	tween.tween_property(self, "modulate:a", 0, timeout_reached_duration)
-	tween.tween_property($Label, "scale:x", 2, timeout_reached_duration)
-	tween.tween_property($Label, "scale:y", 2, timeout_reached_duration)
+	for type in ["x", "y"]:
+		tween.tween_property($Checkmark, "scale:" + type, new_scale, timeout_reached_duration)
 	await tween.finished
 	self.queue_free()
