@@ -21,7 +21,10 @@ func _ready() -> void:
 	persons_offset = Vector2.ONE * ($Frame.width / 2 - Global.person_radius)
 
 func go_to_floor(floor_num: int) -> void:
-	if is_moving or floor_num == current_floor_num:
+	if is_moving:
+		return
+	if floor_num == current_floor_num:
+		$Door.toggle_state()
 		return
 
 	assert(is_floor_in_bounds(floor_num), "Target floor is out of bounds")
@@ -59,21 +62,14 @@ func get_person_position(i: int) -> Vector2:
 	return _position
 
 func remove_persons_in_dest() -> void:
-	var was_removed: bool = false
-	var person_reached_tween
+	var reached_tween: Tween = null
 	for person in $Persons.get_children():
 		if person.dest == current_floor_num:
-			was_removed = true
-			if person.is_patience_ended:
-				get_node("/root/Main/HUD").increment_money(false)
-				$Persons.remove_child(person)
-			else:
-				person_reached_tween = person.show_reached_dest()
-				get_node("/root/Main/HUD").increment_money(true)
-			# person.reparent(get_node("/root/Main/Persons"))
-	if was_removed:
-		if person_reached_tween:
-			await person_reached_tween.finished
+			var is_happy = not person.is_patience_ended
+			reached_tween = person.show_patience_ended(is_happy)
+			get_node("/root/Main/HUD").increment_money(is_happy)
+	if reached_tween:
+		await reached_tween.finished
 		update_person_positions()
 
 func is_floor_in_bounds(floor_num: int) -> bool:

@@ -7,6 +7,7 @@ var unpressed_forground: Color
 var pressed_forground: Color
 var unpressed_stylebox: StyleBoxTexture
 var pressed_stylebox: StyleBoxTexture
+var right_edge: int
 const person_y: int = 25
 
 func _ready() -> void:
@@ -18,12 +19,15 @@ func _ready() -> void:
 	pressed_forground = floors.pressed_forground
 	unpressed_stylebox = $FloorNum.get_theme_stylebox("normal")
 	pressed_stylebox = preload("res://resources/floor_num_pressed.tres")
+	right_edge = $TouchScreenButton.position.x
+	right_edge += $TouchScreenButton.shape.size.x / 2
+	right_edge += Global.person_radius * 2
 	$FloorNum.text = str(get_index() + 1)
 
 func add_person(person) -> void:
 	assert(has_room(), name + " is full")
 	$Persons.add_child(person)
-	person.position = Vector2($TouchScreenButton.shape.size.x, person_y)
+	person.position = Vector2(right_edge, person_y)
 	super(person)
 
 func get_person_position(i: int) -> Vector2:
@@ -47,8 +51,7 @@ func set_pressed(is_on: bool) -> void:
 	$FloorNum.add_theme_stylebox_override("normal", stylebox)
 
 func _on_person_patience_ended(person: Node2D) -> void:
-	$Persons.remove_child(person)
-	person.queue_free()
+	await person.show_patience_ended(false).finished
 	update_person_positions()
 	get_node("/root/Main/HUD").increment_money(false)
 

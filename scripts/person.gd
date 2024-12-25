@@ -60,8 +60,12 @@ func set_dest(_dest: int) -> void:
 	dest = _dest
 	$Label.text = str(_dest)
 
-func show_reached_dest():
-	$Face.play("happy")
+func show_patience_ended(is_happy: bool):
+	var face_animation = "happy" if is_happy else "angry_3"
+	var mark_animation = "v" if is_happy else "x"
+
+	$Face.play(face_animation)
+	$Checkmark.play(mark_animation)
 	$Label.hide()
 	$Checkmark.show()
 	var new_scale = $Checkmark.scale.x * 2
@@ -70,5 +74,6 @@ func show_reached_dest():
 	tween.tween_property(self, "modulate:a", 0, timeout_reached_duration)
 	for type in ["x", "y"]:
 		tween.tween_property($Checkmark, "scale:" + type, new_scale, timeout_reached_duration)
+	tween.finished.connect(get_parent().remove_child.bind(self))
 	tween.finished.connect(queue_free)
 	return tween

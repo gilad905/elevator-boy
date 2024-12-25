@@ -21,6 +21,7 @@ points = PackedVector2Array(0, 7, 225, 7)
 position = Vector2(0, 13)
 
 [node name="FloorNum" type="Label" parent="."]
+z_index = 1
 offset_left = 204.0
 offset_top = 13.0
 offset_right = 223.0

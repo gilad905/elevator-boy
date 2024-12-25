@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cvr2vq3jarlk6"]
+[gd_scene load_steps=11 format=3 uid="uid://cvr2vq3jarlk6"]
 
 [ext_resource type="Script" path="res://scripts/person.gd" id="1_x0uka"]
 [ext_resource type="Texture2D" uid="uid://ctm7u0g2asr5e" path="res://assets/emojis/angry_1.png" id="2_n5ofk"]
@@ -6,7 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://d3nwxoaqa8m7h" path="res://assets/emojis/angry_3.png" id="4_mgaqt"]
 [ext_resource type="Texture2D" uid="uid://vr7d0jyby2tx" path="res://assets/emojis/happy.png" id="5_23j7k"]
 [ext_resource type="Texture2D" uid="uid://cy4u6vra65nxn" path="res://assets/emojis/smile.png" id="6_duemu"]
-[ext_resource type="Texture2D" uid="uid://mgomju83h806" path="res://assets/check-mark.png" id="7_3amgx"]
+[ext_resource type="Texture2D" uid="uid://3nbx08en8tpy" path="res://assets/v.png" id="7_o2g33"]
+[ext_resource type="Texture2D" uid="uid://b3vhrevtalked" path="res://assets/x.png" id="8_ywlb3"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dj0us"]
 animations = [{
@@ -51,6 +52,25 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_exuhr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_o2g33")
+}],
+"loop": true,
+"name": &"v",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_ywlb3")
+}],
+"loop": true,
+"name": &"x",
+"speed": 5.0
+}]
+
 [node name="Person" type="Area2D"]
 monitoring = false
 monitorable = false
@@ -79,9 +99,10 @@ speed_scale = 0.0
 centered = false
 metadata/_edit_lock_ = true
 
-[node name="Checkmark" type="Sprite2D" parent="."]
+[node name="Checkmark" type="AnimatedSprite2D" parent="."]
 visible = false
 position = Vector2(10, -8)
 scale = Vector2(0.20979, 0.20979)
-texture = ExtResource("7_3amgx")
+sprite_frames = SubResource("SpriteFrames_exuhr")
+animation = &"v"
 metadata/_edit_lock_ = true

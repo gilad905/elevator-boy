@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b4x3k3rw7jlkp"]
+[gd_scene load_steps=13 format=3 uid="uid://b4x3k3rw7jlkp"]
 
 [ext_resource type="PackedScene" uid="uid://6ump4l8coktj" path="res://scenes/floor.tscn" id="1_ec1if"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_u3v8c"]
@@ -13,9 +13,6 @@
 [ext_resource type="Texture2D" uid="uid://s3d8mxmwaxio" path="res://assets/level.png" id="11_pd4if"]
 
 [sub_resource type="GDScript" id="GDScript_pim70"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_a8ijt"]
-size = Vector2(58, 58)
 
 [node name="Main" type="Node2D"]
 position = Vector2(0, 6)
@@ -67,19 +64,6 @@ metadata/_edit_lock_ = true
 [node name="Persons" type="Node2D" parent="Elevator"]
 metadata/_edit_lock_ = true
 
-[node name="TouchScreenButton" type="TouchScreenButton" parent="Elevator"]
-position = Vector2(27, 27)
-shape = SubResource("RectangleShape2D_a8ijt")
-shape_visible = false
-action = "door_toggle"
-metadata/_edit_lock_ = true
-
-[node name="Building" type="Sprite2D" parent="."]
-position = Vector2(188, 229)
-scale = Vector2(0.467241, 0.467241)
-texture = ExtResource("2_3cdlf")
-metadata/_edit_lock_ = true
-
 [node name="Floors" type="Node2D" parent="."]
 position = Vector2(109, 202)
 script = ExtResource("2_pfc4s")
@@ -100,6 +84,12 @@ position = Vector2(0, 120)
 position = Vector2(0, 60)
 
 [node name="Floor_5" parent="Floors" instance=ExtResource("1_ec1if")]
+
+[node name="Building" type="Sprite2D" parent="."]
+position = Vector2(188, 229)
+scale = Vector2(0.467241, 0.467241)
+texture = ExtResource("2_3cdlf")
+metadata/_edit_lock_ = true
 
 [node name="Persons" type="Node" parent="."]
 script = ExtResource("3_ag5il")

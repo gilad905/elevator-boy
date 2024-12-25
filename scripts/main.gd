@@ -64,4 +64,6 @@ func _on_debt_reached() -> void:
 func _on_level_up_timer_timeout() -> void:
 	current_level += 1
 	$HUD/Level.text = str(current_level)
-	$Persons/PersonsTimer.wait_time -= person_timer_level_decrease_sec
+	var wait_time = $Persons/PersonsTimer.wait_time
+	wait_time = clamp(wait_time - person_timer_level_decrease_sec, 1.0, INF)
+	$Persons/PersonsTimer.wait_time = wait_time
