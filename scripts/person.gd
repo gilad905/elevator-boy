@@ -71,4 +71,5 @@ func show_reached_dest():
 	for type in ["x", "y"]:
 		tween.tween_property($Checkmark, "scale:" + type, new_scale, timeout_reached_duration)
 	await tween.finished
+	get_parent().remove_child(self)
 	self.queue_free()

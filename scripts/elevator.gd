@@ -65,11 +65,11 @@ func remove_persons_in_dest() -> void:
 			was_removed = true
 			if person.is_patience_ended:
 				get_node("/root/Main/HUD").increment_money(false)
+				$Persons.remove_child(person)
 			else:
-				await person.show_reached_dest()
+				person.show_reached_dest()
 				get_node("/root/Main/HUD").increment_money(true)
 
-			$Persons.remove_child(person)
 	if was_removed:
 		update_person_positions()
 

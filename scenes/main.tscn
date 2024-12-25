@@ -110,22 +110,29 @@ move_speed = 120.0
 wait_time = 8.0
 
 [node name="HUD" type="Node2D" parent="."]
+position = Vector2(153, 90)
 script = ExtResource("9_oiqtx")
 lose_on_debt = -10
 metadata/_edit_lock_ = true
 
+[node name="TimeScale" type="Label" parent="HUD"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "0
+"
+horizontal_alignment = 1
+metadata/_edit_lock_ = true
+
 [node name="Money" type="Label" parent="HUD"]
-offset_left = 170.0
-offset_top = 110.0
-offset_right = 210.0
-offset_bottom = 133.0
+offset_top = 30.0
+offset_right = 40.0
+offset_bottom = 53.0
 theme_override_colors/font_color = Color(0, 0.759174, 0, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 3
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
-metadata/_edit_lock_ = true
 
 [node name="Icon" type="Sprite2D" parent="HUD/Money"]
 position = Vector2(49, 11)
@@ -133,28 +140,19 @@ scale = Vector2(0.306287, 0.306287)
 texture = ExtResource("10_sj0jc")
 
 [node name="Level" type="Label" parent="HUD"]
-offset_left = 170.0
-offset_top = 141.0
-offset_right = 210.0
-offset_bottom = 164.0
+offset_top = 60.0
+offset_right = 40.0
+offset_bottom = 83.0
 theme_override_constants/outline_size = 3
-text = "0"
+text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="Icon" type="Sprite2D" parent="HUD/Level"]
 position = Vector2(49, 12)
 scale = Vector2(0.415494, 0.489553)
 texture = ExtResource("11_pd4if")
-
-[node name="TimeScale" type="Label" parent="HUD"]
-offset_left = 170.0
-offset_top = 77.0
-offset_right = 210.0
-offset_bottom = 100.0
-text = "0
-"
-horizontal_alignment = 1
 
 [node name="OverlayPrompt" type="Label" parent="."]
 visible = false
@@ -171,7 +169,11 @@ vertical_alignment = 1
 [node name="ElevatorEnterTimer" type="Timer" parent="."]
 wait_time = 0.5
 
+[node name="LevelUpTimer" type="Timer" parent="."]
+wait_time = 30.0
+
 [connection signal="state_changed" from="Elevator/Door" to="." method="_on_door_state_changed"]
 [connection signal="timeout" from="Persons/PersonsTimer" to="." method="_on_persons_timer_timeout"]
 [connection signal="debt_reached" from="HUD" to="." method="_on_debt_reached"]
 [connection signal="timeout" from="ElevatorEnterTimer" to="." method="_on_elevator_enter_timer_timeout"]
+[connection signal="timeout" from="LevelUpTimer" to="." method="_on_level_up_timer_timeout"]

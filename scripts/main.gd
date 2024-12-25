@@ -1,8 +1,12 @@
 extends Node2D
 
+var current_level = 1
+@export var person_timer_level_decrease_sec: float = 1.0
+
 func _ready() -> void:
 	await get_tree().create_timer(1).timeout
 	_on_persons_timer_timeout()
+	$LevelUpTimer.start()
 	$Persons/PersonsTimer.start()
 
 func _process(_delta: float) -> void:
@@ -54,3 +58,8 @@ func _on_debt_reached() -> void:
 	get_node("/root").set_process_mode(ProcessMode.PROCESS_MODE_PAUSABLE)
 	get_tree().paused = false
 	get_tree().reload_current_scene()
+
+func _on_level_up_timer_timeout() -> void:
+	current_level += 1
+	$HUD/Level.text = str(current_level)
+	$Persons/PersonsTimer.wait_time -= person_timer_level_decrease_sec
