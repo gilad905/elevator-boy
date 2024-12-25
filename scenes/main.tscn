@@ -74,6 +74,7 @@ position = Vector2(0, 60)
 [node name="Persons" type="Node" parent="."]
 script = ExtResource("3_ag5il")
 timeout_sec = 30
+move_speed = 120.0
 
 [node name="PersonsTimer" type="Timer" parent="Persons"]
 wait_time = 5.0
