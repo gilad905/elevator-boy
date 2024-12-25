@@ -1,11 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://b4x3k3rw7jlkp"]
+[gd_scene load_steps=12 format=3 uid="uid://b4x3k3rw7jlkp"]
 
 [ext_resource type="PackedScene" uid="uid://6ump4l8coktj" path="res://scenes/floor.tscn" id="1_ec1if"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_u3v8c"]
-[ext_resource type="Texture2D" uid="uid://bivv8gyhkjqf2" path="res://assets/bg 7.png" id="2_cw8ae"]
+[ext_resource type="Texture2D" uid="uid://c06ifoyc65nrb" path="res://assets/background.png" id="2_3cdlf"]
 [ext_resource type="Script" path="res://scripts/floors.gd" id="2_pfc4s"]
 [ext_resource type="Script" path="res://scripts/door.gd" id="3_3jsbd"]
 [ext_resource type="Script" path="res://scripts/persons.gd" id="3_ag5il"]
+[ext_resource type="Texture2D" uid="uid://03k8ycjxonf6" path="res://assets/tile_1.png" id="3_un7ix"]
 [ext_resource type="Script" path="res://scripts/elevator.gd" id="4_iffau"]
 [ext_resource type="Script" path="res://scripts/counter.gd" id="7_obsw0"]
 
@@ -19,10 +20,21 @@ position = Vector2(0, 6)
 script = ExtResource("1_u3v8c")
 metadata/test = SubResource("GDScript_pim70")
 
+[node name="Wallpaper" type="Sprite2D" parent="."]
+modulate = Color(0.71, 0.50268, 0.1917, 1)
+texture_repeat = 2
+position = Vector2(193, 261)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_un7ix")
+region_enabled = true
+region_rect = Rect2(0, 0, 1500, 2500)
+metadata/_edit_lock_ = true
+
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(188, 229)
 scale = Vector2(0.467241, 0.467241)
-texture = ExtResource("2_cw8ae")
+texture = ExtResource("2_3cdlf")
+metadata/_edit_lock_ = true
 
 [node name="Elevator" type="Area2D" parent="."]
 position = Vector2(50, 212)
