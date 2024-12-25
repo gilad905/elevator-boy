@@ -3,10 +3,10 @@
 [ext_resource type="PackedScene" uid="uid://6ump4l8coktj" path="res://scenes/floor.tscn" id="1_ec1if"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_u3v8c"]
 [ext_resource type="Texture2D" uid="uid://c06ifoyc65nrb" path="res://assets/background.png" id="2_3cdlf"]
+[ext_resource type="Texture2D" uid="uid://gt4yacnifn31" path="res://assets/wallpaper.png" id="2_6k6yx"]
 [ext_resource type="Script" path="res://scripts/floors.gd" id="2_pfc4s"]
 [ext_resource type="Script" path="res://scripts/door.gd" id="3_3jsbd"]
 [ext_resource type="Script" path="res://scripts/persons.gd" id="3_ag5il"]
-[ext_resource type="Texture2D" uid="uid://03k8ycjxonf6" path="res://assets/tile_1.png" id="3_un7ix"]
 [ext_resource type="Script" path="res://scripts/elevator.gd" id="4_iffau"]
 [ext_resource type="Script" path="res://scripts/counter.gd" id="7_obsw0"]
 
@@ -20,27 +20,28 @@ position = Vector2(0, 6)
 script = ExtResource("1_u3v8c")
 metadata/test = SubResource("GDScript_pim70")
 
-[node name="Wallpaper" type="Sprite2D" parent="."]
-modulate = Color(0.71, 0.50268, 0.1917, 1)
+[node name="Wallpaper" type="Polygon2D" parent="."]
+modulate = Color(0.709804, 0.501961, 0.192157, 1)
+texture_filter = 1
 texture_repeat = 2
-position = Vector2(193, 261)
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("3_un7ix")
-region_enabled = true
-region_rect = Rect2(0, 0, 1500, 2500)
-metadata/_edit_lock_ = true
-
-[node name="Background" type="Sprite2D" parent="."]
-position = Vector2(188, 229)
-scale = Vector2(0.467241, 0.467241)
-texture = ExtResource("2_3cdlf")
-metadata/_edit_lock_ = true
+texture = ExtResource("2_6k6yx")
+texture_scale = Vector2(2, 2)
+polygon = PackedVector2Array(43, 143, 189, 12, 340, 149, 340, 506, 41, 506)
 
 [node name="Elevator" type="Area2D" parent="."]
 position = Vector2(50, 212)
 script = ExtResource("4_iffau")
 one_floor_duration_sec = 1
 metadata/_edit_lock_ = true
+
+[node name="Wallpaper" type="Polygon2D" parent="Elevator"]
+modulate = Color(0.489622, 0.489622, 0.489622, 1)
+texture_repeat = 2
+position = Vector2(1, 1)
+texture = ExtResource("2_6k6yx")
+texture_scale = Vector2(3, 3)
+texture_rotation = 0.785398
+polygon = PackedVector2Array(0, 0, 53, 0, 53, 53, 0, 53)
 
 [node name="Door" type="Line2D" parent="Elevator"]
 position = Vector2(0, 2.5)
@@ -51,9 +52,6 @@ script = ExtResource("3_3jsbd")
 move_speed = 2
 metadata/_edit_lock_ = true
 
-[node name="Persons" type="Node2D" parent="Elevator"]
-metadata/_edit_lock_ = true
-
 [node name="Frame" type="Line2D" parent="Elevator"]
 points = PackedVector2Array(54, 0, 0, 0, 0, 54, 54, 54)
 width = 5.0
@@ -62,11 +60,20 @@ begin_cap_mode = 1
 end_cap_mode = 1
 metadata/_edit_lock_ = true
 
+[node name="Persons" type="Node2D" parent="Elevator"]
+metadata/_edit_lock_ = true
+
 [node name="TouchScreenButton" type="TouchScreenButton" parent="Elevator"]
 position = Vector2(27, 27)
 shape = SubResource("RectangleShape2D_a8ijt")
 shape_visible = false
 action = "door_toggle"
+
+[node name="Building" type="Sprite2D" parent="."]
+position = Vector2(188, 229)
+scale = Vector2(0.467241, 0.467241)
+texture = ExtResource("2_3cdlf")
+metadata/_edit_lock_ = true
 
 [node name="Floors" type="Node2D" parent="."]
 position = Vector2(109, 202)
