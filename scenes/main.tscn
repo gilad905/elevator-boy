@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b4x3k3rw7jlkp"]
+[gd_scene load_steps=14 format=3 uid="uid://b4x3k3rw7jlkp"]
 
 [ext_resource type="PackedScene" uid="uid://6ump4l8coktj" path="res://scenes/floor.tscn" id="1_ec1if"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_u3v8c"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://scripts/elevator.gd" id="4_iffau"]
 [ext_resource type="Script" path="res://scripts/hud.gd" id="9_oiqtx"]
 [ext_resource type="Texture2D" uid="uid://bwy8vnk6nn1fb" path="res://assets/dollars.png" id="10_sj0jc"]
+[ext_resource type="Texture2D" uid="uid://s3d8mxmwaxio" path="res://assets/level.png" id="11_pd4if"]
 
 [sub_resource type="GDScript" id="GDScript_pim70"]
 
@@ -33,6 +34,7 @@ metadata/_edit_lock_ = true
 [node name="Elevator" type="Area2D" parent="."]
 position = Vector2(50, 212)
 script = ExtResource("4_iffau")
+one_floor_duration_sec = 1.0
 metadata/_edit_lock_ = true
 
 [node name="Wallpaper" type="Polygon2D" parent="Elevator"]
@@ -125,20 +127,34 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_lock_ = true
 
+[node name="Icon" type="Sprite2D" parent="HUD/Money"]
+position = Vector2(49, 11)
+scale = Vector2(0.306287, 0.306287)
+texture = ExtResource("10_sj0jc")
+
+[node name="Level" type="Label" parent="HUD"]
+offset_left = 170.0
+offset_top = 141.0
+offset_right = 210.0
+offset_bottom = 164.0
+theme_override_constants/outline_size = 3
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Icon" type="Sprite2D" parent="HUD/Level"]
+position = Vector2(49, 12)
+scale = Vector2(0.415494, 0.489553)
+texture = ExtResource("11_pd4if")
+
 [node name="TimeScale" type="Label" parent="HUD"]
 offset_left = 170.0
-offset_top = 140.0
+offset_top = 77.0
 offset_right = 210.0
-offset_bottom = 163.0
+offset_bottom = 100.0
 text = "0
 "
 horizontal_alignment = 1
-metadata/_edit_lock_ = true
-
-[node name="Dollars" type="Sprite2D" parent="HUD"]
-position = Vector2(219, 121)
-scale = Vector2(0.306287, 0.306287)
-texture = ExtResource("10_sj0jc")
 
 [node name="OverlayPrompt" type="Label" parent="."]
 visible = false
