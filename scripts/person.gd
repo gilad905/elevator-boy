@@ -63,12 +63,14 @@ func set_dest(_dest: int) -> void:
 func show_patience_ended(is_happy: bool):
 	var face_animation = "happy" if is_happy else "angry_3"
 	var mark_animation = "v" if is_happy else "x"
+	var new_scale = $Checkmark.scale.x * 2
 
+	patience_tween.stop()
 	$Face.play(face_animation)
 	$Checkmark.play(mark_animation)
 	$Label.hide()
 	$Checkmark.show()
-	var new_scale = $Checkmark.scale.x * 2
+
 	var tween = create_tween()
 	tween.set_parallel(true)
 	tween.tween_property(self, "modulate:a", 0, timeout_reached_duration)
@@ -76,4 +78,5 @@ func show_patience_ended(is_happy: bool):
 		tween.tween_property($Checkmark, "scale:" + type, new_scale, timeout_reached_duration)
 	tween.finished.connect(get_parent().remove_child.bind(self))
 	tween.finished.connect(queue_free)
+
 	return tween

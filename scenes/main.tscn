@@ -17,6 +17,7 @@
 [node name="Main" type="Node2D"]
 position = Vector2(0, 6)
 script = ExtResource("1_u3v8c")
+level_timer_decrease_sec = 0.8
 metadata/test = SubResource("GDScript_pim70")
 
 [node name="Wallpaper" type="Polygon2D" parent="."]
@@ -97,13 +98,22 @@ patience_sec = 30
 move_speed = 120.0
 
 [node name="PersonsTimer" type="Timer" parent="Persons"]
-wait_time = 8.0
+wait_time = 6.0
 
 [node name="HUD" type="Node2D" parent="."]
-position = Vector2(153, 90)
+position = Vector2(154, 92)
 script = ExtResource("9_oiqtx")
 lose_on_debt = -10
-metadata/_edit_lock_ = true
+
+[node name="Version" type="Label" parent="HUD"]
+offset_left = 147.0
+offset_top = -97.0
+offset_right = 227.0
+offset_bottom = -74.0
+theme_override_colors/font_color = Color(0.303233, 0.303233, 0.303233, 1)
+theme_override_font_sizes/font_size = 8
+text = "$$version$$"
+horizontal_alignment = 2
 
 [node name="TimeScale" type="Label" parent="HUD"]
 offset_right = 40.0
@@ -160,6 +170,7 @@ text = "You're in {}$ debt!
 You reached level {}"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="ElevatorEnterTimer" type="Timer" parent="."]
 wait_time = 0.5

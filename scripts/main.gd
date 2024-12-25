@@ -2,7 +2,7 @@ extends Node2D
 
 var game_over_prompt: String = "GAME OVER\nYOU'RE IN %s$ DEBT\nYOU REACHED LEVEL %s"
 var current_level = 1
-@export var person_timer_level_decrease_sec: float = 1.0
+@export var level_timer_decrease_sec: float
 
 func _ready() -> void:
 	await get_tree().create_timer(1).timeout
@@ -65,5 +65,5 @@ func _on_level_up_timer_timeout() -> void:
 	current_level += 1
 	$HUD/Level.text = str(current_level)
 	var wait_time = $Persons/PersonsTimer.wait_time
-	wait_time = clamp(wait_time - person_timer_level_decrease_sec, 1.0, INF)
+	wait_time = clamp(wait_time - level_timer_decrease_sec, 1.0, INF)
 	$Persons/PersonsTimer.wait_time = wait_time
