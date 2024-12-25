@@ -1,5 +1,6 @@
 extends Node2D
 
+var game_over_prompt: String = "GAME OVER\nYOU'RE IN %s$ DEBT\nYOU REACHED LEVEL %s"
 var current_level = 1
 @export var person_timer_level_decrease_sec: float = 1.0
 
@@ -49,6 +50,7 @@ func _on_elevator_enter_timer_timeout():
 	_floor.enter_elevator_next()
 
 func _on_debt_reached() -> void:
+	$OverlayPrompt.text = game_over_prompt % [-$HUD.lose_on_debt, current_level]
 	$OverlayPrompt.show()
 	var tween = create_tween().tween_property(self, "modulate", Color("4f4f4f"), 1)
 	await tween.finished

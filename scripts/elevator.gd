@@ -59,7 +59,8 @@ func get_person_position(i: int) -> Vector2:
 	return _position
 
 func remove_persons_in_dest() -> void:
-	var was_removed = false
+	var was_removed: bool = false
+	var person_reached_tween
 	for person in $Persons.get_children():
 		if person.dest == current_floor_num:
 			was_removed = true
@@ -67,10 +68,12 @@ func remove_persons_in_dest() -> void:
 				get_node("/root/Main/HUD").increment_money(false)
 				$Persons.remove_child(person)
 			else:
-				person.show_reached_dest()
+				person_reached_tween = person.show_reached_dest()
 				get_node("/root/Main/HUD").increment_money(true)
-
+			# person.reparent(get_node("/root/Main/Persons"))
 	if was_removed:
+		if person_reached_tween:
+			await person_reached_tween.finished
 		update_person_positions()
 
 func is_floor_in_bounds(floor_num: int) -> bool:
