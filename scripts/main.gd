@@ -5,6 +5,7 @@ var current_level = 1
 @export var level_timer_decrease_sec: float
 
 func _ready() -> void:
+	$HUD/Version.text = $HUD/Version.text.replace("$$version$$ ", "")
 	await get_tree().create_timer(1).timeout
 	_on_persons_timer_timeout()
 	$LevelUpTimer.start()

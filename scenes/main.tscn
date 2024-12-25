@@ -112,14 +112,13 @@ offset_right = 227.0
 offset_bottom = -74.0
 theme_override_colors/font_color = Color(0.303233, 0.303233, 0.303233, 1)
 theme_override_font_sizes/font_size = 8
-text = "$$version$$"
+text = "$$version$$ 12-26 00:30:20"
 horizontal_alignment = 2
 
 [node name="TimeScale" type="Label" parent="HUD"]
 offset_right = 40.0
 offset_bottom = 23.0
-text = "0
-"
+text = "0"
 horizontal_alignment = 1
 metadata/_edit_lock_ = true
 
