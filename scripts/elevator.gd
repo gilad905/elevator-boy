@@ -63,9 +63,12 @@ func remove_persons_in_dest() -> void:
 	for person in $Persons.get_children():
 		if person.dest == current_floor_num:
 			was_removed = true
-			if not person.is_patience_ended:
+			if person.is_patience_ended:
+				get_node("/root/Main/HUD").increment_money(false)
+			else:
 				await person.show_reached_dest()
-				get_node("/root/Main/Labels/Counter").increment()
+				get_node("/root/Main/HUD").increment_money(true)
+
 			$Persons.remove_child(person)
 	if was_removed:
 		update_person_positions()

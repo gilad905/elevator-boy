@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b4x3k3rw7jlkp"]
+[gd_scene load_steps=13 format=3 uid="uid://b4x3k3rw7jlkp"]
 
 [ext_resource type="PackedScene" uid="uid://6ump4l8coktj" path="res://scenes/floor.tscn" id="1_ec1if"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_u3v8c"]
@@ -8,7 +8,8 @@
 [ext_resource type="Script" path="res://scripts/door.gd" id="3_3jsbd"]
 [ext_resource type="Script" path="res://scripts/persons.gd" id="3_ag5il"]
 [ext_resource type="Script" path="res://scripts/elevator.gd" id="4_iffau"]
-[ext_resource type="Script" path="res://scripts/counter.gd" id="7_obsw0"]
+[ext_resource type="Script" path="res://scripts/hud.gd" id="9_oiqtx"]
+[ext_resource type="Texture2D" uid="uid://bwy8vnk6nn1fb" path="res://assets/dollars.png" id="10_sj0jc"]
 
 [sub_resource type="GDScript" id="GDScript_pim70"]
 
@@ -27,11 +28,11 @@ texture_repeat = 2
 texture = ExtResource("2_6k6yx")
 texture_scale = Vector2(2, 2)
 polygon = PackedVector2Array(43, 143, 189, 12, 340, 149, 340, 506, 41, 506)
+metadata/_edit_lock_ = true
 
 [node name="Elevator" type="Area2D" parent="."]
 position = Vector2(50, 212)
 script = ExtResource("4_iffau")
-one_floor_duration_sec = 1
 metadata/_edit_lock_ = true
 
 [node name="Wallpaper" type="Polygon2D" parent="Elevator"]
@@ -42,6 +43,7 @@ texture = ExtResource("2_6k6yx")
 texture_scale = Vector2(3, 3)
 texture_rotation = 0.785398
 polygon = PackedVector2Array(0, 0, 53, 0, 53, 53, 0, 53)
+metadata/_edit_lock_ = true
 
 [node name="Door" type="Line2D" parent="Elevator"]
 position = Vector2(0, 2.5)
@@ -68,6 +70,7 @@ position = Vector2(27, 27)
 shape = SubResource("RectangleShape2D_a8ijt")
 shape_visible = false
 action = "door_toggle"
+metadata/_edit_lock_ = true
 
 [node name="Building" type="Sprite2D" parent="."]
 position = Vector2(188, 229)
@@ -104,30 +107,55 @@ move_speed = 120.0
 [node name="PersonsTimer" type="Timer" parent="Persons"]
 wait_time = 8.0
 
-[node name="Labels" type="Node2D" parent="."]
+[node name="HUD" type="Node2D" parent="."]
+script = ExtResource("9_oiqtx")
+lose_on_debt = -10
+metadata/_edit_lock_ = true
 
-[node name="Counter" type="Label" parent="Labels"]
+[node name="Money" type="Label" parent="HUD"]
 offset_left = 170.0
-offset_top = 130.0
+offset_top = 110.0
 offset_right = 210.0
-offset_bottom = 153.0
+offset_bottom = 133.0
 theme_override_colors/font_color = Color(0, 0.759174, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
-script = ExtResource("7_obsw0")
 metadata/_edit_lock_ = true
 
-[node name="TimeScale" type="Label" parent="Labels"]
+[node name="TimeScale" type="Label" parent="HUD"]
 offset_left = 170.0
-offset_top = 168.0
+offset_top = 140.0
 offset_right = 210.0
-offset_bottom = 153.0
+offset_bottom = 163.0
+text = "0
+"
 horizontal_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="Dollars" type="Sprite2D" parent="HUD"]
+position = Vector2(219, 121)
+scale = Vector2(0.306287, 0.306287)
+texture = ExtResource("10_sj0jc")
+
+[node name="OverlayPrompt" type="Label" parent="."]
+visible = false
+top_level = true
+offset_left = 104.0
+offset_top = 236.0
+offset_right = 287.0
+offset_bottom = 289.0
+theme_override_font_sizes/font_size = 38
+text = "YOU LOSE"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ElevatorEnterTimer" type="Timer" parent="."]
 wait_time = 0.5
 
 [connection signal="state_changed" from="Elevator/Door" to="." method="_on_door_state_changed"]
 [connection signal="timeout" from="Persons/PersonsTimer" to="." method="_on_persons_timer_timeout"]
+[connection signal="debt_reached" from="HUD" to="." method="_on_debt_reached"]
 [connection signal="timeout" from="ElevatorEnterTimer" to="." method="_on_elevator_enter_timer_timeout"]

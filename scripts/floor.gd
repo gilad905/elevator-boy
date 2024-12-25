@@ -50,6 +50,7 @@ func _on_person_patience_ended(person: Node2D) -> void:
 	$Persons.remove_child(person)
 	person.queue_free()
 	update_person_positions()
+	get_node("/root/Main/HUD").increment_money(false)
 
 func _on_touched() -> void:
 	elevator.go_to_floor(get_index() + 1)
