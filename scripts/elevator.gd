@@ -1,6 +1,6 @@
 extends Room
 
-@export var one_floor_duration_sec: int
+@export var one_floor_duration_sec: float
 
 var floors: Node
 var current_floor_num: int
@@ -63,10 +63,10 @@ func remove_persons_in_dest() -> void:
 	for person in $Persons.get_children():
 		if person.dest == current_floor_num:
 			was_removed = true
-			$Persons.remove_child(person)
-			person.queue_free()
 			if not person.is_patience_ended:
+				await person.show_reached_dest()
 				get_node("/root/Main/Labels/Counter").increment()
+			$Persons.remove_child(person)
 	if was_removed:
 		update_person_positions()
 

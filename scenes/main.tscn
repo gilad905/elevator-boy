@@ -16,9 +16,9 @@
 size = Vector2(58, 58)
 
 [node name="Main" type="Node2D"]
+position = Vector2(0, 6)
 script = ExtResource("1_u3v8c")
 metadata/test = SubResource("GDScript_pim70")
-metadata/_edit_lock_ = true
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(195, 256)
@@ -35,7 +35,7 @@ metadata/_edit_lock_ = true
 [node name="Elevator" type="Area2D" parent="."]
 position = Vector2(50, 212)
 script = ExtResource("4_iffau")
-one_floor_duration_sec = 2
+one_floor_duration_sec = 1
 metadata/_edit_lock_ = true
 
 [node name="Door" type="Line2D" parent="Elevator"]
@@ -44,7 +44,7 @@ points = PackedVector2Array(54, 0, 54, 49)
 width = 5.0
 default_color = Color(0.720467, 0.720468, 0.720467, 1)
 script = ExtResource("3_3jsbd")
-move_speed = 1.0
+move_speed = 2
 metadata/_edit_lock_ = true
 
 [node name="Persons" type="Node2D" parent="Elevator"]
@@ -91,7 +91,7 @@ patience_sec = 30
 move_speed = 120.0
 
 [node name="PersonsTimer" type="Timer" parent="Persons"]
-wait_time = 5.0
+wait_time = 8.0
 
 [node name="Labels" type="Node2D" parent="."]
 
