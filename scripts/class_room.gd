@@ -3,7 +3,7 @@ extends Area2D
 var person_limit: int = 0
 
 func add_person(person) -> void:
-	person.timeout_reached.connect(_on_person_timeout_reached)
+	person.patience_ended.connect(_on_person_patience_ended)
 	update_person_position(person)
 
 func get_person_position(_i: int) -> Vector2:
@@ -21,5 +21,5 @@ func update_person_positions() -> void:
 func has_room() -> bool:
 	return $Persons.get_child_count() < person_limit
 
-func _on_person_timeout_reached(_person: Node2D) -> void:
+func _on_person_patience_ended(_person: Node2D) -> void:
 	pass

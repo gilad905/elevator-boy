@@ -35,7 +35,7 @@ func get_person_position(i: int) -> Vector2:
 func enter_elevator_next():
 	var person = $Persons.get_child(0)
 	if person and not person.is_moving and elevator.has_room():
-		person.timeout_reached.disconnect(_on_person_timeout_reached)
+		person.patience_ended.disconnect(_on_person_patience_ended)
 		person.reparent(elevator.get_node("Persons"))
 		elevator.add_person(person)
 		update_person_positions()
@@ -46,7 +46,7 @@ func set_pressed(is_on: bool) -> void:
 	$FloorNum.add_theme_color_override("font_color", forground)
 	$FloorNum.add_theme_stylebox_override("normal", stylebox)
 
-func _on_person_timeout_reached(person: Node2D) -> void:
+func _on_person_patience_ended(person: Node2D) -> void:
 	$Persons.remove_child(person)
 	person.queue_free()
 	update_person_positions()

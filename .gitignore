@@ -1,4 +1,6 @@
 /.vscode/
 /.godot/
+/dis-.godot/
 /android/
 /exports/
+/other/
