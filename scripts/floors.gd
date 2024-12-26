@@ -1,8 +1,5 @@
 extends Node2D
 
-@export var pressed_forground: Color
-@export var pressed_background: Color
-
 func get_floor(floor_num: int) -> Node:
 	return get_node("Floor_" + str(floor_num))
 

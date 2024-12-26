@@ -2,10 +2,14 @@ extends Node2D
 
 var game_over_prompt: String = "GAME OVER\nYOU'RE IN %s$ DEBT\nYOU REACHED LEVEL %s"
 var current_level = 1
-@export var level_timer_decrease_sec: float
 
 func _ready() -> void:
 	$HUD/Version.text = $HUD/Version.text.replace("$$version$$ ", "")
+	$ElevatorEnterTimer.wait_time = Global.elevator_check_interval_sec
+	$LevelUpTimer.wait_time = Global.level_up_interval_sec
+	$Persons/PersonsTimer.wait_time = Global.person_enter_max_sec
+	print("time to min enter: ", str(get_time_to_min_enter() / 60), " minutes")
+
 	await get_tree().create_timer(1).timeout
 	_on_persons_timer_timeout()
 	$LevelUpTimer.start()
@@ -34,6 +38,12 @@ func set_time_scale(to_increase: bool):
 	Engine.set_time_scale(time_scale)
 	$HUD/TimeScale.text = str(time_scale)
 
+func get_time_to_min_enter() -> float:
+	var time = (Global.person_enter_max_sec - Global.person_enter_min_sec)
+	time /= Global.level_timer_decrease_sec
+	time *= Global.level_up_interval_sec
+	return time
+
 func _on_persons_timer_timeout() -> void:
 	$Persons.add_random_person()
 
@@ -51,7 +61,7 @@ func _on_elevator_enter_timer_timeout():
 	_floor.enter_elevator_next()
 
 func _on_debt_reached() -> void:
-	$OverlayPrompt.text = game_over_prompt % [-$HUD.lose_on_debt, current_level]
+	$OverlayPrompt.text = game_over_prompt % [-Global.lose_on_debt, current_level]
 	$OverlayPrompt.show()
 	var tween = create_tween().tween_property(self, "modulate", Color("4f4f4f"), 1)
 	await tween.finished
@@ -66,5 +76,5 @@ func _on_level_up_timer_timeout() -> void:
 	current_level += 1
 	$HUD/Level.text = str(current_level)
 	var wait_time = $Persons/PersonsTimer.wait_time
-	wait_time = clamp(wait_time - level_timer_decrease_sec, 1.0, INF)
+	wait_time = clamp(wait_time - Global.level_timer_decrease_sec, Global.person_enter_min_sec, INF)
 	$Persons/PersonsTimer.wait_time = wait_time

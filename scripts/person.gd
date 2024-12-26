@@ -6,9 +6,7 @@ var dest: int = -1
 var is_moving: bool = false
 var is_patience_ended: bool = false
 var patience_tween: Tween
-var speed: float
 
-var patience_sec: int
 var radius = Global.person_radius
 var circle_center = Vector2.ONE * radius
 var zero_angle: float = PI * -0.5
@@ -18,8 +16,6 @@ var current_angle: float = 0
 const timeout_reached_duration: float = 1
 
 func _ready() -> void:
-	patience_sec = get_node("/root/Main/Persons").patience_sec
-	speed = get_node("/root/Main/Persons").move_speed
 	start_patience_tween()
 
 func _draw() -> void:
@@ -28,7 +24,7 @@ func _draw() -> void:
 
 func start_patience_tween() -> void:
 	patience_tween = create_tween()
-	patience_tween.tween_method(redraw_patience, zero_angle, full_angle, patience_sec)
+	patience_tween.tween_method(redraw_patience, zero_angle, full_angle, Global.person_patience_sec)
 	add_patience_face_timer(50, "angry_1")
 	add_patience_face_timer(75, "angry_2")
 	await patience_tween.finished
@@ -40,7 +36,7 @@ func start_patience_tween() -> void:
 # 	patience_tween
 
 func add_patience_face_timer(percent: int, state: String) -> void:
-	var sec = patience_sec * percent / 100.0
+	var sec = Global.person_patience_sec * percent / 100.0
 	await get_tree().create_timer(sec).timeout
 	$Face.play(state)
 
@@ -50,7 +46,7 @@ func redraw_patience(angle: float) -> void:
 
 func move_to(_position):
 	var tween = create_tween()
-	var duration = position.distance_to(_position) / speed
+	var duration = position.distance_to(_position) / Global.person_move_speed
 	is_moving = true
 	tween.tween_property(self, "position", _position, duration)
 	await tween.finished

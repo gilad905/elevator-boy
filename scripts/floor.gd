@@ -1,10 +1,11 @@
 extends Room
 
+@export var pressed_forground: Color = Color(0, 0.662728, 0, 1)
+
 var floors: Node
 var elevator: Node2D
 var door: Node2D
 var unpressed_forground: Color
-var pressed_forground: Color
 var unpressed_stylebox: StyleBoxTexture
 var pressed_stylebox: StyleBoxTexture
 var right_edge: int
@@ -16,7 +17,6 @@ func _ready() -> void:
 	door = elevator.get_node("Door")
 	self.person_limit = 4
 	unpressed_forground = $FloorNum.get_theme_color("font_color")
-	pressed_forground = floors.pressed_forground
 	unpressed_stylebox = $FloorNum.get_theme_stylebox("normal")
 	pressed_stylebox = preload("res://resources/floor_num_pressed.tres")
 	right_edge = $TouchScreenButton.position.x

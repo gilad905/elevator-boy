@@ -1,6 +1,6 @@
 $path = "exports/web"
 $main = "./scenes/main.tscn"
-$date = Get-Date -Format "MM-dd HH:mm:ss"
+$date = Get-Date -Format "MM-dd HH:mm"
 $version = '$$$$version$$$$ ' + $date + '"'
 $godot = "C:\Users\gilad\Documents\Programming\Game dev\Godot_v4.3-stable_win64\Godot_v4.3-stable_win64.exe"
 Write-Output "version: $date"

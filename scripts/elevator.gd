@@ -1,7 +1,5 @@
 extends Room
 
-@export var one_floor_duration_sec: float
-
 var floors: Node
 var current_floor_num: int
 var floor_height: int
@@ -38,7 +36,7 @@ func go_to_floor(floor_num: int) -> void:
 
 	var floor_delta = current_floor_num - floor_num
 	var target_y = position.y + floor_delta * floor_height
-	var duration = abs(floor_delta) * one_floor_duration_sec
+	var duration = abs(floor_delta) * Global.one_floor_duration_sec
 	var tween = create_tween()
 
 	tween.set_trans(Tween.TRANS_SINE)

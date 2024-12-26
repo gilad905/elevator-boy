@@ -1,8 +1,5 @@
 extends Node
 
-@export var patience_sec: int
-@export var move_speed: float
-
 var person_scene
 var floors
 

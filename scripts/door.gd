@@ -1,7 +1,5 @@
 extends Line2D
 
-@export var move_speed: float
-
 enum State {closed, opening, open, closing}
 var current_state: State = State.closed
 
@@ -22,7 +20,7 @@ func _process(delta: float) -> void:
 
 		else:
 			var delta_factor = -1 if is_opening else 1
-			var delta_y = delta * delta_factor * move_speed
+			var delta_y = delta * delta_factor * Global.door_open_speed
 			scale.y = clamp(scale.y + delta_y, 0, 1)
 
 func toggle_state() -> void:
