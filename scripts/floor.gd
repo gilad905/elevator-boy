@@ -14,7 +14,7 @@ func _ready() -> void:
 	floors = get_node("/root/Main/Floors")
 	elevator = get_node("/root/Main/Elevator")
 	door = elevator.get_node("Door")
-	self.person_limit = 9
+	self.person_limit = 4
 	unpressed_forground = $FloorNum.get_theme_color("font_color")
 	pressed_forground = floors.pressed_forground
 	unpressed_stylebox = $FloorNum.get_theme_stylebox("normal")

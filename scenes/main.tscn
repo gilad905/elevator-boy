@@ -17,7 +17,7 @@
 [node name="Main" type="Node2D"]
 position = Vector2(0, 6)
 script = ExtResource("1_u3v8c")
-level_timer_decrease_sec = 0.8
+level_timer_decrease_sec = 0.5
 metadata/test = SubResource("GDScript_pim70")
 
 [node name="Wallpaper" type="Polygon2D" parent="."]
@@ -98,7 +98,7 @@ patience_sec = 30
 move_speed = 120.0
 
 [node name="PersonsTimer" type="Timer" parent="Persons"]
-wait_time = 6.0
+wait_time = 5.0
 
 [node name="HUD" type="Node2D" parent="."]
 position = Vector2(154, 92)
@@ -112,7 +112,7 @@ offset_right = 227.0
 offset_bottom = -74.0
 theme_override_colors/font_color = Color(0.303233, 0.303233, 0.303233, 1)
 theme_override_font_sizes/font_size = 8
-text = "$$version$$ 12-26 00:30:20"
+text = "$$version$$ 12-26 00:31:10"
 horizontal_alignment = 2
 
 [node name="TimeScale" type="Label" parent="HUD"]
@@ -175,7 +175,7 @@ metadata/_edit_lock_ = true
 wait_time = 0.5
 
 [node name="LevelUpTimer" type="Timer" parent="."]
-wait_time = 30.0
+wait_time = 45.0
 
 [connection signal="state_changed" from="Elevator/Door" to="." method="_on_door_state_changed"]
 [connection signal="timeout" from="Persons/PersonsTimer" to="." method="_on_persons_timer_timeout"]
