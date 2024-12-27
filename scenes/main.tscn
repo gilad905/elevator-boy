@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b4x3k3rw7jlkp"]
+[gd_scene load_steps=16 format=3 uid="uid://b4x3k3rw7jlkp"]
 
 [ext_resource type="PackedScene" uid="uid://6ump4l8coktj" path="res://scenes/floor.tscn" id="1_ec1if"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_u3v8c"]
@@ -7,28 +7,54 @@
 [ext_resource type="Script" path="res://scripts/floors.gd" id="2_pfc4s"]
 [ext_resource type="Script" path="res://scripts/door.gd" id="3_3jsbd"]
 [ext_resource type="Script" path="res://scripts/persons.gd" id="3_ag5il"]
+[ext_resource type="Texture2D" uid="uid://b4e56rixu0o0y" path="res://assets/attic.png" id="3_ai330"]
 [ext_resource type="Script" path="res://scripts/elevator.gd" id="4_iffau"]
 [ext_resource type="Script" path="res://scripts/hud.gd" id="9_oiqtx"]
 [ext_resource type="Texture2D" uid="uid://bwy8vnk6nn1fb" path="res://assets/dollars.png" id="10_sj0jc"]
 [ext_resource type="Texture2D" uid="uid://s3d8mxmwaxio" path="res://assets/level.png" id="11_pd4if"]
 [ext_resource type="Script" path="res://scripts/global.gd" id="12_3avnd"]
-
-[sub_resource type="GDScript" id="GDScript_pim70"]
+[ext_resource type="Texture2D" uid="uid://caok8ux6br8x1" path="res://assets/logo.png" id="13_j173s"]
+[ext_resource type="PackedScene" uid="uid://dvwnl8ut4fgso" path="res://scenes/debug_label.tscn" id="14_p4ui5"]
 
 [node name="Main" type="Node2D"]
 position = Vector2(0, 6)
 script = ExtResource("1_u3v8c")
+metadata/_edit_lock_ = true
 
-[node name="Wallpaper" type="Polygon2D" parent="."]
+[node name="Background" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="Wallpaper" type="Polygon2D" parent="Background"]
 modulate = Color(0.709804, 0.501961, 0.192157, 1)
 texture_filter = 1
 texture_repeat = 2
 texture = ExtResource("2_6k6yx")
 texture_scale = Vector2(2, 2)
-polygon = PackedVector2Array(43, 143, 189, 12, 340, 149, 340, 506, 41, 506)
+polygon = PackedVector2Array(43, 204, 337, 204, 337, 506, 43, 506)
 metadata/_edit_lock_ = true
 
-[node name="Elevator" type="Area2D" parent="."]
+[node name="Attic" type="Polygon2D" parent="Background"]
+texture_filter = 1
+texture_repeat = 2
+texture = ExtResource("3_ai330")
+texture_scale = Vector2(2, 2)
+polygon = PackedVector2Array(44, 145, 189, 16, 334, 144, 337, 205, 43, 204)
+metadata/_edit_lock_ = true
+
+[node name="Building" type="Sprite2D" parent="Background"]
+position = Vector2(188, 229)
+scale = Vector2(0.467241, 0.467241)
+texture = ExtResource("2_3cdlf")
+metadata/_edit_lock_ = true
+
+[node name="Logo" type="Sprite2D" parent="Background"]
+texture_filter = 1
+position = Vector2(187, 107)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("13_j173s")
+metadata/_edit_lock_ = true
+
+[node name="Elevator" type="Node2D" parent="."]
 position = Vector2(50, 212)
 script = ExtResource("4_iffau")
 metadata/_edit_lock_ = true
@@ -81,45 +107,24 @@ position = Vector2(0, 60)
 
 [node name="Floor_5" parent="Floors" instance=ExtResource("1_ec1if")]
 
-[node name="Building" type="Sprite2D" parent="."]
-position = Vector2(188, 229)
-scale = Vector2(0.467241, 0.467241)
-texture = ExtResource("2_3cdlf")
-metadata/_edit_lock_ = true
-
-[node name="Persons" type="Node" parent="."]
-script = ExtResource("3_ag5il")
-
-[node name="PersonsTimer" type="Timer" parent="Persons"]
-
 [node name="HUD" type="Node2D" parent="."]
-position = Vector2(166, 92)
+position = Vector2(180, 173)
 script = ExtResource("9_oiqtx")
 metadata/_edit_lock_ = true
 
-[node name="Version" type="Label" parent="HUD"]
-offset_left = 112.0
-offset_top = -97.0
-offset_right = 216.0
-offset_bottom = -74.0
-theme_override_colors/font_color = Color(0.303233, 0.303233, 0.303233, 1)
-theme_override_font_sizes/font_size = 8
-text = "$$version$$ 12-26 09:51"
-horizontal_alignment = 2
-metadata/_edit_lock_ = true
-
 [node name="TimeScale" type="Label" parent="HUD"]
-offset_left = 40.0
-offset_right = 80.0
-offset_bottom = 23.0
+visible = false
+offset_left = 122.0
+offset_top = 82.0
+offset_right = 162.0
+offset_bottom = 105.0
 text = "0"
 metadata/_edit_lock_ = true
 
 [node name="Money" type="Label" parent="HUD"]
-offset_left = 40.0
-offset_top = 30.0
-offset_right = 80.0
-offset_bottom = 53.0
+offset_left = -31.0
+offset_right = 9.0
+offset_bottom = 23.0
 theme_override_colors/font_color = Color(0, 0.759174, 0, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 3
@@ -128,23 +133,22 @@ vertical_alignment = 1
 metadata/_edit_lock_ = true
 
 [node name="Icon" type="Sprite2D" parent="HUD/Money"]
-position = Vector2(-40, 11)
+position = Vector2(-25, 12)
 scale = Vector2(0.306287, 0.306287)
 texture = ExtResource("10_sj0jc")
 metadata/_edit_lock_ = true
 
 [node name="Level" type="Label" parent="HUD"]
-offset_left = 40.0
-offset_top = 60.0
-offset_right = 80.0
-offset_bottom = 83.0
+offset_left = 81.0
+offset_right = 121.0
+offset_bottom = 23.0
 theme_override_constants/outline_size = 3
 text = "1"
 vertical_alignment = 1
 metadata/_edit_lock_ = true
 
 [node name="Icon" type="Sprite2D" parent="HUD/Level"]
-position = Vector2(-40, 12)
+position = Vector2(-25, 12)
 scale = Vector2(0.415494, 0.489553)
 texture = ExtResource("11_pd4if")
 metadata/_edit_lock_ = true
@@ -165,15 +169,37 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_lock_ = true
 
+[node name="Debug" type="VBoxContainer" parent="."]
+offset_left = 235.0
+offset_top = -5.0
+offset_right = 381.0
+offset_bottom = 73.0
+metadata/_edit_lock_ = true
+
+[node name="Version" parent="Debug" instance=ExtResource("14_p4ui5")]
+layout_mode = 2
+text = "{version:12-27 11:57}"
+
+[node name="Other" parent="Debug" instance=ExtResource("14_p4ui5")]
+layout_mode = 2
+
+[node name="RealTime" parent="Debug" instance=ExtResource("14_p4ui5")]
+layout_mode = 2
+
 [node name="ElevatorEnterTimer" type="Timer" parent="."]
 
 [node name="LevelUpTimer" type="Timer" parent="."]
+
+[node name="Persons" type="Node" parent="."]
+script = ExtResource("3_ag5il")
+
+[node name="PersonsTimer" type="Timer" parent="Persons"]
 
 [node name="Global" type="Node" parent="."]
 script = ExtResource("12_3avnd")
 
 [connection signal="state_changed" from="Elevator/Door" to="." method="_on_door_state_changed"]
-[connection signal="timeout" from="Persons/PersonsTimer" to="." method="_on_persons_timer_timeout"]
 [connection signal="debt_reached" from="HUD" to="." method="_on_debt_reached"]
 [connection signal="timeout" from="ElevatorEnterTimer" to="." method="_on_elevator_enter_timer_timeout"]
 [connection signal="timeout" from="LevelUpTimer" to="." method="_on_level_up_timer_timeout"]
+[connection signal="timeout" from="Persons/PersonsTimer" to="." method="_on_persons_timer_timeout"]

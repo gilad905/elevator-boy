@@ -2,13 +2,18 @@ extends Node2D
 
 var game_over_prompt: String = "GAME OVER\nYOU'RE IN %s$ DEBT\nYOU REACHED LEVEL %s"
 var current_level = 1
+var version_pat = RegEx.create_from_string("\\{version:([^}]*)\\}")
 
 func _ready() -> void:
-	$HUD/Version.text = $HUD/Version.text.replace("$$version$$ ", "")
+	$Debug/Version.text = version_pat.sub($Debug/Version.text, "$1")
+	var level_times = get_level_times_desc()
+	print(level_times)
+	$Debug/Other.text = level_times
+	$Debug/RealTime.text = ""
+
 	$ElevatorEnterTimer.wait_time = Global.elevator_check_interval_sec
 	$LevelUpTimer.wait_time = Global.level_up_interval_sec
 	$Persons/PersonsTimer.wait_time = Global.person_enter_max_sec
-	print("time to min enter: ", str(get_time_to_min_enter() / 60), " minutes")
 
 	await get_tree().create_timer(1).timeout
 	_on_persons_timer_timeout()
@@ -38,11 +43,11 @@ func set_time_scale(to_increase: bool):
 	Engine.set_time_scale(time_scale)
 	$HUD/TimeScale.text = str(time_scale)
 
-func get_time_to_min_enter() -> float:
-	var time = (Global.person_enter_max_sec - Global.person_enter_min_sec)
-	time /= Global.level_timer_decrease_sec
-	time *= Global.level_up_interval_sec
-	return time
+func get_level_times_desc() -> String:
+	var shift = (Global.person_enter_max_sec - Global.person_enter_min_sec)
+	var level_count = shift / Global.level_timer_decrease_sec
+	var time_sec = level_count * Global.level_up_interval_sec
+	return "min enter in %s levels, %s minutes" % [level_count, time_sec / 60]
 
 func _on_persons_timer_timeout() -> void:
 	$Persons.add_random_person()
