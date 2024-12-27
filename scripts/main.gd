@@ -5,15 +5,10 @@ var current_level = 1
 var version_pat = RegEx.create_from_string("\\{version:([^}]*)\\}")
 
 func _ready() -> void:
-	$Debug/Version.text = version_pat.sub($Debug/Version.text, "$1")
-	var level_times = get_level_times_desc()
-	print(level_times)
-	$Debug/Other.text = level_times
-	$Debug/RealTime.text = ""
-
 	$ElevatorEnterTimer.wait_time = Global.elevator_check_interval_sec
 	$LevelUpTimer.wait_time = Global.level_up_interval_sec
 	$Persons/PersonsTimer.wait_time = Global.person_enter_max_sec
+	load_debug_labels()
 
 	await get_tree().create_timer(1).timeout
 	_on_persons_timer_timeout()
@@ -45,9 +40,16 @@ func set_time_scale(to_increase: bool):
 
 func get_level_times_desc() -> String:
 	var shift = (Global.person_enter_max_sec - Global.person_enter_min_sec)
-	var level_count = shift / Global.level_timer_decrease_sec
+	var level_count = ceil(shift / Global.level_timer_decrease_sec)
 	var time_sec = level_count * Global.level_up_interval_sec
-	return "min enter in %s levels, %s minutes" % [level_count, time_sec / 60]
+	return "min enter: %s levels, %s minutes" % [level_count, time_sec / 60]
+
+func load_debug_labels() -> void:
+	$Debug/Version.text = version_pat.sub($Debug/Version.text, "$1")
+	var level_times = get_level_times_desc()
+	$Debug/Other.text = level_times
+	var wait_time = $Persons/PersonsTimer.wait_time
+	$Debug/RealTime.text = "enter interval: %s" % wait_time
 
 func _on_persons_timer_timeout() -> void:
 	$Persons.add_random_person()
@@ -82,4 +84,5 @@ func _on_level_up_timer_timeout() -> void:
 	$HUD/Level.text = str(current_level)
 	var wait_time = $Persons/PersonsTimer.wait_time
 	wait_time = clamp(wait_time - Global.level_timer_decrease_sec, Global.person_enter_min_sec, INF)
+	$Debug/RealTime.text = "enter interval: %s" % wait_time
 	$Persons/PersonsTimer.wait_time = wait_time
