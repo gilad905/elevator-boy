@@ -1,13 +1,8 @@
 extends Room
 
-@export var pressed_forground: Color = Color(0, 0.662728, 0, 1)
-
 var floors: Node
 var elevator: Node2D
 var door: Node2D
-var unpressed_forground: Color
-var unpressed_stylebox: StyleBoxTexture
-var pressed_stylebox: StyleBoxTexture
 var right_edge: int
 const person_y: int = 25
 
@@ -16,9 +11,6 @@ func _ready() -> void:
 	elevator = get_node("/root/Main/Elevator")
 	door = elevator.get_node("Door")
 	self.person_limit = 4
-	unpressed_forground = $FloorNum.get_theme_color("font_color")
-	unpressed_stylebox = $FloorNum.get_theme_stylebox("normal")
-	pressed_stylebox = preload("res://resources/floor_num_pressed.tres")
 	right_edge = $TouchScreenButton.position.x
 	right_edge += $TouchScreenButton.shape.size.x / 2
 	right_edge += Global.person_radius * 2
@@ -45,10 +37,7 @@ func enter_elevator_next():
 		update_person_positions()
 
 func set_pressed(is_on: bool) -> void:
-	var forground = pressed_forground if is_on else unpressed_forground
-	var stylebox = pressed_stylebox if is_on else unpressed_stylebox
-	$FloorNum.add_theme_color_override("font_color", forground)
-	$FloorNum.add_theme_stylebox_override("normal", stylebox)
+	$FloorNumFrame.frame = 1 if is_on else 0
 
 func _on_person_patience_ended(person: Node2D) -> void:
 	await person.show_patience_ended(false).finished

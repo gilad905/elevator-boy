@@ -13,6 +13,7 @@ func _ready() -> void:
 	var floor_1 = get_node("/root/Main/Floors/Floor_1")
 	var floor_2 = get_node("/root/Main/Floors/Floor_2")
 	floors = get_node("/root/Main/Floors")
+	floors.set_floor_pressed(current_floor_num)
 	floor_height = floor_1.position.y - floor_2.position.y
 	inner_size.x = $Frame.points[0].x - $Frame.points[1].x - $Frame.width
 	inner_size.y = $Frame.points[3].y - $Frame.points[0].y - $Frame.width

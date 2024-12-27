@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b4x3k3rw7jlkp"]
+[gd_scene load_steps=17 format=3 uid="uid://b4x3k3rw7jlkp"]
 
 [ext_resource type="PackedScene" uid="uid://6ump4l8coktj" path="res://scenes/floor.tscn" id="1_ec1if"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_u3v8c"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://scripts/persons.gd" id="3_ag5il"]
 [ext_resource type="Texture2D" uid="uid://b4e56rixu0o0y" path="res://assets/attic.png" id="3_ai330"]
 [ext_resource type="Script" path="res://scripts/elevator.gd" id="4_iffau"]
+[ext_resource type="PackedScene" uid="uid://m1x6m12uuri" path="res://scenes/building_line.tscn" id="6_pqs0k"]
 [ext_resource type="Script" path="res://scripts/hud.gd" id="9_oiqtx"]
 [ext_resource type="Texture2D" uid="uid://bwy8vnk6nn1fb" path="res://assets/dollars.png" id="10_sj0jc"]
 [ext_resource type="Texture2D" uid="uid://s3d8mxmwaxio" path="res://assets/level.png" id="11_pd4if"]
@@ -17,11 +18,24 @@
 [ext_resource type="PackedScene" uid="uid://dvwnl8ut4fgso" path="res://scenes/debug_label.tscn" id="14_p4ui5"]
 
 [node name="Main" type="Node2D"]
-position = Vector2(0, 6)
 script = ExtResource("1_u3v8c")
 metadata/_edit_lock_ = true
 
 [node name="Background" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="Background" type="Sprite2D" parent="Background"]
+position = Vector2(188, 229)
+scale = Vector2(0.467241, 0.467241)
+texture = ExtResource("2_3cdlf")
+metadata/_edit_lock_ = true
+
+[node name="WallpaperGray" type="Polygon2D" parent="Background"]
+texture_filter = 1
+texture_repeat = 2
+texture = ExtResource("3_ai330")
+texture_scale = Vector2(2, 2)
+polygon = PackedVector2Array(44, 145, 189, 16, 336, 145, 336, 503, 44, 503)
 metadata/_edit_lock_ = true
 
 [node name="Wallpaper" type="Polygon2D" parent="Background"]
@@ -30,34 +44,25 @@ texture_filter = 1
 texture_repeat = 2
 texture = ExtResource("2_6k6yx")
 texture_scale = Vector2(2, 2)
-polygon = PackedVector2Array(43, 204, 337, 204, 337, 506, 43, 506)
-metadata/_edit_lock_ = true
+polygon = PackedVector2Array(155, 204, 337, 204, 337, 506, 155, 506)
 
-[node name="Attic" type="Polygon2D" parent="Background"]
-texture_filter = 1
-texture_repeat = 2
-texture = ExtResource("3_ai330")
-texture_scale = Vector2(2, 2)
-polygon = PackedVector2Array(44, 145, 189, 16, 334, 144, 337, 205, 43, 204)
-metadata/_edit_lock_ = true
+[node name="Building" type="Node2D" parent="Background"]
 
-[node name="Building" type="Sprite2D" parent="Background"]
-position = Vector2(188, 229)
-scale = Vector2(0.467241, 0.467241)
-texture = ExtResource("2_3cdlf")
-metadata/_edit_lock_ = true
+[node name="Line2D" parent="Background/Building" instance=ExtResource("6_pqs0k")]
+points = PackedVector2Array(8, 173, 190, 11, 372, 172)
+
+[node name="Line2D2" parent="Background/Building" instance=ExtResource("6_pqs0k")]
+points = PackedVector2Array(40, 147, 40, 508, 340, 508, 340, 147)
 
 [node name="Logo" type="Sprite2D" parent="Background"]
 texture_filter = 1
 position = Vector2(187, 107)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("13_j173s")
-metadata/_edit_lock_ = true
 
 [node name="Elevator" type="Node2D" parent="."]
-position = Vector2(50, 212)
+position = Vector2(98, 212)
 script = ExtResource("4_iffau")
-metadata/_edit_lock_ = true
 
 [node name="Wallpaper" type="Polygon2D" parent="Elevator"]
 modulate = Color(0.489622, 0.489622, 0.489622, 1)
@@ -67,15 +72,14 @@ texture = ExtResource("2_6k6yx")
 texture_scale = Vector2(3, 3)
 texture_rotation = 0.785398
 polygon = PackedVector2Array(0, 0, 53, 0, 53, 53, 0, 53)
-metadata/_edit_lock_ = true
 
 [node name="Door" type="Line2D" parent="Elevator"]
 position = Vector2(0, 2.5)
+scale = Vector2(1, 1e-05)
 points = PackedVector2Array(54, 0, 54, 49)
 width = 5.0
 default_color = Color(0.720467, 0.720468, 0.720467, 1)
 script = ExtResource("3_3jsbd")
-metadata/_edit_lock_ = true
 
 [node name="Frame" type="Line2D" parent="Elevator"]
 points = PackedVector2Array(54, 0, 0, 0, 0, 54, 54, 54)
@@ -83,15 +87,12 @@ width = 5.0
 joint_mode = 1
 begin_cap_mode = 1
 end_cap_mode = 1
-metadata/_edit_lock_ = true
 
 [node name="Persons" type="Node2D" parent="Elevator"]
-metadata/_edit_lock_ = true
 
 [node name="Floors" type="Node2D" parent="."]
-position = Vector2(109, 202)
+position = Vector2(155, 202)
 script = ExtResource("2_pfc4s")
-metadata/_edit_lock_ = true
 
 [node name="Floor_1" parent="Floors" instance=ExtResource("1_ec1if")]
 position = Vector2(0, 240)
@@ -110,7 +111,6 @@ position = Vector2(0, 60)
 [node name="HUD" type="Node2D" parent="."]
 position = Vector2(180, 173)
 script = ExtResource("9_oiqtx")
-metadata/_edit_lock_ = true
 
 [node name="TimeScale" type="Label" parent="HUD"]
 visible = false
@@ -119,7 +119,6 @@ offset_top = 82.0
 offset_right = 162.0
 offset_bottom = 105.0
 text = "0"
-metadata/_edit_lock_ = true
 
 [node name="Money" type="Label" parent="HUD"]
 offset_left = -31.0
@@ -130,13 +129,11 @@ theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 3
 text = "0"
 vertical_alignment = 1
-metadata/_edit_lock_ = true
 
 [node name="Icon" type="Sprite2D" parent="HUD/Money"]
 position = Vector2(-25, 12)
 scale = Vector2(0.306287, 0.306287)
 texture = ExtResource("10_sj0jc")
-metadata/_edit_lock_ = true
 
 [node name="Level" type="Label" parent="HUD"]
 offset_left = 81.0
@@ -145,13 +142,11 @@ offset_bottom = 23.0
 theme_override_constants/outline_size = 3
 text = "1"
 vertical_alignment = 1
-metadata/_edit_lock_ = true
 
 [node name="Icon" type="Sprite2D" parent="HUD/Level"]
 position = Vector2(-25, 12)
 scale = Vector2(0.415494, 0.489553)
 texture = ExtResource("11_pd4if")
-metadata/_edit_lock_ = true
 
 [node name="OverlayPrompt" type="Label" parent="."]
 visible = false
@@ -167,14 +162,12 @@ YOU'RE IN %s$ DEBT
 YOU REACHED LEVEL %s"
 horizontal_alignment = 1
 vertical_alignment = 1
-metadata/_edit_lock_ = true
 
 [node name="Debug" type="VBoxContainer" parent="."]
 offset_left = 235.0
 offset_top = -5.0
 offset_right = 381.0
 offset_bottom = 73.0
-metadata/_edit_lock_ = true
 
 [node name="Version" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2

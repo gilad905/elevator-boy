@@ -6,4 +6,4 @@ theme_override_font_sizes/font_size = 8
 text = "DebugLabel"
 horizontal_alignment = 2
 autowrap_mode = 3
-metadata/_edit_lock_ = true
+

@@ -1,10 +1,9 @@
 extends Node
 
-var person_scene
+var person_scene = preload("res://scenes/person.tscn")
 var floors
 
 func _ready() -> void:
-	person_scene = preload("res://scenes/person.tscn")
 	floors = get_node("../Floors")
 
 func add_random_person(floor_num: int = 0, dest: int = 0) -> void:

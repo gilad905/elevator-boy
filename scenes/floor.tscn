@@ -1,45 +1,61 @@
-[gd_scene load_steps=5 format=3 uid="uid://6ump4l8coktj"]
+[gd_scene load_steps=8 format=3 uid="uid://6ump4l8coktj"]
 
 [ext_resource type="Script" path="res://scripts/floor.gd" id="1_f8nr8"]
-[ext_resource type="StyleBox" uid="uid://c52ti6ng3ewb2" path="res://resources/floor_num_unppressed.tres" id="2_0p4b8"]
-[ext_resource type="Script" path="res://scripts/floor_num.gd" id="3_bkimy"]
+[ext_resource type="Texture2D" uid="uid://c8bbqyil75fw2" path="res://assets/floor_num.png" id="3_grp4n"]
+[ext_resource type="PackedScene" uid="uid://m1x6m12uuri" path="res://scenes/building_line.tscn" id="4_08t5j"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m7bu5"]
+atlas = ExtResource("3_grp4n")
+region = Rect2(0, 0, 108, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h8180"]
+atlas = ExtResource("3_grp4n")
+region = Rect2(108, 0, 108, 105)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4kdpa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m7bu5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h8180")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_euo4v"]
-size = Vector2(285, 50)
+size = Vector2(290, 49)
 
 [node name="Floor" type="Node2D"]
 script = ExtResource("1_f8nr8")
-metadata/_edit_lock_ = true
 
-[node name="Line2D" type="Line2D" parent="."]
-visible = false
-points = PackedVector2Array(0, 7, 225, 7)
-metadata/_edit_lock_ = true
+[node name="Line2D" parent="." instance=ExtResource("4_08t5j")]
+points = PackedVector2Array(0, 7, 180, 7)
 
 [node name="Persons" type="Node2D" parent="."]
 position = Vector2(0, 13)
-metadata/_edit_lock_ = true
+
+[node name="FloorNumFrame" type="AnimatedSprite2D" parent="."]
+position = Vector2(168, 24)
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_4kdpa")
 
 [node name="FloorNum" type="Label" parent="."]
-z_index = 1
-offset_left = 203.0
-offset_top = 15.0
-offset_right = 222.0
-offset_bottom = 33.0
-theme_override_colors/font_color = Color(0, 0, 1, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 3
+offset_left = 159.0
+offset_top = 14.0
+offset_right = 178.0
+offset_bottom = 32.0
+theme_override_colors/font_outline_color = Color(0, 0.662728, 0, 1)
 theme_override_font_sizes/font_size = 13
-theme_override_styles/normal = ExtResource("2_0p4b8")
 text = "1"
 horizontal_alignment = 1
-justification_flags = 0
-script = ExtResource("3_bkimy")
-border_color = Color(1, 1, 1, 0.780392)
-metadata/_edit_lock_ = true
 
 [node name="TouchScreenButton" type="TouchScreenButton" parent="."]
-position = Vector2(80, 38)
+position = Vector2(35, 37)
 shape = SubResource("RectangleShape2D_euo4v")
+shape_visible = false
 
 [connection signal="pressed" from="TouchScreenButton" to="." method="_on_touched"]
