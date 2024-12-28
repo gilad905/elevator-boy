@@ -44,7 +44,7 @@ func get_right_edge() -> int:
 	return _right_edge
 
 func _on_person_patience_ended(person: Node2D) -> void:
-	await person.show_patience_ended(false).finished
+	await person.remove(false).finished
 	update_person_positions()
 	get_node("/root/Main/HUD").increment_money(false)
 

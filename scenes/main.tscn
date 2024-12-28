@@ -71,7 +71,6 @@ metadata/_edit_lock_ = true
 
 [node name="Door" type="Line2D" parent="Elevator"]
 position = Vector2(0, 2.5)
-scale = Vector2(1, 1e-05)
 points = PackedVector2Array(54, 0, 54, 49)
 width = 5.0
 default_color = Color(0.720467, 0.720468, 0.720467, 1)

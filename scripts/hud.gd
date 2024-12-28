@@ -1,6 +1,6 @@
 extends Node2D
 
-signal debt_reached()
+signal debt_reached
 
 func increment_money(go_up: bool) -> void:
 	var shift = 1 if go_up else Global.angry_money_loss

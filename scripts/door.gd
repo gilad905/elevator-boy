@@ -1,7 +1,7 @@
 extends Line2D
 
 enum State {closed, opening, open, closing}
-var current_state: State = State.open
+var current_state: State = State.closed
 
 signal has_closed
 signal state_changed(state: State)

@@ -65,7 +65,7 @@ func remove_persons_in_dest() -> void:
 	for person in $Persons.get_children():
 		if person.dest == current_floor_num:
 			var is_happy = not person.is_patience_ended
-			reached_tween = person.show_patience_ended(is_happy)
+			reached_tween = person.remove(is_happy)
 			get_node("/root/Main/HUD").increment_money(is_happy)
 	if reached_tween:
 		await reached_tween.finished

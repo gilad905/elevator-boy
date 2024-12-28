@@ -57,7 +57,7 @@ func set_dest(_dest: int) -> void:
 	dest = _dest
 	$Dest.text = str(_dest)
 
-func show_patience_ended(is_happy: bool):
+func remove(is_happy: bool):
 	patience_tween.stop()
 	for timer in face_timers:
 		timer.stop()
@@ -75,9 +75,9 @@ func show_patience_ended(is_happy: bool):
 		$MoneyIcon.show()
 
 	tween.tween_property(self, "modulate:a", 0, duration)
-	tween.finished.connect(remove)
+	tween.finished.connect(_remove_node)
 	return tween
 
-func remove() -> void:
+func _remove_node() -> void:
 	get_parent().remove_child(self)
 	queue_free()
