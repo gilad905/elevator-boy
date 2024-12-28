@@ -1,4 +1,4 @@
-$path = "exports/web"
+$path = "_exports/web"
 $main = "./scenes/main.tscn"
 $date = Get-Date -Format "MM-dd HH:mm"
 $version = "{version:$date}"
