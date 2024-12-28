@@ -44,19 +44,19 @@ texture_filter = 1
 texture_repeat = 2
 texture = ExtResource("2_6k6yx")
 texture_scale = Vector2(2, 2)
-polygon = PackedVector2Array(155, 204, 337, 204, 337, 506, 155, 506)
+polygon = PackedVector2Array(125, 204, 337, 204, 337, 506, 125, 506)
 metadata/_edit_lock_ = true
 
 [node name="Building" type="Node2D" parent="Background"]
 metadata/_edit_lock_ = true
 
 [node name="Line2D" parent="Background/Building" instance=ExtResource("6_pqs0k")]
-points = PackedVector2Array(8, 173, 190, 11, 372, 172)
-metadata/_edit_lock_ = true
+points = PackedVector2Array(8, 173, 190, 11, 372, 173)
+begin_cap_mode = 2
+end_cap_mode = 2
 
 [node name="Line2D2" parent="Background/Building" instance=ExtResource("6_pqs0k")]
-points = PackedVector2Array(40, 147, 40, 508, 340, 508, 340, 147)
-metadata/_edit_lock_ = true
+points = PackedVector2Array(40, 146, 40, 508, 340, 508, 340, 146)
 
 [node name="Logo" type="Sprite2D" parent="Background"]
 texture_filter = 1
@@ -66,7 +66,7 @@ texture = ExtResource("13_j173s")
 metadata/_edit_lock_ = true
 
 [node name="Elevator" type="Node2D" parent="."]
-position = Vector2(98, 212)
+position = Vector2(68, 212)
 script = ExtResource("4_iffau")
 metadata/_edit_lock_ = true
 
@@ -101,28 +101,23 @@ metadata/_edit_lock_ = true
 metadata/_edit_lock_ = true
 
 [node name="Floors" type="Node2D" parent="."]
-position = Vector2(155, 202)
+position = Vector2(125, 202)
 script = ExtResource("2_pfc4s")
 metadata/_edit_lock_ = true
 
 [node name="Floor_1" parent="Floors" instance=ExtResource("1_ec1if")]
 position = Vector2(0, 240)
-metadata/_edit_lock_ = true
 
 [node name="Floor_2" parent="Floors" instance=ExtResource("1_ec1if")]
 position = Vector2(0, 180)
-metadata/_edit_lock_ = true
 
 [node name="Floor_3" parent="Floors" instance=ExtResource("1_ec1if")]
 position = Vector2(0, 120)
-metadata/_edit_lock_ = true
 
 [node name="Floor_4" parent="Floors" instance=ExtResource("1_ec1if")]
 position = Vector2(0, 60)
-metadata/_edit_lock_ = true
 
 [node name="Floor_5" parent="Floors" instance=ExtResource("1_ec1if")]
-metadata/_edit_lock_ = true
 
 [node name="HUD" type="Node2D" parent="."]
 position = Vector2(180, 173)
@@ -130,11 +125,10 @@ script = ExtResource("9_oiqtx")
 metadata/_edit_lock_ = true
 
 [node name="TimeScale" type="Label" parent="HUD"]
-visible = false
-offset_left = 122.0
-offset_top = 82.0
-offset_right = 162.0
-offset_bottom = 105.0
+offset_left = 78.0
+offset_top = -39.0
+offset_right = 118.0
+offset_bottom = -16.0
 text = "0"
 metadata/_edit_lock_ = true
 
@@ -188,23 +182,20 @@ metadata/_edit_lock_ = true
 
 [node name="Debug" type="VBoxContainer" parent="."]
 offset_left = 235.0
-offset_top = -5.0
+offset_top = 2.0
 offset_right = 381.0
-offset_bottom = 73.0
+offset_bottom = 80.0
 metadata/_edit_lock_ = true
 
 [node name="Version" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
 text = "{version:12-27 12:18}"
-metadata/_edit_lock_ = true
 
 [node name="Other" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
-metadata/_edit_lock_ = true
 
 [node name="RealTime" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
-metadata/_edit_lock_ = true
 
 [node name="ElevatorEnterTimer" type="Timer" parent="."]
 metadata/_edit_lock_ = true
