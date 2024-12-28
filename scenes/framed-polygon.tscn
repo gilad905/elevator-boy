@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cx6ocur83tfii"]
+
+[ext_resource type="Script" path="res://scripts/framed_polygon.gd" id="1_mof3d"]
+
+[node name="FramePolygon" type="Polygon2D"]
+script = ExtResource("1_mof3d")
+
+metadata/_edit_lock_ = true

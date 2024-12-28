@@ -81,3 +81,5 @@ metadata/_edit_lock_ = true
 position = Vector2(10, -8)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("7_lebkt")
+
+metadata/_edit_lock_ = true

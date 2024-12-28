@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4e56rixu0o0y"
-path="res://.godot/imported/attic.png-89df71f92536f5037eda3c20ab0cca54.ctex"
+uid="uid://c0y3v03ge5r6c"
+path="res://.godot/imported/wood.webp-c0ce33ae734cd410e016613b57bbd77b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/attic.png"
-dest_files=["res://.godot/imported/attic.png-89df71f92536f5037eda3c20ab0cca54.ctex"]
+source_file="res://assets/patterns/wood.webp"
+dest_files=["res://.godot/imported/wood.webp-c0ce33ae734cd410e016613b57bbd77b.ctex"]
 
 [params]
 

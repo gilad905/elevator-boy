@@ -35,6 +35,7 @@ metadata/_edit_lock_ = true
 
 [node name="Line2D" parent="." instance=ExtResource("4_08t5j")]
 points = PackedVector2Array(0, 7, 210, 7)
+metadata/_edit_lock_ = true
 
 [node name="Persons" type="Node2D" parent="."]
 position = Vector2(0, 13)
@@ -60,5 +61,6 @@ metadata/_edit_lock_ = true
 [node name="TouchScreenButton" type="TouchScreenButton" parent="."]
 position = Vector2(65, 37)
 shape = SubResource("RectangleShape2D_euo4v")
+metadata/_edit_lock_ = true
 
 [connection signal="pressed" from="TouchScreenButton" to="." method="_on_touched"]

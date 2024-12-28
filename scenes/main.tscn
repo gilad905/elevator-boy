@@ -3,13 +3,13 @@
 [ext_resource type="PackedScene" uid="uid://6ump4l8coktj" path="res://scenes/floor.tscn" id="1_ec1if"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_u3v8c"]
 [ext_resource type="Texture2D" uid="uid://c06ifoyc65nrb" path="res://assets/background.png" id="2_3cdlf"]
-[ext_resource type="Texture2D" uid="uid://gt4yacnifn31" path="res://assets/wallpaper.png" id="2_6k6yx"]
+[ext_resource type="Texture2D" uid="uid://gt4yacnifn31" path="res://assets/patterns/wallpaper.png" id="2_6k6yx"]
 [ext_resource type="Script" path="res://scripts/floors.gd" id="2_pfc4s"]
 [ext_resource type="Script" path="res://scripts/door.gd" id="3_3jsbd"]
 [ext_resource type="Script" path="res://scripts/persons.gd" id="3_ag5il"]
-[ext_resource type="Texture2D" uid="uid://b4e56rixu0o0y" path="res://assets/attic.png" id="3_ai330"]
+[ext_resource type="Texture2D" uid="uid://b4e56rixu0o0y" path="res://assets/patterns/attic.png" id="3_ai330"]
+[ext_resource type="Texture2D" uid="uid://c0y3v03ge5r6c" path="res://assets/patterns/wood.webp" id="3_csbhm"]
 [ext_resource type="Script" path="res://scripts/elevator.gd" id="4_iffau"]
-[ext_resource type="PackedScene" uid="uid://m1x6m12uuri" path="res://scenes/building_line.tscn" id="6_pqs0k"]
 [ext_resource type="Script" path="res://scripts/hud.gd" id="9_oiqtx"]
 [ext_resource type="Texture2D" uid="uid://bwy8vnk6nn1fb" path="res://assets/dollars.png" id="10_sj0jc"]
 [ext_resource type="Texture2D" uid="uid://s3d8mxmwaxio" path="res://assets/level.png" id="11_pd4if"]
@@ -30,12 +30,19 @@ scale = Vector2(0.467241, 0.467241)
 texture = ExtResource("2_3cdlf")
 metadata/_edit_lock_ = true
 
+[node name="Building" type="Polygon2D" parent="Background"]
+texture_repeat = 2
+texture = ExtResource("3_csbhm")
+texture_scale = Vector2(2, 2)
+polygon = PackedVector2Array(190, 4, 375, 169, 368, 176, 345, 156, 345, 513, 35, 513, 35, 156, 11, 177, 4, 170)
+metadata/_edit_lock_ = true
+
 [node name="WallpaperGray" type="Polygon2D" parent="Background"]
 texture_filter = 1
 texture_repeat = 2
 texture = ExtResource("3_ai330")
 texture_scale = Vector2(2, 2)
-polygon = PackedVector2Array(44, 145, 189, 16, 336, 145, 336, 503, 44, 503)
+polygon = PackedVector2Array(44, 145, 189, 16, 336, 145, 336, 204, 44, 204)
 metadata/_edit_lock_ = true
 
 [node name="Wallpaper" type="Polygon2D" parent="Background"]
@@ -44,19 +51,8 @@ texture_filter = 1
 texture_repeat = 2
 texture = ExtResource("2_6k6yx")
 texture_scale = Vector2(2, 2)
-polygon = PackedVector2Array(125, 204, 337, 204, 337, 506, 125, 506)
+polygon = PackedVector2Array(45, 204, 336, 204, 336, 506, 45, 506)
 metadata/_edit_lock_ = true
-
-[node name="Building" type="Node2D" parent="Background"]
-metadata/_edit_lock_ = true
-
-[node name="Line2D" parent="Background/Building" instance=ExtResource("6_pqs0k")]
-points = PackedVector2Array(8, 173, 190, 11, 372, 173)
-begin_cap_mode = 2
-end_cap_mode = 2
-
-[node name="Line2D2" parent="Background/Building" instance=ExtResource("6_pqs0k")]
-points = PackedVector2Array(40, 146, 40, 508, 340, 508, 340, 146)
 
 [node name="Logo" type="Sprite2D" parent="Background"]
 texture_filter = 1
