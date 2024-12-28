@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b4x3k3rw7jlkp"]
+[gd_scene load_steps=18 format=3 uid="uid://b4x3k3rw7jlkp"]
 
 [ext_resource type="PackedScene" uid="uid://6ump4l8coktj" path="res://scenes/floor.tscn" id="1_ec1if"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_u3v8c"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://b4e56rixu0o0y" path="res://assets/patterns/attic.png" id="3_ai330"]
 [ext_resource type="Texture2D" uid="uid://c0y3v03ge5r6c" path="res://assets/patterns/wood.webp" id="3_csbhm"]
 [ext_resource type="Script" path="res://scripts/elevator.gd" id="4_iffau"]
+[ext_resource type="PackedScene" uid="uid://cx6ocur83tfii" path="res://scenes/framed-polygon.tscn" id="7_ccv1v"]
 [ext_resource type="Script" path="res://scripts/hud.gd" id="9_oiqtx"]
 [ext_resource type="Texture2D" uid="uid://bwy8vnk6nn1fb" path="res://assets/dollars.png" id="10_sj0jc"]
 [ext_resource type="Texture2D" uid="uid://s3d8mxmwaxio" path="res://assets/level.png" id="11_pd4if"]
@@ -30,35 +31,32 @@ scale = Vector2(0.467241, 0.467241)
 texture = ExtResource("2_3cdlf")
 metadata/_edit_lock_ = true
 
-[node name="Building" type="Polygon2D" parent="Background"]
+[node name="Building" parent="Background" instance=ExtResource("7_ccv1v")]
 texture_repeat = 2
 texture = ExtResource("3_csbhm")
 texture_scale = Vector2(2, 2)
-polygon = PackedVector2Array(190, 4, 375, 169, 368, 176, 345, 156, 345, 513, 35, 513, 35, 156, 11, 177, 4, 170)
-metadata/_edit_lock_ = true
+polygon = PackedVector2Array(189, 4, 375, 169, 368, 176, 345, 156, 345, 513, 35, 513, 35, 156, 11, 177, 4, 170)
 
-[node name="WallpaperGray" type="Polygon2D" parent="Background"]
+[node name="Attic" parent="Background" instance=ExtResource("7_ccv1v")]
 texture_filter = 1
 texture_repeat = 2
 texture = ExtResource("3_ai330")
-texture_scale = Vector2(2, 2)
-polygon = PackedVector2Array(44, 145, 189, 16, 336, 145, 336, 204, 44, 204)
-metadata/_edit_lock_ = true
-
-[node name="Wallpaper" type="Polygon2D" parent="Background"]
-modulate = Color(0.709804, 0.501961, 0.192157, 1)
-texture_filter = 1
-texture_repeat = 2
-texture = ExtResource("2_6k6yx")
-texture_scale = Vector2(2, 2)
-polygon = PackedVector2Array(45, 204, 336, 204, 336, 506, 45, 506)
-metadata/_edit_lock_ = true
+texture_scale = Vector2(3, 3)
+polygon = PackedVector2Array(45, 145, 189, 16, 336, 145, 336, 204, 45, 204)
 
 [node name="Logo" type="Sprite2D" parent="Background"]
 texture_filter = 1
 position = Vector2(187, 107)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("13_j173s")
+metadata/_edit_lock_ = true
+
+[node name="Shaft" type="Polygon2D" parent="Background"]
+texture_repeat = 2
+color = Color(0.31802, 0.31802, 0.31802, 1)
+texture = ExtResource("3_csbhm")
+texture_scale = Vector2(2, 2)
+polygon = PackedVector2Array(45, 209, 125, 209, 125, 504, 45, 504)
 metadata/_edit_lock_ = true
 
 [node name="Elevator" type="Node2D" parent="."]
@@ -73,7 +71,7 @@ position = Vector2(1, 1)
 texture = ExtResource("2_6k6yx")
 texture_scale = Vector2(3, 3)
 texture_rotation = 0.785398
-polygon = PackedVector2Array(0, 0, 53, 0, 53, 53, 0, 53)
+polygon = PackedVector2Array(0, 0, 56, 0, 56, 53, 0, 53)
 metadata/_edit_lock_ = true
 
 [node name="Door" type="Line2D" parent="Elevator"]

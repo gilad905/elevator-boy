@@ -11,9 +11,7 @@ func _ready() -> void:
 	elevator = get_node("/root/Main/Elevator")
 	door = elevator.get_node("Door")
 	self.person_limit = 4
-	right_edge = $TouchScreenButton.position.x
-	right_edge += $TouchScreenButton.shape.size.x / 2
-	right_edge += Global.person_radius * 2
+	right_edge = get_right_edge()
 	$FloorNum.text = str(get_index() + 1)
 
 func add_person(person) -> void:
@@ -38,6 +36,12 @@ func enter_elevator_next():
 
 func set_pressed(is_on: bool) -> void:
 	$FloorNumFrame.frame = 1 if is_on else 0
+
+func get_right_edge() -> int:
+	var _right_edge = $TouchScreenButton.position.x
+	_right_edge += $TouchScreenButton.shape.size.x / 2
+	_right_edge -= Global.person_radius * 2
+	return _right_edge
 
 func _on_person_patience_ended(person: Node2D) -> void:
 	await person.show_patience_ended(false).finished

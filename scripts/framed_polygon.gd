@@ -1,7 +1,7 @@
 extends Polygon2D
 
-@export var line_color: Color = Color.BLACK
-@export var line_width: int = 2
+@export var line_color: Color
+@export var line_width: float
 
 func _draw() -> void:
 	var closed_polygon = self.polygon

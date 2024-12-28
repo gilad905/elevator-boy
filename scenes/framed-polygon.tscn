@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/framed_polygon.gd" id="1_mof3d"]
 
-[node name="FramePolygon" type="Polygon2D"]
+[node name="FramedPolygon" type="Polygon2D"]
 script = ExtResource("1_mof3d")
-
+line_color = Color(0.372584, 0.195364, 0.0854959, 1)
+line_width = 0.5
 metadata/_edit_lock_ = true
