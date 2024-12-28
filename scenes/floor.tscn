@@ -36,18 +36,19 @@ metadata/_edit_lock_ = true
 [node name="Ceiling" parent="." instance=ExtResource("2_5a3d7")]
 color = Color(0.854902, 0.741176, 0.52549, 1)
 polygon = PackedVector2Array(0, 2, 211, 2, 211, 12, 0, 12)
+metadata/_edit_lock_ = true
 
 [node name="FloorNumFrame" type="AnimatedSprite2D" parent="."]
-position = Vector2(198, 27)
+position = Vector2(198, 25)
 scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_4kdpa")
 metadata/_edit_lock_ = true
 
 [node name="FloorNum" type="Label" parent="."]
 offset_left = 189.0
-offset_top = 17.0
+offset_top = 15.0
 offset_right = 208.0
-offset_bottom = 35.0
+offset_bottom = 33.0
 theme_override_colors/font_outline_color = Color(0, 0.662728, 0, 1)
 theme_override_font_sizes/font_size = 13
 text = "1"
