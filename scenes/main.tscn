@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b4x3k3rw7jlkp"]
+[gd_scene load_steps=16 format=3 uid="uid://b4x3k3rw7jlkp"]
 
 [ext_resource type="PackedScene" uid="uid://6ump4l8coktj" path="res://scenes/floor.tscn" id="1_ec1if"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_u3v8c"]
@@ -7,8 +7,6 @@
 [ext_resource type="Script" path="res://scripts/floors.gd" id="2_pfc4s"]
 [ext_resource type="Script" path="res://scripts/door.gd" id="3_3jsbd"]
 [ext_resource type="Script" path="res://scripts/persons.gd" id="3_ag5il"]
-[ext_resource type="Texture2D" uid="uid://b4e56rixu0o0y" path="res://assets/patterns/attic.png" id="3_ai330"]
-[ext_resource type="Texture2D" uid="uid://c0y3v03ge5r6c" path="res://assets/patterns/wood.webp" id="3_csbhm"]
 [ext_resource type="Script" path="res://scripts/elevator.gd" id="4_iffau"]
 [ext_resource type="PackedScene" uid="uid://cx6ocur83tfii" path="res://scenes/framed-polygon.tscn" id="7_ccv1v"]
 [ext_resource type="Script" path="res://scripts/hud.gd" id="9_oiqtx"]
@@ -32,31 +30,28 @@ texture = ExtResource("2_3cdlf")
 metadata/_edit_lock_ = true
 
 [node name="Building" parent="Background" instance=ExtResource("7_ccv1v")]
-texture_repeat = 2
-texture = ExtResource("3_csbhm")
-texture_scale = Vector2(2, 2)
+color = Color(0.854902, 0.741176, 0.52549, 1)
 polygon = PackedVector2Array(189, 4, 375, 169, 368, 176, 345, 156, 345, 513, 35, 513, 35, 156, 11, 177, 4, 170)
 
-[node name="Attic" parent="Background" instance=ExtResource("7_ccv1v")]
+[node name="Wall" parent="Background" instance=ExtResource("7_ccv1v")]
 texture_filter = 1
 texture_repeat = 2
-texture = ExtResource("3_ai330")
+color = Color(0.36, 0.36, 0.36, 1)
 texture_scale = Vector2(3, 3)
-polygon = PackedVector2Array(45, 145, 189, 16, 336, 145, 336, 204, 45, 204)
+polygon = PackedVector2Array(45, 145, 189, 16, 336, 145, 336, 503, 45, 503)
+
+[node name="Wall2" parent="Background" instance=ExtResource("7_ccv1v")]
+texture_filter = 1
+texture_repeat = 2
+color = Color(0.561916, 0.494951, 0.33639, 1)
+texture_scale = Vector2(3, 3)
+polygon = PackedVector2Array(45, 204, 336, 204, 336, 503, 45, 503)
 
 [node name="Logo" type="Sprite2D" parent="Background"]
 texture_filter = 1
 position = Vector2(187, 107)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("13_j173s")
-metadata/_edit_lock_ = true
-
-[node name="Shaft" type="Polygon2D" parent="Background"]
-texture_repeat = 2
-color = Color(0.31802, 0.31802, 0.31802, 1)
-texture = ExtResource("3_csbhm")
-texture_scale = Vector2(2, 2)
-polygon = PackedVector2Array(45, 209, 125, 209, 125, 504, 45, 504)
 metadata/_edit_lock_ = true
 
 [node name="Elevator" type="Node2D" parent="."]
@@ -118,14 +113,6 @@ position = Vector2(180, 173)
 script = ExtResource("9_oiqtx")
 metadata/_edit_lock_ = true
 
-[node name="TimeScale" type="Label" parent="HUD"]
-offset_left = 78.0
-offset_top = -39.0
-offset_right = 118.0
-offset_bottom = -16.0
-text = "0"
-metadata/_edit_lock_ = true
-
 [node name="Money" type="Label" parent="HUD"]
 offset_left = -31.0
 offset_right = 9.0
@@ -183,12 +170,15 @@ metadata/_edit_lock_ = true
 
 [node name="Version" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
-text = "{version:12-27 12:18}"
+text = "{version:12-28 21:40}"
 
 [node name="Other" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
 
 [node name="RealTime" parent="Debug" instance=ExtResource("14_p4ui5")]
+layout_mode = 2
+
+[node name="TimeScale" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
 
 [node name="ElevatorEnterTimer" type="Timer" parent="."]

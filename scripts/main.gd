@@ -36,7 +36,7 @@ func set_time_scale(to_increase: bool):
 	var shift = 2.0 if to_increase else 0.5
 	time_scale = clamp(time_scale * shift, 0.125, 32.0)
 	Engine.set_time_scale(time_scale)
-	$HUD/TimeScale.text = str(time_scale)
+	$Debug/TimeScale.text = "time scale: %s" % time_scale
 
 func get_level_times_desc() -> String:
 	var shift = (Global.person_enter_max_sec - Global.person_enter_min_sec)
@@ -50,6 +50,7 @@ func load_debug_labels() -> void:
 	$Debug/Other.text = level_times
 	var wait_time = $Persons/PersonsTimer.wait_time
 	$Debug/RealTime.text = "enter interval: %s" % wait_time
+	$Debug/TimeScale.text = "time scale: %s" % Engine.get_time_scale()
 
 func _on_persons_timer_timeout() -> void:
 	$Persons.add_random_person()

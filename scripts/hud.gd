@@ -2,9 +2,6 @@ extends Node2D
 
 signal debt_reached()
 
-func _ready() -> void:
-	$TimeScale.text = ""
-
 func increment_money(go_up: bool) -> void:
 	var shift = 1 if go_up else Global.angry_money_loss
 	var new_amount = int($Money.text) + shift

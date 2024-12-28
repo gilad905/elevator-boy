@@ -1,3 +1,5 @@
+@tool
+
 extends Polygon2D
 
 @export var line_color: Color

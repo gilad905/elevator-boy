@@ -1,10 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://6ump4l8coktj"]
+[gd_scene load_steps=8 format=3 uid="uid://6ump4l8coktj"]
 
 [ext_resource type="Script" path="res://scripts/floor.gd" id="1_f8nr8"]
 [ext_resource type="PackedScene" uid="uid://cx6ocur83tfii" path="res://scenes/framed-polygon.tscn" id="2_5a3d7"]
-[ext_resource type="Texture2D" uid="uid://q8okukxb72aw" path="res://assets/patterns/corridor.webp" id="2_e433x"]
 [ext_resource type="Texture2D" uid="uid://c8bbqyil75fw2" path="res://assets/floor_num.png" id="3_grp4n"]
-[ext_resource type="Texture2D" uid="uid://c3s8iy7mpqnam" path="res://assets/lamp.webp" id="5_kgj2q"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m7bu5"]
 atlas = ExtResource("3_grp4n")
@@ -35,14 +33,6 @@ size = Vector2(289, 49)
 script = ExtResource("1_f8nr8")
 metadata/_edit_lock_ = true
 
-[node name="Wallpaper" type="Polygon2D" parent="."]
-texture_repeat = 2
-texture = ExtResource("2_e433x")
-texture_offset = Vector2(0, -13)
-texture_scale = Vector2(6, 6)
-polygon = PackedVector2Array(0, 12, 211, 12, 211, 62, 0, 62)
-metadata/_edit_lock_ = true
-
 [node name="Ceiling" parent="." instance=ExtResource("2_5a3d7")]
 color = Color(0.854902, 0.741176, 0.52549, 1)
 polygon = PackedVector2Array(0, 2, 211, 2, 211, 12, 0, 12)
@@ -62,18 +52,6 @@ theme_override_colors/font_outline_color = Color(0, 0.662728, 0, 1)
 theme_override_font_sizes/font_size = 13
 text = "1"
 horizontal_alignment = 1
-metadata/_edit_lock_ = true
-
-[node name="Lamp" type="Sprite2D" parent="."]
-position = Vector2(64, 26)
-scale = Vector2(0.15, 0.15)
-texture = ExtResource("5_kgj2q")
-metadata/_edit_lock_ = true
-
-[node name="Lamp2" type="Sprite2D" parent="."]
-position = Vector2(141, 26)
-scale = Vector2(0.15, 0.15)
-texture = ExtResource("5_kgj2q")
 metadata/_edit_lock_ = true
 
 [node name="Persons" type="Node2D" parent="."]
