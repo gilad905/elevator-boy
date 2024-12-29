@@ -63,17 +63,19 @@ func remove(is_happy: bool) -> Signal:
 		var connections = timer.timeout.get_connections()
 		timer.timeout.disconnect(connections[0].callable)
 
+	var checkmark_anim = "money" if is_happy else "x"
+	var new_scale = $Checkmark.scale.x * 2
 	var duration = patience_ended_tween_duration
-	var tween = create_tween()
-
 	if is_happy:
-		$Dest.hide()
-		var new_scale = $MoneyIcon.scale.x * 2
-		tween.set_parallel(true)
-		for type in ["x", "y"]:
-			tween.tween_property($MoneyIcon, "scale:" + type, new_scale, duration)
 		$Face.play("happy")
-		$MoneyIcon.show()
+	$Dest.hide()
+	$Checkmark.play(checkmark_anim)
+	$Checkmark.show()
 
+	var tween = create_tween()
+	tween.set_parallel(true)
 	tween.tween_property(self, "modulate:a", 0, duration)
+	for type in ["x", "y"]:
+		tween.tween_property($Checkmark, "scale:" + type, new_scale, duration)
+
 	return tween.finished
