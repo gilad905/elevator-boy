@@ -2,6 +2,12 @@ extends Node2D
 
 signal patience_ended(person: Node2D)
 
+const happy_result = preload("res://scenes/happy_result.tscn")
+const angry_result = preload("res://scenes/angry_result.tscn")
+const patience_ended_tween_duration: float = 1
+const zero_angle: float = PI * -0.5
+const full_angle: float = PI * 1.5
+
 var dest: int = -1
 var is_moving: bool = false
 var is_patience_ended: bool = false
@@ -9,14 +15,12 @@ var patience_tween: Tween
 
 var radius = Global.person_radius
 var circle_center = Vector2.ONE * radius
-var zero_angle: float = PI * -0.5
-var full_angle: float = PI * 1.5
 var current_angle: float = 0
 var face_timers = []
-const patience_ended_tween_duration: float = 1
 
 func _ready() -> void:
 	start_patience_tween()
+	# _debug_test_result(true)
 
 func _draw() -> void:
 	draw_circle(circle_center, radius, Color.WHITE, false, 2)
@@ -31,9 +35,6 @@ func start_patience_tween() -> void:
 	is_patience_ended = true
 	patience_ended.emit(self)
 	$Face.play("angry_3")
-
-# func add_to_patience(secs: float):
-# 	patience_tween
 
 func add_face_timer(percent: int, state: String) -> void:
 	var sec = Global.person_patience_sec * percent / 100.0
@@ -63,19 +64,24 @@ func remove(is_happy: bool) -> Signal:
 		var connections = timer.timeout.get_connections()
 		timer.timeout.disconnect(connections[0].callable)
 
-	var checkmark_anim = "money" if is_happy else "x"
-	var new_scale = $Checkmark.scale.x * 2
+	var result_scene = happy_result if is_happy else angry_result
+	var result = result_scene.instantiate()
+	var new_scale = result.scale.x * 2
 	var duration = patience_ended_tween_duration
+
 	if is_happy:
 		$Face.play("happy")
 	$Dest.hide()
-	$Checkmark.play(checkmark_anim)
-	$Checkmark.show()
+	add_child(result)
 
 	var tween = create_tween()
 	tween.set_parallel(true)
 	tween.tween_property(self, "modulate:a", 0, duration)
 	for type in ["x", "y"]:
-		tween.tween_property($Checkmark, "scale:" + type, new_scale, duration)
+		tween.tween_property(result, "scale:" + type, new_scale, duration)
 
 	return tween.finished
+
+func _debug_test_result(is_happy: bool) -> void:
+	await get_tree().create_timer(1).timeout
+	remove(is_happy)
