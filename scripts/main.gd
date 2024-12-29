@@ -1,6 +1,6 @@
 extends Node2D
 
-var game_over_prompt: String = "GAME OVER\nYOU'RE IN %s$ DEBT\nYOU REACHED LEVEL %s"
+var game_over_prompt: String = "GAME OVER\nYOU REACHED LEVEL %s"
 var current_level = 1
 var version_pat = RegEx.create_from_string("\\{version:([^}]*)\\}")
 
@@ -68,8 +68,16 @@ func _on_elevator_enter_timer_timeout():
 	var _floor = $Floors.get_floor(floor_num)
 	_floor.enter_elevator_next()
 
-func _on_debt_reached() -> void:
-	$OverlayPrompt.text = game_over_prompt % [-Global.lose_on_debt, current_level]
+func _on_level_up_timer_timeout() -> void:
+	current_level += 1
+	$HUD/Level/Value.text = str(current_level)
+	var wait_time = $Persons/PersonsTimer.wait_time
+	wait_time = clamp(wait_time - Global.level_timer_decrease_sec, Global.person_enter_min_sec, INF)
+	$Debug/RealTime.text = "enter interval: %s" % wait_time
+	$Persons/PersonsTimer.wait_time = wait_time
+
+func _on_angries_reached() -> void:
+	$OverlayPrompt.text = game_over_prompt % current_level
 	$OverlayPrompt.show()
 	var tween = create_tween().tween_property(self, "modulate", Color("4f4f4f"), 1)
 	await tween.finished
@@ -80,10 +88,5 @@ func _on_debt_reached() -> void:
 	get_tree().paused = false
 	get_tree().reload_current_scene()
 
-func _on_level_up_timer_timeout() -> void:
-	current_level += 1
-	$HUD/Level.text = str(current_level)
-	var wait_time = $Persons/PersonsTimer.wait_time
-	wait_time = clamp(wait_time - Global.level_timer_decrease_sec, Global.person_enter_min_sec, INF)
-	$Debug/RealTime.text = "enter interval: %s" % wait_time
-	$Persons/PersonsTimer.wait_time = wait_time
+func _on_money_reached() -> void:
+	print("level up!")

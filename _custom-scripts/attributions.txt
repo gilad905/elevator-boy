@@ -4,7 +4,15 @@ dollar bills:
 https://www.onlygfx.com/stack-dollar-bills-png-transparent-svg-vector/
 level:
 https://fonts.google.com/specimen/Jersey+15
-logo: canva (gilad905)
+logo:
+canva (gilad905)
 floor num:
 https://www.freepik.com/free-vector/set-hand-drawn-decorative-photo-frames_1045139.htm#fromView=search&page=1&position=10&uuid=ded91cac-54d4-45c7-8bb7-90329a9204a6
-wood-dallee-x: chatGPT (gilad@skb)
+wood-dallee-x:
+chatGPT (gilad@skb)
+flare_0:
+https://opengameart.org/content/flare-effect-blender
+flare_1:
+chatGPT (gilad905)
+timer:
+https://fonts.google.com/icons?icon.query=timer&selected=Material+Symbols+Outlined:timer:FILL@0;wght@400;GRAD@0;opsz@24&icon.size=24&icon.color=%23e8eaed

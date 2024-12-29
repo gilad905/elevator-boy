@@ -1,8 +1,10 @@
 extends Node2D
 
 var person_limit: int = 0
+var hud
 
 func add_person(person) -> void:
+	hud = get_node("/root/Main/HUD")
 	person.patience_ended.connect(_on_person_patience_ended)
 	update_person_position(person)
 
@@ -23,7 +25,10 @@ func has_room() -> bool:
 
 func remove_person(person: Node2D, is_happy: bool):
 	person.patience_ended.disconnect(_on_person_patience_ended)
-	get_node("/root/Main/HUD").increment_money(is_happy)
+	if is_happy:
+		hud.increment_money(1)
+	else:
+		hud.increment_angries(1)
 	var finished = person.remove(is_happy)
 	finished.connect(_remove_person_node.bind(person))
 	return finished

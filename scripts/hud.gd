@@ -1,12 +1,52 @@
 extends Node2D
 
-signal debt_reached
+signal money_reached
+signal angries_reached
 
-func increment_money(go_up: bool) -> void:
-	var shift = 1 if go_up else Global.angry_money_loss
-	var new_amount = int($Money.text) + shift
-	var color = Color.GREEN if new_amount >= 0 else Color.RED
-	$Money.text = str(new_amount)
-	$Money.add_theme_color_override("font_color", color)
-	if new_amount == Global.lose_on_debt:
-		debt_reached.emit()
+const glow_outline: int = 16
+const glow_shadow: int = 30
+var start_outline: float
+
+func _ready() -> void:
+	start_outline = $Money/Amount.get_theme_constant("outline_size")
+	$Money/Amount.text = "0"
+	$Angries/Amount.text = "0"
+	$Level/Value.text = str(get_node("/root/Main").current_level)
+	$Money/Total.text = "/" + str(Global.win_on_amount)
+	$Angries/Total.text = "/" + str(Global.lose_on_angries)
+	
+func increment_money(amount: int) -> void:
+	var new_amount = _increment_counter($Money, amount)
+	if new_amount == Global.win_on_amount:
+		money_reached.emit()
+
+func increment_angries(amount: int) -> void:
+	var new_amount = _increment_counter($Angries, amount)
+	if new_amount == Global.lose_on_angries:
+		angries_reached.emit()
+
+func _increment_counter(field: Node2D, amount: int) -> int:
+	var counter = field.get_node("Amount")
+	var new_amount = int(counter.text) + amount
+	counter.text = str(new_amount)
+	
+	var tween = counter.create_tween()
+	var glow_func = _update_label_glow.bind(counter)
+	tween.tween_method(glow_func, 0.0, 1.0, 0.3)
+	tween.tween_method(glow_func, 1.0, 0.0, 0.3)
+
+	return new_amount
+
+func _update_label_glow(value: float, counter: Label) -> void:
+	var outline = start_outline + int(value * (glow_outline - start_outline))
+	var shadow = int(value * glow_shadow)
+	counter.add_theme_constant_override("outline_size", outline)
+	counter.add_theme_constant_override("shadow_outline_size", shadow)
+
+func _debug_test_increments() -> void:
+	var timer := Timer.new()
+	add_child(timer)
+	timer.wait_time = 1.0
+	timer.timeout.connect(increment_money.bind(1))
+	timer.timeout.connect(increment_angries.bind(1))
+	timer.start()

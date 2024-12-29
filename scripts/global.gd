@@ -8,8 +8,8 @@ extends Node
 @export var one_floor_duration_sec: float = 1.0
 @export var door_open_speed: int = 2
 
-@export var angry_money_loss: int = -10
-@export var lose_on_debt: int = -10
+@export var win_on_amount: int = 200
+@export var lose_on_angries: int = 10
 
 @export var person_enter_max_sec: float = 5.0
 @export var person_enter_min_sec: float = 1.5
