@@ -11,16 +11,19 @@ extends Node
 @export var one_floor_duration_sec: float = 1.0
 @export var door_open_speed: int = 2
 
-@export var win_on_amount: int = 200
+@export var win_on_amount: int = 150
 @export var lose_on_angries: int = 10
 
 @export var person_enter_max_sec: float = 5.0
 @export var person_enter_min_sec: float = 1.5
-@export var level_timer_decrease_sec: float = 0.2
+@export var span_timer_decrease_sec: float = 0.2
 
 @export var elevator_check_interval_sec: float = 0.5
-@export var level_up_interval_sec: float = 45.0
+@export var speed_span_max_sec: float = 45.0
+@export var speed_span_min_sec: float = 5.0
+@export var speed_span_level_decrease_sec: float = 5.0
 
+var current_level: int = 1
 var floor_count: int
 
 func _ready() -> void:

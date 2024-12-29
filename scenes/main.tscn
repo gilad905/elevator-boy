@@ -224,26 +224,25 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 28
-text = "GAME OVER
-YOU REACHED LEVEL %s"
+theme_override_font_sizes/font_size = 42
+text = "GAME OVER"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Debug" type="VBoxContainer" parent="."]
-offset_left = 235.0
+offset_left = 236.0
 offset_top = 2.0
-offset_right = 381.0
-offset_bottom = 80.0
+offset_right = 382.0
+offset_bottom = 74.0
 
 [node name="Version" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
 text = "{version:12-29 22:13}"
 
-[node name="Other" parent="Debug" instance=ExtResource("14_p4ui5")]
+[node name="General" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
 
-[node name="RealTime" parent="Debug" instance=ExtResource("14_p4ui5")]
+[node name="Span" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
 
 [node name="TimeScale" parent="Debug" instance=ExtResource("14_p4ui5")]
@@ -251,7 +250,7 @@ layout_mode = 2
 
 [node name="ElevatorEnterTimer" type="Timer" parent="."]
 
-[node name="LevelUpTimer" type="Timer" parent="."]
+[node name="SpeedSpanTimer" type="Timer" parent="."]
 
 [node name="Persons" type="Node" parent="."]
 script = ExtResource("3_ag5il")
@@ -265,5 +264,5 @@ script = ExtResource("12_3avnd")
 [connection signal="angries_reached" from="HUD" to="." method="_on_angries_reached"]
 [connection signal="money_reached" from="HUD" to="." method="_on_money_reached"]
 [connection signal="timeout" from="ElevatorEnterTimer" to="." method="_on_elevator_enter_timer_timeout"]
-[connection signal="timeout" from="LevelUpTimer" to="." method="_on_level_up_timer_timeout"]
+[connection signal="timeout" from="SpeedSpanTimer" to="." method="_on_speed_span_timer_timeout"]
 [connection signal="timeout" from="Persons/PersonsTimer" to="." method="_on_persons_timer_timeout"]
