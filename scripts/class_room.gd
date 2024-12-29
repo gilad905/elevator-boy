@@ -21,5 +21,16 @@ func update_person_positions() -> void:
 func has_room() -> bool:
 	return $Persons.get_child_count() < person_limit
 
+func remove_person(person: Node2D, is_happy: bool):
+	person.patience_ended.disconnect(_on_person_patience_ended)
+	get_node("/root/Main/HUD").increment_money(is_happy)
+	var finished = person.remove(is_happy)
+	finished.connect(_remove_person_node.bind(person))
+	return finished
+
 func _on_person_patience_ended(_person: Node2D) -> void:
 	pass
+
+func _remove_person_node(person: Node2D) -> void:
+	$Persons.remove_child(person)
+	person.queue_free()

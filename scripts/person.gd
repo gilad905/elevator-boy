@@ -57,16 +57,17 @@ func set_dest(_dest: int) -> void:
 	dest = _dest
 	$Dest.text = str(_dest)
 
-func remove(is_happy: bool):
+func remove(is_happy: bool) -> Signal:
 	patience_tween.stop()
 	for timer in face_timers:
-		timer.stop()
-	$Dest.hide()
+		var connections = timer.timeout.get_connections()
+		timer.timeout.disconnect(connections[0].callable)
 
 	var duration = patience_ended_tween_duration
 	var tween = create_tween()
 
 	if is_happy:
+		$Dest.hide()
 		var new_scale = $MoneyIcon.scale.x * 2
 		tween.set_parallel(true)
 		for type in ["x", "y"]:
@@ -75,9 +76,4 @@ func remove(is_happy: bool):
 		$MoneyIcon.show()
 
 	tween.tween_property(self, "modulate:a", 0, duration)
-	tween.finished.connect(_remove_node)
-	return tween
-
-func _remove_node() -> void:
-	get_parent().remove_child(self)
-	queue_free()
+	return tween.finished

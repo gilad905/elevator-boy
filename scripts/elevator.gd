@@ -61,14 +61,13 @@ func get_person_position(i: int) -> Vector2:
 	return _position
 
 func remove_persons_in_dest() -> void:
-	var reached_tween: Tween = null
+	var reached_signal: Signal
 	for person in $Persons.get_children():
 		if person.dest == current_floor_num:
 			var is_happy = not person.is_patience_ended
-			reached_tween = person.remove(is_happy)
-			get_node("/root/Main/HUD").increment_money(is_happy)
-	if reached_tween:
-		await reached_tween.finished
+			reached_signal = remove_person(person, is_happy)
+	if reached_signal:
+		await reached_signal
 		update_person_positions()
 
 func is_floor_in_bounds(floor_num: int) -> bool:

@@ -44,9 +44,8 @@ func get_right_edge() -> int:
 	return _right_edge
 
 func _on_person_patience_ended(person: Node2D) -> void:
-	await person.remove(false).finished
+	await remove_person(person, false)
 	update_person_positions()
-	get_node("/root/Main/HUD").increment_money(false)
 
 func _on_touched() -> void:
 	elevator.go_to_floor(get_index() + 1)

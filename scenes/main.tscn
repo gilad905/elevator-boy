@@ -33,7 +33,6 @@ metadata/_edit_lock_ = true
 [node name="Building" parent="Background" instance=ExtResource("7_ccv1v")]
 color = Color(0.854902, 0.741176, 0.52549, 1)
 polygon = PackedVector2Array(189, 4, 375, 169, 369, 175, 345, 154, 345, 513, 35, 513, 35, 154, 11, 176, 5, 169)
-metadata/_edit_lock_ = true
 
 [node name="Attic" parent="Background" instance=ExtResource("7_ccv1v")]
 texture_filter = 1
@@ -42,7 +41,6 @@ color = Color(0.821789, 0.821789, 0.821789, 1)
 texture = ExtResource("4_q54io")
 texture_scale = Vector2(3, 3)
 polygon = PackedVector2Array(45, 146, 189, 16, 336, 146, 336, 503, 45, 503)
-metadata/_edit_lock_ = true
 
 [node name="Wallpaper" parent="Background" instance=ExtResource("7_ccv1v")]
 texture_filter = 1
@@ -50,7 +48,6 @@ texture_repeat = 2
 color = Color(0.85, 0.733975, 0.5185, 0.478431)
 texture_scale = Vector2(4, 4)
 polygon = PackedVector2Array(45, 204, 336, 204, 336, 503, 45, 503)
-metadata/_edit_lock_ = true
 
 [node name="Logo" type="Sprite2D" parent="Background"]
 texture_filter = 1
@@ -100,22 +97,17 @@ metadata/_edit_lock_ = true
 
 [node name="Floor_1" parent="Floors" instance=ExtResource("1_ec1if")]
 position = Vector2(0, 240)
-metadata/_edit_lock_ = true
 
 [node name="Floor_2" parent="Floors" instance=ExtResource("1_ec1if")]
 position = Vector2(0, 180)
-metadata/_edit_lock_ = true
 
 [node name="Floor_3" parent="Floors" instance=ExtResource("1_ec1if")]
 position = Vector2(0, 120)
-metadata/_edit_lock_ = true
 
 [node name="Floor_4" parent="Floors" instance=ExtResource("1_ec1if")]
 position = Vector2(0, 60)
-metadata/_edit_lock_ = true
 
 [node name="Floor_5" parent="Floors" instance=ExtResource("1_ec1if")]
-metadata/_edit_lock_ = true
 
 [node name="HUD" type="Node2D" parent="."]
 position = Vector2(180, 173)
@@ -179,20 +171,16 @@ metadata/_edit_lock_ = true
 
 [node name="Version" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
-text = "{version:12-28 21:40}"
-metadata/_edit_lock_ = true
+text = "{version:12-29 00:52}"
 
 [node name="Other" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
-metadata/_edit_lock_ = true
 
 [node name="RealTime" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
-metadata/_edit_lock_ = true
 
 [node name="TimeScale" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
-metadata/_edit_lock_ = true
 
 [node name="ElevatorEnterTimer" type="Timer" parent="."]
 metadata/_edit_lock_ = true
