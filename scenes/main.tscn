@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b4x3k3rw7jlkp"]
+[gd_scene load_steps=18 format=3 uid="uid://b4x3k3rw7jlkp"]
 
 [ext_resource type="PackedScene" uid="uid://6ump4l8coktj" path="res://scenes/floor.tscn" id="1_ec1if"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_u3v8c"]
@@ -11,10 +11,11 @@
 [ext_resource type="Texture2D" uid="uid://b4e56rixu0o0y" path="res://assets/patterns/attic.png" id="4_q54io"]
 [ext_resource type="PackedScene" uid="uid://cx6ocur83tfii" path="res://scenes/framed-polygon.tscn" id="7_ccv1v"]
 [ext_resource type="Script" path="res://scripts/hud.gd" id="9_oiqtx"]
-[ext_resource type="Texture2D" uid="uid://bwy8vnk6nn1fb" path="res://assets/dollars.png" id="10_sj0jc"]
 [ext_resource type="Texture2D" uid="uid://s3d8mxmwaxio" path="res://assets/level.png" id="11_pd4if"]
 [ext_resource type="Script" path="res://scripts/global.gd" id="12_3avnd"]
+[ext_resource type="PackedScene" uid="uid://bib7g2wmalkmc" path="res://scenes/hud_field.tscn" id="12_lpewr"]
 [ext_resource type="Texture2D" uid="uid://caok8ux6br8x1" path="res://assets/logo.png" id="13_j173s"]
+[ext_resource type="Texture2D" uid="uid://d3nwxoaqa8m7h" path="res://assets/emojis/angry_3.png" id="14_3f3du"]
 [ext_resource type="PackedScene" uid="uid://dvwnl8ut4fgso" path="res://scenes/debug_label.tscn" id="14_p4ui5"]
 
 [node name="Main" type="Node2D"]
@@ -116,41 +117,28 @@ position = Vector2(0, 60)
 [node name="Floor_5" parent="Floors" instance=ExtResource("1_ec1if")]
 
 [node name="HUD" type="Node2D" parent="."]
-position = Vector2(182, 181)
+position = Vector2(124, 140)
 script = ExtResource("9_oiqtx")
 metadata/_edit_lock_ = true
 
-[node name="Money" type="Label" parent="HUD"]
-offset_left = -31.0
-offset_right = 9.0
-offset_bottom = 23.0
-theme_override_colors/font_color = Color(0, 0.759174, 0, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 3
-text = "0"
-vertical_alignment = 1
-metadata/_edit_lock_ = true
+[node name="Money" parent="HUD" instance=ExtResource("12_lpewr")]
+offset_left = 5.0
+offset_right = 76.0
+theme_override_colors/font_color = Color(0, 0.578685, 0.190811, 1)
 
-[node name="Icon" type="Sprite2D" parent="HUD/Money"]
-position = Vector2(-25, 12)
-scale = Vector2(0.306287, 0.306287)
-texture = ExtResource("10_sj0jc")
-metadata/_edit_lock_ = true
+[node name="Angries" parent="HUD" instance=ExtResource("12_lpewr")]
+offset_left = 85.0
+offset_right = 157.0
+theme_override_colors/font_color = Color(0.76, 0, 0, 1)
+icon = ExtResource("14_3f3du")
+icon_scale = 0.25
 
-[node name="Level" type="Label" parent="HUD"]
-offset_left = 81.0
-offset_right = 121.0
-offset_bottom = 23.0
-theme_override_constants/outline_size = 3
-text = "1"
-vertical_alignment = 1
-metadata/_edit_lock_ = true
-
-[node name="Icon" type="Sprite2D" parent="HUD/Level"]
-position = Vector2(-25, 12)
-scale = Vector2(0.415494, 0.489553)
-texture = ExtResource("11_pd4if")
-metadata/_edit_lock_ = true
+[node name="Level" parent="HUD" instance=ExtResource("12_lpewr")]
+offset_left = 168.0
+offset_right = 240.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+icon = ExtResource("11_pd4if")
+icon_scale = 0.45
 
 [node name="OverlayPrompt" type="Label" parent="."]
 visible = false
@@ -177,7 +165,7 @@ metadata/_edit_lock_ = true
 
 [node name="Version" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
-text = "{version:12-29 00:52}"
+text = "{version:12-29 13:20}"
 
 [node name="Other" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2

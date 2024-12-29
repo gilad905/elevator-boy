@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://bib7g2wmalkmc"]
+
+[ext_resource type="Script" path="res://scripts/hud_field.gd" id="1_33wui"]
+[ext_resource type="Texture2D" uid="uid://bwy8vnk6nn1fb" path="res://assets/dollars.png" id="1_v562x"]
+
+[node name="HudField" type="Label"]
+offset_left = 41.0
+offset_right = 51.0
+offset_bottom = 23.0
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
+text = "0"
+script = ExtResource("1_33wui")
+icon = ExtResource("1_v562x")
+icon_scale = 0.3
+metadata/_edit_lock_ = true
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(-25, 12)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("1_v562x")
+metadata/_edit_lock_ = true
