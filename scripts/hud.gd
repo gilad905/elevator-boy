@@ -3,7 +3,7 @@ extends Node2D
 signal money_reached
 signal angries_reached
 
-const glow_outline: int = 16
+const glow_outline: int = 14
 const glow_shadow: int = 30
 var start_outline: float
 

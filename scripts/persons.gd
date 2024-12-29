@@ -40,3 +40,12 @@ func get_random_dest(source_floor_num: int) -> int:
 	if random_floor >= source_floor_num:
 		random_floor += 1
 	return random_floor
+
+func add_result_tweener(tween: Tween, result: Node2D):
+	var scale = result.scale.x
+	var duration = Global.person_result_sec
+	for type in ["x", "y"]:
+		tween.tween_property(result, "scale:" + type, scale * 2, duration)
+	await tween.finished
+	for type in ["x", "y"]:
+		result.scale[type] = scale

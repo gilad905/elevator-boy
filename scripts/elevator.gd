@@ -10,10 +10,11 @@ var inner_size: Vector2
 func _ready() -> void:
 	self.person_limit = 4
 	current_floor_num = Global.floor_count
-	var floor_1 = get_node("/root/Main/Floors/Floor_1")
-	var floor_2 = get_node("/root/Main/Floors/Floor_2")
+	hud = get_node("/root/Main/HUD")
 	floors = get_node("/root/Main/Floors")
 	floors.set_floor_pressed(current_floor_num)
+	var floor_1 = floors.get_node("Floor_1")
+	var floor_2 = floors.get_node("Floor_2")
 	floor_height = floor_1.position.y - floor_2.position.y
 	inner_size.x = $Frame.points[0].x - $Frame.points[1].x - $Frame.width
 	inner_size.y = $Frame.points[3].y - $Frame.points[0].y - $Frame.width
@@ -62,10 +63,22 @@ func get_person_position(i: int) -> Vector2:
 
 func remove_persons_in_dest() -> void:
 	var reached_signal: Signal
+	var happy_count: int = 0
+	var angry_count: int = 0
 	for person in $Persons.get_children():
 		if person.dest == current_floor_num:
 			var is_happy = not person.is_patience_ended
+			if is_happy:
+				happy_count += 1
+			else:
+				angry_count += 1
 			reached_signal = remove_person(person, is_happy)
+	if happy_count > 0:
+		var money = Global.money_by_happy_count[happy_count]
+		show_happy_result(money)
+		hud.increment_money(money)
+	if angry_count > 0:
+		hud.increment_angries(angry_count)
 	if reached_signal:
 		await reached_signal
 		update_person_positions()
@@ -76,3 +89,12 @@ func is_floor_in_bounds(floor_num: int) -> bool:
 func _on_door_toggle_pressed() -> void:
 	if not is_moving:
 		$Door.toggle_state()
+
+func show_happy_result(money: int) -> void:
+	$HappyResult/Amount.text = "x" + str(money)
+	$HappyResult.show()
+	var tween = create_tween()
+	tween.set_parallel(true)
+	get_node("/root/Main/Persons").add_result_tweener(tween, $HappyResult)
+	await tween.finished
+	$HappyResult.hide()

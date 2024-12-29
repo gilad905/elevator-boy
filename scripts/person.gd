@@ -2,9 +2,7 @@ extends Node2D
 
 signal patience_ended(person: Node2D)
 
-const happy_result = preload("res://scenes/happy_result.tscn")
 const angry_result = preload("res://scenes/angry_result.tscn")
-const patience_ended_tween_duration: float = 1
 const zero_angle: float = PI * -0.5
 const full_angle: float = PI * 1.5
 
@@ -64,21 +62,17 @@ func remove(is_happy: bool) -> Signal:
 		var connections = timer.timeout.get_connections()
 		timer.timeout.disconnect(connections[0].callable)
 
-	var result_scene = happy_result if is_happy else angry_result
-	var result = result_scene.instantiate()
-	var new_scale = result.scale.x * 2
-	var duration = patience_ended_tween_duration
+	$Dest.hide()
+	var tween = create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(self, "modulate:a", 0, Global.person_result_sec)
 
 	if is_happy:
 		$Face.play("happy")
-	$Dest.hide()
-	add_child(result)
-
-	var tween = create_tween()
-	tween.set_parallel(true)
-	tween.tween_property(self, "modulate:a", 0, duration)
-	for type in ["x", "y"]:
-		tween.tween_property(result, "scale:" + type, new_scale, duration)
+	else:
+		var result = angry_result.instantiate()
+		get_node("/root/Main/Persons").add_result_tweener(tween, result)
+		add_child(result)
 
 	return tween.finished
 

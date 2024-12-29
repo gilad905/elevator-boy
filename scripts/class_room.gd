@@ -25,13 +25,9 @@ func has_room() -> bool:
 
 func remove_person(person: Node2D, is_happy: bool):
 	person.patience_ended.disconnect(_on_person_patience_ended)
-	if is_happy:
-		hud.increment_money(1)
-	else:
-		hud.increment_angries(1)
-	var finished = person.remove(is_happy)
-	finished.connect(_remove_person_node.bind(person))
-	return finished
+	var removed = person.remove(is_happy)
+	removed.connect(_remove_person_node.bind(person))
+	return removed
 
 func _on_person_patience_ended(_person: Node2D) -> void:
 	pass
