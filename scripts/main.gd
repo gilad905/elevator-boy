@@ -1,6 +1,7 @@
 extends Node2D
 
 var game_over_prompt: String = "GAME OVER\nYOU REACHED LEVEL %s"
+var level_up_prompt: String = "(PRETEND) YOU GO UP A LEVEL"
 var current_level = 1
 var version_pat = RegEx.create_from_string("\\{version:([^}]*)\\}")
 
@@ -52,6 +53,17 @@ func load_debug_labels() -> void:
 	$Debug/RealTime.text = "enter interval: %s" % wait_time
 	$Debug/TimeScale.text = "time scale: %s" % Engine.get_time_scale()
 
+func show_overlay_and_reload() -> void:
+	$OverlayPrompt.show()
+	var tween = create_tween().tween_property(self, "modulate", Color("4f4f4f"), 1)
+	await tween.finished
+	get_node("/root").set_process_mode(ProcessMode.PROCESS_MODE_DISABLED)
+	get_tree().paused = true
+	await get_tree().create_timer(4).timeout
+	get_node("/root").set_process_mode(ProcessMode.PROCESS_MODE_PAUSABLE)
+	get_tree().paused = false
+	get_tree().reload_current_scene()
+
 func _on_persons_timer_timeout() -> void:
 	$Persons.add_random_person()
 
@@ -78,15 +90,8 @@ func _on_level_up_timer_timeout() -> void:
 
 func _on_angries_reached() -> void:
 	$OverlayPrompt.text = game_over_prompt % current_level
-	$OverlayPrompt.show()
-	var tween = create_tween().tween_property(self, "modulate", Color("4f4f4f"), 1)
-	await tween.finished
-	get_node("/root").set_process_mode(ProcessMode.PROCESS_MODE_DISABLED)
-	get_tree().paused = true
-	await get_tree().create_timer(4).timeout
-	get_node("/root").set_process_mode(ProcessMode.PROCESS_MODE_PAUSABLE)
-	get_tree().paused = false
-	get_tree().reload_current_scene()
+	show_overlay_and_reload()
 
 func _on_money_reached() -> void:
-	print("level up!")
+	$OverlayPrompt.text = level_up_prompt
+	show_overlay_and_reload()

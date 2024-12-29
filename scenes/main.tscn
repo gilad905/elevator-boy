@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b4x3k3rw7jlkp"]
+[gd_scene load_steps=19 format=3 uid="uid://b4x3k3rw7jlkp"]
 
 [ext_resource type="PackedScene" uid="uid://6ump4l8coktj" path="res://scenes/floor.tscn" id="1_ec1if"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_u3v8c"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://s3d8mxmwaxio" path="res://assets/level.png" id="11_pd4if"]
 [ext_resource type="Script" path="res://scripts/global.gd" id="12_3avnd"]
 [ext_resource type="Texture2D" uid="uid://caok8ux6br8x1" path="res://assets/logo.png" id="13_j173s"]
+[ext_resource type="Theme" uid="uid://b5g3ibj2wp6sw" path="res://resources/hud_theme.tres" id="13_mf7yv"]
 [ext_resource type="Texture2D" uid="uid://d3nwxoaqa8m7h" path="res://assets/emojis/angry_3.png" id="14_3f3du"]
 [ext_resource type="PackedScene" uid="uid://dvwnl8ut4fgso" path="res://scenes/debug_label.tscn" id="14_p4ui5"]
 
@@ -36,21 +37,22 @@ position = Vector2(2, 8)
 color = Color(0.854902, 0.741176, 0.52549, 1)
 polygon = PackedVector2Array(189, 4, 375, 169, 369, 175, 345, 154, 345, 513, 35, 513, 35, 154, 11, 176, 5, 169)
 
-[node name="Attic" parent="Background" instance=ExtResource("7_ccv1v")]
+[node name="AtticWall" parent="Background" instance=ExtResource("7_ccv1v")]
 texture_filter = 1
 texture_repeat = 2
 position = Vector2(2, 8)
-color = Color(0.821789, 0.821789, 0.821789, 1)
+color = Color(0.474345, 0.625949, 1, 0.552941)
 texture = ExtResource("4_q54io")
-texture_scale = Vector2(3, 3)
-polygon = PackedVector2Array(45, 146, 189, 16, 336, 146, 336, 503, 45, 503)
+texture_scale = Vector2(3.5, 3.5)
+polygon = PackedVector2Array(45, 146, 189, 16, 336, 146, 336, 203, 45, 203)
 
-[node name="Wallpaper" parent="Background" instance=ExtResource("7_ccv1v")]
+[node name="Wall" parent="Background" instance=ExtResource("7_ccv1v")]
 texture_filter = 1
 texture_repeat = 2
 position = Vector2(2, 8)
 color = Color(0.85, 0.733975, 0.5185, 0.478431)
-texture_scale = Vector2(4, 4)
+texture = ExtResource("4_q54io")
+texture_scale = Vector2(3.5, 3.5)
 polygon = PackedVector2Array(45, 204, 336, 204, 336, 503, 45, 503)
 
 [node name="Logo" type="Sprite2D" parent="Background"]
@@ -105,7 +107,7 @@ offset_bottom = 10.0
 theme_override_colors/font_color = Color(0, 0.578685, 0.190811, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 3
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 12
 text = "x4"
 
 [node name="Floors" type="Node2D" parent="."]
@@ -127,7 +129,7 @@ position = Vector2(0, 60)
 [node name="Floor_5" parent="Floors" instance=ExtResource("1_ec1if")]
 
 [node name="HUD" type="Node2D" parent="."]
-position = Vector2(72, 140)
+position = Vector2(70, 140)
 script = ExtResource("9_oiqtx")
 
 [node name="Money" type="Node2D" parent="HUD"]
@@ -141,9 +143,10 @@ centered = false
 
 [node name="Amount" type="Label" parent="HUD/Money"]
 offset_left = 25.0
-offset_top = -4.0
+offset_top = -3.0
 offset_right = 53.0
-offset_bottom = 19.0
+offset_bottom = 20.0
+theme = ExtResource("13_mf7yv")
 theme_override_colors/font_color = Color(0, 0.578685, 0.190811, 1)
 theme_override_colors/font_shadow_color = Color(0, 0.578685, 0.190811, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
@@ -155,9 +158,10 @@ horizontal_alignment = 2
 
 [node name="Total" type="Label" parent="HUD/Money"]
 offset_left = 54.0
-offset_top = -4.0
+offset_top = -3.0
 offset_right = 94.0
-offset_bottom = 19.0
+offset_bottom = 20.0
+theme = ExtResource("13_mf7yv")
 text = "/200
 "
 
@@ -165,16 +169,16 @@ text = "/200
 position = Vector2(102, -2)
 
 [node name="Icon" type="Sprite2D" parent="HUD/Angries"]
-position = Vector2(3, 0)
+position = Vector2(5, 0)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("14_3f3du")
 centered = false
 
 [node name="Amount" type="Label" parent="HUD/Angries"]
 offset_left = 29.0
-offset_top = -1.0
 offset_right = 48.0
-offset_bottom = 22.0
+offset_bottom = 23.0
+theme = ExtResource("13_mf7yv")
 theme_override_colors/font_color = Color(0.76, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(0.76, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
@@ -186,29 +190,31 @@ horizontal_alignment = 2
 
 [node name="Total" type="Label" parent="HUD/Angries"]
 offset_left = 49.0
-offset_top = -1.0
 offset_right = 89.0
-offset_bottom = 22.0
+offset_bottom = 23.0
+theme = ExtResource("13_mf7yv")
 text = "/10"
 
 [node name="Level" type="Node2D" parent="HUD"]
 position = Vector2(193, 9)
 
 [node name="Icon" type="Sprite2D" parent="HUD/Level"]
-position = Vector2(0, -5)
+position = Vector2(0, -6)
 scale = Vector2(0.45, 0.45)
 texture = ExtResource("11_pd4if")
 centered = false
 
 [node name="Value" type="Label" parent="HUD/Level"]
 offset_left = 43.0
-offset_top = -12.0
+offset_top = -11.0
 offset_right = 115.0
-offset_bottom = 11.0
+offset_bottom = 12.0
+theme = ExtResource("13_mf7yv")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 3
-text = "1"
+text = "10
+"
 
 [node name="OverlayPrompt" type="Label" parent="."]
 visible = false
@@ -218,9 +224,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 28
 text = "GAME OVER
-YOU'RE IN %s$ DEBT
 YOU REACHED LEVEL %s"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -233,7 +238,7 @@ offset_bottom = 80.0
 
 [node name="Version" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
-text = "{version:12-29 21:31}"
+text = "{version:12-29 22:13}"
 
 [node name="Other" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2

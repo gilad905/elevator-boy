@@ -29,6 +29,10 @@ window/stretch/mode="canvas_items"
 window/stretch/scale=1.5
 window/handheld/orientation=1
 
+[gui]
+
+theme/custom_font="res://assets/Jersey15-Regular.ttf"
+
 [input]
 
 elevator_move_down={

@@ -2,7 +2,7 @@
 
 [node name="DebugLabel" type="Label"]
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 14
 text = "DebugLabel"
 horizontal_alignment = 2
 autowrap_mode = 3
