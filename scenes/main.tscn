@@ -19,8 +19,10 @@
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_u3v8c")
+metadata/_edit_lock_ = true
 
 [node name="Background" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
 
 [node name="Background" type="Sprite2D" parent="Background"]
 position = Vector2(0, -1)
@@ -29,6 +31,7 @@ texture = ExtResource("2_3cdlf")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 99, 822, 1117)
+metadata/_edit_lock_ = true
 
 [node name="Building" parent="Background" instance=ExtResource("7_ccv1v")]
 position = Vector2(2, 8)
@@ -57,10 +60,12 @@ texture_filter = 1
 position = Vector2(189, 94)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("13_j173s")
+metadata/_edit_lock_ = true
 
 [node name="Elevator" type="Node2D" parent="."]
 position = Vector2(70, 220)
 script = ExtResource("4_iffau")
+metadata/_edit_lock_ = true
 
 [node name="Wallpaper" type="Polygon2D" parent="Elevator"]
 modulate = Color(0.489622, 0.489622, 0.489622, 1)
@@ -70,6 +75,7 @@ texture = ExtResource("2_6k6yx")
 texture_scale = Vector2(3, 3)
 texture_rotation = 0.785398
 polygon = PackedVector2Array(0, 0, 56, 0, 56, 53, 0, 53)
+metadata/_edit_lock_ = true
 
 [node name="Door" type="Line2D" parent="Elevator"]
 position = Vector2(0, 2.5)
@@ -77,6 +83,7 @@ points = PackedVector2Array(54, 0, 54, 49)
 width = 5.0
 default_color = Color(0.720467, 0.720468, 0.720467, 1)
 script = ExtResource("3_3jsbd")
+metadata/_edit_lock_ = true
 
 [node name="Frame" type="Line2D" parent="Elevator"]
 points = PackedVector2Array(54, 0, 0, 0, 0, 54, 54, 54)
@@ -84,12 +91,15 @@ width = 5.0
 joint_mode = 1
 begin_cap_mode = 1
 end_cap_mode = 1
+metadata/_edit_lock_ = true
 
 [node name="Persons" type="Node2D" parent="Elevator"]
+metadata/_edit_lock_ = true
 
 [node name="Floors" type="Node2D" parent="."]
 position = Vector2(127, 210)
 script = ExtResource("2_pfc4s")
+metadata/_edit_lock_ = true
 
 [node name="Floor_1" parent="Floors" instance=ExtResource("1_ec1if")]
 position = Vector2(0, 240)
@@ -108,6 +118,7 @@ position = Vector2(0, 60)
 [node name="HUD" type="Node2D" parent="."]
 position = Vector2(182, 181)
 script = ExtResource("9_oiqtx")
+metadata/_edit_lock_ = true
 
 [node name="Money" type="Label" parent="HUD"]
 offset_left = -31.0
@@ -118,11 +129,13 @@ theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 3
 text = "0"
 vertical_alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="Icon" type="Sprite2D" parent="HUD/Money"]
 position = Vector2(-25, 12)
 scale = Vector2(0.306287, 0.306287)
 texture = ExtResource("10_sj0jc")
+metadata/_edit_lock_ = true
 
 [node name="Level" type="Label" parent="HUD"]
 offset_left = 81.0
@@ -131,11 +144,13 @@ offset_bottom = 23.0
 theme_override_constants/outline_size = 3
 text = "1"
 vertical_alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="Icon" type="Sprite2D" parent="HUD/Level"]
 position = Vector2(-25, 12)
 scale = Vector2(0.415494, 0.489553)
 texture = ExtResource("11_pd4if")
+metadata/_edit_lock_ = true
 
 [node name="OverlayPrompt" type="Label" parent="."]
 visible = false
@@ -151,12 +166,14 @@ YOU'RE IN %s$ DEBT
 YOU REACHED LEVEL %s"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="Debug" type="VBoxContainer" parent="."]
 offset_left = 235.0
 offset_top = 2.0
 offset_right = 381.0
 offset_bottom = 80.0
+metadata/_edit_lock_ = true
 
 [node name="Version" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
@@ -172,16 +189,21 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="ElevatorEnterTimer" type="Timer" parent="."]
+metadata/_edit_lock_ = true
 
 [node name="LevelUpTimer" type="Timer" parent="."]
+metadata/_edit_lock_ = true
 
 [node name="Persons" type="Node" parent="."]
 script = ExtResource("3_ag5il")
+metadata/_edit_lock_ = true
 
 [node name="PersonsTimer" type="Timer" parent="Persons"]
+metadata/_edit_lock_ = true
 
 [node name="Global" type="Node" parent="."]
 script = ExtResource("12_3avnd")
+metadata/_edit_lock_ = true
 
 [connection signal="state_changed" from="Elevator/Door" to="." method="_on_door_state_changed"]
 [connection signal="debt_reached" from="HUD" to="." method="_on_debt_reached"]

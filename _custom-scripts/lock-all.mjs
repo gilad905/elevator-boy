@@ -2,8 +2,8 @@ import fs from "node:fs";
 
 const lockLine = "\nmetadata/_edit_lock_ = true";
 const lockLinePat = new RegExp(lockLine, "g");
-const elemPat = /(?=\n(\n|$))/;
-const lockablePat = /^\n\n\[node [^\]]*type=/;
+const elemPat = /(?=\s*\[)/;
+const lockablePat = /^\[node [^\]]*type=/;
 // const toLock = false;
 const toLock = !(process.argv[2] == "unlock");
 console.log(toLock ? "locking" : "unlocking");
@@ -15,12 +15,10 @@ for (const file of fs.readdirSync("./scenes")) {
   let newText;
   if (toLock) {
     const elems = text.split(elemPat);
-    if (file == "framed-polygon.tscn") {
-      debugger;
-    }
     for (let i = 0; i < elems.length; i++) {
       if (lockablePat.test(elems[i]) && !elems[i].includes(lockLine)) {
         elems[i] += lockLine;
+        elems[i] = elems[i].replace("\n" + lockLine, lockLine + "\n");
         updated++;
       }
     }

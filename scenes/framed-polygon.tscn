@@ -6,3 +6,4 @@
 script = ExtResource("1_mof3d")
 line_color = Color(0.372584, 0.195364, 0.0854959, 1)
 line_width = 1.0
+metadata/_edit_lock_ = true
