@@ -19,7 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://d3nwxoaqa8m7h" path="res://assets/emojis/angry_3.png" id="14_3f3du"]
 [ext_resource type="PackedScene" uid="uid://dvwnl8ut4fgso" path="res://scenes/debug_label.tscn" id="14_p4ui5"]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node"]
 script = ExtResource("1_u3v8c")
 
 [node name="Background" type="Node2D" parent="."]
@@ -237,15 +237,12 @@ offset_bottom = 74.0
 
 [node name="Version" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
-text = "{version:12-29 22:13}"
+text = "{version:12-30 00:09}"
 
 [node name="General" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
 
-[node name="Span" parent="Debug" instance=ExtResource("14_p4ui5")]
-layout_mode = 2
-
-[node name="TimeScale" parent="Debug" instance=ExtResource("14_p4ui5")]
+[node name="Dynamic" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
 
 [node name="ElevatorEnterTimer" type="Timer" parent="."]

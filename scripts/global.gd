@@ -28,3 +28,7 @@ var floor_count: int
 
 func _ready() -> void:
 	floor_count = get_node("/root/Main/Floors").get_child_count()
+
+func _print(msg: String) -> void:
+	var time = Time.get_time_string_from_system()
+	print(time + " " + msg)

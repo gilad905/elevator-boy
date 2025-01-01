@@ -12,13 +12,8 @@ func _ready() -> void:
 	door = elevator.get_node("Door")
 	self.person_limit = 4
 	right_edge = get_right_edge()
+	person_start_position = Vector2(right_edge, person_y)
 	$FloorNum.text = str(get_index() + 1)
-
-func add_person(person) -> void:
-	assert(has_room(), name + " is full")
-	$Persons.add_child(person)
-	person.position = Vector2(right_edge, person_y)
-	super(person)
 
 func get_person_position(i: int) -> Vector2:
 	var spacing: int = Global.person_spacing
@@ -28,14 +23,19 @@ func get_person_position(i: int) -> Vector2:
 
 func enter_elevator_next():
 	var person = $Persons.get_child(0)
-	if person and not person.is_moving and elevator.has_room():
+	if person and not person.is_moving() and elevator.has_room():
 		person.patience_ended.disconnect(_on_person_patience_ended)
-		person.reparent(elevator.get_node("Persons"))
 		elevator.add_person(person)
 		update_person_positions()
 
 func set_pressed(is_on: bool) -> void:
 	$FloorNumFrame.frame = 1 if is_on else 0
+
+func add_person(person) -> void:
+	assert(has_room(), name + " is full")
+	$Persons.add_child(person)
+	person.position = person_start_position
+	super(person)
 
 func get_right_edge() -> int:
 	var _right_edge = $TouchScreenButton.position.x

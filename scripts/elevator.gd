@@ -27,10 +27,9 @@ func go_to_floor(floor_num: int) -> void:
 		$Door.toggle_state()
 		return
 
-	assert(is_floor_in_bounds(floor_num), "Target floor is out of bounds")
+	assert(is_floor_in_bounds(floor_num), "floor out of bounds")
 
 	is_moving = true
-
 	floors.set_floor_pressed(floor_num)
 	if $Door.current_state != $Door.State.closed:
 		$Door.set_state($Door.State.closing)
@@ -39,14 +38,14 @@ func go_to_floor(floor_num: int) -> void:
 	var floor_delta = current_floor_num - floor_num
 	var target_y = position.y + floor_delta * floor_height
 	var duration = abs(floor_delta) * Global.one_floor_duration_sec
-	var tween = create_tween()
 
+	var tween = create_tween()
 	tween.set_trans(Tween.TRANS_SINE)
 	tween.tween_property(self, "position:y", target_y, duration)
 	await tween.finished
+
 	$Door.set_state($Door.State.opening)
 	is_moving = false
-
 	current_floor_num = floor_num
 
 func move_one_floor(go_up: bool) -> void:
@@ -62,7 +61,7 @@ func get_person_position(i: int) -> Vector2:
 	return _position
 
 func remove_persons_in_dest() -> void:
-	var reached_signal: Signal
+	var removed_signal: Signal
 	var happy_count: int = 0
 	var angry_count: int = 0
 	for person in $Persons.get_children():
@@ -72,23 +71,20 @@ func remove_persons_in_dest() -> void:
 				happy_count += 1
 			else:
 				angry_count += 1
-			reached_signal = remove_person(person, is_happy)
+			removed_signal = remove_person(person, is_happy)
 	if happy_count > 0:
 		var money = Global.money_by_happy_count[happy_count]
 		show_happy_result(money)
 		hud.increment_money(money)
 	if angry_count > 0:
 		hud.increment_angries(angry_count)
-	if reached_signal:
-		await reached_signal
+	if removed_signal:
+		await removed_signal
+		# Global._print("updating positon after removals")
 		update_person_positions()
 
 func is_floor_in_bounds(floor_num: int) -> bool:
 	return floor_num >= 1 and floor_num <= Global.floor_count
-
-func _on_door_toggle_pressed() -> void:
-	if not is_moving:
-		$Door.toggle_state()
 
 func show_happy_result(money: int) -> void:
 	$HappyResult/Amount.text = "x" + str(money)
@@ -98,3 +94,16 @@ func show_happy_result(money: int) -> void:
 	get_node("/root/Main/Persons").add_result_tweener(tween, $HappyResult)
 	await tween.finished
 	$HappyResult.hide()
+
+func add_person(person) -> void:
+	# Global._print("adding %s of %s" % [person, $Persons.get_child_count()])
+	assert(has_room(), name + " is full")
+	if person.get_parent():
+		person.reparent($Persons)
+	else:
+		$Persons.add_child(person)
+	super(person)
+
+func _on_door_toggle_pressed() -> void:
+	if not is_moving:
+		$Door.toggle_state()

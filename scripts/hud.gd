@@ -18,12 +18,12 @@ func _ready() -> void:
 	
 func increment_money(amount: int) -> void:
 	var new_amount = _increment_counter($Money, amount)
-	if new_amount == Global.win_on_amount:
+	if new_amount >= Global.win_on_amount:
 		money_reached.emit()
 
 func increment_angries(amount: int) -> void:
 	var new_amount = _increment_counter($Angries, amount)
-	if new_amount == Global.lose_on_angries:
+	if new_amount >= Global.lose_on_angries:
 		angries_reached.emit()
 
 func _increment_counter(field: Node2D, amount: int) -> int:

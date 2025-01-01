@@ -6,20 +6,19 @@ var floors
 func _ready() -> void:
 	floors = get_node("../Floors")
 
-func add_random_person(floor_num: int = 0, dest: int = 0) -> void:
+func add_random_person() -> Node2D:
+	var floor_num = get_random_free_floor_num()
 	if not floor_num:
-		floor_num = get_random_free_floor_num()
-		if not floor_num:
-			return
-	if not dest:
-		dest = get_random_dest(floor_num)
-	add_person_at_floor(floor_num, dest)
+		return
+	var dest = get_random_dest(floor_num)
+	var person = add_person_at_floor(floor_num, dest)
+	return person
 
-func add_person_at_floor(floor_num: int, dest: int) -> void:
+func add_person_at_floor(floor_num: int, dest: int) -> Node2D:
 	var _floor = floors.get_floor(floor_num)
-	assert(_floor.has_room(), "Floor " + _floor.name + " is full")
 	var person = create_person(dest)
 	_floor.add_person(person)
+	return person
 
 func create_person(dest: int) -> Node:
 	var person = person_scene.instantiate()

@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 
 var game_over_prompt: String = "GAME OVER"
 var level_up_prompt: String = "LEVEL COMPLETED"
@@ -12,6 +12,8 @@ func _ready() -> void:
 	$SpeedSpanTimer.wait_time = span_duration
 	$Persons/PersonsTimer.wait_time = Global.person_enter_max_sec
 	load_debug_labels()
+	# _debug_enter_persons_bug()
+	# return
 
 	await get_tree().create_timer(1).timeout
 	# _on_money_reached()
@@ -40,21 +42,23 @@ func set_time_scale(to_increase: bool):
 	var shift = 2.0 if to_increase else 0.5
 	time_scale = clamp(time_scale * shift, 0.125, 32.0)
 	Engine.set_time_scale(time_scale)
-	$Debug/TimeScale.text = "time scale: %s" % time_scale
+	update_debug_dynamic()
 
 func get_level_times_desc() -> String:
 	var shift = (Global.person_enter_max_sec - Global.person_enter_min_sec)
 	var span_count = ceil(shift / Global.span_timer_decrease_sec)
 	var time_sec = span_count * span_duration
-	return "span time: %s\nmin enter: %s spans, %s min" % [span_duration, span_count, time_sec / 60]
+	return "span time: %ss\nmin enter: %s spans, %s min" % [span_duration, span_count, time_sec / 60]
 
 func load_debug_labels() -> void:
 	$Debug/Version.text = version_pat.sub($Debug/Version.text, "$1")
 	var level_times = get_level_times_desc()
 	$Debug/General.text = level_times
-	var wait_time = $Persons/PersonsTimer.wait_time
-	$Debug/Span.text = "span: %s, interval: %s" % [current_span, wait_time]
-	$Debug/TimeScale.text = "time scale: %s" % Engine.get_time_scale()
+	update_debug_dynamic()
+
+func update_debug_dynamic() -> void:
+	var args = [$Persons/PersonsTimer.wait_time, Engine.get_time_scale()]
+	$Debug/Dynamic.text = "enter interval: %ss\ntime scale: x%s" % args
 
 func show_overlay_and_reload() -> void:
 	$OverlayPrompt.show()
@@ -92,8 +96,8 @@ func _on_speed_span_timer_timeout() -> void:
 	var wait_time = $Persons/PersonsTimer.wait_time
 	var new_time = wait_time - Global.span_timer_decrease_sec
 	wait_time = clamp(new_time, Global.person_enter_min_sec, INF)
-	$Debug/Span.text = "span: %s, interval: %s" % [current_span, wait_time]
 	$Persons/PersonsTimer.wait_time = wait_time
+	update_debug_dynamic()
 
 func _on_angries_reached() -> void:
 	$OverlayPrompt.text = game_over_prompt
@@ -103,3 +107,27 @@ func _on_money_reached() -> void:
 	$OverlayPrompt.text = level_up_prompt
 	Global.current_level += 1
 	show_overlay_and_reload()
+
+func _debug_enter_persons_bug() -> void:
+	print(Global._temp)
+
+	for i in 2:
+		var dest = 5 if i > 1 else 1
+		var person = $Persons.create_person(dest)
+		$Elevator.add_person(person)
+	# await get_tree().create_timer(10).timeout
+	# for i in 2:
+	# 	$Persons.add_person_at_floor(5, i + 2)
+
+	$Persons.add_person_at_floor(5, 2)
+	await get_tree().create_timer(1.5).timeout
+	$Persons.add_person_at_floor(5, 3)
+	await get_tree().create_timer(Global._temp + 0.5).timeout
+	$Elevator._on_door_toggle_pressed()
+
+	# await get_tree().create_timer(Global._temp + 0.5).timeout
+	# $Elevator._on_door_toggle_pressed()
+	await get_tree().create_timer(4).timeout
+	Global._temp += 0.1
+
+	get_tree().reload_current_scene()
