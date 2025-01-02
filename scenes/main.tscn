@@ -26,7 +26,8 @@ script = ExtResource("1_u3v8c")
 layer = -1
 
 [node name="Background" type="Sprite2D" parent="Background"]
-scale = Vector2(0.7, 0.7)
+position = Vector2(0, -1)
+scale = Vector2(0.467241, 0.467241)
 texture = ExtResource("2_3cdlf")
 centered = false
 region_enabled = true
@@ -35,34 +36,34 @@ region_rect = Rect2(0, 99, 822, 1117)
 [node name="Building" parent="Background" instance=ExtResource("7_ccv1v")]
 position = Vector2(2, 8)
 color = Color(0.854902, 0.741176, 0.52549, 1)
-polygon = PackedVector2Array(284, 6, 563, 254, 554, 263, 518, 231, 518, 770, 53, 770, 53, 231, 17, 264, 8, 254)
+polygon = PackedVector2Array(189, 4, 375, 169, 369, 175, 345, 154, 345, 513, 35, 513, 35, 154, 11, 176, 5, 169)
 
 [node name="AtticWall" parent="Background" instance=ExtResource("7_ccv1v")]
 texture_filter = 1
 texture_repeat = 2
-position = Vector2(3, 12)
+position = Vector2(2, 8)
 color = Color(0.474345, 0.625949, 1, 0.552941)
 texture = ExtResource("4_q54io")
-texture_scale = Vector2(5.3, 5.3)
-polygon = PackedVector2Array(68, 219, 284, 24, 504, 219, 504, 305, 68, 305)
+texture_scale = Vector2(3.5, 3.5)
+polygon = PackedVector2Array(45, 146, 189, 16, 336, 146, 336, 203, 45, 203)
 
 [node name="Wall" parent="Background" instance=ExtResource("7_ccv1v")]
 texture_filter = 1
 texture_repeat = 2
-position = Vector2(3, 12)
+position = Vector2(2, 8)
 color = Color(0.85, 0.733975, 0.5185, 0.478431)
 texture = ExtResource("4_q54io")
-texture_scale = Vector2(5.3, 5.3)
-polygon = PackedVector2Array(68, 306, 504, 306, 504, 755, 68, 755)
+texture_scale = Vector2(3.5, 3.5)
+polygon = PackedVector2Array(45, 204, 336, 204, 336, 503, 45, 503)
 
 [node name="Logo" type="Sprite2D" parent="Background"]
 texture_filter = 1
-position = Vector2(284, 141)
-scale = Vector2(0.38, 0.38)
+position = Vector2(189, 94)
+scale = Vector2(0.25, 0.25)
 texture = ExtResource("13_j173s")
 
 [node name="Elevator" type="Node2D" parent="."]
-position = Vector2(105, 330)
+position = Vector2(70, 220)
 script = ExtResource("4_iffau")
 
 [node name="Wallpaper" type="Polygon2D" parent="Elevator"]
@@ -72,18 +73,18 @@ position = Vector2(1, 1)
 texture = ExtResource("2_6k6yx")
 texture_scale = Vector2(3, 3)
 texture_rotation = 0.785398
-polygon = PackedVector2Array(0, 0, 84, 0, 84, 80, 0, 80)
+polygon = PackedVector2Array(0, 0, 56, 0, 56, 53, 0, 53)
 
 [node name="Door" type="Line2D" parent="Elevator"]
 position = Vector2(0, 2.5)
-points = PackedVector2Array(81, 0, 81, 74)
-width = 7.5
+points = PackedVector2Array(54, 0, 54, 49)
+width = 5.0
 default_color = Color(0.720467, 0.720468, 0.720467, 1)
 script = ExtResource("3_3jsbd")
 
 [node name="Frame" type="Line2D" parent="Elevator"]
-points = PackedVector2Array(81, 0, 0, 0, 0, 81, 81, 81)
-width = 7.5
+points = PackedVector2Array(54, 0, 0, 0, 0, 54, 54, 54)
+width = 5.0
 joint_mode = 1
 begin_cap_mode = 1
 end_cap_mode = 1
@@ -92,114 +93,114 @@ end_cap_mode = 1
 
 [node name="HappyResult" type="Node2D" parent="Elevator"]
 visible = false
-position = Vector2(42, 39)
+position = Vector2(28, 26)
 
 [node name="Icon" type="Sprite2D" parent="Elevator/HappyResult"]
-position = Vector2(-14, 0)
-scale = Vector2(0.22, 0.22)
+position = Vector2(-9, 0)
+scale = Vector2(0.15, 0.15)
 texture = ExtResource("10_sj0jc")
 
 [node name="Amount" type="Label" parent="Elevator/HappyResult"]
-offset_left = 1.5
-offset_top = -12.0
-offset_right = 24.0
-offset_bottom = 15.0
+offset_left = 1.0
+offset_top = -8.0
+offset_right = 16.0
+offset_bottom = 10.0
 theme_override_colors/font_color = Color(0, 0.578685, 0.190811, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 18
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
 text = "x4"
 
 [node name="Floors" type="Node2D" parent="."]
-position = Vector2(191, 315)
+position = Vector2(127, 210)
 script = ExtResource("2_pfc4s")
 
 [node name="Floor_1" parent="Floors" instance=ExtResource("1_ec1if")]
-position = Vector2(0, 360)
+position = Vector2(0, 240)
 
 [node name="Floor_2" parent="Floors" instance=ExtResource("1_ec1if")]
-position = Vector2(0, 270)
-
-[node name="Floor_3" parent="Floors" instance=ExtResource("1_ec1if")]
 position = Vector2(0, 180)
 
+[node name="Floor_3" parent="Floors" instance=ExtResource("1_ec1if")]
+position = Vector2(0, 120)
+
 [node name="Floor_4" parent="Floors" instance=ExtResource("1_ec1if")]
-position = Vector2(0, 90)
+position = Vector2(0, 60)
 
 [node name="Floor_5" parent="Floors" instance=ExtResource("1_ec1if")]
 
 [node name="HUD" type="Node2D" parent="."]
-position = Vector2(105, 210)
+position = Vector2(70, 140)
 script = ExtResource("9_oiqtx")
 
 [node name="Money" type="Node2D" parent="HUD"]
-position = Vector2(8, 2)
+position = Vector2(5, 1)
 
 [node name="Icon" type="Sprite2D" parent="HUD/Money"]
-position = Vector2(-14, 0)
-scale = Vector2(0.4, 0.4)
+position = Vector2(-9, 0)
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("10_sj0jc")
 centered = false
 
 [node name="Amount" type="Label" parent="HUD/Money"]
-offset_left = 37.5
-offset_top = -4.5
-offset_right = 79.5
-offset_bottom = 30.0
+offset_left = 25.0
+offset_top = -3.0
+offset_right = 53.0
+offset_bottom = 20.0
 theme = ExtResource("13_mf7yv")
 theme_override_colors/font_color = Color(0, 0.578685, 0.190811, 1)
 theme_override_colors/font_shadow_color = Color(0, 0.578685, 0.190811, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
-theme_override_constants/outline_size = 5
+theme_override_constants/outline_size = 3
 text = "200"
 horizontal_alignment = 2
 
 [node name="Total" type="Label" parent="HUD/Money"]
-offset_left = 81.0
-offset_top = -4.5
-offset_right = 141.0
-offset_bottom = 30.0
+offset_left = 54.0
+offset_top = -3.0
+offset_right = 94.0
+offset_bottom = 20.0
 theme = ExtResource("13_mf7yv")
 text = "/200"
 
 [node name="Angries" type="Node2D" parent="HUD"]
-position = Vector2(153, -3)
+position = Vector2(102, -2)
 
 [node name="Icon" type="Sprite2D" parent="HUD/Angries"]
-position = Vector2(8, 0)
-scale = Vector2(0.38, 0.38)
+position = Vector2(5, 0)
+scale = Vector2(0.25, 0.25)
 texture = ExtResource("14_3f3du")
 centered = false
 
 [node name="Amount" type="Label" parent="HUD/Angries"]
-offset_left = 43.5
-offset_right = 72.0
-offset_bottom = 34.5
+offset_left = 29.0
+offset_right = 48.0
+offset_bottom = 23.0
 theme = ExtResource("13_mf7yv")
 theme_override_colors/font_color = Color(0.76, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(0.76, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
-theme_override_constants/outline_size = 5
+theme_override_constants/outline_size = 3
 text = "10"
 horizontal_alignment = 2
 
 [node name="Total" type="Label" parent="HUD/Angries"]
-offset_left = 73.5
-offset_right = 133.5
-offset_bottom = 34.5
+offset_left = 49.0
+offset_right = 89.0
+offset_bottom = 23.0
 theme = ExtResource("13_mf7yv")
 text = "/10"
 
 [node name="Level" type="Node2D" parent="HUD"]
-position = Vector2(290, 14)
+position = Vector2(193, 9)
 
 [node name="Icon" type="Sprite2D" parent="HUD/Level"]
-position = Vector2(0, -9)
-scale = Vector2(0.68, 0.68)
+position = Vector2(0, -6)
+scale = Vector2(0.45, 0.45)
 texture = ExtResource("11_pd4if")
 centered = false
 

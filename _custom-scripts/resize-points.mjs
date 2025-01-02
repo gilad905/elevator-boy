@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-// process.argv.splice(2, Infinity, "./scenes/main.tscn", 1.5, 39);
+process.argv.splice(2, Infinity, "./scenes/main.tscn", 1.5);
 
 let [file, factor, lineNum, decimals] = process.argv.slice(2);
 if (!file || !factor) {
@@ -19,13 +19,15 @@ resize();
 function resize() {
   const lines = text.split("\n");
   if (lineNum) {
-    resize(lines, lineNum);
+    resizeLine(lines, lineNum);
   } else {
     console.log("resizing entire file");
-    const pat = /^(?<=[^=]*)(position|scale|polygon|width|points|_size|offset)/;
+    const pat =
+      /(?<=^[^=]*)(position|scale|polygon|width|points|_size|offset|region_rect)/;
     for (let i = 0; i < lines.length; i++) {
-      if (pat.test(lines[i])) {
-        resize(lines, i + 1);
+      const line = lines[i];
+      if (pat.test(line)) {
+        resizeLine(lines, i + 1);
       }
     }
   }
@@ -35,8 +37,7 @@ function resize() {
 
 function resizeLine(lines, lineNum) {
   const line = lines[lineNum - 1];
-  console.log("original:");
-  console.log(line);
+  console.log("original:", line);
   const chars = line.split("");
   const numsPat = new RegExp(/\b[\d.]+\b/g);
   const matches = [...line.matchAll(numsPat)];
@@ -50,7 +51,6 @@ function resizeLine(lines, lineNum) {
     chars.splice(match.index, match[0].length, ...resized.split(""));
   }
   const resized = chars.join("");
-  console.log("resized:");
-  console.log(resized);
+  console.log("resized:", resized);
   lines.splice(lineNum - 1, 1, resized);
 }
