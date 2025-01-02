@@ -72,16 +72,24 @@ func remove_persons_in_dest() -> void:
 			else:
 				angry_count += 1
 			removed_signal = remove_person(person, is_happy)
-	if happy_count > 0:
-		var money = Global.money_by_happy_count[happy_count]
-		show_happy_result(money)
-		hud.increment_money(money)
-	if angry_count > 0:
-		hud.increment_angries(angry_count)
+	update_hud(happy_count, angry_count)
 	if removed_signal:
 		await removed_signal
 		# Global._print("updating positon after removals")
 		update_person_positions()
+
+func update_hud(happy_count: int, angry_count: int) -> void:
+	var money_shift = 0
+	if happy_count > 0:
+		var happy_money = Global.money_by_happy_count[happy_count]
+		show_happy_result(happy_money)
+		money_shift += happy_money
+	if angry_count > 0:
+		var angry_money = Global.angry_money_loss * angry_count
+		money_shift -= angry_money
+		hud.increment_angries(angry_count)
+	if money_shift != 0:
+		hud.increment_money(money_shift)
 
 func is_floor_in_bounds(floor_num: int) -> bool:
 	return floor_num >= 1 and floor_num <= Global.floor_count

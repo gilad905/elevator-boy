@@ -1,8 +1,21 @@
 [gd_scene load_steps=2 format=3 uid="uid://dbck78h2yxa2h"]
 
-[ext_resource type="Texture2D" uid="uid://b3vhrevtalked" path="res://assets/x.png" id="1_6xjn6"]
+[ext_resource type="Texture2D" uid="uid://bwy8vnk6nn1fb" path="res://assets/dollars.png" id="1_ulf74"]
 
-[node name="AngryResult" type="Sprite2D"]
-position = Vector2(10, -8)
+[node name="AngryResult" type="Node2D"]
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(6, -8)
 scale = Vector2(0.15, 0.15)
-texture = ExtResource("1_6xjn6")
+texture = ExtResource("1_ulf74")
+
+[node name="Amount" type="Label" parent="."]
+offset_left = 14.15
+offset_top = -15.2
+offset_right = 29.15
+offset_bottom = 2.8
+theme_override_colors/font_color = Color(0.76, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "-10"

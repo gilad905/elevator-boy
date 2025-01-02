@@ -6,7 +6,8 @@ extends Node
 @export var person_patience_sec: int = 30
 @export var person_result_sec: float = 1.0
 
-@export var money_by_happy_count: Array[int] = [0, 1, 5, 10, 20]
+@export var angry_money_loss: int = 10
+@export var money_by_happy_count: Array[int] = [0, 1, 10, 20, 40]
 
 @export var one_floor_duration_sec: float = 1.0
 @export var door_open_speed: int = 2
