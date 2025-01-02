@@ -19,7 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://d3nwxoaqa8m7h" path="res://assets/emojis/angry_3.png" id="14_3f3du"]
 [ext_resource type="PackedScene" uid="uid://dvwnl8ut4fgso" path="res://scenes/debug_label.tscn" id="14_p4ui5"]
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node2D"]
 script = ExtResource("1_u3v8c")
 
 [node name="Background" type="Node2D" parent="."]
