@@ -61,7 +61,7 @@ func update_debug_dynamic() -> void:
 	$Debug/Dynamic.text = "enter interval: %ss\ntime scale: x%s" % args
 
 func show_overlay_and_reload() -> void:
-	$OverlayPrompt.show()
+	$Overlay.show()
 	var tween = create_tween().tween_property(self, "modulate", Color("4f4f4f"), 1)
 	await tween.finished
 	get_node("/root").set_process_mode(ProcessMode.PROCESS_MODE_DISABLED)
@@ -100,11 +100,11 @@ func _on_speed_span_timer_timeout() -> void:
 	update_debug_dynamic()
 
 func _on_angries_reached() -> void:
-	$OverlayPrompt.text = game_over_prompt
+	$Overlay/Prompt.text = game_over_prompt
 	show_overlay_and_reload()
 
 func _on_money_reached() -> void:
-	$OverlayPrompt.text = level_up_prompt
+	$Overlay/Prompt.text = level_up_prompt
 	Global.current_level += 1
 	show_overlay_and_reload()
 

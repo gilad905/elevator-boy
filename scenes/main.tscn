@@ -216,14 +216,14 @@ theme_override_constants/outline_size = 3
 text = "10
 "
 
-[node name="OverlayPrompt" type="Label" parent="."]
-visible = false
-top_level = true
+[node name="Overlay" type="Control" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Prompt" type="Label" parent="Overlay"]
 theme_override_font_sizes/font_size = 42
 text = "GAME OVER"
 horizontal_alignment = 1
@@ -237,7 +237,7 @@ offset_bottom = 74.0
 
 [node name="Version" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
-text = "{version:12-30 00:09}"
+text = "{version:01-02 02:08}"
 
 [node name="General" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
