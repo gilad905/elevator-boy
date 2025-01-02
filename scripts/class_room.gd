@@ -2,10 +2,6 @@ extends Node2D
 
 var person_limit: int = 0
 var person_start_position: Vector2
-var hud: Node2D
-
-func _ready() -> void:
-	hud = get_node("/root/Main/HUD")
 
 func add_person(person) -> void:
 	person.patience_ended.connect(_on_person_patience_ended)

@@ -34,7 +34,7 @@ script = ExtResource("1_f8nr8")
 
 [node name="Ceiling" parent="." instance=ExtResource("2_5a3d7")]
 color = Color(0.854902, 0.741176, 0.52549, 1)
-polygon = PackedVector2Array(0, 3, 317, 3, 317, 18, 0, 18)
+polygon = PackedVector2Array(0, 3, 316, 3, 316, 18, 0, 18)
 
 [node name="FloorNumFrame" type="AnimatedSprite2D" parent="."]
 position = Vector2(297, 38)

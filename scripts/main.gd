@@ -65,10 +65,10 @@ func show_overlay_and_reload() -> void:
 	$Overlay.show()
 	var tween = create_tween().tween_property($Overlay/ColorRect, "modulate:a", 1, 1)
 	await tween.finished
-	get_node("/root").set_process_mode(ProcessMode.PROCESS_MODE_DISABLED)
+	Nodes.root.set_process_mode(ProcessMode.PROCESS_MODE_DISABLED)
 	get_tree().paused = true
 	await get_tree().create_timer(4).timeout
-	get_node("/root").set_process_mode(ProcessMode.PROCESS_MODE_PAUSABLE)
+	Nodes.root.set_process_mode(ProcessMode.PROCESS_MODE_PAUSABLE)
 	get_tree().paused = false
 	get_tree().reload_current_scene()
 

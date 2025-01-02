@@ -1,10 +1,6 @@
 extends Node
 
 var person_scene = preload("res://scenes/person.tscn")
-var floors
-
-func _ready() -> void:
-	floors = get_node("../Floors")
 
 func add_random_person() -> Node2D:
 	var floor_num = get_random_free_floor_num()
@@ -15,7 +11,7 @@ func add_random_person() -> Node2D:
 	return person
 
 func add_person_at_floor(floor_num: int, dest: int) -> Node2D:
-	var _floor = floors.get_floor(floor_num)
+	var _floor = Nodes.floors.get_floor(floor_num)
 	var person = create_person(dest)
 	_floor.add_person(person)
 	return person
@@ -32,7 +28,7 @@ func get_random_free_floor_num() -> int:
 	return free_num if free_num else 0
 
 func floor_has_room(floor_num: int) -> bool:
-	return floors.get_floor(floor_num).has_room()
+	return Nodes.floors.get_floor(floor_num).has_room()
 
 func get_random_dest(source_floor_num: int) -> int:
 	var random_floor = randi_range(1, Global.floor_count - 1)

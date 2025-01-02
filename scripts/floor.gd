@@ -1,16 +1,11 @@
 extends Room
 
-var floors: Node
-var elevator: Node2D
 var door: Node2D
 var right_edge: int
 const person_y: int = 38
 
 func _ready() -> void:
-	super()
-	floors = get_node("/root/Main/Floors")
-	elevator = get_node("/root/Main/Elevator")
-	door = elevator.get_node("Door")
+	door = Nodes.elevator.get_node("Door")
 	self.person_limit = 4
 	right_edge = get_right_edge()
 	person_start_position = Vector2(right_edge, person_y)
@@ -23,11 +18,12 @@ func get_person_position(i: int) -> Vector2:
 	return Vector2(x, person_y)
 
 func enter_elevator_next():
-	var person = $Persons.get_child(0)
-	if person and not person.is_moving() and elevator.has_room():
-		person.patience_ended.disconnect(_on_person_patience_ended)
-		elevator.add_person(person)
-		update_person_positions()
+	if $Persons.get_child_count() > 0:
+		var person = $Persons.get_child(0)
+		if not person.is_moving() and Nodes.elevator.has_room():
+			person.patience_ended.disconnect(_on_person_patience_ended)
+			Nodes.elevator.add_person(person)
+			update_person_positions()
 
 func set_pressed(is_on: bool) -> void:
 	$FloorNumFrame.frame = 1 if is_on else 0
@@ -45,10 +41,10 @@ func get_right_edge() -> int:
 	return _right_edge
 
 func _on_person_patience_ended(person: Node2D) -> void:
-	hud.increment_angries(1)
-	hud.increment_money(-Global.angry_money_loss)
+	Nodes.hud.increment_angries(1)
+	Nodes.hud.increment_money(-Global.angry_money_loss)
 	await remove_person(person, false)
 	update_person_positions()
 
 func _on_touched() -> void:
-	elevator.go_to_floor(get_index() + 1)
+	Nodes.elevator.go_to_floor(get_index() + 1)
