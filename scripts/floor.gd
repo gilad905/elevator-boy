@@ -4,7 +4,7 @@ var floors: Node
 var elevator: Node2D
 var door: Node2D
 var right_edge: int
-const person_y: int = 25
+const person_y: int = 38
 
 func _ready() -> void:
 	super()

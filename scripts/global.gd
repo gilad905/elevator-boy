@@ -1,7 +1,7 @@
 extends Node
 
-@export var person_radius: int = 10
-@export var person_spacing: int = 5
+@export var person_radius: int = 15
+@export var person_spacing: int = 7
 @export var person_move_speed: int = 120
 @export var person_patience_sec: int = 30
 @export var person_result_sec: float = 1.0

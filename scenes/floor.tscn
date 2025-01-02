@@ -27,36 +27,35 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_euo4v"]
-size = Vector2(289, 49)
+size = Vector2(434, 74)
 
 [node name="Floor" type="Node2D"]
 script = ExtResource("1_f8nr8")
 
 [node name="Ceiling" parent="." instance=ExtResource("2_5a3d7")]
 color = Color(0.854902, 0.741176, 0.52549, 1)
-polygon = PackedVector2Array(0, 2, 211, 2, 211, 12, 0, 12)
+polygon = PackedVector2Array(0, 3, 317, 3, 317, 18, 0, 18)
 
 [node name="FloorNumFrame" type="AnimatedSprite2D" parent="."]
-position = Vector2(198, 25)
-scale = Vector2(0.2, 0.2)
+position = Vector2(297, 38)
+scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_4kdpa")
 
 [node name="FloorNum" type="Label" parent="."]
-offset_left = 189.0
-offset_top = 16.0
-offset_right = 208.0
-offset_bottom = 34.0
+offset_left = 283.5
+offset_top = 24.0
+offset_right = 312.0
+offset_bottom = 51.0
 theme_override_colors/font_outline_color = Color(0, 0.662728, 0, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 27
 text = "1"
 horizontal_alignment = 1
 
 [node name="Persons" type="Node2D" parent="."]
-position = Vector2(0, 13)
+position = Vector2(0, 20)
 
 [node name="TouchScreenButton" type="TouchScreenButton" parent="."]
-position = Vector2(65, 37)
+position = Vector2(98, 56)
 shape = SubResource("RectangleShape2D_euo4v")
-shape_visible = false
 
 [connection signal="pressed" from="TouchScreenButton" to="." method="_on_touched"]

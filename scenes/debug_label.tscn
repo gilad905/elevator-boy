@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://dvwnl8ut4fgso"]
 
 [node name="DebugLabel" type="Label"]
-offset_right = 1.0
-offset_bottom = 177.0
+offset_right = 1.5
+offset_bottom = 265.5
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 21
 text = "DebugLabel"
 horizontal_alignment = 2
 autowrap_mode = 3

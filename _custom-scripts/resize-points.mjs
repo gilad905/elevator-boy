@@ -1,17 +1,20 @@
 import fs from "node:fs";
 import path from "node:path";
 
-process.argv.splice(2, Infinity, "./scenes/main.tscn", 1.5);
+if (process.argv[2] == "hardcoded") {
+  process.argv.splice(2, Infinity, 1.5, "./scenes/main.tscn");
+}
 
-let [file, factor, lineNum, decimals] = process.argv.slice(2);
-if (!file || !factor) {
+let [factor, file, lineNum, decimals] = process.argv.slice(2);
+if (!factor || !file) {
   const cmd = ".\\" + path.relative(".", process.argv[1]);
-  console.error(`Usage: node ${cmd} FILE FACTOR [LINE_NUM] [DECIMALS]`);
+  const args = "hardcoded | (factor file [line_num] [decimals])";
+  console.error(`Usage: node ${cmd} ${args}`);
   process.exit(1);
 }
 decimals ??= -1;
 console.log(file);
-// console.log({ file, lineNum, factor, decimals });
+// console.log({ factor, file, lineNum, decimals });
 const text = fs.readFileSync(file, "utf8");
 
 resize();
