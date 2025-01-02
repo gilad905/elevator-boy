@@ -12,15 +12,14 @@ func _process(delta: float) -> void:
 		var target_y = 0 if is_opening else 1
 		if is_equal_approx(scale.y, target_y):
 			scale.y = target_y
-			var target_state = State.open if is_opening else State.closed
-			current_state = target_state
-			state_changed.emit(target_state)
-			if target_state == State.closed:
+			current_state = State.open if is_opening else State.closed
+			state_changed.emit(current_state)
+			if current_state == State.closed:
 				has_closed.emit()
 
 		else:
-			var delta_factor = -1 if is_opening else 1
-			var delta_y = delta * delta_factor * Global.door_open_speed
+			var direction = -1 if is_opening else 1
+			var delta_y = delta * direction * Global.door_open_speed
 			scale.y = clamp(scale.y + delta_y, 0, 1)
 
 func toggle_state() -> void:

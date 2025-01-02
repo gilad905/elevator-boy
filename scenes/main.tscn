@@ -13,11 +13,13 @@
 [ext_resource type="Script" path="res://scripts/hud.gd" id="9_oiqtx"]
 [ext_resource type="Texture2D" uid="uid://bwy8vnk6nn1fb" path="res://assets/dollars.png" id="10_sj0jc"]
 [ext_resource type="Texture2D" uid="uid://s3d8mxmwaxio" path="res://assets/level.png" id="11_pd4if"]
-[ext_resource type="Script" path="res://scripts/global.gd" id="12_3avnd"]
 [ext_resource type="Texture2D" uid="uid://caok8ux6br8x1" path="res://assets/logo.png" id="13_j173s"]
 [ext_resource type="Theme" uid="uid://b5g3ibj2wp6sw" path="res://resources/hud_theme.tres" id="13_mf7yv"]
 [ext_resource type="Texture2D" uid="uid://d3nwxoaqa8m7h" path="res://assets/emojis/angry_3.png" id="14_3f3du"]
 [ext_resource type="PackedScene" uid="uid://dvwnl8ut4fgso" path="res://scenes/debug_label.tscn" id="14_p4ui5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yhpa0"]
+bg_color = Color(3.51354e-06, 0.615785, 0.488622, 1)
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_u3v8c")
@@ -225,25 +227,36 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.607843)
 
-[node name="MarginContainer" type="MarginContainer" parent="Overlay/ColorRect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
-
-[node name="Prompt" type="Label" parent="Overlay/ColorRect/MarginContainer"]
+[node name="Prompt" type="Label" parent="Overlay/ColorRect"]
 unique_name_in_owner = true
 layout_mode = 2
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 555.0
+offset_bottom = 429.0
+size_flags_vertical = 0
 theme_override_font_sizes/font_size = 63
 text = "GAME OVER"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Continue" type="Button" parent="Overlay/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -127.5
+offset_top = 71.0
+offset_right = 128.5
+offset_bottom = 192.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 1, 0.8, 1)
+theme_override_font_sizes/font_size = 42
+theme_override_styles/normal = SubResource("StyleBoxFlat_yhpa0")
+text = "CONTINUE"
 
 [node name="Debug" type="VBoxContainer" parent="."]
 offset_left = 354.0
@@ -253,7 +266,7 @@ offset_bottom = 111.0
 
 [node name="Version" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
-text = "{version:01-02 02:08}"
+text = "{version:01-02 14:08}"
 
 [node name="General" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
@@ -269,9 +282,6 @@ layout_mode = 2
 script = ExtResource("3_ag5il")
 
 [node name="PersonsTimer" type="Timer" parent="Persons"]
-
-[node name="Global" type="Node" parent="."]
-script = ExtResource("12_3avnd")
 
 [connection signal="state_changed" from="Elevator/Door" to="." method="_on_door_state_changed"]
 [connection signal="angries_reached" from="HUD" to="." method="_on_angries_reached"]

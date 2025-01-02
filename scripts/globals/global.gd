@@ -2,15 +2,15 @@ extends Node
 
 @export var person_radius: int = 15
 @export var person_spacing: int = 7
-@export var person_move_speed: int = 120
+@export var person_move_speed: int = 200
 @export var person_patience_sec: int = 30
 @export var person_result_sec: float = 1.0
 
 @export var angry_money_loss: int = 10
 @export var money_by_happy_count: Array[int] = [0, 1, 10, 20, 40]
 
-@export var one_floor_duration_sec: float = 1.0
-@export var door_open_speed: int = 2
+@export var one_floor_duration_sec: float = 0.8
+@export var door_open_speed: int = 3
 
 @export var win_on_amount: int = 150
 @export var lose_on_angries: int = 10
@@ -28,7 +28,7 @@ var current_level: int = 1
 var floor_count: int
 
 func _ready() -> void:
-	floor_count = get_node("/root/Main/Floors").get_child_count()
+	floor_count = Nodes.floors.get_child_count()
 
 func _print(msg: String) -> void:
 	var time = Time.get_time_string_from_system()

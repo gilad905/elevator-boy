@@ -7,9 +7,9 @@ var current_span: int = 1
 var span_duration: float
 
 func _ready() -> void:
+	span_duration = get_span_duration()
 	$Overlay/ColorRect.modulate.a = 0
 	$ElevatorEnterTimer.wait_time = Global.elevator_check_interval_sec
-	span_duration = get_span_duration()
 	$SpeedSpanTimer.wait_time = span_duration
 	$Persons/PersonsTimer.wait_time = Global.person_enter_max_sec
 	load_debug_labels()
@@ -68,9 +68,6 @@ func show_overlay_and_reload() -> void:
 	Nodes.root.set_process_mode(ProcessMode.PROCESS_MODE_DISABLED)
 	get_tree().paused = true
 	await get_tree().create_timer(4).timeout
-	Nodes.root.set_process_mode(ProcessMode.PROCESS_MODE_PAUSABLE)
-	get_tree().paused = false
-	get_tree().reload_current_scene()
 
 func get_span_duration() -> float:
 	var shift = Global.speed_span_level_decrease_sec * (Global.current_level - 1)
@@ -108,6 +105,11 @@ func _on_money_reached() -> void:
 	$Overlay/ColorRect/Prompt.text = level_up_prompt
 	Global.current_level += 1
 	show_overlay_and_reload()
+
+func _on_continue_pressed() -> void:
+	Nodes.root.set_process_mode(ProcessMode.PROCESS_MODE_PAUSABLE)
+	get_tree().paused = false
+	get_tree().reload_current_scene()
 
 func _debug_enter_persons_bug() -> void:
 	print(Global._temp)
