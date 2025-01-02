@@ -8,9 +8,9 @@ var persons_offset: Vector2
 var inner_size: Vector2
 
 func _ready() -> void:
+	super()
 	self.person_limit = 4
 	current_floor_num = Global.floor_count
-	hud = get_node("/root/Main/HUD")
 	floors = get_node("/root/Main/Floors")
 	floors.set_floor_pressed(current_floor_num)
 	var floor_1 = floors.get_node("Floor_1")

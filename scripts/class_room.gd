@@ -2,7 +2,7 @@ extends Node2D
 
 var person_limit: int = 0
 var person_start_position: Vector2
-var hud
+var hud: Node2D
 
 func _ready() -> void:
 	hud = get_node("/root/Main/HUD")

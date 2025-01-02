@@ -7,6 +7,7 @@ var right_edge: int
 const person_y: int = 25
 
 func _ready() -> void:
+	super()
 	floors = get_node("/root/Main/Floors")
 	elevator = get_node("/root/Main/Elevator")
 	door = elevator.get_node("Door")
@@ -44,7 +45,8 @@ func get_right_edge() -> int:
 	return _right_edge
 
 func _on_person_patience_ended(person: Node2D) -> void:
-	get_node("/root/Main/HUD").increment_angries(1)
+	hud.increment_angries(1)
+	hud.increment_money(-Global.angry_money_loss)
 	await remove_person(person, false)
 	update_person_positions()
 
