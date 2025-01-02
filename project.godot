@@ -26,7 +26,6 @@ window/size/viewport_width=575
 window/size/viewport_height=780
 window/size/initial_position_type=3
 window/stretch/mode="canvas_items"
-window/stretch/scale=1.5
 window/handheld/orientation=1
 
 [gui]

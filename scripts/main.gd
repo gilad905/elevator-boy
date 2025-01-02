@@ -7,6 +7,7 @@ var current_span: int = 1
 var span_duration: float
 
 func _ready() -> void:
+	$Overlay/ColorRect.modulate.a = 0
 	$ElevatorEnterTimer.wait_time = Global.elevator_check_interval_sec
 	span_duration = get_span_duration()
 	$SpeedSpanTimer.wait_time = span_duration
@@ -62,7 +63,7 @@ func update_debug_dynamic() -> void:
 
 func show_overlay_and_reload() -> void:
 	$Overlay.show()
-	var tween = create_tween().tween_property(self, "modulate", Color("4f4f4f"), 1)
+	var tween = create_tween().tween_property($Overlay/ColorRect, "modulate:a", 1, 1)
 	await tween.finished
 	get_node("/root").set_process_mode(ProcessMode.PROCESS_MODE_DISABLED)
 	get_tree().paused = true
@@ -100,11 +101,11 @@ func _on_speed_span_timer_timeout() -> void:
 	update_debug_dynamic()
 
 func _on_angries_reached() -> void:
-	$Overlay/Prompt.text = game_over_prompt
+	$Overlay/ColorRect/Prompt.text = game_over_prompt
 	show_overlay_and_reload()
 
 func _on_money_reached() -> void:
-	$Overlay/Prompt.text = level_up_prompt
+	$Overlay/ColorRect/Prompt.text = level_up_prompt
 	Global.current_level += 1
 	show_overlay_and_reload()
 
