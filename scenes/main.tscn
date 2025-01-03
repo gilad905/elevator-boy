@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b4x3k3rw7jlkp"]
+[gd_scene load_steps=20 format=3 uid="uid://b4x3k3rw7jlkp"]
 
 [ext_resource type="PackedScene" uid="uid://6ump4l8coktj" path="res://scenes/floor.tscn" id="1_ec1if"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_u3v8c"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://scripts/elevator.gd" id="4_iffau"]
 [ext_resource type="Texture2D" uid="uid://b4e56rixu0o0y" path="res://assets/patterns/attic.png" id="4_q54io"]
 [ext_resource type="PackedScene" uid="uid://cx6ocur83tfii" path="res://scenes/framed_polygon.tscn" id="7_ccv1v"]
+[ext_resource type="Script" path="res://scripts/mover.gd" id="7_q8a83"]
 [ext_resource type="Script" path="res://scripts/hud.gd" id="9_oiqtx"]
 [ext_resource type="Texture2D" uid="uid://bwy8vnk6nn1fb" path="res://assets/dollars.png" id="10_sj0jc"]
 [ext_resource type="Texture2D" uid="uid://s3d8mxmwaxio" path="res://assets/level.png" id="11_pd4if"]
@@ -66,6 +67,9 @@ texture = ExtResource("13_j173s")
 [node name="Elevator" type="Node2D" parent="."]
 position = Vector2(105, 330)
 script = ExtResource("4_iffau")
+
+[node name="Mover" type="Node" parent="Elevator"]
+script = ExtResource("7_q8a83")
 
 [node name="Wallpaper" type="Polygon2D" parent="Elevator"]
 modulate = Color(0.489622, 0.489622, 0.489622, 1)
