@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b4x3k3rw7jlkp"]
+[gd_scene load_steps=20 format=3 uid="uid://b4x3k3rw7jlkp"]
 
 [ext_resource type="PackedScene" uid="uid://6ump4l8coktj" path="res://scenes/floor.tscn" id="1_ec1if"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_u3v8c"]
@@ -17,6 +17,20 @@
 [ext_resource type="Theme" uid="uid://b5g3ibj2wp6sw" path="res://resources/hud_theme.tres" id="13_mf7yv"]
 [ext_resource type="Texture2D" uid="uid://d3nwxoaqa8m7h" path="res://assets/emojis/angry_3.png" id="14_3f3du"]
 [ext_resource type="PackedScene" uid="uid://dvwnl8ut4fgso" path="res://scenes/debug_label.tscn" id="14_p4ui5"]
+
+[sub_resource type="GDScript" id="GDScript_m30by"]
+script/source = "extends Node
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yhpa0"]
 bg_color = Color(3.51354e-06, 0.615785, 0.488622, 1)
@@ -59,13 +73,16 @@ polygon = PackedVector2Array(68, 306, 504, 306, 504, 755, 68, 755)
 
 [node name="Logo" type="Sprite2D" parent="Background"]
 texture_filter = 1
-position = Vector2(284, 141)
+position = Vector2(285, 122)
 scale = Vector2(0.38, 0.38)
 texture = ExtResource("13_j173s")
 
 [node name="Elevator" type="Node2D" parent="."]
 position = Vector2(105, 330)
 script = ExtResource("4_iffau")
+
+[node name="Mover" type="Node" parent="Elevator"]
+script = SubResource("GDScript_m30by")
 
 [node name="Wallpaper" type="Polygon2D" parent="Elevator"]
 modulate = Color(0.489622, 0.489622, 0.489622, 1)
@@ -219,6 +236,7 @@ text = "10
 
 [node name="Overlay" type="ColorRect" parent="."]
 process_mode = 2
+visible = false
 offset_right = 580.0
 offset_bottom = 780.0
 color = Color(0, 0, 0, 0.607843)
@@ -262,7 +280,7 @@ offset_bottom = 111.0
 
 [node name="Version" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
-text = "{version:01-02 14:08}"
+text = "{version:01-03 13:12}"
 
 [node name="General" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
@@ -270,19 +288,19 @@ layout_mode = 2
 [node name="Dynamic" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
 
-[node name="ElevatorEnterTimer" type="Timer" parent="."]
-
-[node name="SpeedSpanTimer" type="Timer" parent="."]
-
 [node name="Persons" type="Node" parent="."]
 script = ExtResource("3_ag5il")
 
 [node name="PersonsTimer" type="Timer" parent="Persons"]
 
+[node name="ElevatorEnterTimer" type="Timer" parent="."]
+
+[node name="SpeedSpanTimer" type="Timer" parent="."]
+
 [connection signal="state_changed" from="Elevator/Door" to="." method="_on_door_state_changed"]
 [connection signal="angries_reached" from="HUD" to="." method="_on_angries_reached"]
 [connection signal="money_reached" from="HUD" to="." method="_on_money_reached"]
 [connection signal="pressed" from="Overlay/Continue" to="." method="_on_continue_pressed"]
+[connection signal="timeout" from="Persons/PersonsTimer" to="." method="_on_persons_timer_timeout"]
 [connection signal="timeout" from="ElevatorEnterTimer" to="." method="_on_elevator_enter_timer_timeout"]
 [connection signal="timeout" from="SpeedSpanTimer" to="." method="_on_speed_span_timer_timeout"]
-[connection signal="timeout" from="Persons/PersonsTimer" to="." method="_on_persons_timer_timeout"]

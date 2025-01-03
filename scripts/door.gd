@@ -19,7 +19,7 @@ func _process(delta: float) -> void:
 
 		else:
 			var direction = -1 if is_opening else 1
-			var delta_y = delta * direction * Global.door_open_speed
+			var delta_y = delta * direction * Global.door_speed
 			scale.y = clamp(scale.y + delta_y, 0, 1)
 
 func toggle_state() -> void:
