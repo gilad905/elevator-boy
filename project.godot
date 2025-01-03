@@ -23,7 +23,7 @@ Room="*res://scripts/class_room.gd"
 
 [display]
 
-window/size/viewport_width=575
+window/size/viewport_width=580
 window/size/viewport_height=780
 window/size/initial_position_type=3
 window/stretch/mode="canvas_items"

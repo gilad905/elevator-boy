@@ -6,7 +6,7 @@ var hud: Node2D
 var floors: Node2D
 var elevator: Node2D
 
-func _ready() -> void:
+func intialize() -> void:
 	root = get_node("/root")
 	persons = root.get_node("Main/Persons")
 	hud = root.get_node("Main/HUD")

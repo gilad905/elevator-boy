@@ -6,9 +6,12 @@ var version_pat = RegEx.create_from_string("\\{version:([^}]*)\\}")
 var current_span: int = 1
 var span_duration: float
 
+func _enter_tree() -> void:
+	Nodes.intialize()
+
 func _ready() -> void:
 	span_duration = get_span_duration()
-	$Overlay/ColorRect.modulate.a = 0
+	$Overlay.modulate.a = 0
 	$ElevatorEnterTimer.wait_time = Global.elevator_check_interval_sec
 	$SpeedSpanTimer.wait_time = span_duration
 	$Persons/PersonsTimer.wait_time = Global.person_enter_max_sec
@@ -16,11 +19,11 @@ func _ready() -> void:
 	# _debug_enter_persons_bug()
 	# return
 
-	await get_tree().create_timer(1).timeout
-	# _on_money_reached()
+	await get_tree().create_timer(1, false).timeout
 	_on_persons_timer_timeout()
 	$SpeedSpanTimer.start()
 	$Persons/PersonsTimer.start()
+	# _debug_overlay()
 
 func _process(_delta: float) -> void:
 	if Input.is_action_pressed("elevator_move_up"):
@@ -61,13 +64,10 @@ func update_debug_dynamic() -> void:
 	var args = [$Persons/PersonsTimer.wait_time, Engine.get_time_scale()]
 	$Debug/Dynamic.text = "enter interval: %ss\ntime scale: x%s" % args
 
-func show_overlay_and_reload() -> void:
-	$Overlay.show()
-	var tween = create_tween().tween_property($Overlay/ColorRect, "modulate:a", 1, 1)
-	await tween.finished
-	Nodes.root.set_process_mode(ProcessMode.PROCESS_MODE_DISABLED)
+func show_overlay() -> void:
 	get_tree().paused = true
-	await get_tree().create_timer(4).timeout
+	$Overlay.show()
+	$Overlay.create_tween().tween_property($Overlay, "modulate:a", 1, 1)
 
 func get_span_duration() -> float:
 	var shift = Global.speed_span_level_decrease_sec * (Global.current_level - 1)
@@ -98,16 +98,15 @@ func _on_speed_span_timer_timeout() -> void:
 	update_debug_dynamic()
 
 func _on_angries_reached() -> void:
-	$Overlay/ColorRect/Prompt.text = game_over_prompt
-	show_overlay_and_reload()
+	$Overlay/Prompt.text = game_over_prompt
+	show_overlay()
 
 func _on_money_reached() -> void:
-	$Overlay/ColorRect/Prompt.text = level_up_prompt
+	$Overlay/Prompt.text = level_up_prompt
 	Global.current_level += 1
-	show_overlay_and_reload()
+	show_overlay()
 
 func _on_continue_pressed() -> void:
-	Nodes.root.set_process_mode(ProcessMode.PROCESS_MODE_PAUSABLE)
 	get_tree().paused = false
 	get_tree().reload_current_scene()
 
@@ -134,3 +133,7 @@ func _debug_enter_persons_bug() -> void:
 	Global._temp += 0.1
 
 	get_tree().reload_current_scene()
+
+func _debug_overlay() -> void:
+	await get_tree().create_timer(1, false).timeout
+	_on_money_reached()

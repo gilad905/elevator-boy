@@ -39,7 +39,7 @@ func start_patience_tween() -> void:
 
 func add_face_timer(percent: int, state: String) -> void:
 	var sec = Global.person_patience_sec * percent / 100.0
-	var timer = get_tree().create_timer(sec)
+	var timer = get_tree().create_timer(sec, false)
 	timer.timeout.connect($Face.play.bind(state))
 	face_timers.append(timer)
 
