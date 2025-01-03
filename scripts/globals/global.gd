@@ -9,7 +9,7 @@ extends Node
 @export var angry_money_loss: int = 10
 @export var money_by_happy_count: Array[int] = [0, 1, 10, 20, 40]
 
-@export var elevator_speed: int = 3
+@export var one_floor_duration_sec: float = 0.8
 @export var door_open_speed: int = 3
 
 @export var win_on_amount: int = 150
