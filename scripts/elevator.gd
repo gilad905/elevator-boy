@@ -1,6 +1,7 @@
 extends Room
 
-var current_floor_num: int
+const MOVING: int = -1
+var current_floor_num: int = MOVING
 var persons_offset: Vector2
 var inner_size: Vector2
 
@@ -17,21 +18,19 @@ func go_to_floor(floor_num: int) -> void:
 		$Door.toggle_state()
 		return
 
-	assert(is_floor_in_bounds(floor_num), "floor out of bounds")
-
 	Nodes.floors.set_floor_pressed(floor_num)
 	if $Door.current_state != $Door.State.closed:
 		$Door.set_state($Door.State.closing)
 		await $Door.has_closed
 
+	current_floor_num = MOVING
 	await $Mover.move_to(floor_num)
-
-	$Door.set_state($Door.State.opening)
 	current_floor_num = floor_num
+	$Door.set_state($Door.State.opening)
 
 func move_one_floor(go_up: bool) -> void:
 	var target_floor: int = current_floor_num + (1 if go_up else -1)
-	if is_floor_in_bounds(target_floor):
+	if Nodes.floors.floor_exists(target_floor):
 		go_to_floor(target_floor)
 
 func get_person_position(i: int) -> Vector2:
@@ -72,9 +71,6 @@ func update_hud(happy_count: int, angry_count: int) -> void:
 	if money_shift != 0:
 		Nodes.hud.increment_money(money_shift)
 
-func is_floor_in_bounds(floor_num: int) -> bool:
-	return floor_num >= 1 and floor_num <= Global.floor_count
-
 func show_happy_result(money: int) -> void:
 	$HappyResult/Amount.text = "x" + str(money)
 	$HappyResult.show()
@@ -94,5 +90,5 @@ func add_person(person) -> void:
 	super(person)
 
 func _on_door_toggle_pressed() -> void:
-	if not is_moving:
+	if current_floor_num != MOVING:
 		$Door.toggle_state()

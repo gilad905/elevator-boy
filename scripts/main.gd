@@ -86,6 +86,7 @@ func _on_door_state_changed(state: int) -> void:
 
 func _on_elevator_enter_timer_timeout():
 	var floor_num = $Elevator.current_floor_num
+	assert($Floors.floor_exists(floor_num), "floor %s doesn't exist" % floor_num)
 	var _floor = $Floors.get_floor(floor_num)
 	_floor.enter_elevator_next()
 

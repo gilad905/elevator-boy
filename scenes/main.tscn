@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://scripts/elevator.gd" id="4_iffau"]
 [ext_resource type="Texture2D" uid="uid://b4e56rixu0o0y" path="res://assets/patterns/attic.png" id="4_q54io"]
 [ext_resource type="PackedScene" uid="uid://cx6ocur83tfii" path="res://scenes/framed_polygon.tscn" id="7_ccv1v"]
+[ext_resource type="Script" path="res://scripts/elevator_mover.gd" id="7_jwpgg"]
 [ext_resource type="Script" path="res://scripts/hud.gd" id="9_oiqtx"]
 [ext_resource type="Texture2D" uid="uid://bwy8vnk6nn1fb" path="res://assets/dollars.png" id="10_sj0jc"]
 [ext_resource type="Texture2D" uid="uid://s3d8mxmwaxio" path="res://assets/level.png" id="11_pd4if"]
@@ -17,20 +18,6 @@
 [ext_resource type="Theme" uid="uid://b5g3ibj2wp6sw" path="res://resources/hud_theme.tres" id="13_mf7yv"]
 [ext_resource type="Texture2D" uid="uid://d3nwxoaqa8m7h" path="res://assets/emojis/angry_3.png" id="14_3f3du"]
 [ext_resource type="PackedScene" uid="uid://dvwnl8ut4fgso" path="res://scenes/debug_label.tscn" id="14_p4ui5"]
-
-[sub_resource type="GDScript" id="GDScript_m30by"]
-script/source = "extends Node
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yhpa0"]
 bg_color = Color(3.51354e-06, 0.615785, 0.488622, 1)
@@ -60,7 +47,7 @@ position = Vector2(3, 12)
 color = Color(0.474345, 0.625949, 1, 0.552941)
 texture = ExtResource("4_q54io")
 texture_scale = Vector2(5.3, 5.3)
-polygon = PackedVector2Array(68, 219, 284, 24, 504, 219, 504, 305, 68, 305)
+polygon = PackedVector2Array(68, 219, 284, 24, 504, 219, 504, 306, 68, 306)
 
 [node name="Wall" parent="Background" instance=ExtResource("7_ccv1v")]
 texture_filter = 1
@@ -82,7 +69,7 @@ position = Vector2(105, 330)
 script = ExtResource("4_iffau")
 
 [node name="Mover" type="Node" parent="Elevator"]
-script = SubResource("GDScript_m30by")
+script = ExtResource("7_jwpgg")
 
 [node name="Wallpaper" type="Polygon2D" parent="Elevator"]
 modulate = Color(0.489622, 0.489622, 0.489622, 1)
@@ -172,7 +159,7 @@ theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/outline_size = 5
-text = "200"
+text = "100"
 horizontal_alignment = 2
 
 [node name="Total" type="Label" parent="HUD/Money"]
@@ -181,14 +168,14 @@ offset_top = -4.5
 offset_right = 141.0
 offset_bottom = 30.0
 theme = ExtResource("13_mf7yv")
-text = "/200"
+text = "/100"
 
 [node name="Angries" type="Node2D" parent="HUD"]
 position = Vector2(153, -3)
 
 [node name="Icon" type="Sprite2D" parent="HUD/Angries"]
-position = Vector2(8, 0)
-scale = Vector2(0.38, 0.38)
+position = Vector2(8, 1)
+scale = Vector2(0.35, 0.35)
 texture = ExtResource("14_3f3du")
 centered = false
 
@@ -203,7 +190,7 @@ theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/outline_size = 5
-text = "10"
+text = "5"
 horizontal_alignment = 2
 
 [node name="Total" type="Label" parent="HUD/Angries"]
@@ -211,7 +198,7 @@ offset_left = 73.5
 offset_right = 133.5
 offset_bottom = 34.5
 theme = ExtResource("13_mf7yv")
-text = "/10"
+text = "/5"
 
 [node name="Level" type="Node2D" parent="HUD"]
 position = Vector2(290, 14)
@@ -280,7 +267,7 @@ offset_bottom = 111.0
 
 [node name="Version" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
-text = "{version:01-03 13:12}"
+text = "{version:01-04 15:21}"
 
 [node name="General" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
