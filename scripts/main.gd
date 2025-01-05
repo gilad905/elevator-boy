@@ -74,7 +74,7 @@ func get_span_duration() -> float:
 	return clamp(Global.speed_span_max_sec - shift, Global.speed_span_min_sec, INF)
 
 func _on_persons_timer_timeout() -> void:
-	$Persons.add_random_person()
+	$Persons.add_random_npc()
 
 func _on_door_state_changed(state: int) -> void:
 	if state == $Elevator/Door.State.open:

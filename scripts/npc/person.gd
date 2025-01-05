@@ -5,6 +5,10 @@ const angry_result = preload("res://scenes/angry_result.tscn")
 var dest: int = -1
 var face_timers = []
 
+func _ready() -> void:
+	npcType = Global.NpcType.person
+	super()
+
 func _to_string() -> String:
 	return "%s (%s)" % [get_instance_id(), dest]
 
@@ -25,7 +29,7 @@ func add_face_timer(percent: int, state: String) -> void:
 	timer.timeout.connect($Face.play.bind(state))
 	face_timers.append(timer)
 
-func remove_person(is_happy: bool) -> Signal:
+func remove_with_result(is_happy: bool) -> Signal:
 	remove()
 	for timer in face_timers:
 		var connections = timer.timeout.get_connections()
@@ -48,4 +52,4 @@ func remove_person(is_happy: bool) -> Signal:
 
 func _debug_test_result(is_happy: bool) -> void:
 	await get_tree().create_timer(1).timeout
-	remove_person(is_happy)
+	remove_with_result(is_happy)

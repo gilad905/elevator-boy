@@ -27,12 +27,15 @@ func has_room() -> bool:
 func remove_person(person: Node2D, is_happy: bool):
 	person.patience_ended.disconnect(_on_person_patience_ended)
 	# Global._print("starting remove %s" % person)
-	var removed = person.remove_person(is_happy)
+	var removed = person.remove_with_result(is_happy)
 	removed.connect(_remove_person_node.bind(person))
 	return removed
 
 func _on_person_patience_ended(_person: Node2D) -> void:
-	pass
+	if _person.npcType == Global.NpcType.bomb:
+		for person in $Persons.get_children():
+			if person.npcType != Global.NpcType.bomb:
+				person.remove_person(false)
 
 func _remove_person_node(person: Node2D) -> void:
 	# Global._print("removing node %s" % person)

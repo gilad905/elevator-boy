@@ -1,16 +1,24 @@
 extends Node
 
 var person_scene = preload("res://scenes/person.tscn")
+var bomb_scene = preload("res://scenes/bomb.tscn")
 
-func add_random_person() -> Node2D:
+func add_random_npc() -> Node2D:
 	var floor_num = get_random_free_floor_num()
 	if not floor_num:
 		return
 	var is_bomb = false
-	# var is_bomb = randi() % Global.bomb_one_in == 0
-	var dest = -1 if is_bomb else get_random_dest(floor_num)
-	var person = add_person_at_floor(floor_num, dest)
-	return person
+	if Global.bomb_one_in > 0:
+		is_bomb = randi() % Global.bomb_one_in == 0
+	var npc
+	if is_bomb:
+		var _floor = Nodes.floors.get_floor(floor_num)
+		npc = bomb_scene.instantiate()
+		_floor.add_person(npc)
+	else:
+		var dest = get_random_dest(floor_num)
+		add_person_at_floor(floor_num, dest)
+	return npc
 
 func add_person_at_floor(floor_num: int, dest: int) -> Node2D:
 	var _floor = Nodes.floors.get_floor(floor_num)
@@ -18,7 +26,7 @@ func add_person_at_floor(floor_num: int, dest: int) -> Node2D:
 	_floor.add_person(person)
 	return person
 
-func create_person(dest: int) -> Node:
+func create_person(dest: int) -> Node2D:
 	var person = person_scene.instantiate()
 	person.init(dest)
 	return person

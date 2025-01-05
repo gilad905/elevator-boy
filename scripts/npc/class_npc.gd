@@ -11,7 +11,8 @@ static var circle_center = Vector2.ONE * radius
 var is_patience_ended: bool = false
 var patience_tween: Tween
 var movement_tween: Tween
-var current_angle: float = 0
+var current_angle: float = zero_angle
+var npcType: Global.NpcType
 
 func _ready() -> void:
 	start_patience_tween()
