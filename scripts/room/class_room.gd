@@ -18,11 +18,11 @@ func update_person_position(person: Node2D):
 	person.move_to(_position)
 
 func update_person_positions() -> void:
-	for person in $Persons.get_children():
+	for person in $NPCs.get_children():
 		update_person_position(person)
 
 func has_room() -> bool:
-	return $Persons.get_child_count() < person_limit
+	return $NPCs.get_child_count() < person_limit
 
 func remove_person(person: Node2D, is_happy: bool):
 	person.patience_ended.disconnect(_on_person_patience_ended)
@@ -33,11 +33,11 @@ func remove_person(person: Node2D, is_happy: bool):
 
 func _on_person_patience_ended(_person: Node2D) -> void:
 	if _person.npcType == Global.NpcType.bomb:
-		for person in $Persons.get_children():
+		for person in $NPCs.get_children():
 			if person.npcType != Global.NpcType.bomb:
 				person.remove_person(false)
 
 func _remove_person_node(person: Node2D) -> void:
 	# Global._print("removing node %s" % person)
-	$Persons.remove_child(person)
+	$NPCs.remove_child(person)
 	person.queue_free()

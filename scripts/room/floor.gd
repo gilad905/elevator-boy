@@ -18,8 +18,8 @@ func get_person_position(i: int) -> Vector2:
 	return Vector2(x, person_y)
 
 func enter_elevator_next():
-	if $Persons.get_child_count() > 0:
-		var person = $Persons.get_child(0)
+	if $NPCs.get_child_count() > 0:
+		var person = $NPCs.get_child(0)
 		if not person.is_moving() and Nodes.elevator.has_room():
 			person.patience_ended.disconnect(_on_person_patience_ended)
 			Nodes.elevator.add_person(person)
@@ -30,7 +30,7 @@ func set_pressed(is_on: bool) -> void:
 
 func add_person(person) -> void:
 	assert(has_room(), name + " is full")
-	$Persons.add_child(person)
+	$NPCs.add_child(person)
 	person.position = person_start_position
 	super(person)
 

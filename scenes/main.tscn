@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://gt4yacnifn31" path="res://assets/patterns/wallpaper.png" id="2_6k6yx"]
 [ext_resource type="Script" path="res://scripts/floors.gd" id="2_pfc4s"]
 [ext_resource type="Script" path="res://scripts/door.gd" id="3_3jsbd"]
-[ext_resource type="Script" path="res://scripts/persons.gd" id="3_ag5il"]
 [ext_resource type="Script" path="res://scripts/room/elevator.gd" id="4_iffau"]
 [ext_resource type="Texture2D" uid="uid://b4e56rixu0o0y" path="res://assets/patterns/attic.png" id="4_q54io"]
 [ext_resource type="PackedScene" uid="uid://cx6ocur83tfii" path="res://scenes/framed_polygon.tscn" id="7_ccv1v"]
@@ -18,6 +17,7 @@
 [ext_resource type="Theme" uid="uid://b5g3ibj2wp6sw" path="res://resources/hud_theme.tres" id="13_mf7yv"]
 [ext_resource type="Texture2D" uid="uid://d3nwxoaqa8m7h" path="res://assets/emojis/angry_3.png" id="14_3f3du"]
 [ext_resource type="PackedScene" uid="uid://dvwnl8ut4fgso" path="res://scenes/debug_label.tscn" id="14_p4ui5"]
+[ext_resource type="Script" path="res://scripts/npcs.gd" id="18_h1uux"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yhpa0"]
 bg_color = Color(3.51354e-06, 0.615785, 0.488622, 1)
@@ -94,7 +94,7 @@ joint_mode = 1
 begin_cap_mode = 1
 end_cap_mode = 1
 
-[node name="Persons" type="Node2D" parent="Elevator"]
+[node name="NPCs" type="Node2D" parent="Elevator"]
 
 [node name="HappyResult" type="Node2D" parent="Elevator"]
 visible = false
@@ -275,10 +275,10 @@ layout_mode = 2
 [node name="Dynamic" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
 
-[node name="Persons" type="Node" parent="."]
-script = ExtResource("3_ag5il")
+[node name="NPCs" type="Node" parent="."]
+script = ExtResource("18_h1uux")
 
-[node name="PersonsTimer" type="Timer" parent="Persons"]
+[node name="NPCsTimer" type="Timer" parent="NPCs"]
 
 [node name="ElevatorEnterTimer" type="Timer" parent="."]
 
@@ -288,6 +288,6 @@ script = ExtResource("3_ag5il")
 [connection signal="angries_reached" from="HUD" to="." method="_on_angries_reached"]
 [connection signal="money_reached" from="HUD" to="." method="_on_money_reached"]
 [connection signal="pressed" from="Overlay/Continue" to="." method="_on_continue_pressed"]
-[connection signal="timeout" from="Persons/PersonsTimer" to="." method="_on_persons_timer_timeout"]
+[connection signal="timeout" from="NPCs/NPCsTimer" to="." method="_on_npcs_timer_timeout"]
 [connection signal="timeout" from="ElevatorEnterTimer" to="." method="_on_elevator_enter_timer_timeout"]
 [connection signal="timeout" from="SpeedSpanTimer" to="." method="_on_speed_span_timer_timeout"]

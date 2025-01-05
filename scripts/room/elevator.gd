@@ -2,7 +2,7 @@ extends "class_room.gd"
 
 const MOVING: int = -1
 var current_floor_num: int = MOVING
-var persons_offset: Vector2
+var npcs_offset: Vector2
 var inner_size: Vector2
 
 func _ready() -> void:
@@ -11,7 +11,7 @@ func _ready() -> void:
 	Nodes.floors.set_floor_pressed(current_floor_num)
 	inner_size.x = $Frame.points[0].x - $Frame.points[1].x - $Frame.width
 	inner_size.y = $Frame.points[3].y - $Frame.points[0].y - $Frame.width
-	persons_offset = Vector2.ONE * ($Frame.width / 2 - Global.patience_radius)
+	npcs_offset = Vector2.ONE * ($Frame.width / 2 - Global.patience_radius)
 
 func go_to_floor(floor_num: int) -> void:
 	if floor_num == current_floor_num:
@@ -37,14 +37,14 @@ func get_person_position(i: int) -> Vector2:
 	var _position = Vector2.ZERO
 	_position.x += 1 if i % 2 else 0
 	_position.y += 1 if i > 1 else 0
-	_position = persons_offset + inner_size / 4 * (_position * 2 + Vector2.ONE)
+	_position = npcs_offset + inner_size / 4 * (_position * 2 + Vector2.ONE)
 	return _position
 
-func remove_persons_in_dest() -> void:
+func remove_npcs_in_dest() -> void:
 	var removed_signal: Signal
 	var happy_count: int = 0
 	var angry_count: int = 0
-	for person in $Persons.get_children():
+	for person in $NPCs.get_children():
 		if person.dest == current_floor_num:
 			var is_happy = not person.is_patience_ended
 			if is_happy:
@@ -76,17 +76,17 @@ func show_happy_result(money: int) -> void:
 	$HappyResult.show()
 	var tween = create_tween()
 	tween.set_parallel(true)
-	Nodes.persons.add_result_tweener(tween, $HappyResult)
+	Nodes.npcs.add_result_tweener(tween, $HappyResult)
 	await tween.finished
 	$HappyResult.hide()
 
 func add_person(person) -> void:
-	# Global._print("adding %s of %s" % [person, $Persons.get_child_count()])
+	# Global._print("adding %s of %s" % [person, $NPCs.get_child_count()])
 	assert(has_room(), name + " is full")
 	if person.get_parent():
-		person.reparent($Persons)
+		person.reparent($NPCs)
 	else:
-		$Persons.add_child(person)
+		$NPCs.add_child(person)
 	super(person)
 
 func _on_door_toggle_pressed() -> void:

@@ -45,7 +45,7 @@ func remove_with_result(is_happy: bool) -> Signal:
 	else:
 		var result = angry_result.instantiate()
 		result.get_node("Amount").text = "-%s" % Global.angry_money_loss
-		Nodes.persons.add_result_tweener(tween, result)
+		Nodes.npcs.add_result_tweener(tween, result)
 		add_child(result)
 
 	return tween.finished
