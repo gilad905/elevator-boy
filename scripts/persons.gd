@@ -6,7 +6,9 @@ func add_random_person() -> Node2D:
 	var floor_num = get_random_free_floor_num()
 	if not floor_num:
 		return
-	var dest = get_random_dest(floor_num)
+	var is_bomb = false
+	# var is_bomb = randi() % Global.bomb_one_in == 0
+	var dest = -1 if is_bomb else get_random_dest(floor_num)
 	var person = add_person_at_floor(floor_num, dest)
 	return person
 
@@ -18,7 +20,7 @@ func add_person_at_floor(floor_num: int, dest: int) -> Node2D:
 
 func create_person(dest: int) -> Node:
 	var person = person_scene.instantiate()
-	person.set_dest(dest)
+	person.init(dest)
 	return person
 
 func get_random_free_floor_num() -> int:

@@ -27,7 +27,7 @@ func has_room() -> bool:
 func remove_person(person: Node2D, is_happy: bool):
 	person.patience_ended.disconnect(_on_person_patience_ended)
 	# Global._print("starting remove %s" % person)
-	var removed = person.remove(is_happy)
+	var removed = person.remove_person(is_happy)
 	removed.connect(_remove_person_node.bind(person))
 	return removed
 

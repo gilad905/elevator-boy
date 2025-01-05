@@ -267,7 +267,7 @@ offset_bottom = 111.0
 
 [node name="Version" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
-text = "{version:01-04 15:21}"
+text = "{version:01-05 13:11}"
 
 [node name="General" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2

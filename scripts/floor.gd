@@ -1,4 +1,4 @@
-extends Room
+extends "res://scripts/classes/class_room.gd"
 
 var door: Node2D
 var right_edge: int
@@ -12,8 +12,8 @@ func _ready() -> void:
 	$FloorNum.text = str(get_index() + 1)
 
 func get_person_position(i: int) -> Vector2:
-	var spacing: int = Global.person_spacing
-	var radius: int = Global.person_radius
+	var spacing: int = Global.npc_spacing
+	var radius: int = Global.patience_radius
 	var x = spacing + (spacing + radius * 2) * i
 	return Vector2(x, person_y)
 
@@ -37,7 +37,7 @@ func add_person(person) -> void:
 func get_right_edge() -> int:
 	var _right_edge = $TouchScreenButton.position.x
 	_right_edge += $TouchScreenButton.shape.size.x / 2
-	_right_edge -= Global.person_radius * 2
+	_right_edge -= Global.patience_radius * 2
 	return _right_edge
 
 func _on_person_patience_ended(person: Node2D) -> void:

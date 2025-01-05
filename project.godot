@@ -19,7 +19,6 @@ config/icon="res://icon.svg"
 
 Nodes="*res://scripts/globals/nodes.gd"
 Global="*res://scripts/globals/global.gd"
-Room="*res://scripts/class_room.gd"
 
 [display]
 

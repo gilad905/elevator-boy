@@ -1,9 +1,9 @@
 extends Node
 
-@export var person_radius: int = 15
-@export var person_spacing: int = 7
-@export var person_move_speed: int = 200
-@export var person_patience_sec: int = 30
+@export var npc_spacing: int = 7
+@export var npc_speed: int = 200
+@export var patience_radius: int = 15
+@export var patience_sec: int = 30
 @export var person_result_sec: float = 1.0
 
 @export var angry_money_loss: int = 10
@@ -18,6 +18,8 @@ extends Node
 @export var person_enter_max_sec: float = 5.0
 @export var person_enter_min_sec: float = 1.5
 @export var span_timer_decrease_sec: float = 0.2
+
+@export var bomb_one_in = 0
 
 @export var elevator_check_interval_sec: float = 0.5
 @export var speed_span_max_sec: float = 45.0

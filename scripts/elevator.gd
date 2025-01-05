@@ -1,4 +1,4 @@
-extends Room
+extends "res://scripts/classes/class_room.gd"
 
 const MOVING: int = -1
 var current_floor_num: int = MOVING
@@ -11,7 +11,7 @@ func _ready() -> void:
 	Nodes.floors.set_floor_pressed(current_floor_num)
 	inner_size.x = $Frame.points[0].x - $Frame.points[1].x - $Frame.width
 	inner_size.y = $Frame.points[3].y - $Frame.points[0].y - $Frame.width
-	persons_offset = Vector2.ONE * ($Frame.width / 2 - Global.person_radius)
+	persons_offset = Vector2.ONE * ($Frame.width / 2 - Global.patience_radius)
 
 func go_to_floor(floor_num: int) -> void:
 	if floor_num == current_floor_num:
