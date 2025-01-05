@@ -24,20 +24,43 @@ func update_npc_positions() -> void:
 func has_room() -> bool:
 	return $NPCs.get_child_count() < npc_limit
 
-func remove_npc(npc: Node2D, is_happy: bool):
-	npc.patience_ended.disconnect(_on_npc_patience_ended)
-	# Global._print("starting remove %s" % npc)
-	var removed = npc.remove_with_result(is_happy)
-	removed.connect(_remove_npc_node.bind(npc))
+func remove_person(person: Node2D, is_happy: bool) -> Signal:
+	person.patience_ended.disconnect(_on_npc_patience_ended)
+	var removed = person.remove_with_result(is_happy)
+	removed.connect(_remove_npc_node.bind(person))
 	return removed
 
-func _on_npc_patience_ended(_npc: Node2D) -> void:
-	if _npc.npcType == Global.NpcType.bomb:
-		for npc in $NPCs.get_children():
-			if npc.npcType != Global.NpcType.bomb:
-				npc.remove_npc(false)
+func remove_bomb(bomb: Node2D) -> void:
+	bomb.patience_ended.disconnect(_on_npc_patience_ended)
+	await bomb.remove()
+	_remove_npc_node(bomb)
+
+func update_hud_by_result(happy_count: int, angry_count: int) -> void:
+	var money_shift = 0
+	if happy_count > 0:
+		var happy_money = Global.money_by_happy_count[happy_count]
+		money_shift += happy_money
+	if angry_count > 0:
+		var angry_money = Global.angry_money_loss * angry_count
+		Nodes.hud.increment_angries(angry_count)
+		money_shift -= angry_money
+	if money_shift != 0:
+		Nodes.hud.increment_money(money_shift)
+
+func handle_bomb_exploded() -> void:
+	var angry_count = 0
+	for npc in $NPCs.get_children():
+		if npc.npc_type == Global.NpcType.bomb:
+			remove_bomb(npc)
+		elif npc.npc_type == Global.NpcType.person:
+			angry_count += 1
+			remove_person(npc, false)
+	update_hud_by_result(0, angry_count)
+
+func _on_npc_patience_ended(npc: Node2D) -> void:
+	if npc.npc_type == Global.NpcType.bomb:
+		handle_bomb_exploded()
 
 func _remove_npc_node(npc: Node2D) -> void:
-	# Global._print("removing node %s" % npc)
 	$NPCs.remove_child(npc)
 	npc.queue_free()

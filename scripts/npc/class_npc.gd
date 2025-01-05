@@ -12,7 +12,7 @@ var is_patience_ended: bool = false
 var patience_tween: Tween
 var movement_tween: Tween
 var current_angle: float = zero_angle
-var npcType: Global.NpcType
+var npc_type: Global.NpcType
 
 func _ready() -> void:
 	start_patience_tween()

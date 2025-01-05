@@ -19,8 +19,7 @@ extends Node
 @export var npc_enter_min_sec: float = 1.5
 @export var span_timer_decrease_sec: float = 0.2
 
-@export var bomb_one_in = 0
-# @export var bomb_one_in = 1
+@export var bomb_one_in = 6
 
 @export var elevator_check_interval_sec: float = 0.5
 @export var speed_span_max_sec: float = 45.0

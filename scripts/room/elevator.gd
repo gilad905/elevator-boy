@@ -40,36 +40,31 @@ func get_npc_position(i: int) -> Vector2:
 	_position = npcs_offset + inner_size / 4 * (_position * 2 + Vector2.ONE)
 	return _position
 
-func remove_npcs_in_dest() -> void:
+func remove_persons_in_dest() -> void:
 	var removed_signal: Signal
 	var happy_count: int = 0
 	var angry_count: int = 0
 	for npc in $NPCs.get_children():
+		if npc.npc_type != Global.NpcType.person:
+			continue
 		if npc.dest == current_floor_num:
 			var is_happy = not npc.is_patience_ended
 			if is_happy:
 				happy_count += 1
 			else:
 				angry_count += 1
-			removed_signal = remove_npc(npc, is_happy)
-	update_hud(happy_count, angry_count)
+			removed_signal = remove_person(npc, is_happy)
+	update_hud_by_result(happy_count, angry_count)
 	if removed_signal:
 		await removed_signal
 		# Global._print("updating positon after removals")
 		update_npc_positions()
 
-func update_hud(happy_count: int, angry_count: int) -> void:
-	var money_shift = 0
+func update_hud_by_result(happy_count: int, angry_count: int) -> void:
+	super(happy_count, angry_count)
 	if happy_count > 0:
 		var happy_money = Global.money_by_happy_count[happy_count]
 		show_happy_result(happy_money)
-		money_shift += happy_money
-	if angry_count > 0:
-		var angry_money = Global.angry_money_loss * angry_count
-		money_shift -= angry_money
-		Nodes.hud.increment_angries(angry_count)
-	if money_shift != 0:
-		Nodes.hud.increment_money(money_shift)
 
 func show_happy_result(money: int) -> void:
 	$HappyResult/Amount.text = "x" + str(money)

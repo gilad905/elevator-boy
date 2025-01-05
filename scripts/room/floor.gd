@@ -41,10 +41,12 @@ func get_right_edge() -> int:
 	return _right_edge
 
 func _on_npc_patience_ended(npc: Node2D) -> void:
-	Nodes.hud.increment_angries(1)
-	Nodes.hud.increment_money(-Global.angry_money_loss)
-	await remove_npc(npc, false)
-	update_npc_positions()
+	if npc.npc_type == Global.NpcType.person:
+		update_hud_by_result(0, 1)
+		await remove_person(npc, false)
+		update_npc_positions()
+	elif npc.npc_type == Global.NpcType.bomb:
+		handle_bomb_exploded()
 
 func _on_touched() -> void:
 	Nodes.elevator.go_to_floor(get_index() + 1)

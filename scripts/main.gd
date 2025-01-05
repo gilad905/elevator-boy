@@ -78,7 +78,7 @@ func _on_npcs_timer_timeout() -> void:
 
 func _on_door_state_changed(state: int) -> void:
 	if state == $Elevator/Door.State.open:
-		$Elevator.remove_npcs_in_dest()
+		$Elevator.remove_persons_in_dest()
 		_on_elevator_enter_timer_timeout()
 		$ElevatorEnterTimer.start()
 	elif state == $Elevator/Door.State.closing:
