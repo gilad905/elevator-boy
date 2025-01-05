@@ -3,7 +3,7 @@ extends Node2D
 func debug_fill_elevator_with_npcs():
 	for i in 4:
 		var person = $NPCs.create_person(i + 1)
-		$Elevator.add_person(person)
+		$Elevator.add_npc(person)
 
 func debug_test_reparent():
 	var person_scene = preload("res://scenes/person.tscn")

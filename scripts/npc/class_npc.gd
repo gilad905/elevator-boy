@@ -1,6 +1,6 @@
 extends Node2D
 
-signal patience_ended(person: Node2D)
+signal patience_ended(npc: Node2D)
 
 const zero_angle: float = PI * -0.5
 const full_angle: float = PI * 1.5

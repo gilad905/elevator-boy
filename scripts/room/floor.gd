@@ -2,37 +2,37 @@ extends "class_room.gd"
 
 var door: Node2D
 var right_edge: int
-const person_y: int = 38
+const npc_y: int = 38
 
 func _ready() -> void:
 	door = Nodes.elevator.get_node("Door")
-	self.person_limit = 4
+	self.npc_limit = 4
 	right_edge = get_right_edge()
-	person_start_position = Vector2(right_edge, person_y)
+	npc_start_position = Vector2(right_edge, npc_y)
 	$FloorNum.text = str(get_index() + 1)
 
-func get_person_position(i: int) -> Vector2:
+func get_npc_position(i: int) -> Vector2:
 	var spacing: int = Global.npc_spacing
 	var radius: int = Global.patience_radius
 	var x = spacing + (spacing + radius * 2) * i
-	return Vector2(x, person_y)
+	return Vector2(x, npc_y)
 
 func enter_elevator_next():
 	if $NPCs.get_child_count() > 0:
-		var person = $NPCs.get_child(0)
-		if not person.is_moving() and Nodes.elevator.has_room():
-			person.patience_ended.disconnect(_on_person_patience_ended)
-			Nodes.elevator.add_person(person)
-			update_person_positions()
+		var npc = $NPCs.get_child(0)
+		if not npc.is_moving() and Nodes.elevator.has_room():
+			npc.patience_ended.disconnect(_on_npc_patience_ended)
+			Nodes.elevator.add_npc(npc)
+			update_npc_positions()
 
 func set_pressed(is_on: bool) -> void:
 	$FloorNumFrame.frame = 1 if is_on else 0
 
-func add_person(person) -> void:
+func add_npc(npc) -> void:
 	assert(has_room(), name + " is full")
-	$NPCs.add_child(person)
-	person.position = person_start_position
-	super(person)
+	$NPCs.add_child(npc)
+	npc.position = npc_start_position
+	super(npc)
 
 func get_right_edge() -> int:
 	var _right_edge = $TouchScreenButton.position.x
@@ -40,11 +40,11 @@ func get_right_edge() -> int:
 	_right_edge -= Global.patience_radius * 2
 	return _right_edge
 
-func _on_person_patience_ended(person: Node2D) -> void:
+func _on_npc_patience_ended(npc: Node2D) -> void:
 	Nodes.hud.increment_angries(1)
 	Nodes.hud.increment_money(-Global.angry_money_loss)
-	await remove_person(person, false)
-	update_person_positions()
+	await remove_npc(npc, false)
+	update_npc_positions()
 
 func _on_touched() -> void:
 	Nodes.elevator.go_to_floor(get_index() + 1)

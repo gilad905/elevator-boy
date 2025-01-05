@@ -14,7 +14,7 @@ func add_random_npc() -> Node2D:
 	if is_bomb:
 		var _floor = Nodes.floors.get_floor(floor_num)
 		npc = bomb_scene.instantiate()
-		_floor.add_person(npc)
+		_floor.add_npc(npc)
 	else:
 		var dest = get_random_dest(floor_num)
 		add_person_at_floor(floor_num, dest)
@@ -23,7 +23,7 @@ func add_random_npc() -> Node2D:
 func add_person_at_floor(floor_num: int, dest: int) -> Node2D:
 	var _floor = Nodes.floors.get_floor(floor_num)
 	var person = create_person(dest)
-	_floor.add_person(person)
+	_floor.add_npc(person)
 	return person
 
 func create_person(dest: int) -> Node2D:

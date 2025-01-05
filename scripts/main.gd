@@ -14,7 +14,7 @@ func _ready() -> void:
 	$Overlay.modulate.a = 0
 	$ElevatorEnterTimer.wait_time = Global.elevator_check_interval_sec
 	$SpeedSpanTimer.wait_time = span_duration
-	$NPCs/NPCsTimer.wait_time = Global.person_enter_max_sec
+	$NPCs/NPCsTimer.wait_time = Global.npc_enter_max_sec
 	load_debug_labels()
 	# _debug_enter_npcs_bug()
 	# return
@@ -49,7 +49,7 @@ func set_time_scale(to_increase: bool):
 	update_debug_dynamic()
 
 func get_level_times_desc() -> String:
-	var shift = (Global.person_enter_max_sec - Global.person_enter_min_sec)
+	var shift = (Global.npc_enter_max_sec - Global.npc_enter_min_sec)
 	var span_count = ceil(shift / Global.span_timer_decrease_sec)
 	var time_sec = span_count * span_duration
 	return "span time: %ss\nmin enter: %s spans, %s min" % [span_duration, span_count, time_sec / 60]
@@ -94,7 +94,7 @@ func _on_speed_span_timer_timeout() -> void:
 	current_span += 1
 	var wait_time = $NPCs/NPCsTimer.wait_time
 	var new_time = wait_time - Global.span_timer_decrease_sec
-	wait_time = clamp(new_time, Global.person_enter_min_sec, INF)
+	wait_time = clamp(new_time, Global.npc_enter_min_sec, INF)
 	$NPCs/NPCsTimer.wait_time = wait_time
 	update_debug_dynamic()
 
@@ -117,7 +117,7 @@ func _debug_enter_npcs_bug() -> void:
 	for i in 2:
 		var dest = 5 if i > 1 else 1
 		var person = $NPCs.create_person(dest)
-		$Elevator.add_person(person)
+		$Elevator.add_npc(person)
 	# await get_tree().create_timer(10).timeout
 	# for i in 2:
 	# 	$NPCs.add_person_at_floor(5, i + 2)

@@ -15,8 +15,8 @@ extends Node
 @export var win_on_amount: int = 100
 @export var lose_on_angries: int = 5
 
-@export var person_enter_max_sec: float = 5.0
-@export var person_enter_min_sec: float = 1.5
+@export var npc_enter_max_sec: float = 5.0
+@export var npc_enter_min_sec: float = 1.5
 @export var span_timer_decrease_sec: float = 0.2
 
 @export var bomb_one_in = 0
