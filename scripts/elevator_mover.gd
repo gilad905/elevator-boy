@@ -1,61 +1,72 @@
 extends Node
 
-const NOT_MOVING: int = -1
-var max_speed: int = Global.elevator_max_speed
-var offset_to_floor: int
-var halt_distance: int
-var current_y: float:
-	get:
-		return get_parent().position.y
-	set(value):
-		get_parent().position.y = value
+var tween_types = preload("res://resources/elevator_mover_tweens.tres").tweens
+var half_floor_height: int
+var half_floor_sec: float = Global.half_floor_sec
+var current_floor: float
+var current_direction: int
+var current_tween_type: Dictionary
+var current_tween: Tween
+var target_floor: int
 
-var target_floor_num: int = NOT_MOVING
-var target_y: float = NOT_MOVING
-var acceleration: int = 0
-var speed: float = 0.0
-
-signal reached_floor
+signal done
 
 func _ready() -> void:
-	var floor_1 = Nodes.floors.get_floor(1)
-	var floor_2 = Nodes.floors.get_floor(2)
-	var one_floor_height = (floor_1.position.y - floor_2.position.y)
-	halt_distance = one_floor_height * .76
-	var current_floor_num = Global.floor_count
-	var current_floor = Nodes.floors.get_floor(current_floor_num)
-	offset_to_floor = current_y - current_floor.position.y
-
-func _physics_process(delta: float) -> void:
-	if acceleration != 0:
-		var distance = abs(target_y - current_y)
-		if distance <= 1:
-			acceleration = 0
-			speed = 0
-			current_y = target_y
-			target_floor_num = NOT_MOVING
-			target_y = NOT_MOVING
-			reached_floor.emit()
-			return
-		if distance <= halt_distance:
-			if abs(speed) == max_speed:
-				acceleration *= -1
-				print("acceleration: ", acceleration)
-		var already_at_max = abs(speed) == max_speed
-		speed += acceleration
-		speed = clamp(speed, -max_speed, max_speed)
-		print("%s %s" % [distance, speed])
-		if abs(speed) == max_speed and not already_at_max:
-			print("max speed")
-		var position_delta = speed * delta
-		current_y += position_delta
+	half_floor_height = Nodes.floors.floor_height / 2
+	current_floor = Global.floor_count
+	current_direction = 0
+	current_tween_type = tween_types.stop # just to have "to" on 0
 
 func move_to(floor_num: int) -> void:
-	if floor_num != target_floor_num:
-		target_floor_num = floor_num
-		var _floor = Nodes.floors.get_floor(floor_num)
-		target_y = _floor.position.y + offset_to_floor
-		acceleration = 1 if target_y > current_y else -1
-		acceleration *= Global.elevator_acceleration
-		print("current_y %s, target_y %s, acceleration %s" % [current_y, target_y, acceleration])
-	await reached_floor
+	target_floor = floor_num
+	if not current_tween or not current_tween.is_running():
+		process_half_floor()
+	await done
+
+func process_half_floor():
+	var distance = current_floor - target_floor
+	var from = current_direction
+
+	if distance == 0 and from == 0:
+		done.emit()
+	else:
+		var to = get_to(from, distance)
+		var tween_name = get_tween_name(from, to)
+		var tween_direction = to if to != 0 else from
+		if tween_direction == 0:
+			tween_direction = distance / abs(distance)
+		# var args = [current_floor, from, to, tween_direction, tween_name]
+		# print("floor %s from %s to %s direction %s: %s" % args)
+		current_tween_type = tween_types[tween_name]
+		current_tween = create_tween_of_type(current_tween_type, tween_direction)
+		current_tween.finished.connect(process_half_floor)
+		current_direction = to
+		# direction is y-based, floors are the opposite
+		current_floor += tween_direction * -0.5
+
+func get_to(from, distance) -> int:
+	var to = 0
+	var abs_distance = abs(distance)
+	if abs_distance > .5:
+		var target_direction = distance / abs_distance
+		var need_to_reverse = (from * target_direction) == -1
+		if not need_to_reverse:
+			to = target_direction
+	return to
+
+func get_tween_name(from, to) -> String:
+	var abs_from = abs(from)
+	var abs_to = abs(to)
+	for _name in tween_types:
+		var type = tween_types[_name]
+		if type.abs_from == abs_from and type.abs_to == abs_to:
+			return _name
+	return ""
+
+func create_tween_of_type(type, direction) -> Tween:
+	var tween = create_tween()
+	tween.set_trans(type.trans)
+	tween.set_ease(type.ease)
+	var distance = half_floor_height * direction
+	tween.tween_property(get_parent(), "position:y", distance, half_floor_sec).as_relative()
+	return tween

@@ -1,5 +1,12 @@
 extends Node2D
 
+var _floor_height: int = -1
+var floor_height:
+	get:
+		if _floor_height == -1:
+			_floor_height = get_floor(1).position.y - get_floor(2).position.y
+		return _floor_height
+
 func get_floor(floor_num: int) -> Node:
 	return get_node("Floor_" + str(floor_num))
 
