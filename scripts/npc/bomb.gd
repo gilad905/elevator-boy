@@ -1,0 +1,1 @@
+extends "class_npc.gd"

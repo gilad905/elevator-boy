@@ -1,4 +1,4 @@
-extends "res://scripts/classes/class_room.gd"
+extends "class_room.gd"
 
 const MOVING: int = -1
 var current_floor_num: int = MOVING

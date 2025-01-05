@@ -1,4 +1,4 @@
-extends "res://scripts/classes/class_npc.gd"
+extends "class_npc.gd"
 
 const angry_result = preload("res://scenes/angry_result.tscn")
 

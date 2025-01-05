@@ -1,4 +1,4 @@
-extends "res://scripts/classes/class_room.gd"
+extends "class_room.gd"
 
 var door: Node2D
 var right_edge: int

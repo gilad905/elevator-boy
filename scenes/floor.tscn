@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://6ump4l8coktj"]
 
-[ext_resource type="Script" path="res://scripts/floor.gd" id="1_f8nr8"]
+[ext_resource type="Script" path="res://scripts/room/floor.gd" id="1_f8nr8"]
 [ext_resource type="PackedScene" uid="uid://cx6ocur83tfii" path="res://scenes/framed_polygon.tscn" id="2_5a3d7"]
 [ext_resource type="Texture2D" uid="uid://c8bbqyil75fw2" path="res://assets/floor_num.png" id="3_grp4n"]
 

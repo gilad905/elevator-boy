@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://si0khjik0hvk"]
+[gd_scene load_steps=6 format=3 uid="uid://si0khjik0hvk"]
 
 [ext_resource type="Texture2D" uid="uid://bo30jf7ixkavv" path="res://assets/bomb/bomb-frame-1.png" id="1_xgejo"]
 [ext_resource type="Texture2D" uid="uid://dovr1j3ec3pvk" path="res://assets/bomb/bomb-frame-2.png" id="2_jywqw"]
 [ext_resource type="Texture2D" uid="uid://drkvf5ak8kr0k" path="res://assets/bomb/bomb-frame-3.png" id="3_yhs7q"]
+[ext_resource type="Script" path="res://scripts/npc/bomb.gd" id="4_5gqwg"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xusqm"]
 animations = [{
@@ -22,5 +23,7 @@ animations = [{
 }]
 
 [node name="Bomb" type="AnimatedSprite2D"]
+scale = Vector2(0.163636, 0.163636)
 sprite_frames = SubResource("SpriteFrames_xusqm")
 centered = false
+script = ExtResource("4_5gqwg")
