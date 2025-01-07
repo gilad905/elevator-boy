@@ -1,11 +1,11 @@
 $path = "_exports/web"
-$main = "./scenes/main.tscn"
+$settings = "./resources/export_settings.gd"
 $date = Get-Date -Format "MM-dd HH:mm"
-$version = "{version:$date}"
 $godot = "C:\Users\gilad\Documents\Programming\Game dev\Godot_v4.3-stable_win64\Godot_v4.3-stable_win64.exe"
 Write-Output "version: $date"
 
-(Get-Content $main) -replace '\{version:[^}]*\}', $version | Set-Content $main
+(Get-Content $settings) -replace '(?<=version = ")[^"]*', $date | Set-Content $settings
+(Get-Content $settings) -replace '(?<=debugging = )true', 'false' | Set-Content $settings
 Remove-Item $path/* -exclude .git
 Start-Process -FilePath "$godot" -ArgumentList "--headless --export-debug Web" -NoNewWindow -Wait
 

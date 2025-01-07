@@ -2,11 +2,10 @@ extends Node
 
 var game_over_prompt: String = "GAME OVER"
 var level_up_prompt: String = "LEVEL COMPLETED"
-var version_pat = RegEx.create_from_string("\\{version:([^}]*)\\}")
 var span_duration: float
 var start_enter_interval: float
 var current_span: int = 1
-var debugging: bool = false
+var export_settings = preload("res://resources/export_settings.tres").obj
 
 func _enter_tree() -> void:
 	Nodes.intialize()
@@ -25,7 +24,7 @@ func _ready() -> void:
 	_on_npcs_timer_timeout()
 	$NPCs/NPCsTimer.start()
 	$SpeedSpanTimer.start()
-	if debugging:
+	if export_settings.debugging:
 		_on_money_reached()
 
 func _process(_delta: float) -> void:
@@ -52,9 +51,8 @@ func set_time_scale(to_increase: bool):
 	update_debug_dynamic()
 
 func load_debug_labels() -> void:
-	$Debug/Version.text = version_pat.sub($Debug/Version.text, "$1")
-	if debugging:
-		$Debug/Version.text = "DEBUG " + $Debug/Version.text
+	var pref = "DEBUG " if export_settings.debugging else ""
+	$Debug/Version.text = pref + export_settings.version
 	var level_times = get_level_debug_desc()
 	$Debug/General.text = level_times
 	update_debug_dynamic()
