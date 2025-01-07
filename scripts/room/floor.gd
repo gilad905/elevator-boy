@@ -43,7 +43,7 @@ func add_npc(npc) -> void:
 func get_right_edge() -> int:
 	var _right_edge = $TouchScreenButton.position.x
 	_right_edge += $TouchScreenButton.shape.size.x / 2
-	_right_edge -= Global.patience_radius * 2
+	_right_edge -= Global.patience_radius * 2 + 5
 	return _right_edge
 
 func _on_npc_patience_ended(npc: Node2D) -> void:

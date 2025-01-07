@@ -2,14 +2,13 @@ extends Node
 
 var person_scene = preload("res://scenes/person.tscn")
 var bomb_scene = preload("res://scenes/bomb.tscn")
+var bomb_freq: int
 
 func add_random_npc() -> Node2D:
 	var floor_num = get_random_free_floor_num()
 	if not floor_num:
 		return
-	var is_bomb = false
-	if Global.bomb_one_in > 0:
-		is_bomb = randi() % Global.bomb_one_in == 0
+	var is_bomb = bomb_freq != 0 and (randi() % bomb_freq == 0)
 	var npc
 	if is_bomb:
 		var _floor = Nodes.floors.get_floor(floor_num)

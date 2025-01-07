@@ -6,7 +6,6 @@ extends Node
 
 @export var person_patience_sec: int = 30
 @export var person_result_sec: float = 1.0
-@export var bomb_one_in = 10
 @export var bomb_patience_sec = 20
 
 @export var money_by_happy_count: Array[int] = [0, 1, 5, 10, 20]
@@ -41,3 +40,10 @@ func _print(msg: String) -> void:
 
 func snap_two(val: float) -> float:
 	return snapped(val, 0.01)
+
+func bomb_freq_by_level(level: int) -> int:
+	level = min(level, 10)
+	if level == 1:
+		return 0
+	else:
+		return 20 + level * -2

@@ -14,6 +14,7 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	span_duration = get_speed_span_duration()
 	start_enter_interval = get_start_enter_interval()
+	$NPCs.bomb_freq = Global.bomb_freq_by_level(Global.current_level)
 	$Overlay.modulate.a = 0
 	$ElevatorEnterTimer.wait_time = Global.elevator_check_interval_sec
 	$SpeedSpanTimer.wait_time = span_duration
@@ -25,11 +26,7 @@ func _ready() -> void:
 	$NPCs/NPCsTimer.start()
 	$SpeedSpanTimer.start()
 	if debugging:
-		Global.bomb_one_in = 1
-		Global.lose_on_angries = 9999
-		pass
-		# await get_tree().create_timer(60, false).timeout
-		# _on_money_reached()
+		_on_money_reached()
 
 func _process(_delta: float) -> void:
 	if Input.is_action_pressed("elevator_move_up"):
@@ -58,16 +55,17 @@ func load_debug_labels() -> void:
 	$Debug/Version.text = version_pat.sub($Debug/Version.text, "$1")
 	if debugging:
 		$Debug/Version.text = "DEBUG " + $Debug/Version.text
-	var level_times = get_level_times_desc()
+	var level_times = get_level_debug_desc()
 	$Debug/General.text = level_times
 	update_debug_dynamic()
 
-func get_level_times_desc() -> String:
+func get_level_debug_desc() -> String:
 	var total_shift = (start_enter_interval - Global.npc_enter_min_sec)
 	var span_count = ceil(total_shift / Global.npc_enter_shift_sec)
 	var time_sec = span_count * span_duration
 	var time_min = Global.snap_two(time_sec / 60)
-	return "span time: %ss\nmin enter: %s min" % [span_duration, time_min]
+	var bomb_freq = $NPCs.bomb_freq
+	return "span time: %ss\nmin enter: %sm\nbomb freq: %s" % [span_duration, time_min, bomb_freq]
 
 func update_debug_dynamic() -> void:
 	var args = [$NPCs/NPCsTimer.wait_time, Engine.get_time_scale()]
