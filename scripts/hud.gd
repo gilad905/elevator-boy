@@ -28,7 +28,7 @@ func increment_angries(amount: int) -> void:
 
 func _increment_counter(field: Node2D, amount: int) -> int:
 	var counter = field.get_node("Amount")
-	var new_amount = clamp(int(counter.text) + amount, -999, 999)
+	var new_amount = clamp(int(counter.text) + amount, -99, 999)
 	counter.text = str(new_amount)
 	
 	var tween = counter.create_tween()

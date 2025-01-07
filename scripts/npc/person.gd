@@ -7,6 +7,7 @@ var face_timers = []
 
 func _ready() -> void:
 	npc_type = Global.NpcType.person
+	patience_sec = Global.person_patience_sec
 	super()
 
 func _to_string() -> String:
