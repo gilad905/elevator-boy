@@ -37,18 +37,19 @@ color = Color(0.854902, 0.741176, 0.52549, 1)
 polygon = PackedVector2Array(0, 3, 316, 3, 316, 18, 0, 18)
 
 [node name="FloorNumFrame" type="AnimatedSprite2D" parent="."]
-position = Vector2(297, 38)
-scale = Vector2(0.3, 0.3)
+position = Vector2(294, 40)
+scale = Vector2(0.35, 0.35)
 sprite_frames = SubResource("SpriteFrames_4kdpa")
 
 [node name="FloorNum" type="Label" parent="."]
-offset_left = 283.5
+offset_left = 280.0
 offset_top = 24.0
-offset_right = 312.0
-offset_bottom = 51.0
-theme_override_colors/font_outline_color = Color(0, 0.662728, 0, 1)
-theme_override_font_sizes/font_size = 27
-text = "1"
+offset_right = 308.5
+offset_bottom = 55.0
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 30
+text = "5
+"
 horizontal_alignment = 1
 
 [node name="NPCs" type="Node2D" parent="."]

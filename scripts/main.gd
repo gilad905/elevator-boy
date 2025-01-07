@@ -3,27 +3,33 @@ extends Node
 var game_over_prompt: String = "GAME OVER"
 var level_up_prompt: String = "LEVEL COMPLETED"
 var version_pat = RegEx.create_from_string("\\{version:([^}]*)\\}")
-var current_span: int = 1
 var span_duration: float
+var start_enter_interval: float
+var current_span: int = 1
+var debugging: bool = false
 
 func _enter_tree() -> void:
 	Nodes.intialize()
 
 func _ready() -> void:
-	span_duration = get_span_duration()
+	span_duration = get_speed_span_duration()
+	start_enter_interval = get_start_enter_interval()
 	$Overlay.modulate.a = 0
 	$ElevatorEnterTimer.wait_time = Global.elevator_check_interval_sec
 	$SpeedSpanTimer.wait_time = span_duration
-	$NPCs/NPCsTimer.wait_time = Global.npc_enter_max_sec
+	$NPCs/NPCsTimer.wait_time = start_enter_interval
 	load_debug_labels()
-	# _debug_enter_npcs_bug()
-	# return
 
 	await get_tree().create_timer(1, false).timeout
 	_on_npcs_timer_timeout()
-	$SpeedSpanTimer.start()
 	$NPCs/NPCsTimer.start()
-	# _debug_overlay()
+	$SpeedSpanTimer.start()
+	if debugging:
+		Global.bomb_one_in = 1
+		Global.lose_on_angries = 9999
+		pass
+		# await get_tree().create_timer(60, false).timeout
+		# _on_money_reached()
 
 func _process(_delta: float) -> void:
 	if Input.is_action_pressed("elevator_move_up"):
@@ -48,17 +54,20 @@ func set_time_scale(to_increase: bool):
 	Engine.set_time_scale(time_scale)
 	update_debug_dynamic()
 
-func get_level_times_desc() -> String:
-	var shift = (Global.npc_enter_max_sec - Global.npc_enter_min_sec)
-	var span_count = ceil(shift / Global.span_timer_decrease_sec)
-	var time_sec = span_count * span_duration
-	return "span time: %ss\nmin enter: %s spans, %s min" % [span_duration, span_count, time_sec / 60]
-
 func load_debug_labels() -> void:
 	$Debug/Version.text = version_pat.sub($Debug/Version.text, "$1")
+	if debugging:
+		$Debug/Version.text = "DEBUG " + $Debug/Version.text
 	var level_times = get_level_times_desc()
 	$Debug/General.text = level_times
 	update_debug_dynamic()
+
+func get_level_times_desc() -> String:
+	var total_shift = (start_enter_interval - Global.npc_enter_min_sec)
+	var span_count = ceil(total_shift / Global.npc_enter_shift_sec)
+	var time_sec = span_count * span_duration
+	var time_min = Global.snap_two(time_sec / 60)
+	return "span time: %ss\nmin enter: %s min" % [span_duration, time_min]
 
 func update_debug_dynamic() -> void:
 	var args = [$NPCs/NPCsTimer.wait_time, Engine.get_time_scale()]
@@ -69,9 +78,17 @@ func show_overlay() -> void:
 	$Overlay.show()
 	$Overlay.create_tween().tween_property($Overlay, "modulate:a", 1, 1)
 
-func get_span_duration() -> float:
-	var shift = Global.speed_span_level_decrease_sec * (Global.current_level - 1)
-	return clamp(Global.speed_span_max_sec - shift, Global.speed_span_min_sec, INF)
+func get_speed_span_duration() -> float:
+	var shift = Global.speed_span_level_shift_sec * (Global.current_level - 1)
+	var duration = Global.speed_span_max_sec - shift
+	duration = max(duration, Global.speed_span_min_sec)
+	return duration
+
+func get_start_enter_interval() -> float:
+	var interval = Global.npc_enter_max_sec
+	interval -= (Global.current_level - 1) * Global.npc_enter_shift_sec
+	interval = max(interval, Global.npc_enter_min_sec)
+	return interval
 
 func _on_npcs_timer_timeout() -> void:
 	$NPCs.add_random_npc()
@@ -93,7 +110,7 @@ func _on_elevator_enter_timer_timeout():
 func _on_speed_span_timer_timeout() -> void:
 	current_span += 1
 	var wait_time = $NPCs/NPCsTimer.wait_time
-	var new_time = wait_time - Global.span_timer_decrease_sec
+	var new_time = wait_time - Global.npc_enter_shift_sec
 	wait_time = clamp(new_time, Global.npc_enter_min_sec, INF)
 	$NPCs/NPCsTimer.wait_time = wait_time
 	update_debug_dynamic()

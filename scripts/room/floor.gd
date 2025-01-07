@@ -3,6 +3,7 @@ extends "class_room.gd"
 var door: Node2D
 var right_edge: int
 const npc_y: int = 38
+const pressed_font_color: Color = Color("4af502")
 
 func _ready() -> void:
 	door = Nodes.elevator.get_node("Door")
@@ -26,7 +27,12 @@ func enter_elevator_next():
 			update_npc_positions()
 
 func set_pressed(is_on: bool) -> void:
-	$FloorNumFrame.frame = 1 if is_on else 0
+	if is_on:
+		$FloorNumFrame.frame = 1
+		$FloorNum.add_theme_color_override("font_color", pressed_font_color)
+	else:
+		$FloorNumFrame.frame = 0
+		$FloorNum.remove_theme_color_override("font_color")
 
 func add_npc(npc) -> void:
 	assert(has_room(), name + " is full")
@@ -44,9 +50,9 @@ func _on_npc_patience_ended(npc: Node2D) -> void:
 	if npc.npc_type == Global.NpcType.person:
 		update_hud_by_result(0, 1)
 		await remove_person(npc, false)
-		update_npc_positions()
 	elif npc.npc_type == Global.NpcType.bomb:
-		handle_bomb_exploded()
+		await bomb_explode(npc)
+	update_npc_positions()
 
 func _on_touched() -> void:
 	Nodes.elevator.go_to_floor(get_index() + 1)

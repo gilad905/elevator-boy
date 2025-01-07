@@ -1,13 +1,15 @@
-[gd_scene load_steps=8 format=3 uid="uid://si0khjik0hvk"]
+[gd_scene load_steps=11 format=3 uid="uid://si0khjik0hvk"]
 
 [ext_resource type="Texture2D" uid="uid://bo30jf7ixkavv" path="res://assets/bomb/bomb-frame-1.png" id="1_xgejo"]
 [ext_resource type="Texture2D" uid="uid://dovr1j3ec3pvk" path="res://assets/bomb/bomb-frame-2.png" id="2_jywqw"]
 [ext_resource type="Texture2D" uid="uid://drkvf5ak8kr0k" path="res://assets/bomb/bomb-frame-3.png" id="3_yhs7q"]
 [ext_resource type="Script" path="res://scripts/npc/bomb.gd" id="4_5gqwg"]
-[ext_resource type="Texture2D" uid="uid://ceibvqu5hy1dw" path="res://assets/bomb/bomb-frame-1 - Copy.png" id="5_n41q7"]
-[ext_resource type="Texture2D" uid="uid://dq5swee67isdk" path="res://assets/bomb/bomb-frame-2 - Copy.png" id="6_wkgyb"]
+[ext_resource type="Texture2D" uid="uid://cocatcchgfpuc" path="res://assets/bomb/explode-frame-1.png" id="5_66bir"]
+[ext_resource type="Texture2D" uid="uid://c1s8hi8phslkm" path="res://assets/bomb/explode-frame-2.png" id="6_crhem"]
+[ext_resource type="Texture2D" uid="uid://bd0x3xlji0las" path="res://assets/bomb/explode-frame-3.png" id="7_mly2i"]
+[ext_resource type="Texture2D" uid="uid://b340vt1cc4xcs" path="res://assets/bomb/explode-frame-4.png" id="8_rfnu6"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_ebh66"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_pad6y"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -24,32 +26,41 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_ebh66"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_66bir")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_crhem")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_mly2i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_rfnu6")
+}],
+"loop": false,
+"name": &"default",
+"speed": 4.0
+}]
+
 [node name="Bomb" type="Node2D"]
 script = ExtResource("4_5gqwg")
 
 [node name="Face" type="AnimatedSprite2D" parent="."]
 position = Vector2(1.5, -14.5)
 scale = Vector2(0.23, 0.23)
-sprite_frames = SubResource("SpriteFrames_ebh66")
+sprite_frames = SubResource("SpriteFrames_pad6y")
 autoplay = "default"
 centered = false
 
-[node name="Bomb-frame-1-Copy" type="Sprite2D" parent="."]
+[node name="Explode" type="AnimatedSprite2D" parent="."]
 visible = false
-modulate = Color(1, 0, 0, 1)
-position = Vector2(99, 41)
-texture = ExtResource("5_n41q7")
-
-[node name="Bomb-frame-2-Copy" type="Sprite2D" parent="."]
-visible = false
-modulate = Color(0.617455, 0.617455, 0.617455, 1)
-position = Vector2(79, 9)
-scale = Vector2(0.23, 0.23)
-texture = ExtResource("6_wkgyb")
-
-[node name="Bomb-frame-2-Copy2" type="Sprite2D" parent="."]
-visible = false
-modulate = Color(1, 0, 0, 1)
-position = Vector2(50, 8)
-scale = Vector2(0.23, 0.23)
-texture = ExtResource("6_wkgyb")
+position = Vector2(-24, -50)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_ebh66")
+frame = 3
+frame_progress = 1.0
+centered = false

@@ -13,6 +13,7 @@ var patience_tween: Tween
 var movement_tween: Tween
 var current_angle: float = zero_angle
 var npc_type: Global.NpcType
+var being_removed: bool = false
 
 func _ready() -> void:
 	start_patience_tween()
@@ -24,7 +25,7 @@ func _draw() -> void:
 
 func start_patience_tween() -> void:
 	patience_tween = create_tween()
-	patience_tween.tween_method(redraw_patience, zero_angle, full_angle, Global.patience_sec)
+	patience_tween.tween_method(redraw_patience, zero_angle, full_angle, Global.person_patience_sec)
 	await patience_tween.finished
 	is_patience_ended = true
 	patience_ended.emit(self)
@@ -40,6 +41,7 @@ func move_to(_position):
 	await movement_tween.finished
 
 func remove() -> void:
+	being_removed = true
 	patience_tween.stop()
 
 func is_moving() -> bool:

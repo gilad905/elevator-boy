@@ -26,14 +26,15 @@ func has_room() -> bool:
 
 func remove_person(person: Node2D, is_happy: bool) -> Signal:
 	person.patience_ended.disconnect(_on_npc_patience_ended)
-	var removed = person.remove_with_result(is_happy)
-	removed.connect(_remove_npc_node.bind(person))
-	return removed
+	var ended = person.end_with_result(is_happy)
+	ended.connect(_remove_npc_node.bind(person))
+	return ended
 
-func remove_bomb(bomb: Node2D) -> void:
+func remove_bomb(bomb: Node2D) -> Signal:
 	bomb.patience_ended.disconnect(_on_npc_patience_ended)
-	await bomb.remove()
-	_remove_npc_node(bomb)
+	var ended = bomb.explode()
+	ended.connect(_remove_npc_node.bind(bomb))
+	return ended
 
 func update_hud_by_result(happy_count: int, angry_count: int) -> void:
 	var money_shift = 0
@@ -47,19 +48,22 @@ func update_hud_by_result(happy_count: int, angry_count: int) -> void:
 	if money_shift != 0:
 		Nodes.hud.increment_money(money_shift)
 
-func handle_bomb_exploded() -> void:
+func bomb_explode(bomb: Node2D) -> Signal:
+	var removed
 	var angry_count = 0
 	for npc in $NPCs.get_children():
 		if npc.npc_type == Global.NpcType.bomb:
-			remove_bomb(npc)
+			removed = remove_bomb(npc)
 		elif npc.npc_type == Global.NpcType.person:
 			angry_count += 1
 			remove_person(npc, false)
 	update_hud_by_result(0, angry_count)
+	return removed
 
 func _on_npc_patience_ended(npc: Node2D) -> void:
 	if npc.npc_type == Global.NpcType.bomb:
-		handle_bomb_exploded()
+		await bomb_explode(npc)
+		update_npc_positions()
 
 func _remove_npc_node(npc: Node2D) -> void:
 	$NPCs.remove_child(npc)

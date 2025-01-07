@@ -24,12 +24,12 @@ func start_patience_tween() -> void:
 	$Face.play("angry_3")
 
 func add_face_timer(percent: int, state: String) -> void:
-	var sec = Global.patience_sec * percent / 100.0
+	var sec = Global.person_patience_sec * percent / 100.0
 	var timer = get_tree().create_timer(sec, false)
 	timer.timeout.connect($Face.play.bind(state))
 	face_timers.append(timer)
 
-func remove_with_result(is_happy: bool) -> Signal:
+func end_with_result(is_happy: bool) -> Signal:
 	remove()
 	for timer in face_timers:
 		var connections = timer.timeout.get_connections()
@@ -43,6 +43,7 @@ func remove_with_result(is_happy: bool) -> Signal:
 	if is_happy:
 		$Face.play("happy")
 	else:
+		$Face.play("angry_3")
 		var result = angry_result.instantiate()
 		result.get_node("Amount").text = "-%s" % Global.angry_money_loss
 		Nodes.npcs.add_result_tweener(tween, result)
@@ -52,4 +53,4 @@ func remove_with_result(is_happy: bool) -> Signal:
 
 func _debug_test_result(is_happy: bool) -> void:
 	await get_tree().create_timer(1).timeout
-	remove_with_result(is_happy)
+	end_with_result(is_happy)
