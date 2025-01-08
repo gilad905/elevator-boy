@@ -1,4 +1,4 @@
-extends "class_npc.gd"
+extends EbNpc
 
 const angry_result = preload("res://scenes/angry_result.tscn")
 

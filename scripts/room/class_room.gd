@@ -1,4 +1,4 @@
-extends Node2D
+class_name EbRoom extends Node2D
 
 var npc_limit: int = 0
 var npc_start_position: Vector2

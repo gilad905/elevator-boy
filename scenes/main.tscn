@@ -1,18 +1,19 @@
-[gd_scene load_steps=20 format=3 uid="uid://b4x3k3rw7jlkp"]
+[gd_scene load_steps=21 format=3 uid="uid://b4x3k3rw7jlkp"]
 
 [ext_resource type="PackedScene" uid="uid://6ump4l8coktj" path="res://scenes/floor.tscn" id="1_ec1if"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_u3v8c"]
 [ext_resource type="Texture2D" uid="uid://c06ifoyc65nrb" path="res://assets/background.png" id="2_3cdlf"]
 [ext_resource type="Texture2D" uid="uid://gt4yacnifn31" path="res://assets/patterns/wallpaper.png" id="2_6k6yx"]
 [ext_resource type="Script" path="res://scripts/floors.gd" id="2_pfc4s"]
-[ext_resource type="Script" path="res://scripts/door.gd" id="3_3jsbd"]
 [ext_resource type="Script" path="res://scripts/room/elevator.gd" id="4_iffau"]
 [ext_resource type="Texture2D" uid="uid://b4e56rixu0o0y" path="res://assets/patterns/attic.png" id="4_q54io"]
+[ext_resource type="Script" path="res://scripts/elevator/elevator_mover.gd" id="7_4wsp3"]
 [ext_resource type="PackedScene" uid="uid://cx6ocur83tfii" path="res://scenes/framed_polygon.tscn" id="7_ccv1v"]
-[ext_resource type="Script" path="res://scripts/elevator_mover.gd" id="7_jwpgg"]
+[ext_resource type="Script" path="res://scripts/elevator/door.gd" id="9_gfnck"]
 [ext_resource type="Script" path="res://scripts/hud.gd" id="9_oiqtx"]
 [ext_resource type="Texture2D" uid="uid://bwy8vnk6nn1fb" path="res://assets/dollars.png" id="10_sj0jc"]
 [ext_resource type="Texture2D" uid="uid://s3d8mxmwaxio" path="res://assets/level.png" id="11_pd4if"]
+[ext_resource type="Script" path="res://scripts/closet.gd" id="13_ee0je"]
 [ext_resource type="Texture2D" uid="uid://caok8ux6br8x1" path="res://assets/logo.png" id="13_j173s"]
 [ext_resource type="Theme" uid="uid://b5g3ibj2wp6sw" path="res://resources/hud_theme.tres" id="13_mf7yv"]
 [ext_resource type="Texture2D" uid="uid://d3nwxoaqa8m7h" path="res://assets/emojis/angry_3.png" id="14_3f3du"]
@@ -69,7 +70,7 @@ position = Vector2(105, 330)
 script = ExtResource("4_iffau")
 
 [node name="Mover" type="Node" parent="Elevator"]
-script = ExtResource("7_jwpgg")
+script = ExtResource("7_4wsp3")
 
 [node name="Wallpaper" type="Polygon2D" parent="Elevator"]
 modulate = Color(0.489622, 0.489622, 0.489622, 1)
@@ -85,7 +86,7 @@ position = Vector2(0, 3.8)
 points = PackedVector2Array(81, 0, 81, 74)
 width = 7.5
 default_color = Color(0.720467, 0.720468, 0.720467, 1)
-script = ExtResource("3_3jsbd")
+script = ExtResource("9_gfnck")
 
 [node name="Frame" type="Line2D" parent="Elevator"]
 points = PackedVector2Array(81, 0, 0, 0, 0, 81, 81, 81)
@@ -133,6 +134,35 @@ position = Vector2(0, 180)
 position = Vector2(0, 90)
 
 [node name="Floor_5" parent="Floors" instance=ExtResource("1_ec1if")]
+
+[node name="Closet" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 85.0
+offset_top = 245.0
+offset_right = 495.0
+offset_bottom = 305.0
+script = ExtResource("13_ee0je")
+
+[node name="ColorRect" type="ColorRect" parent="Closet"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Closet"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="HBoxContainer" parent="Closet/MarginContainer"]
+layout_mode = 2
+alignment = 2
 
 [node name="HUD" type="Node2D" parent="."]
 position = Vector2(105, 210)

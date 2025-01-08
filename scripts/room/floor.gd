@@ -1,4 +1,4 @@
-extends "class_room.gd"
+extends EbRoom
 
 var door: Node2D
 var right_edge: int

@@ -1,4 +1,4 @@
-extends "class_room.gd"
+extends EbRoom
 
 const MOVING: int = -1
 var current_floor_num: int = MOVING
