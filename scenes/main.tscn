@@ -307,16 +307,18 @@ layout_mode = 2
 [node name="NPCs" type="Node" parent="."]
 script = ExtResource("18_h1uux")
 
-[node name="NPCsTimer" type="Timer" parent="NPCs"]
+[node name="Timers" type="Node" parent="."]
 
-[node name="ElevatorEnterTimer" type="Timer" parent="."]
+[node name="NPCsTimer" type="Timer" parent="Timers"]
 
-[node name="SpeedSpanTimer" type="Timer" parent="."]
+[node name="ElevatorEnterTimer" type="Timer" parent="Timers"]
+
+[node name="SpeedSpanTimer" type="Timer" parent="Timers"]
 
 [connection signal="state_changed" from="Elevator/Door" to="." method="_on_door_state_changed"]
 [connection signal="angries_reached" from="HUD" to="." method="_on_angries_reached"]
 [connection signal="money_reached" from="HUD" to="." method="_on_money_reached"]
 [connection signal="pressed" from="Overlay/Continue" to="." method="_on_continue_pressed"]
-[connection signal="timeout" from="NPCs/NPCsTimer" to="." method="_on_npcs_timer_timeout"]
-[connection signal="timeout" from="ElevatorEnterTimer" to="." method="_on_elevator_enter_timer_timeout"]
-[connection signal="timeout" from="SpeedSpanTimer" to="." method="_on_speed_span_timer_timeout"]
+[connection signal="timeout" from="Timers/NPCsTimer" to="." method="_on_npcs_timer_timeout"]
+[connection signal="timeout" from="Timers/ElevatorEnterTimer" to="." method="_on_elevator_enter_timer_timeout"]
+[connection signal="timeout" from="Timers/SpeedSpanTimer" to="." method="_on_speed_span_timer_timeout"]

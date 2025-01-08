@@ -1,6 +1,4 @@
-extends Resource
-
-var obj = {
+const obj = {
 	start = {
 		abs_from = 0,
 		abs_to = 1,

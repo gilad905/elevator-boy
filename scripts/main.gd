@@ -5,7 +5,7 @@ var level_up_prompt: String = "LEVEL COMPLETED"
 var span_duration: float
 var start_enter_interval: float
 var current_span: int = 1
-var export_settings = preload("res://resources/export_settings.tres").obj
+var export_settings = preload("res://resources/export_settings.gd").obj
 
 func _enter_tree() -> void:
 	Nodes.intialize()
@@ -15,15 +15,15 @@ func _ready() -> void:
 	start_enter_interval = get_start_enter_interval()
 	$NPCs.bomb_freq = Global.bomb_freq_by_level(Global.current_level)
 	$Overlay.modulate.a = 0
-	$ElevatorEnterTimer.wait_time = Global.elevator_check_interval_sec
-	$SpeedSpanTimer.wait_time = span_duration
-	$NPCs/NPCsTimer.wait_time = start_enter_interval
+	$Timers/ElevatorEnterTimer.wait_time = Global.elevator_check_interval_sec
+	$Timers/SpeedSpanTimer.wait_time = span_duration
+	$Timers/NPCsTimer.wait_time = start_enter_interval
 	load_debug_labels()
 
 	await get_tree().create_timer(1, false).timeout
 	_on_npcs_timer_timeout()
-	$NPCs/NPCsTimer.start()
-	$SpeedSpanTimer.start()
+	$Timers/NPCsTimer.start()
+	$Timers/SpeedSpanTimer.start()
 	if export_settings.debugging:
 		_on_money_reached()
 
@@ -66,7 +66,7 @@ func get_level_debug_desc() -> String:
 	return "span time: %ss\nmin enter: %sm\nbomb freq: %s" % [span_duration, time_min, bomb_freq]
 
 func update_debug_dynamic() -> void:
-	var args = [$NPCs/NPCsTimer.wait_time, Engine.get_time_scale()]
+	var args = [$Timers/NPCsTimer.wait_time, Engine.get_time_scale()]
 	$Debug/Dynamic.text = "enter interval: %ss\ntime scale: x%s" % args
 
 func show_overlay() -> void:
@@ -93,9 +93,9 @@ func _on_door_state_changed(state: int) -> void:
 	if state == $Elevator/Door.State.open:
 		$Elevator.remove_persons_in_dest()
 		_on_elevator_enter_timer_timeout()
-		$ElevatorEnterTimer.start()
+		$Timers/ElevatorEnterTimer.start()
 	elif state == $Elevator/Door.State.closing:
-		$ElevatorEnterTimer.stop()
+		$Timers/ElevatorEnterTimer.stop()
 
 func _on_elevator_enter_timer_timeout():
 	var floor_num = $Elevator.current_floor_num
@@ -105,10 +105,10 @@ func _on_elevator_enter_timer_timeout():
 
 func _on_speed_span_timer_timeout() -> void:
 	current_span += 1
-	var wait_time = $NPCs/NPCsTimer.wait_time
+	var wait_time = $Timers/NPCsTimer.wait_time
 	var new_time = wait_time - Global.npc_enter_shift_sec
 	wait_time = clamp(new_time, Global.npc_enter_min_sec, INF)
-	$NPCs/NPCsTimer.wait_time = wait_time
+	$Timers/NPCsTimer.wait_time = wait_time
 	update_debug_dynamic()
 
 func _on_angries_reached() -> void:
