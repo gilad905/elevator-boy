@@ -1,9 +1,8 @@
 /.vscode/
 /.godot/
-/dis-.godot/
 /android/
-/_other/
-/_exports/
-/_raw-assets/
+/@other/
+/@exports/
+/@raw-assets/
 /notes.txt
 /resources/export_settings.gd
