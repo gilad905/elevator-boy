@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b4x3k3rw7jlkp"]
+[gd_scene load_steps=22 format=3 uid="uid://b4x3k3rw7jlkp"]
 
 [ext_resource type="PackedScene" uid="uid://6ump4l8coktj" path="res://scenes/floor.tscn" id="1_ec1if"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_u3v8c"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://d3nwxoaqa8m7h" path="res://assets/emojis/angry_3.png" id="14_3f3du"]
 [ext_resource type="PackedScene" uid="uid://dvwnl8ut4fgso" path="res://scenes/debug_label.tscn" id="14_p4ui5"]
 [ext_resource type="Script" path="res://scripts/npcs.gd" id="18_h1uux"]
+[ext_resource type="Script" path="res://scripts/statics/nodes.gd" id="20_digeb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yhpa0"]
 bg_color = Color(3.51354e-06, 0.615785, 0.488622, 1)
@@ -152,16 +153,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Closet"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="HBoxContainer" parent="Closet/MarginContainer"]
+[node name="Items" type="HBoxContainer" parent="Closet"]
 layout_mode = 2
+offset_right = 410.0
+offset_bottom = 60.0
 alignment = 2
 
 [node name="HUD" type="Node2D" parent="."]
@@ -172,15 +167,15 @@ script = ExtResource("9_oiqtx")
 position = Vector2(8, 2)
 
 [node name="Icon" type="Sprite2D" parent="HUD/Money"]
-position = Vector2(-14, 0)
+position = Vector2(-14, 1)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("10_sj0jc")
 centered = false
 
 [node name="Amount" type="Label" parent="HUD/Money"]
-offset_left = 37.5
+offset_left = 24.5
 offset_top = -4.5
-offset_right = 79.5
+offset_right = 66.5
 offset_bottom = 30.0
 theme = ExtResource("13_mf7yv")
 theme_override_colors/font_color = Color(0, 0.578685, 0.190811, 1)
@@ -193,9 +188,9 @@ text = "100"
 horizontal_alignment = 2
 
 [node name="Total" type="Label" parent="HUD/Money"]
-offset_left = 81.0
+offset_left = 68.0
 offset_top = -4.5
-offset_right = 141.0
+offset_right = 128.0
 offset_bottom = 30.0
 theme = ExtResource("13_mf7yv")
 text = "/100"
@@ -210,8 +205,8 @@ texture = ExtResource("14_3f3du")
 centered = false
 
 [node name="Amount" type="Label" parent="HUD/Angries"]
-offset_left = 43.5
-offset_right = 72.0
+offset_left = 36.5
+offset_right = 65.0
 offset_bottom = 34.5
 theme = ExtResource("13_mf7yv")
 theme_override_colors/font_color = Color(0.76, 0, 0, 1)
@@ -220,21 +215,23 @@ theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/outline_size = 5
-text = "5"
+text = "10
+"
 horizontal_alignment = 2
 
 [node name="Total" type="Label" parent="HUD/Angries"]
-offset_left = 73.5
-offset_right = 133.5
+offset_left = 66.5
+offset_right = 126.5
 offset_bottom = 34.5
 theme = ExtResource("13_mf7yv")
-text = "/5"
+text = "/10
+"
 
 [node name="Level" type="Node2D" parent="HUD"]
 position = Vector2(290, 14)
 
 [node name="Icon" type="Sprite2D" parent="HUD/Level"]
-position = Vector2(0, -9)
+position = Vector2(0, -8)
 scale = Vector2(0.68, 0.68)
 texture = ExtResource("11_pd4if")
 centered = false
@@ -314,6 +311,9 @@ script = ExtResource("18_h1uux")
 [node name="ElevatorEnterTimer" type="Timer" parent="Timers"]
 
 [node name="SpeedSpanTimer" type="Timer" parent="Timers"]
+
+[node name="Nodes" type="Node" parent="."]
+script = ExtResource("20_digeb")
 
 [connection signal="state_changed" from="Elevator/Door" to="." method="_on_door_state_changed"]
 [connection signal="angries_reached" from="HUD" to="." method="_on_angries_reached"]

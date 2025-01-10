@@ -12,7 +12,7 @@ var target_floor: int
 signal done
 
 func _ready() -> void:
-	half_floor_height = Nodes.floors.floor_height / 2
+	half_floor_height = Nodes.Floors.floor_height / 2
 	current_floor = Global.floor_count
 	current_direction = 0
 	current_tween_type = tween_types.stop # just to have "to" on 0

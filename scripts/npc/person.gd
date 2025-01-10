@@ -1,4 +1,4 @@
-extends EbNpc
+extends Npc
 
 const angry_result = preload("res://scenes/angry_result.tscn")
 
@@ -47,7 +47,7 @@ func end_with_result(is_happy: bool) -> Signal:
 		$Face.play("angry_3")
 		var result = angry_result.instantiate()
 		result.get_node("Amount").text = "-%s" % Global.angry_money_loss
-		Nodes.npcs.add_result_tweener(tween, result)
+		NPCs.add_result_tweener(tween, result)
 		add_child(result)
 
 	return tween.finished

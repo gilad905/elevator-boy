@@ -1,4 +1,4 @@
-class_name EbRoom extends Node2D
+class_name Room extends Node2D
 
 var npc_limit: int = 0
 var npc_start_position: Vector2
@@ -43,10 +43,10 @@ func update_hud_by_result(happy_count: int, angry_count: int) -> void:
 		money_shift += happy_money
 	if angry_count > 0:
 		var angry_money = Global.angry_money_loss * angry_count
-		Nodes.hud.increment_angries(angry_count)
+		Nodes.HUD.increment_angries(angry_count)
 		money_shift -= angry_money
 	if money_shift != 0:
-		Nodes.hud.increment_money(money_shift)
+		Nodes.HUD.increment_money(money_shift)
 
 func bomb_explode(bomb: Node2D) -> Signal:
 	var removed

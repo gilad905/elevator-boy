@@ -1,4 +1,4 @@
-extends EbRoom
+extends Room
 
 const MOVING: int = -1
 var current_floor_num: int = MOVING
@@ -8,7 +8,7 @@ var inner_size: Vector2
 func _ready() -> void:
 	self.npc_limit = 4
 	current_floor_num = Global.floor_count
-	Nodes.floors.set_floor_pressed(current_floor_num)
+	Nodes.Floors.set_floor_pressed(current_floor_num)
 	inner_size.x = $Frame.points[0].x - $Frame.points[1].x - $Frame.width
 	inner_size.y = $Frame.points[3].y - $Frame.points[0].y - $Frame.width
 	npcs_offset = Vector2.ONE * ($Frame.width / 2 - Global.patience_radius)
@@ -18,7 +18,7 @@ func go_to_floor(floor_num: int) -> void:
 		$Door.toggle_state()
 		return
 
-	Nodes.floors.set_floor_pressed(floor_num)
+	Nodes.Floors.set_floor_pressed(floor_num)
 	if $Door.current_state != $Door.State.closed:
 		$Door.set_state($Door.State.closing)
 		await $Door.has_closed
@@ -30,7 +30,7 @@ func go_to_floor(floor_num: int) -> void:
 
 func move_one_floor(go_up: bool) -> void:
 	var target_floor: int = current_floor_num + (1 if go_up else -1)
-	if Nodes.floors.floor_exists(target_floor):
+	if Nodes.Floors.floor_exists(target_floor):
 		go_to_floor(target_floor)
 
 func get_npc_position(i: int) -> Vector2:
@@ -71,12 +71,12 @@ func show_happy_result(money: int) -> void:
 	$HappyResult.show()
 	var tween = create_tween()
 	tween.set_parallel(true)
-	Nodes.npcs.add_result_tweener(tween, $HappyResult)
+	NPCs.add_result_tweener(tween, $HappyResult)
 	await tween.finished
 	$HappyResult.hide()
 
 func add_npc(npc) -> void:
-	# Global._print("adding %s of %s" % [npc, $NPCs.get_child_count()])
+	# Global._print("adding %s of %s" % [npc, NPCs.get_child_count()])
 	assert(has_room(), name + " is full")
 	if npc.get_parent():
 		npc.reparent($NPCs)

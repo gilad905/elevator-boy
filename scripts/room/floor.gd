@@ -1,4 +1,4 @@
-extends EbRoom
+extends Room
 
 var door: Node2D
 var right_edge: int
@@ -6,7 +6,7 @@ const npc_y: int = 38
 const pressed_font_color: Color = Color("4af502")
 
 func _ready() -> void:
-	door = Nodes.elevator.get_node("Door")
+	door = Nodes.Elevator.get_node("Door")
 	self.npc_limit = 4
 	right_edge = get_right_edge()
 	npc_start_position = Vector2(right_edge, npc_y)
@@ -21,9 +21,9 @@ func get_npc_position(i: int) -> Vector2:
 func enter_elevator_next():
 	if $NPCs.get_child_count() > 0:
 		var npc = $NPCs.get_child(0)
-		if not npc.is_moving() and Nodes.elevator.has_room():
+		if not npc.is_moving() and Nodes.Elevator.has_room():
 			npc.patience_ended.disconnect(_on_npc_patience_ended)
-			Nodes.elevator.add_npc(npc)
+			Nodes.Elevator.add_npc(npc)
 			update_npc_positions()
 
 func set_pressed(is_on: bool) -> void:
@@ -55,4 +55,4 @@ func _on_npc_patience_ended(npc: Node2D) -> void:
 	update_npc_positions()
 
 func _on_touched() -> void:
-	Nodes.elevator.go_to_floor(get_index() + 1)
+	Nodes.Elevator.go_to_floor(get_index() + 1)

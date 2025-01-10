@@ -1,4 +1,4 @@
-extends EbNpc
+extends Npc
 
 func _ready() -> void:
 	npc_type = Global.NpcType.bomb

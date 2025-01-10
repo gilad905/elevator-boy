@@ -7,13 +7,10 @@ var start_enter_interval: float
 var current_span: int = 1
 var export_settings = preload("res://resources/export_settings.gd").obj
 
-func _enter_tree() -> void:
-	Nodes.intialize()
-
 func _ready() -> void:
 	span_duration = get_speed_span_duration()
 	start_enter_interval = get_start_enter_interval()
-	$NPCs.bomb_freq = Global.bomb_freq_by_level(Global.current_level)
+	NPCs.bomb_freq = Global.bomb_freq_by_level(Global.current_level)
 	$Overlay.modulate.a = 0
 	$Timers/ElevatorEnterTimer.wait_time = Global.elevator_check_interval_sec
 	$Timers/SpeedSpanTimer.wait_time = span_duration
@@ -62,7 +59,7 @@ func get_level_debug_desc() -> String:
 	var span_count = ceil(total_shift / Global.npc_enter_shift_sec)
 	var time_sec = span_count * span_duration
 	var time_min = Global.snap_two(time_sec / 60)
-	var bomb_freq = $NPCs.bomb_freq
+	var bomb_freq = NPCs.bomb_freq
 	return "span time: %ss\nmin enter: %sm\nbomb freq: %s" % [span_duration, time_min, bomb_freq]
 
 func update_debug_dynamic() -> void:
@@ -87,7 +84,7 @@ func get_start_enter_interval() -> float:
 	return interval
 
 func _on_npcs_timer_timeout() -> void:
-	$NPCs.add_random_npc()
+	NPCs.add_random_npc()
 
 func _on_door_state_changed(state: int) -> void:
 	if state == $Elevator/Door.State.open:
@@ -129,15 +126,15 @@ func _debug_enter_npcs_bug() -> void:
 
 	for i in 2:
 		var dest = 5 if i > 1 else 1
-		var person = $NPCs.create_person(dest)
+		var person = NPCs.create_person(dest)
 		$Elevator.add_npc(person)
 	# await get_tree().create_timer(10).timeout
 	# for i in 2:
-	# 	$NPCs.add_person_at_floor(5, i + 2)
+	# 	NPCs.add_person_at_floor(5, i + 2)
 
-	$NPCs.add_person_at_floor(5, 2)
+	NPCs.add_person_at_floor(5, 2)
 	await get_tree().create_timer(1.5).timeout
-	$NPCs.add_person_at_floor(5, 3)
+	NPCs.add_person_at_floor(5, 3)
 	await get_tree().create_timer(Global._temp + 0.5).timeout
 	$Elevator._on_door_toggle_pressed()
 

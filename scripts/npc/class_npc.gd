@@ -1,4 +1,4 @@
-class_name EbNpc extends Node2D
+class_name Npc extends Node2D
 
 signal patience_ended(npc: Node2D)
 
