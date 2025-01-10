@@ -48,21 +48,21 @@ func update_hud_by_result(happy_count: int, angry_count: int) -> void:
 	if money_shift != 0:
 		Nodes.HUD.increment_money(money_shift)
 
-func bomb_explode(bomb: Node2D) -> Signal:
+func bomb_explode() -> Signal:
 	var removed
 	var angry_count = 0
 	for npc in $NPCs.get_children():
-		if npc.npc_type == Global.NpcType.bomb:
+		if npc.npc_type == Npc.Type.Bomb:
 			removed = remove_bomb(npc)
-		elif npc.npc_type == Global.NpcType.person:
+		elif npc.npc_type == Npc.Type.Person:
 			angry_count += 1
 			remove_person(npc, false)
 	update_hud_by_result(0, angry_count)
 	return removed
 
 func _on_npc_patience_ended(npc: Node2D) -> void:
-	if npc.npc_type == Global.NpcType.bomb:
-		await bomb_explode(npc)
+	if npc.npc_type == Npc.Type.Bomb:
+		await bomb_explode()
 		update_npc_positions()
 
 func _remove_npc_node(npc: Node2D) -> void:

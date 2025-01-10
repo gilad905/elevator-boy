@@ -4,6 +4,7 @@ signal patience_ended(npc: Node2D)
 
 const zero_angle: float = PI * -0.5
 const full_angle: float = PI * 1.5
+enum Type {Person, Bomb}
 
 static var radius = Global.patience_radius
 static var circle_center = Vector2.ONE * radius
@@ -12,7 +13,7 @@ var is_patience_ended: bool = false
 var patience_tween: Tween
 var movement_tween: Tween
 var current_angle: float = zero_angle
-var npc_type: Global.NpcType
+var npc_type: Type
 var being_removed: bool = false
 var patience_sec: int = 0
 

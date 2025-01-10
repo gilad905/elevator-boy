@@ -47,11 +47,11 @@ func get_right_edge() -> int:
 	return _right_edge
 
 func _on_npc_patience_ended(npc: Node2D) -> void:
-	if npc.npc_type == Global.NpcType.person:
+	if npc.npc_type == Npc.Type.Person:
 		update_hud_by_result(0, 1)
 		await remove_person(npc, false)
-	elif npc.npc_type == Global.NpcType.bomb:
-		await bomb_explode(npc)
+	elif npc.npc_type == Npc.Type.Bomb:
+		await bomb_explode()
 	update_npc_positions()
 
 func _on_touched() -> void:

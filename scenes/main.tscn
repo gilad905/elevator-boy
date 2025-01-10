@@ -18,7 +18,7 @@
 [ext_resource type="Theme" uid="uid://b5g3ibj2wp6sw" path="res://resources/hud_theme.tres" id="13_mf7yv"]
 [ext_resource type="Texture2D" uid="uid://d3nwxoaqa8m7h" path="res://assets/emojis/angry_3.png" id="14_3f3du"]
 [ext_resource type="PackedScene" uid="uid://dvwnl8ut4fgso" path="res://scenes/debug_label.tscn" id="14_p4ui5"]
-[ext_resource type="Script" path="res://scripts/statics/nodes.gd" id="20_digeb"]
+[ext_resource type="Script" path="res://scripts/classes/nodes.gd" id="20_digeb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yhpa0"]
 bg_color = Color(3.51354e-06, 0.615785, 0.488622, 1)

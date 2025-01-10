@@ -45,7 +45,7 @@ func remove_persons_in_dest() -> void:
 	var happy_count: int = 0
 	var angry_count: int = 0
 	for npc in $NPCs.get_children():
-		if npc.npc_type != Global.NpcType.person:
+		if npc.npc_type != Npc.Type.Person:
 			continue
 		if npc.dest == current_floor_num:
 			var is_happy = not npc.is_patience_ended

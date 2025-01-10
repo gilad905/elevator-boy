@@ -6,7 +6,7 @@ var dest: int = -1
 var face_timers = []
 
 func _ready() -> void:
-	npc_type = Global.NpcType.person
+	npc_type = Npc.Type.Person
 	patience_sec = Global.person_patience_sec
 	super()
 

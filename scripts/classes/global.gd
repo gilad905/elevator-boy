@@ -25,9 +25,8 @@ const speed_span_max_sec: float = 45.0
 const speed_span_min_sec: float = 5.0
 const speed_span_level_shift_sec: float = 5.0
 
-enum NpcType {person, bomb}
-
 var current_level: int = 1
+var closet: Array = [Item.Type.Life, Item.Type.Life]
 var floor_count: int
 
 func _ready() -> void:

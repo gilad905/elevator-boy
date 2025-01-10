@@ -1,4 +1,4 @@
-$path = "_exports/web"
+$path = "@exports/web"
 $settings = "./resources/export_settings.gd"
 $date = Get-Date -Format "MM-dd HH:mm"
 $godot = "C:\Users\gilad\Documents\Programming\Game dev\Godot_v4.3-stable_win64\Godot_v4.3-stable_win64.exe"

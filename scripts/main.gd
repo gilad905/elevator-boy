@@ -1,8 +1,11 @@
 extends Node
 
 const export_settings = preload("res://resources/export_settings.gd").obj
-var game_over_prompt: String = "GAME OVER"
-var level_up_prompt: String = "LEVEL COMPLETED"
+var prompts: Dictionary = {
+	game_over = "GAME OVER",
+	level_up = "LEVEL COMPLETED",
+	used_life = "YOU USED ONE LIFE.\nRETRY LEVEL.",
+}
 var span_duration: float
 var start_enter_interval: float
 var current_span: int = 1
@@ -43,7 +46,10 @@ func start_level() -> void:
 	$Timers/NPCsTimer.start()
 	$Timers/SpeedSpanTimer.start()
 	if export_settings.debugging:
-		_on_money_reached()
+		if Global.current_level == 1:
+			_on_money_reached()
+		else:
+			_on_angries_reached()
 
 func set_time_scale(to_increase: bool):
 	var time_scale = Engine.get_time_scale()
@@ -114,11 +120,19 @@ func _on_speed_span_timer_timeout() -> void:
 	update_debug_dynamic()
 
 func _on_angries_reached() -> void:
-	$Overlay/Prompt.text = game_over_prompt
+	var life = $Closet.find_item(Item.Type.Life)
+	var prompt
+	if life == null:
+		prompt = "game_over"
+		Global.current_level = 1
+	else:
+		prompt = "used_life"
+		$Closet.remove_item(life)
+	$Overlay/Prompt.text = prompts[prompt]
 	show_overlay()
 
 func _on_money_reached() -> void:
-	$Overlay/Prompt.text = level_up_prompt
+	$Overlay/Prompt.text = prompts.level_up
 	Global.current_level += 1
 	show_overlay()
 
