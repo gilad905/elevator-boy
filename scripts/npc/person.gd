@@ -1,4 +1,4 @@
-extends Npc
+class_name Person extends Npc
 
 const angry_result = preload("res://scenes/angry_result.tscn")
 

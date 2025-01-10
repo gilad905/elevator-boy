@@ -14,7 +14,7 @@ func update_npc_position(npc: Node2D):
 	var i = npc.get_index()
 	var _position = get_npc_position(i)
 	# if name == "Elevator":
-	# 	Global._print("moving %s at %s to %s" % [npc, i, _position])
+	# 	Funcs._print("moving %s at %s to %s" % [npc, i, _position])
 	npc.move_to(_position)
 
 func update_npc_positions() -> void:

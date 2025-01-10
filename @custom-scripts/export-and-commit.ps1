@@ -10,6 +10,5 @@ Remove-Item $path/* -exclude .git
 Start-Process -FilePath "$godot" -ArgumentList "--headless --export-debug Web" -NoNewWindow -Wait
 
 git -C $path add -A
-# git -C $path --no-pager diff HEAD --name-status
 git -C $path commit -m "new"
 git -C $path push -u origin

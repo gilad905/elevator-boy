@@ -57,7 +57,7 @@ func remove_persons_in_dest() -> void:
 	update_hud_by_result(happy_count, angry_count)
 	if removed_signal:
 		await removed_signal
-		# Global._print("updating positon after removals")
+		# Funcs._print("updating positon after removals")
 		update_npc_positions()
 
 func update_hud_by_result(happy_count: int, angry_count: int) -> void:
@@ -76,7 +76,7 @@ func show_happy_result(money: int) -> void:
 	$HappyResult.hide()
 
 func add_npc(npc) -> void:
-	# Global._print("adding %s of %s" % [npc, NPCs.get_child_count()])
+	# Funcs._print("adding %s of %s" % [npc, NPCs.get_child_count()])
 	assert(has_room(), name + " is full")
 	if npc.get_parent():
 		npc.reparent($NPCs)

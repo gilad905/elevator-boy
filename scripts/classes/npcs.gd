@@ -1,34 +1,31 @@
 class_name NPCs extends Node
 
-const person_scene = preload("res://scenes/person.tscn")
-const bomb_scene = preload("res://scenes/bomb.tscn")
-static var bomb_freq: int
+const scene_path = "res://scenes/npcs/%s.tscn"
+static var npc_frequencies = _get_npc_frequencies()
+static var scenes = {}
+
+static func _static_init() -> void:
+	scenes = Funcs.get_scenes_by_type(scene_path, Npc.Type)
+
+static func get_random_type() -> Npc.Type:
+	for type in npc_frequencies:
+		var frequency = npc_frequencies[type]
+		if frequency != 0 and (randi() % frequency == 0):
+			return type
+	return Npc.Type.Person
 
 static func add_random_npc() -> Node2D:
 	var floor_num = get_random_free_floor_num()
 	if not floor_num:
 		return
-	var is_bomb = bomb_freq != 0 and (randi() % bomb_freq == 0)
-	var npc
-	if is_bomb:
-		var _floor = Nodes.Floors.get_floor(floor_num)
-		npc = bomb_scene.instantiate()
-		_floor.add_npc(npc)
-	else:
-		var dest = get_random_dest(floor_num)
-		add_person_at_floor(floor_num, dest)
-	return npc
-
-static func add_person_at_floor(floor_num: int, dest: int) -> Node2D:
 	var _floor = Nodes.Floors.get_floor(floor_num)
-	var person = create_person(dest)
-	_floor.add_npc(person)
-	return person
-
-static func create_person(dest: int) -> Node2D:
-	var person = person_scene.instantiate()
-	person.init(dest)
-	return person
+	var type = get_random_type()
+	var npc = scenes[type].instantiate()
+	if npc is Person:
+		var dest = get_random_dest(floor_num)
+		npc.init(dest)
+	_floor.add_npc(npc)
+	return npc
 
 static func get_random_free_floor_num() -> int:
 	var all_nums = range(1, Global.floor_count + 1)
@@ -53,3 +50,20 @@ static func add_result_tweener(tween: Tween, result: Node2D):
 	await tween.finished
 	for type in ["x", "y"]:
 		result.scale[type] = scale
+
+static func _get_npc_frequencies() -> Dictionary:
+	var frequencies = {}
+	for type in Npc.Type.values():
+		frequencies[type] = _get_npc_frequency(type)
+	return frequencies
+
+static func _get_npc_frequency(type: Npc.Type) -> int:
+	if type == Npc.Type.Businessman:
+		return 1
+	if Global.current_level == 1:
+		return 0
+	var start_freq = Global.npc_start_frequencies[type]
+	if start_freq == null:
+		return 0
+	var level = min(Global.current_level, 10)
+	return start_freq + level * -2

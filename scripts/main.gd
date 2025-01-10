@@ -35,7 +35,6 @@ func _input(event: InputEvent) -> void:
 func init_level() -> void:
 	span_duration = get_speed_span_duration()
 	start_enter_interval = get_start_enter_interval()
-	NPCs.bomb_freq = Global.bomb_freq_by_level(Global.current_level)
 	$Overlay.modulate.a = 0
 	$Timers/ElevatorEnterTimer.wait_time = Global.elevator_check_interval_sec
 	$Timers/SpeedSpanTimer.wait_time = span_duration
@@ -69,9 +68,8 @@ func get_level_debug_desc() -> String:
 	var total_shift = (start_enter_interval - Global.npc_enter_min_sec)
 	var span_count = ceil(total_shift / Global.npc_enter_shift_sec)
 	var time_sec = span_count * span_duration
-	var time_min = Global.snap_two(time_sec / 60)
-	var bomb_freq = NPCs.bomb_freq
-	return "span time: %ss\nmin enter: %sm\nbomb freq: %s" % [span_duration, time_min, bomb_freq]
+	var time_min = Funcs.snap_two(time_sec / 60)
+	return "span time: %ss\nmin enter: %sm" % [span_duration, time_min]
 
 func update_debug_dynamic() -> void:
 	var args = [$Timers/NPCsTimer.wait_time, Engine.get_time_scale()]
@@ -141,28 +139,29 @@ func _on_continue_pressed() -> void:
 	get_tree().reload_current_scene()
 
 func _debug_enter_npcs_bug() -> void:
-	print(Global._temp)
+	pass
+	# print(Global._temp)
 
-	for i in 2:
-		var dest = 5 if i > 1 else 1
-		var person = NPCs.create_person(dest)
-		$Elevator.add_npc(person)
+	# for i in 2:
+	# 	var dest = 5 if i > 1 else 1
+	# 	var person = NPCs.create_person(dest)
+	# 	$Elevator.add_npc(person)
 	# await get_tree().create_timer(10).timeout
 	# for i in 2:
 	# 	NPCs.add_person_at_floor(5, i + 2)
 
-	NPCs.add_person_at_floor(5, 2)
-	await get_tree().create_timer(1.5).timeout
-	NPCs.add_person_at_floor(5, 3)
-	await get_tree().create_timer(Global._temp + 0.5).timeout
-	$Elevator._on_door_toggle_pressed()
+	# NPCs.add_person_at_floor(5, 2)
+	# await get_tree().create_timer(1.5).timeout
+	# NPCs.add_person_at_floor(5, 3)
+	# await get_tree().create_timer(Global._temp + 0.5).timeout
+	# $Elevator._on_door_toggle_pressed()
 
 	# await get_tree().create_timer(Global._temp + 0.5).timeout
 	# $Elevator._on_door_toggle_pressed()
-	await get_tree().create_timer(4).timeout
-	Global._temp += 0.1
+	# await get_tree().create_timer(4).timeout
+	# Global._temp += 0.1
 
-	get_tree().reload_current_scene()
+	# get_tree().reload_current_scene()
 
 func _debug_overlay() -> void:
 	await get_tree().create_timer(1, false).timeout

@@ -4,7 +4,7 @@ signal patience_ended(npc: Node2D)
 
 const zero_angle: float = PI * -0.5
 const full_angle: float = PI * 1.5
-enum Type {Person, Bomb}
+enum Type {Person, Bomb, Businessman}
 
 static var radius = Global.patience_radius
 static var circle_center = Vector2.ONE * radius
