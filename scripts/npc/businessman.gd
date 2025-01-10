@@ -1,5 +1,6 @@
 extends Person
 
-func _draw() -> void:
-	super()
-	draw_line(Vector2.ZERO, Vector2.ONE * 10, Color.BLACK, 10)
+func _ready() -> void:
+	npc_type = Npc.Type.Businessman
+	patience_sec = Global.npc_meta[npc_type].patience_sec
+	start_patience_tween()

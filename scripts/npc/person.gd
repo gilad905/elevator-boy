@@ -7,7 +7,6 @@ var face_timers = []
 
 func _ready() -> void:
 	npc_type = Npc.Type.Person
-	patience_sec = Global.person_patience_sec
 	super()
 
 func _to_string() -> String:
@@ -25,7 +24,7 @@ func start_patience_tween() -> void:
 	$Face.play("angry_3")
 
 func add_face_timer(percent: int, state: String) -> void:
-	var sec = Global.person_patience_sec * percent / 100.0
+	var sec = patience_sec * percent / 100.0
 	var timer = get_tree().create_timer(sec, false)
 	timer.timeout.connect($Face.play.bind(state))
 	face_timers.append(timer)

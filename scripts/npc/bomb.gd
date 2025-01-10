@@ -2,7 +2,6 @@ extends Npc
 
 func _ready() -> void:
 	npc_type = Npc.Type.Bomb
-	patience_sec = Global.bomb_patience_sec
 	super()
 
 func _draw() -> void:

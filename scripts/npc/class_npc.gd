@@ -15,11 +15,11 @@ var movement_tween: Tween
 var current_angle: float = zero_angle
 var npc_type: Type
 var being_removed: bool = false
-var patience_sec: int = 0
+var patience_sec: int = -1
 
 func _ready() -> void:
+	patience_sec = Global.npc_meta[npc_type].patience_sec
 	start_patience_tween()
-	# _debug_test_result(true)
 
 func _draw() -> void:
 	draw_circle(circle_center, radius, Color.WHITE, false, 2)

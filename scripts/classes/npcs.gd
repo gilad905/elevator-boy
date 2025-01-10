@@ -58,11 +58,11 @@ static func _get_npc_frequencies() -> Dictionary:
 	return frequencies
 
 static func _get_npc_frequency(type: Npc.Type) -> int:
-	if type == Npc.Type.Businessman:
+	if Global.export_settings.debugging and type == Npc.Type.Businessman:
 		return 1
 	if Global.current_level == 1:
 		return 0
-	var start_freq = Global.npc_start_frequencies[type]
+	var start_freq = Global.npc_meta[type].start_frequency
 	if start_freq == null:
 		return 0
 	var level = min(Global.current_level, 10)

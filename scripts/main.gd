@@ -1,6 +1,5 @@
 extends Node
 
-const export_settings = preload("res://resources/export_settings.gd").obj
 var prompts: Dictionary = {
 	game_over = "GAME OVER",
 	level_up = "LEVEL COMPLETED",
@@ -44,11 +43,11 @@ func start_level() -> void:
 	_on_npcs_timer_timeout()
 	$Timers/NPCsTimer.start()
 	$Timers/SpeedSpanTimer.start()
-	if export_settings.debugging:
-		if Global.current_level == 1:
-			_on_money_reached()
-		else:
-			_on_angries_reached()
+	# if Global.export_settings.debugging:
+	# 	if Global.current_level == 1:
+	# 		_on_money_reached()
+	# 	else:
+	# 		_on_angries_reached()
 
 func set_time_scale(to_increase: bool):
 	var time_scale = Engine.get_time_scale()
@@ -58,8 +57,8 @@ func set_time_scale(to_increase: bool):
 	update_debug_dynamic()
 
 func load_debug_labels() -> void:
-	var pref = "DEBUG " if export_settings.debugging else ""
-	$Debug/Version.text = pref + export_settings.version
+	var pref = "DEBUG " if Global.export_settings.debugging else ""
+	$Debug/Version.text = pref + Global.export_settings.version
 	var level_times = get_level_debug_desc()
 	$Debug/General.text = level_times
 	update_debug_dynamic()
