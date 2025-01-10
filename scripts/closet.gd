@@ -1,5 +1,7 @@
 extends Control
 
+const item_limit: int = 5
+
 func _ready() -> void:
 	for item_type in Global.closet:
 		var item = Item.create(item_type)
@@ -19,3 +21,9 @@ func remove_item(item: Item) -> void:
 	var i = Global.closet.find(item.type)
 	Global.closet.remove_at(i)
 	item.queue_free()
+
+func add_random_item() -> Item:
+	var type = Item.Type.values().pick_random()
+	var item = Item.create(type)
+	$Items.add_child(item)
+	return item

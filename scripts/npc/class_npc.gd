@@ -13,12 +13,12 @@ var is_patience_ended: bool = false
 var patience_tween: Tween
 var movement_tween: Tween
 var current_angle: float = zero_angle
-var npc_type: Type
+var type: Type
 var being_removed: bool = false
 var patience_sec: int = -1
 
 func _ready() -> void:
-	patience_sec = Global.npc_meta[npc_type].patience_sec
+	patience_sec = Global.npc_meta[type].patience_sec
 	start_patience_tween()
 
 func _draw() -> void:

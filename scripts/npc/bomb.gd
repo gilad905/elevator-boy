@@ -1,7 +1,7 @@
 extends Npc
 
 func _ready() -> void:
-	npc_type = Npc.Type.Bomb
+	type = Npc.Type.Bomb
 	super()
 
 func _draw() -> void:

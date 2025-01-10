@@ -36,6 +36,7 @@ const speed_span_max_sec: float = 45.0
 const speed_span_min_sec: float = 5.0
 const speed_span_level_shift_sec: float = 5.0
 
+const closet_item_limit: int = 7
 const export_settings = preload("res://resources/export_settings.gd").obj
 
 static var current_level: int = 1
@@ -44,3 +45,6 @@ static var floor_count: int
 
 func _ready() -> void:
 	floor_count = Nodes.Floors.get_child_count()
+	# if export_settings.debugging:
+	# 	closet.resize(closet_item_limit)
+	# 	closet.fill(Item.Type.Life)

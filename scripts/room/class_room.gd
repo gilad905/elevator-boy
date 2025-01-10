@@ -24,7 +24,9 @@ func update_npc_positions() -> void:
 func has_room() -> bool:
 	return $NPCs.get_child_count() < npc_limit
 
-func remove_person(person: Node2D, is_happy: bool) -> Signal:
+func remove_person(person: Person, is_happy: bool) -> Signal:
+	if person.type == Npc.Type.Businessman and is_happy:
+		Nodes.Closet.add_random_item()
 	person.patience_ended.disconnect(_on_npc_patience_ended)
 	var ended = person.end_with_result(is_happy)
 	ended.connect(_remove_npc_node.bind(person))
@@ -52,16 +54,16 @@ func bomb_explode() -> Signal:
 	var removed
 	var angry_count = 0
 	for npc in $NPCs.get_children():
-		if npc.npc_type == Npc.Type.Bomb:
+		if npc.type == Npc.Type.Bomb:
 			removed = remove_bomb(npc)
-		elif npc.npc_type == Npc.Type.Person:
+		elif npc is Person:
 			angry_count += 1
 			remove_person(npc, false)
 	update_hud_by_result(0, angry_count)
 	return removed
 
 func _on_npc_patience_ended(npc: Node2D) -> void:
-	if npc.npc_type == Npc.Type.Bomb:
+	if npc.type == Npc.Type.Bomb:
 		await bomb_explode()
 		update_npc_positions()
 

@@ -1,12 +1,12 @@
 class_name Person extends Npc
 
-const angry_result = preload("res://scenes/angry_result.tscn")
+const angry_result = preload("res://scenes/npcs/angry_result.tscn")
 
 var dest: int = -1
 var face_timers = []
 
 func _ready() -> void:
-	npc_type = Npc.Type.Person
+	type = Npc.Type.Person
 	super()
 
 func _to_string() -> String:
