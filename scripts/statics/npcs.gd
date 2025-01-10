@@ -1,7 +1,7 @@
 class_name NPCs extends Node
 
-static var person_scene = preload("res://scenes/person.tscn")
-static var bomb_scene = preload("res://scenes/bomb.tscn")
+const person_scene = preload("res://scenes/person.tscn")
+const bomb_scene = preload("res://scenes/bomb.tscn")
 static var bomb_freq: int
 
 static func add_random_npc() -> Node2D:

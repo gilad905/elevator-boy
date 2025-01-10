@@ -11,3 +11,6 @@ static func _static_init() -> void:
 static func create(type: String) -> TextureRect:
 	var item = scenes[type].instantiate()
 	return item
+
+func activate() -> void:
+	pass

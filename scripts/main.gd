@@ -1,28 +1,17 @@
 extends Node
 
+const export_settings = preload("res://resources/export_settings.gd").obj
 var game_over_prompt: String = "GAME OVER"
 var level_up_prompt: String = "LEVEL COMPLETED"
 var span_duration: float
 var start_enter_interval: float
 var current_span: int = 1
-var export_settings = preload("res://resources/export_settings.gd").obj
 
 func _ready() -> void:
-	span_duration = get_speed_span_duration()
-	start_enter_interval = get_start_enter_interval()
-	NPCs.bomb_freq = Global.bomb_freq_by_level(Global.current_level)
-	$Overlay.modulate.a = 0
-	$Timers/ElevatorEnterTimer.wait_time = Global.elevator_check_interval_sec
-	$Timers/SpeedSpanTimer.wait_time = span_duration
-	$Timers/NPCsTimer.wait_time = start_enter_interval
+	init_level()
 	load_debug_labels()
-
 	await get_tree().create_timer(1, false).timeout
-	_on_npcs_timer_timeout()
-	$Timers/NPCsTimer.start()
-	$Timers/SpeedSpanTimer.start()
-	if export_settings.debugging:
-		_on_money_reached()
+	start_level()
 
 func _process(_delta: float) -> void:
 	if Input.is_action_pressed("elevator_move_up"):
@@ -39,6 +28,22 @@ func _input(event: InputEvent) -> void:
 		set_time_scale(true)
 	elif event.is_action_pressed("time_scale_decrease"):
 		set_time_scale(false)
+
+func init_level() -> void:
+	span_duration = get_speed_span_duration()
+	start_enter_interval = get_start_enter_interval()
+	NPCs.bomb_freq = Global.bomb_freq_by_level(Global.current_level)
+	$Overlay.modulate.a = 0
+	$Timers/ElevatorEnterTimer.wait_time = Global.elevator_check_interval_sec
+	$Timers/SpeedSpanTimer.wait_time = span_duration
+	$Timers/NPCsTimer.wait_time = start_enter_interval
+
+func start_level() -> void:
+	_on_npcs_timer_timeout()
+	$Timers/NPCsTimer.start()
+	$Timers/SpeedSpanTimer.start()
+	if export_settings.debugging:
+		_on_money_reached()
 
 func set_time_scale(to_increase: bool):
 	var time_scale = Engine.get_time_scale()

@@ -1,6 +1,6 @@
 extends Node
 
-var tween_types = preload("res://resources/elevator_mover_tweens.gd").obj
+const tween_types = preload("res://resources/elevator_mover_tweens.gd").obj
 var half_floor_height: int
 var half_floor_sec: float = Global.half_floor_sec
 var current_floor: float
