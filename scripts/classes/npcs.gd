@@ -1,19 +1,16 @@
 class_name NPCs extends Node
 
 const scene_path = "res://scenes/npcs/%s.tscn"
-static var npc_frequencies = _get_npc_frequencies()
+static var npc_frequencies
 static var scenes = {}
 
 static func _static_init() -> void:
 	scenes = Funcs.get_scenes_by_type(scene_path, Npc.Type)
 
-static func get_random_type() -> Npc.Type:
-	for type in npc_frequencies:
-		var frequency = npc_frequencies[type]
-		if frequency != 0 and (randi() % frequency == 0):
-			return type
-	return Npc.Type.Person
-
+static func update_frequencies() -> void:
+	npc_frequencies = _get_npc_frequencies()
+	# print(Global.current_level, " ", npc_frequencies)
+	
 static func add_random_npc() -> Node2D:
 	var floor_num = get_random_free_floor_num()
 	if not floor_num:
@@ -26,6 +23,13 @@ static func add_random_npc() -> Node2D:
 		npc.init(dest)
 	_floor.add_npc(npc)
 	return npc
+
+static func get_random_type() -> Npc.Type:
+	for type in npc_frequencies:
+		var frequency = npc_frequencies[type]
+		if frequency != 0 and (randi() % frequency == 0):
+			return type
+	return Npc.Type.Person
 
 static func get_random_free_floor_num() -> int:
 	var all_nums = range(1, Global.floor_count + 1)
@@ -58,12 +62,12 @@ static func _get_npc_frequencies() -> Dictionary:
 	return frequencies
 
 static func _get_npc_frequency(type: Npc.Type) -> int:
-	if Global.export_settings.debugging and type == Npc.Type.Businessman:
-		return 1
+	# if Global.debugging and type == Npc.Type.Businessman:
+	# 	return 1
 	if Global.current_level == 1:
 		return 0
 	var start_freq = Global.npc_meta[type].start_frequency
-	if start_freq == null:
+	if start_freq == 0:
 		return 0
 	var level = min(Global.current_level, 10)
-	return start_freq + level * -2
+	return start_freq + (level - 2) * -2

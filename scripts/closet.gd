@@ -7,9 +7,6 @@ func _ready() -> void:
 		var item = Item.create(item_type)
 		$Items.add_child(item)
 
-# func has_item(type: Item.Type) -> bool:
-# 	return $Items.has_node(Item.Type.find_key(type))
-
 func find_item(type: Item.Type) -> Item:
 	for item in $Items.get_children():
 		if item.type == type:
@@ -26,4 +23,5 @@ func add_random_item() -> Item:
 	var type = Item.Type.values().pick_random()
 	var item = Item.create(type)
 	$Items.add_child(item)
+	Global.closet.append(type)
 	return item

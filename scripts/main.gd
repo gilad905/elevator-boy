@@ -34,6 +34,7 @@ func _input(event: InputEvent) -> void:
 func init_level() -> void:
 	span_duration = get_speed_span_duration()
 	start_enter_interval = get_start_enter_interval()
+	NPCs.update_frequencies()
 	$Overlay.modulate.a = 0
 	$Timers/ElevatorEnterTimer.wait_time = Global.elevator_check_interval_sec
 	$Timers/SpeedSpanTimer.wait_time = span_duration
@@ -43,7 +44,7 @@ func start_level() -> void:
 	_on_npcs_timer_timeout()
 	$Timers/NPCsTimer.start()
 	$Timers/SpeedSpanTimer.start()
-	# if Global.export_settings.debugging:
+	# if Global.debugging:
 	# 	if Global.current_level == 1:
 	# 		_on_money_reached()
 	# 	else:
@@ -57,8 +58,8 @@ func set_time_scale(to_increase: bool):
 	update_debug_dynamic()
 
 func load_debug_labels() -> void:
-	var pref = "DEBUG " if Global.export_settings.debugging else ""
-	$Debug/Version.text = pref + Global.export_settings.version
+	var pref = "DEBUG " if Global.debugging else ""
+	$Debug/Version.text = pref + Global.version
 	var level_times = get_level_debug_desc()
 	$Debug/General.text = level_times
 	update_debug_dynamic()
