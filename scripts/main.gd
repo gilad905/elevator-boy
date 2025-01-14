@@ -44,11 +44,8 @@ func start_level() -> void:
 	_on_npcs_timer_timeout()
 	$Timers/NPCsTimer.start()
 	$Timers/SpeedSpanTimer.start()
-	# if Global.debugging:
-	# 	if Global.current_level == 1:
-	# 		_on_money_reached()
-	# 	else:
-	# 		_on_angries_reached()
+	# if Global.debugging and Global.current_level == 1:
+	# 	_on_money_reached()
 
 func set_time_scale(to_increase: bool):
 	var time_scale = Engine.get_time_scale()
@@ -60,16 +57,20 @@ func set_time_scale(to_increase: bool):
 func load_debug_labels() -> void:
 	var pref = "DEBUG " if Global.debugging else ""
 	$Debug/Version.text = pref + Global.version
-	var level_times = get_level_debug_desc()
-	$Debug/General.text = level_times
+	var level_desc = get_level_debug_desc()
+	$Debug/Level.text = level_desc
 	update_debug_dynamic()
 
 func get_level_debug_desc() -> String:
-	var total_shift = (start_enter_interval - Global.npc_enter_min_sec)
-	var span_count = ceil(total_shift / Global.npc_enter_shift_sec)
-	var time_sec = span_count * span_duration
-	var time_min = Funcs.snap_two(time_sec / 60)
-	return "span time: %ss\nmin enter: %sm" % [span_duration, time_min]
+	# var total_shift = (start_enter_interval - Global.npc_enter_min_sec)
+	# var span_count = ceil(total_shift / Global.npc_enter_shift_sec)
+	# var time_sec = span_count * span_duration
+	# var time_min = Funcs.snap_two(time_sec / 60)
+	# return "span time: %ss\nmin enter: %sm" % [span_duration, time_min]
+	var desc = ""
+	for type in ["Bomb", "Businessman"]:
+		desc += "%s: %s:1\n" % [type, NPCs.npc_frequencies[Npc.Type[type]]]
+	return desc
 
 func update_debug_dynamic() -> void:
 	var args = [$Timers/NPCsTimer.wait_time, Engine.get_time_scale()]

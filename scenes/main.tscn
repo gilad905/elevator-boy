@@ -294,7 +294,7 @@ offset_bottom = 111.0
 [node name="Version" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
 
-[node name="General" parent="Debug" instance=ExtResource("14_p4ui5")]
+[node name="Level" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
 
 [node name="Dynamic" parent="Debug" instance=ExtResource("14_p4ui5")]

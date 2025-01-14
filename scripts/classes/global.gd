@@ -4,9 +4,8 @@ const _export_settings = preload("res://resources/export_settings.gd").obj
 const debugging = _export_settings.debugging
 const version = _export_settings.version
 
-const closet_item_limit: int = 7
 const money_by_happy_count: Array[int] = [0, 1, 5, 10, 20]
-const angry_money_loss: int = 10
+const angry_money_loss: int = 5
 const win_on_amount: int = 100
 # const win_on_amount: int = 1 if debugging else 100
 const lose_on_angries: int = 5
@@ -44,6 +43,7 @@ const speed_span_min_sec: float = 5.0
 const speed_span_level_shift_sec: float = 5.0
 
 static var current_level: int = 1
+# static var current_level: int = 5 if debugging else 1
 static var closet: Array = [Item.Type.Life, Item.Type.Life]
 static var floor_count: int
 

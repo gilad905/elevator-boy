@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ceibvqu5hy1dw"
-path="res://.godot/imported/bomb-frame-1 - Copy.png-9de1f0f52d3987d112b8872d51c3edb5.ctex"
+uid="uid://cdcijj4x43f6e"
+path="res://.godot/imported/bomb-red-1.png-bb26e0cd24174e3526478b5a21691fb7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/bomb/bomb-frame-1 - Copy.png"
-dest_files=["res://.godot/imported/bomb-frame-1 - Copy.png-9de1f0f52d3987d112b8872d51c3edb5.ctex"]
+source_file="res://assets/bomb/bomb-red-1.png"
+dest_files=["res://.godot/imported/bomb-red-1.png-bb26e0cd24174e3526478b5a21691fb7.ctex"]
 
 [params]
 

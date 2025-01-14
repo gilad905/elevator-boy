@@ -26,7 +26,8 @@ func has_room() -> bool:
 
 func remove_person(person: Person, is_happy: bool) -> Signal:
 	if person.type == Npc.Type.Businessman and is_happy:
-		Nodes.Closet.add_random_item()
+		if Nodes.Closet.has_room():
+			Nodes.Closet.add_random_item()
 	person.patience_ended.disconnect(_on_npc_patience_ended)
 	var ended = person.end_with_result(is_happy)
 	ended.connect(_remove_npc_node.bind(person))
