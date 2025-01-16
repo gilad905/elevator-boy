@@ -20,7 +20,7 @@ static func add_random_npc() -> Node2D:
 	var npc = scenes[type].instantiate()
 	if npc is Person:
 		var dest = get_random_dest(floor_num)
-		npc.init(dest)
+		npc.set_dest(dest)
 	_floor.add_npc(npc)
 	return npc
 
@@ -62,12 +62,12 @@ static func _get_npc_frequencies() -> Dictionary:
 	return frequencies
 
 static func _get_npc_frequency(type: Npc.Type) -> int:
-	# if Global.debugging and type == Npc.Type.Businessman:
-	# 	return 1
+	var start_freq = Global.npc_meta[type].start_frequency
+	if start_freq <= 0:
+		return start_freq
 	if Global.current_level == 1:
 		return 0
-	var start_freq = Global.npc_meta[type].start_frequency
-	if start_freq == 0:
-		return 0
 	var level = min(Global.current_level, 10)
-	return start_freq + (level - 2) * -2
+	var freq = start_freq + (level - 2) * -2
+	freq = max(freq, 1)
+	return freq

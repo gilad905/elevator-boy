@@ -9,16 +9,22 @@ enum Type {Person, Bomb, Businessman}
 static var radius = Global.patience_radius
 static var circle_center = Vector2.ONE * radius
 
+var type: Type
+var patience_sec: int = -1
+var face_steps_sec: Array = []
 var is_patience_ended: bool = false
 var patience_tween: Tween
 var movement_tween: Tween
 var current_angle: float = zero_angle
-var type: Type
 var being_removed: bool = false
-var patience_sec: int = -1
+var to_animate: AnimatedSprite2D
+
+func _init() -> void:
+	patience_sec = Global.npc_meta[type].patience_sec
+	for percent in [50, 75]:
+		face_steps_sec.append(patience_sec * percent / 100.0)
 
 func _ready() -> void:
-	patience_sec = Global.npc_meta[type].patience_sec
 	start_patience_tween()
 
 func _draw() -> void:
@@ -27,8 +33,14 @@ func _draw() -> void:
 
 func start_patience_tween() -> void:
 	patience_tween = create_tween()
+	patience_tween.set_parallel()
 	patience_tween.tween_method(redraw_patience, zero_angle, full_angle, patience_sec)
+	for i in face_steps_sec.size():
+		var delay = face_steps_sec[i]
+		var callback = to_animate.set_frame.bind(i + 1)
+		patience_tween.tween_callback(callback).set_delay(delay)
 	await patience_tween.finished
+	to_animate.frame = 3
 	is_patience_ended = true
 	patience_ended.emit(self)
 

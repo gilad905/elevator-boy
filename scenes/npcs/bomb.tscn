@@ -32,6 +32,9 @@ animations = [{
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
 "texture": ExtResource("5_aikba")
 }, {
 "duration": 1.0,
@@ -73,7 +76,6 @@ autoplay = "default"
 centered = false
 
 [node name="Red" type="AnimatedSprite2D" parent="Face"]
-visible = false
 position = Vector2(5.5, 75.7)
 sprite_frames = SubResource("SpriteFrames_4uojk")
 centered = false

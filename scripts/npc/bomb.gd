@@ -1,7 +1,11 @@
 extends Npc
 
-func _ready() -> void:
+func _init() -> void:
 	type = Npc.Type.Bomb
+	super()
+
+func _ready() -> void:
+	to_animate = $Face/Red
 	super()
 
 func _draw() -> void:

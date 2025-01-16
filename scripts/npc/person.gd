@@ -1,53 +1,36 @@
 class_name Person extends Npc
 
-const angry_result = preload("res://scenes/npcs/angry_result.tscn")
-
 var dest: int = -1
-var face_timers = []
+
+func _init() -> void:
+	type = Npc.Type.Person
+	super()
 
 func _ready() -> void:
-	type = Npc.Type.Person
+	to_animate = $Face
+	$AngryResult/Amount.text = "-%s" % Global.angry_money_loss
 	super()
 
 func _to_string() -> String:
 	return "%s (%s)" % [get_instance_id(), dest]
 
-func init(_dest: int) -> void:
+func set_dest(_dest: int) -> void:
 	dest = _dest
 	$Dest.text = str(_dest)
 
-func start_patience_tween() -> void:
-	super()
-	add_face_timer(50, "angry_1")
-	add_face_timer(75, "angry_2")
-	await patience_tween.finished
-	$Face.play("angry_3")
-
-func add_face_timer(percent: int, state: String) -> void:
-	var sec = patience_sec * percent / 100.0
-	var timer = get_tree().create_timer(sec, false)
-	timer.timeout.connect($Face.play.bind(state))
-	face_timers.append(timer)
-
 func end_with_result(is_happy: bool) -> Signal:
 	remove()
-	for timer in face_timers:
-		var connections = timer.timeout.get_connections()
-		timer.timeout.disconnect(connections[0].callable)
 
 	$Dest.hide()
 	var tween = create_tween()
-	tween.set_parallel(true)
+	tween.set_parallel()
 	tween.tween_property(self, "modulate:a", 0, Global.person_result_sec)
 
 	if is_happy:
 		$Face.play("happy")
 	else:
-		$Face.play("angry_3")
-		var result = angry_result.instantiate()
-		result.get_node("Amount").text = "-%s" % Global.angry_money_loss
-		NPCs.add_result_tweener(tween, result)
-		add_child(result)
+		$AngryResult.show()
+		NPCs.add_result_tweener(tween, $AngryResult)
 
 	return tween.finished
 
