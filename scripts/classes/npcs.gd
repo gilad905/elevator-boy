@@ -10,7 +10,7 @@ static func _static_init() -> void:
 static func update_frequencies() -> void:
 	npc_frequencies = _get_npc_frequencies()
 	# print(Global.current_level, " ", npc_frequencies)
-	
+
 static func add_random_npc() -> Node2D:
 	var floor_num = get_random_free_floor_num()
 	if not floor_num:

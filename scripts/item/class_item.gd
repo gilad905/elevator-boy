@@ -1,6 +1,6 @@
 class_name Item extends TextureRect
 
-enum Type {Life}
+enum Type {Life, Broom}
 const scene_path = "res://scenes/items/item_%s.tscn"
 static var scenes = Funcs.get_scenes_by_type(scene_path, Type)
 

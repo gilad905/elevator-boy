@@ -11,7 +11,7 @@ var current_span: int = 1
 
 func _ready() -> void:
 	init_level()
-	load_debug_labels()
+	$Debug.load_labels()
 	await get_tree().create_timer(1, false).timeout
 	start_level()
 
@@ -52,29 +52,7 @@ func set_time_scale(to_increase: bool):
 	var shift = 2.0 if to_increase else 0.5
 	time_scale = clamp(time_scale * shift, 0.125, 32.0)
 	Engine.set_time_scale(time_scale)
-	update_debug_dynamic()
-
-func load_debug_labels() -> void:
-	var pref = "DEBUG " if Global.debugging else ""
-	$Debug/Version.text = pref + Global.version
-	var level_desc = get_level_debug_desc()
-	$Debug/Level.text = level_desc
-	update_debug_dynamic()
-
-func get_level_debug_desc() -> String:
-	# var total_shift = (start_enter_interval - Global.npc_enter_min_sec)
-	# var span_count = ceil(total_shift / Global.npc_enter_shift_sec)
-	# var time_sec = span_count * span_duration
-	# var time_min = Funcs.snap_two(time_sec / 60)
-	# return "span time: %ss\nmin enter: %sm" % [span_duration, time_min]
-	var desc = ""
-	for type in ["Bomb", "Businessman"]:
-		desc += "%s: %s:1\n" % [type, NPCs.npc_frequencies[Npc.Type[type]]]
-	return desc
-
-func update_debug_dynamic() -> void:
-	var args = [$Timers/NPCsTimer.wait_time, Engine.get_time_scale()]
-	$Debug/Dynamic.text = "enter interval: %ss\ntime scale: x%s" % args
+	$Debug.update_dynamic_labels()
 
 func show_overlay() -> void:
 	get_tree().paused = true
@@ -106,7 +84,6 @@ func _on_door_state_changed(state: int) -> void:
 
 func _on_elevator_enter_timer_timeout():
 	var floor_num = $Elevator.current_floor_num
-	assert($Floors.floor_exists(floor_num), "floor %s doesn't exist" % floor_num)
 	var _floor = $Floors.get_floor(floor_num)
 	_floor.enter_elevator_next()
 
@@ -116,7 +93,7 @@ func _on_speed_span_timer_timeout() -> void:
 	var new_time = wait_time - Global.npc_enter_shift_sec
 	wait_time = clamp(new_time, Global.npc_enter_min_sec, INF)
 	$Timers/NPCsTimer.wait_time = wait_time
-	update_debug_dynamic()
+	$Debug.update_dynamic_labels()
 
 func _on_angries_reached() -> void:
 	var life = $Closet.find_item(Item.Type.Life)
@@ -138,32 +115,3 @@ func _on_money_reached() -> void:
 func _on_continue_pressed() -> void:
 	get_tree().paused = false
 	get_tree().reload_current_scene()
-
-func _debug_enter_npcs_bug() -> void:
-	pass
-	# print(Global._temp)
-
-	# for i in 2:
-	# 	var dest = 5 if i > 1 else 1
-	# 	var person = NPCs.create_person(dest)
-	# 	$Elevator.add_npc(person)
-	# await get_tree().create_timer(10).timeout
-	# for i in 2:
-	# 	NPCs.add_person_at_floor(5, i + 2)
-
-	# NPCs.add_person_at_floor(5, 2)
-	# await get_tree().create_timer(1.5).timeout
-	# NPCs.add_person_at_floor(5, 3)
-	# await get_tree().create_timer(Global._temp + 0.5).timeout
-	# $Elevator._on_door_toggle_pressed()
-
-	# await get_tree().create_timer(Global._temp + 0.5).timeout
-	# $Elevator._on_door_toggle_pressed()
-	# await get_tree().create_timer(4).timeout
-	# Global._temp += 0.1
-
-	# get_tree().reload_current_scene()
-
-func _debug_overlay() -> void:
-	await get_tree().create_timer(1, false).timeout
-	_on_money_reached()
