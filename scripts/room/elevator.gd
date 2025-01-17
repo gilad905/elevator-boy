@@ -13,6 +13,14 @@ func _ready() -> void:
 	inner_size.y = $Frame.points[3].y - $Frame.points[0].y - $Frame.width
 	npcs_offset = Vector2.ONE * ($Frame.width / 2 - Global.patience_radius)
 
+func _process(_delta: float) -> void:
+	if Input.is_action_pressed("elevator_move_up"):
+		move_one_floor(true)
+	elif Input.is_action_pressed("elevator_move_down"):
+		move_one_floor(false)
+	elif Input.is_action_just_pressed("door_toggle"):
+		_on_door_toggle_pressed()
+
 func go_to_floor(floor_num: int) -> void:
 	if floor_num == current_floor_num:
 		$Door.toggle_state()
@@ -53,11 +61,10 @@ func remove_persons_in_dest() -> void:
 				happy_count += 1
 			else:
 				angry_count += 1
-			removed_signal = remove_person(npc, is_happy)
+			removed_signal = npc.remove_with_result(is_happy)
 	update_hud_by_result(happy_count, angry_count)
 	if removed_signal:
 		await removed_signal
-		# Funcs._print("updating positon after removals")
 		update_npc_positions()
 
 func update_hud_by_result(happy_count: int, angry_count: int) -> void:

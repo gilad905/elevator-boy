@@ -19,21 +19,25 @@ func set_dest(_dest: int) -> void:
 	$Dest.text = str(_dest)
 
 func end_with_result(is_happy: bool) -> Signal:
-	remove()
-
 	$Dest.hide()
-	var tween = create_tween()
-	tween.set_parallel()
-	tween.tween_property(self, "modulate:a", 0, Global.person_result_sec)
+	var tween = fade_out()
 
 	if is_happy:
 		$Face.play("happy")
 	else:
+		$Face.play("angry")
 		$AngryResult.show()
+		tween.set_parallel()
 		NPCs.add_result_tweener(tween, $AngryResult)
 
 	return tween.finished
 
+func remove_with_result(is_happy: bool) -> Signal:
+	init_end()
+	var ended = end_with_result(is_happy)
+	ended.connect(_remove_node)
+	return ended
+
 func _debug_test_result(is_happy: bool) -> void:
 	await get_tree().create_timer(1).timeout
-	end_with_result(is_happy)
+	remove_with_result(is_happy)

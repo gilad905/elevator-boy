@@ -15,14 +15,6 @@ func _ready() -> void:
 	await get_tree().create_timer(1, false).timeout
 	start_level()
 
-func _process(_delta: float) -> void:
-	if Input.is_action_pressed("elevator_move_up"):
-		$Elevator.move_one_floor(true)
-	elif Input.is_action_pressed("elevator_move_down"):
-		$Elevator.move_one_floor(false)
-	elif Input.is_action_just_pressed("door_toggle"):
-		$Elevator._on_door_toggle_pressed()
-
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("exit"):
 		get_tree().quit()
@@ -44,8 +36,6 @@ func start_level() -> void:
 	_on_npcs_timer_timeout()
 	$Timers/NPCsTimer.start()
 	$Timers/SpeedSpanTimer.start()
-	# if Global.debugging and Global.current_level == 1:
-	# 	_on_money_reached()
 
 func set_time_scale(to_increase: bool):
 	var time_scale = Engine.get_time_scale()
@@ -99,12 +89,12 @@ func _on_angries_reached() -> void:
 	var life = $Closet.find_item(Item.Type.Life)
 	var prompt
 	if life == null:
-		prompt = "game_over"
+		prompt = prompts.game_over
 		Global.current_level = 1
 	else:
-		prompt = "used_life"
+		prompt = prompts.used_life
 		$Closet.remove_item(life)
-	$Overlay/Prompt.text = prompts[prompt]
+	$Overlay/Prompt.text = prompt
 	show_overlay()
 
 func _on_money_reached() -> void:

@@ -16,7 +16,7 @@ var is_patience_ended: bool = false
 var patience_tween: Tween
 var movement_tween: Tween
 var current_angle: float = zero_angle
-var being_removed: bool = false
+var _showing_end: bool = false
 var to_animate: AnimatedSprite2D
 
 func _init() -> void:
@@ -42,7 +42,6 @@ func start_patience_tween() -> void:
 	await patience_tween.finished
 	to_animate.frame = 3
 	is_patience_ended = true
-	patience_ended.emit(self)
 
 func redraw_patience(angle: float) -> void:
 	current_angle = angle
@@ -54,9 +53,24 @@ func move_to(_position):
 	movement_tween.tween_property(self, "position", _position, duration)
 	await movement_tween.finished
 
-func remove() -> void:
-	being_removed = true
-	patience_tween.stop()
-
 func is_moving() -> bool:
 	return movement_tween and movement_tween.is_running()
+
+func init_end() -> void:
+	_showing_end = true
+	patience_tween.stop()
+
+func remove() -> Signal:
+	init_end()
+	var ended = fade_out().finished
+	ended.connect(_remove_node)
+	return ended
+
+func fade_out() -> Tween:
+	var tween = create_tween()
+	tween.tween_property(self, "modulate:a", 0, Global.npc_result_sec)
+	return tween
+
+func _remove_node() -> void:
+	get_parent().remove_child(self)
+	self.queue_free()

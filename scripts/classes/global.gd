@@ -16,11 +16,14 @@ const npc_meta = {
 		patience_sec = 30,
 	},
 	Npc.Type.Bomb: {
-		start_frequency = -1 if debugging else 20,
-		# start_frequency = 20,
+		# start_frequency = -1 if debugging else 20,
+		# start_frequency = 10 if debugging else 20,
+		start_frequency = 20,
 		patience_sec = 20,
 	},
 	Npc.Type.Businessman: {
+		# start_frequency = -1 if debugging else 30,
+		# start_frequency = 10 if debugging else 30,
 		start_frequency = 30,
 		patience_sec = 20,
 	},
@@ -29,7 +32,7 @@ const npc_meta = {
 const npc_spacing: int = 7
 const npc_speed: int = 200
 const patience_radius: int = 15
-const person_result_sec: float = 1.0
+const npc_result_sec: float = 1.0
 
 const half_floor_sec: float = 0.4
 const door_speed: int = 3
@@ -43,10 +46,13 @@ const speed_span_max_sec: float = 45.0
 const speed_span_min_sec: float = 5.0
 const speed_span_level_shift_sec: float = 5.0
 
-static var current_level: int = 1
-# static var current_level: int = 5 if debugging else 1
+# static var current_level: int = 1
+static var current_level: int = 5 if debugging else 1
 static var closet: Array = [Item.Type.Life, Item.Type.Life]
 static var floor_count: int
 
 func _ready() -> void:
 	floor_count = Nodes.Floors.get_child_count()
+	if debugging:
+		closet.resize(Nodes.Closet.item_limit)
+		closet.fill(Item.Type.Broom)

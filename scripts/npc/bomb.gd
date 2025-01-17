@@ -9,13 +9,16 @@ func _ready() -> void:
 	super()
 
 func _draw() -> void:
-	if not being_removed:
+	if not _showing_end:
 		super()
 
 func explode() -> Signal:
-	remove()
+	init_end()
+	patience_tween.stop()
 	queue_redraw() # removes the patience circle
 	$Face.hide()
 	$Explode.show()
 	$Explode.play()
-	return $Explode.animation_finished
+	var ended = $Explode.animation_finished
+	ended.connect(_remove_node)
+	return ended

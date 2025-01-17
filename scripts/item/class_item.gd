@@ -12,4 +12,15 @@ static func create(_type: Type) -> TextureRect:
 	return item
 
 func activate() -> void:
+	remove()
+
+func remove() -> void:
+	Nodes.Closet.remove_item(self)
+
+func _on_click() -> void:
 	pass
+	
+func _on_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			_on_click()

@@ -1,1 +1,17 @@
 extends Item
+
+func _on_click() -> void:
+	activate()
+
+func activate() -> void:
+	var rooms = [Nodes.Elevator]
+	var floor_num = Nodes.Elevator.current_floor_num
+	if floor_num != Nodes.Elevator.MOVING:
+		var _floor = Nodes.Floors.get_floor(floor_num)
+		rooms.append(_floor)
+
+	for room: Room in rooms:
+		for npc: Npc in room.get_node("NPCs").get_children():
+			npc.remove()
+			
+	super()
