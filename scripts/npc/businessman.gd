@@ -1,8 +1,7 @@
 extends Person
 
-func _ready() -> void:
+func _init() -> void:
 	type = Npc.Type.Businessman
-	patience_sec = Global.npc_meta[type].patience_sec
 	super()
 
 func remove_with_result(is_happy: bool) -> Signal:

@@ -5,12 +5,12 @@ signal patience_ended(npc: Node2D)
 const zero_angle: float = PI * -0.5
 const full_angle: float = PI * 1.5
 const result_sec: float = Global.npc_result_sec
-enum Type {Person, Bomb, Businessman}
+enum Type {Unset, Person, Bomb, Businessman}
 
 static var radius = Global.patience_radius
 static var circle_center = Vector2.ZERO
 
-var type: Type
+var type: Type = Type.Unset
 var fall_y: int
 var patience_sec: int = -1
 var face_steps_sec: Array = []

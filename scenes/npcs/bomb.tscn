@@ -76,6 +76,7 @@ sprite_frames = SubResource("SpriteFrames_pad6y")
 autoplay = "default"
 
 [node name="Red" type="AnimatedSprite2D" parent="Face"]
+position = Vector2(-23, 35)
 sprite_frames = SubResource("SpriteFrames_4uojk")
 
 [node name="Explode" type="AnimatedSprite2D" parent="."]

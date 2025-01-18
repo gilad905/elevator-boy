@@ -3,7 +3,8 @@ class_name Person extends Npc
 var dest: int = -1
 
 func _init() -> void:
-	type = Npc.Type.Person
+	if type == Npc.Type.Unset:
+		type = Npc.Type.Person
 	super()
 
 func _ready() -> void:

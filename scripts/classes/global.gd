@@ -17,14 +17,12 @@ const npc_meta = {
 	},
 	Npc.Type.Bomb: {
 		# start_frequency = -1 if debugging else 20,
-		# start_frequency = 10 if debugging else 20,
 		start_frequency = 20,
 		patience_sec = 20,
 	},
 	Npc.Type.Businessman: {
-		# start_frequency = -1 if debugging else 30,
-		# start_frequency = 10 if debugging else 30,
-		start_frequency = 30,
+		start_frequency = -1 if debugging else 30,
+		# start_frequency = 30,
 		patience_sec = 20,
 	},
 }

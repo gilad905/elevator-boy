@@ -58,6 +58,8 @@ static func add_result_tweener(tween: Tween, result: Node2D):
 static func _get_npc_frequencies() -> Dictionary:
 	var frequencies = {}
 	for type in Npc.Type.values():
+		if type == Npc.Type.Unset:
+			continue
 		frequencies[type] = _get_npc_frequency(type)
 	return frequencies
 
