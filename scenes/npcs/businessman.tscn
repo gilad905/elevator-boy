@@ -7,7 +7,11 @@
 [node name="Businessman" instance=ExtResource("1_es1j3")]
 script = ExtResource("2_o3o08")
 
+[node name="Dest" parent="." index="0"]
+offset_top = -40.5
+offset_bottom = -6.0
+
 [node name="Businessman" type="Sprite2D" parent="." index="2"]
-position = Vector2(15.3, 8)
+position = Vector2(0, -7)
 scale = Vector2(0.33, 0.33)
 texture = ExtResource("3_x8tki")

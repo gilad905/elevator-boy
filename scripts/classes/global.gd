@@ -53,6 +53,6 @@ static var floor_count: int
 
 func _ready() -> void:
 	floor_count = Nodes.Floors.get_child_count()
-	if debugging:
-		closet.resize(Nodes.Closet.item_limit)
-		closet.fill(Item.Type.Broom)
+	# if debugging:
+	# 	closet.resize(Nodes.Closet.item_limit)
+	# 	closet.fill(Item.Type.Broom)

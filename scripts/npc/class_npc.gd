@@ -4,12 +4,14 @@ signal patience_ended(npc: Node2D)
 
 const zero_angle: float = PI * -0.5
 const full_angle: float = PI * 1.5
+const result_sec: float = Global.npc_result_sec
 enum Type {Person, Bomb, Businessman}
 
 static var radius = Global.patience_radius
-static var circle_center = Vector2.ONE * radius
+static var circle_center = Vector2.ZERO
 
 var type: Type
+var fall_y: int
 var patience_sec: int = -1
 var face_steps_sec: Array = []
 var is_patience_ended: bool = false
@@ -25,7 +27,11 @@ func _init() -> void:
 		face_steps_sec.append(patience_sec * percent / 100.0)
 
 func _ready() -> void:
+	fall_y = get_viewport().size.y - Nodes.Floors.get_floor(5).global_position.y
 	start_patience_tween()
+	# if Global.debugging:
+	# 	await get_tree().create_timer(2).timeout
+	# 	fall()
 
 func _draw() -> void:
 	draw_circle(circle_center, radius, Color.WHITE, false, 2)
@@ -40,6 +46,7 @@ func start_patience_tween() -> void:
 		var callback = to_animate.set_frame.bind(i + 1)
 		patience_tween.tween_callback(callback).set_delay(delay)
 	await patience_tween.finished
+	patience_ended.emit(self)
 	to_animate.frame = 3
 	is_patience_ended = true
 
@@ -68,9 +75,25 @@ func remove() -> Signal:
 
 func fade_out() -> Tween:
 	var tween = create_tween()
-	tween.tween_property(self, "modulate:a", 0, Global.npc_result_sec)
+	tween.tween_property(self, "modulate:a", 0, result_sec)
+	return tween
+
+func fall() -> Tween:
+	var params = {
+		"position:x" = _randi_range_signed(50, 300),
+		"rotation_degrees" = _randi_range_signed(50, 200),
+	}
+	var tween = create_tween()
+	tween.set_parallel()
+	tween.tween_property(self, "position:y", fall_y, result_sec).as_relative().set_trans(Tween.TRANS_BACK)
+	for key in params:
+		print("%s %s" % [key, params[key]])
+		tween.tween_property(self, key, params[key], result_sec).as_relative()
 	return tween
 
 func _remove_node() -> void:
 	get_parent().remove_child(self)
 	self.queue_free()
+
+func _randi_range_signed(_min: int, _max: int) -> int:
+	return randi_range(_min, _max) * (1 if randi() % 2 == 0 else -1)
