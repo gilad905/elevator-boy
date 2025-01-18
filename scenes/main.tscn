@@ -209,6 +209,7 @@ begin_cap_mode = 1
 end_cap_mode = 1
 
 [node name="NPCs" type="Node2D" parent="Elevator"]
+position = Vector2(15, 15)
 
 [node name="HappyResult" type="Node2D" parent="Elevator"]
 visible = false

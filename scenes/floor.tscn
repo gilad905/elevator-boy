@@ -53,7 +53,7 @@ text = "5
 horizontal_alignment = 1
 
 [node name="NPCs" type="Node2D" parent="."]
-position = Vector2(0, 20)
+position = Vector2(11, 36)
 
 [node name="TouchScreenButton" type="TouchScreenButton" parent="."]
 position = Vector2(98, 56)

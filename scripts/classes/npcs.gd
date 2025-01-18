@@ -32,8 +32,6 @@ static func get_random_type() -> Npc.Type:
 	return Npc.Type.Person
 
 static func get_random_free_floor_num() -> int:
-	if Global.debugging:
-		return 5
 	var all_nums = range(1, Global.floor_count + 1)
 	var free_nums = all_nums.filter(floor_has_room)
 	var free_num = free_nums.pick_random()

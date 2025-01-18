@@ -15,7 +15,7 @@ func _ready() -> void:
 func get_npc_position(i: int) -> Vector2:
 	var spacing: int = Global.npc_spacing
 	var radius: int = Global.patience_radius
-	var x = spacing + (spacing + radius * 2) * i
+	var x = spacing + (radius * 2 + spacing) * i
 	return Vector2(x, npc_y)
 
 func enter_elevator_next():
