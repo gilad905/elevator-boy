@@ -49,7 +49,7 @@ func get_npc_position(i: int) -> Vector2:
 	return _position
 
 func remove_persons_in_dest() -> void:
-	var removed_signal: Signal
+	var removed: Signal
 	var happy_count: int = 0
 	var angry_count: int = 0
 	for npc in $NPCs.get_children():
@@ -61,10 +61,11 @@ func remove_persons_in_dest() -> void:
 				happy_count += 1
 			else:
 				angry_count += 1
-			removed_signal = npc.remove_with_result(is_happy)
+			removed = npc.remove(Npc.RemovalType.Fade)
+			npc.show_result(is_happy)
 	update_hud_by_result(happy_count, angry_count)
-	if removed_signal:
-		await removed_signal
+	if removed:
+		await removed
 		update_npc_positions()
 
 func update_hud_by_result(happy_count: int, angry_count: int) -> void:
@@ -77,7 +78,7 @@ func show_happy_result(money: int) -> void:
 	$HappyResult/Amount.text = "x" + str(money)
 	$HappyResult.show()
 	var tween = create_tween()
-	tween.set_parallel(true)
+	tween.set_parallel()
 	NPCs.add_result_tweener(tween, $HappyResult)
 	await tween.finished
 	$HappyResult.hide()

@@ -6,9 +6,10 @@ const version = _export_settings.version
 
 const money_by_happy_count: Array[int] = [0, 1, 5, 10, 20]
 const angry_money_loss: int = 5
-const win_on_amount: int = 100
 # const win_on_amount: int = 1 if debugging else 100
-const lose_on_angries: int = 5
+const win_on_amount: int = 100
+const lose_on_angries: int = 100 if debugging else 5
+# const lose_on_angries: int = 5
 
 const npc_meta = {
 	Npc.Type.Person: {
@@ -16,13 +17,13 @@ const npc_meta = {
 		patience_sec = 30,
 	},
 	Npc.Type.Bomb: {
-		# start_frequency = -1 if debugging else 20,
+		# start_frequency = 2 if debugging else 20,
 		start_frequency = 20,
 		patience_sec = 20,
 	},
 	Npc.Type.Businessman: {
-		start_frequency = -1 if debugging else 30,
-		# start_frequency = 30,
+		# start_frequency = -1 if debugging else 30,
+		start_frequency = 30,
 		patience_sec = 20,
 	},
 }
@@ -51,6 +52,6 @@ static var floor_count: int
 
 func _ready() -> void:
 	floor_count = Nodes.Floors.get_child_count()
-	# if debugging:
-	# 	closet.resize(Nodes.Closet.item_limit)
-	# 	closet.fill(Item.Type.Broom)
+	if debugging:
+		closet.resize(Nodes.Closet.item_limit)
+		closet.fill(Item.Type.Broom)

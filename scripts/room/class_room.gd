@@ -37,14 +37,17 @@ func update_hud_by_result(happy_count: int, angry_count: int) -> void:
 		Nodes.HUD.increment_money(money_shift)
 
 func bomb_explode() -> Signal:
-	var removed
+	var removed: Signal
 	var angry_count = 0
 	for npc in $NPCs.get_children():
 		if npc.type == Npc.Type.Bomb:
-			removed = npc.explode()
+			var exploded = npc.show_explode()
+			if not removed:
+				removed = exploded
 		elif npc is Person:
 			angry_count += 1
-			npc.remove_with_result(false)
+			removed = npc.remove(Npc.RemovalType.Fall)
+			npc.show_result(false)
 	update_hud_by_result(0, angry_count)
 	return removed
 

@@ -12,6 +12,8 @@ func activate() -> void:
 
 	for room: Room in rooms:
 		for npc: Npc in room.get_node("NPCs").get_children():
-			npc.remove()
+			npc.remove(Npc.RemovalType.Fall)
+			if npc is Person:
+				npc.get_node("Face").play("shock")
 			
 	super()

@@ -64,6 +64,8 @@ static func _get_npc_frequencies() -> Dictionary:
 	return frequencies
 
 static func _get_npc_frequency(type: Npc.Type) -> int:
+	if Global.debugging and type == Npc.Type.Bomb:
+		return 2
 	var start_freq = Global.npc_meta[type].start_frequency
 	if start_freq <= 0:
 		return start_freq

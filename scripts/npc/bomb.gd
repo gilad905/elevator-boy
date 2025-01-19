@@ -12,9 +12,8 @@ func _draw() -> void:
 	if not _showing_end:
 		super()
 
-func explode() -> Signal:
-	init_end()
-	patience_tween.stop()
+func show_explode() -> Signal:
+	init_showing_end()
 	queue_redraw() # removes the patience circle
 	$Face.hide()
 	$Explode.show()

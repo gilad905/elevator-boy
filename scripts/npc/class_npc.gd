@@ -6,6 +6,7 @@ const zero_angle: float = PI * -0.5
 const full_angle: float = PI * 1.5
 const result_sec: float = Global.npc_result_sec
 enum Type {Unset, Person, Bomb, Businessman}
+enum RemovalType {Fade, Fall}
 
 static var radius = Global.patience_radius
 static var circle_center = Vector2.ZERO
@@ -29,9 +30,6 @@ func _init() -> void:
 func _ready() -> void:
 	fall_y = get_viewport().size.y - Nodes.Floors.get_floor(5).global_position.y
 	start_patience_tween()
-	# if Global.debugging:
-	# 	await get_tree().create_timer(2).timeout
-	# 	fall()
 
 func _draw() -> void:
 	draw_circle(circle_center, radius, Color.WHITE, false, 2)
@@ -63,15 +61,20 @@ func move_to(_position):
 func is_moving() -> bool:
 	return movement_tween and movement_tween.is_running()
 
-func init_end() -> void:
+func init_showing_end() -> void:
 	_showing_end = true
 	patience_tween.stop()
 
-func remove() -> Signal:
-	init_end()
-	var ended = fade_out().finished
-	ended.connect(_remove_node)
-	return ended
+func remove(_type: RemovalType = RemovalType.Fade) -> Signal:
+	init_showing_end()
+	var tween
+	match _type:
+		RemovalType.Fade:
+			tween = fade_out()
+		RemovalType.Fall:
+			tween = fall()
+	tween.finished.connect(_remove_node)
+	return tween.finished
 
 func fade_out() -> Tween:
 	var tween = create_tween()
@@ -87,7 +90,7 @@ func fall() -> Tween:
 	tween.set_parallel()
 	tween.tween_property(self, "position:y", fall_y, result_sec).as_relative().set_trans(Tween.TRANS_BACK)
 	for key in params:
-		print("%s %s" % [key, params[key]])
+		# print("%s %s" % [key, params[key]])
 		tween.tween_property(self, key, params[key], result_sec).as_relative()
 	return tween
 
