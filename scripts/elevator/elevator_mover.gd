@@ -2,7 +2,7 @@ extends Node
 
 const tween_types = preload("res://resources/elevator_mover_tweens.gd").obj
 var half_floor_height: int
-var half_floor_sec: float = Global.half_floor_sec
+var half_floor_sec: float = Settings.half_floor_sec
 var current_floor: float
 var current_direction: int
 var current_tween_type: Dictionary
@@ -13,7 +13,7 @@ signal done
 
 func _ready() -> void:
 	half_floor_height = Nodes.Floors.floor_height / 2
-	current_floor = Global.floor_count
+	current_floor = Settings.floor_count
 	current_direction = 0
 	current_tween_type = tween_types.stop # just to have "to" on 0
 

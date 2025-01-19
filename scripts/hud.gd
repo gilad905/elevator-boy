@@ -11,19 +11,19 @@ func _ready() -> void:
 	start_outline = $Money/Amount.get_theme_constant("outline_size")
 	$Money/Amount.text = "0"
 	$Angries/Amount.text = "0"
-	$Level/Value.text = str(Global.current_level)
-	$Money/Total.text = "/" + str(Global.win_on_amount)
-	$Angries/Total.text = "/" + str(Global.lose_on_angries)
+	$Level/Value.text = str(Settings.current_level)
+	$Money/Total.text = "/" + str(Settings.win_on_amount)
+	$Angries/Total.text = "/" + str(Settings.lose_on_angries)
 	# _debug_test_increments()
 	
 func increment_money(amount: int) -> void:
 	var new_amount = _increment_counter($Money, amount)
-	if new_amount >= Global.win_on_amount:
+	if new_amount >= Settings.win_on_amount:
 		money_reached.emit()
 
 func increment_angries(amount: int) -> void:
 	var new_amount = _increment_counter($Angries, amount)
-	if new_amount >= Global.lose_on_angries:
+	if new_amount >= Settings.lose_on_angries:
 		angries_reached.emit()
 
 func _increment_counter(field: Node2D, amount: int) -> int:

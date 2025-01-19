@@ -28,7 +28,7 @@ func init_level() -> void:
 	start_enter_interval = get_start_enter_interval()
 	NPCs.update_frequencies()
 	$Overlay.modulate.a = 0
-	$Timers/ElevatorEnterTimer.wait_time = Global.elevator_check_interval_sec
+	$Timers/ElevatorEnterTimer.wait_time = Settings.elevator_check_interval_sec
 	$Timers/SpeedSpanTimer.wait_time = span_duration
 	$Timers/NPCsTimer.wait_time = start_enter_interval
 
@@ -50,15 +50,15 @@ func show_overlay() -> void:
 	$Overlay.create_tween().tween_property($Overlay, "modulate:a", 1, 1)
 
 func get_speed_span_duration() -> float:
-	var shift = Global.speed_span_level_shift_sec * (Global.current_level - 1)
-	var duration = Global.speed_span_max_sec - shift
-	duration = max(duration, Global.speed_span_min_sec)
+	var shift = Settings.speed_span_level_shift_sec * (Settings.current_level - 1)
+	var duration = Settings.speed_span_max_sec - shift
+	duration = max(duration, Settings.speed_span_min_sec)
 	return duration
 
 func get_start_enter_interval() -> float:
-	var interval = Global.npc_enter_max_sec
-	interval -= (Global.current_level - 1) * Global.npc_enter_shift_sec
-	interval = max(interval, Global.npc_enter_min_sec)
+	var interval = Settings.npc_enter_max_sec
+	interval -= (Settings.current_level - 1) * Settings.npc_enter_shift_sec
+	interval = max(interval, Settings.npc_enter_min_sec)
 	return interval
 
 func _on_npcs_timer_timeout() -> void:
@@ -80,8 +80,8 @@ func _on_elevator_enter_timer_timeout():
 func _on_speed_span_timer_timeout() -> void:
 	current_span += 1
 	var wait_time = $Timers/NPCsTimer.wait_time
-	var new_time = wait_time - Global.npc_enter_shift_sec
-	wait_time = clamp(new_time, Global.npc_enter_min_sec, INF)
+	var new_time = wait_time - Settings.npc_enter_shift_sec
+	wait_time = clamp(new_time, Settings.npc_enter_min_sec, INF)
 	$Timers/NPCsTimer.wait_time = wait_time
 	$Debug.update_dynamic_labels()
 
@@ -90,7 +90,7 @@ func _on_angries_reached() -> void:
 	var prompt
 	if life == null:
 		prompt = prompts.game_over
-		Global.current_level = 1
+		Settings.current_level = 1
 	else:
 		prompt = prompts.used_life
 		$Closet.remove_item(life)
@@ -99,7 +99,7 @@ func _on_angries_reached() -> void:
 
 func _on_money_reached() -> void:
 	$Overlay/Prompt.text = prompts.level_up
-	Global.current_level += 1
+	Settings.current_level += 1
 	show_overlay()
 
 func _on_continue_pressed() -> void:

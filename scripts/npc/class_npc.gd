@@ -4,11 +4,11 @@ signal patience_ended(npc: Node2D)
 
 const zero_angle: float = PI * -0.5
 const full_angle: float = PI * 1.5
-const result_sec: float = Global.npc_result_sec
+const result_sec: float = Settings.npc_result_sec
 enum Type {Unset, Person, Bomb, Businessman}
 enum RemovalType {Fade, Fall}
 
-static var radius = Global.patience_radius
+static var radius = Settings.patience_radius
 static var circle_center = Vector2.ZERO
 
 var type: Type = Type.Unset
@@ -23,7 +23,7 @@ var _showing_end: bool = false
 var to_animate: AnimatedSprite2D
 
 func _init() -> void:
-	patience_sec = Global.npc_meta[type].patience_sec
+	patience_sec = Settings.npc_meta[type].patience_sec
 	for percent in [50, 75]:
 		face_steps_sec.append(patience_sec * percent / 100.0)
 
@@ -53,7 +53,7 @@ func redraw_patience(angle: float) -> void:
 	queue_redraw()
 
 func move_to(_position):
-	var duration = position.distance_to(_position) / Global.npc_speed
+	var duration = position.distance_to(_position) / Settings.npc_speed
 	movement_tween = create_tween()
 	movement_tween.tween_property(self, "position", _position, duration)
 	await movement_tween.finished

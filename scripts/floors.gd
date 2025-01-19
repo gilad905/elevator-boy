@@ -16,4 +16,4 @@ func set_floor_pressed(floor_num: int) -> void:
 	get_floor(floor_num).set_pressed(true)
 
 func floor_exists(floor_num: int) -> bool:
-	return floor_num >= 1 and floor_num <= Global.floor_count
+	return floor_num >= 1 and floor_num <= Settings.floor_count

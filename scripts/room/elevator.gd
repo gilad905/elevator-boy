@@ -7,11 +7,11 @@ var inner_size: Vector2
 
 func _ready() -> void:
 	self.npc_limit = 4
-	current_floor_num = Global.floor_count
+	current_floor_num = Settings.floor_count
 	Nodes.Floors.set_floor_pressed(current_floor_num)
 	inner_size.x = $Frame.points[0].x - $Frame.points[1].x - $Frame.width
 	inner_size.y = $Frame.points[3].y - $Frame.points[0].y - $Frame.width
-	npcs_offset = Vector2.ONE * ($Frame.width / 2 - Global.patience_radius)
+	npcs_offset = Vector2.ONE * ($Frame.width / 2 - Settings.patience_radius)
 
 func _process(_delta: float) -> void:
 	if Input.is_action_pressed("elevator_move_up"):
@@ -71,7 +71,7 @@ func remove_persons_in_dest() -> void:
 func update_hud_by_result(happy_count: int, angry_count: int) -> void:
 	super(happy_count, angry_count)
 	if happy_count > 0:
-		var happy_money = Global.money_by_happy_count[happy_count]
+		var happy_money = Settings.money_by_happy_count[happy_count]
 		show_happy_result(happy_money)
 
 func show_happy_result(money: int) -> void:

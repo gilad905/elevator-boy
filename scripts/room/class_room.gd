@@ -27,10 +27,10 @@ func has_room() -> bool:
 func update_hud_by_result(happy_count: int, angry_count: int) -> void:
 	var money_shift = 0
 	if happy_count > 0:
-		var happy_money = Global.money_by_happy_count[happy_count]
+		var happy_money = Settings.money_by_happy_count[happy_count]
 		money_shift += happy_money
 	if angry_count > 0:
-		var angry_money = Global.angry_money_loss * angry_count
+		var angry_money = Settings.angry_money_loss * angry_count
 		Nodes.HUD.increment_angries(angry_count)
 		money_shift -= angry_money
 	if money_shift != 0:

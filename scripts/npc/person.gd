@@ -9,9 +9,9 @@ func _init() -> void:
 
 func _ready() -> void:
 	to_animate = $Face
-	$AngryResult/Amount.text = "-%s" % Global.angry_money_loss
+	$AngryResult/Amount.text = "-%s" % Settings.angry_money_loss
 	super()
-	# if Global.debugging:
+	# if Settings.debugging:
 	# 	await get_tree().create_timer(2).timeout
 	# 	remove(Npc.RemovalType.Fall)
 	# 	show_result(false)

@@ -9,7 +9,7 @@ static func _static_init() -> void:
 
 static func update_frequencies() -> void:
 	npc_frequencies = _get_npc_frequencies()
-	# print(Global.current_level, " ", npc_frequencies)
+	# print(Settings.current_level, " ", npc_frequencies)
 
 static func add_random_npc() -> Node2D:
 	var floor_num = get_random_free_floor_num()
@@ -32,7 +32,7 @@ static func get_random_type() -> Npc.Type:
 	return Npc.Type.Person
 
 static func get_random_free_floor_num() -> int:
-	var all_nums = range(1, Global.floor_count + 1)
+	var all_nums = range(1, Settings.floor_count + 1)
 	var free_nums = all_nums.filter(floor_has_room)
 	var free_num = free_nums.pick_random()
 	return free_num if free_num else 0
@@ -41,14 +41,14 @@ static func floor_has_room(floor_num: int) -> bool:
 	return Nodes.Floors.get_floor(floor_num).has_room()
 
 static func get_random_dest(source_floor_num: int) -> int:
-	var random_floor = randi_range(1, Global.floor_count - 1)
+	var random_floor = randi_range(1, Settings.floor_count - 1)
 	if random_floor >= source_floor_num:
 		random_floor += 1
 	return random_floor
 
 static func add_result_tweener(tween: Tween, result: Node2D):
 	var scale = result.scale.x
-	var duration = Global.npc_result_sec
+	var duration = Settings.npc_result_sec
 	for type in ["x", "y"]:
 		tween.tween_property(result, "scale:" + type, scale * 2, duration)
 	await tween.finished
@@ -64,14 +64,14 @@ static func _get_npc_frequencies() -> Dictionary:
 	return frequencies
 
 static func _get_npc_frequency(type: Npc.Type) -> int:
-	if Global.debugging and type == Npc.Type.Bomb:
+	if Settings.debugging and type == Npc.Type.Bomb:
 		return 2
-	var start_freq = Global.npc_meta[type].start_frequency
+	var start_freq = Settings.npc_meta[type].start_frequency
 	if start_freq <= 0:
 		return start_freq
-	if Global.current_level == 1:
+	if Settings.current_level == 1:
 		return 0
-	var level = min(Global.current_level, 10)
+	var level = min(Settings.current_level, 10)
 	var freq = start_freq + (level - 2) * -2
 	freq = max(freq, 1)
 	return freq
