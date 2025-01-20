@@ -50,14 +50,14 @@ func show_overlay() -> void:
 	$Overlay.create_tween().tween_property($Overlay, "modulate:a", 1, 1)
 
 func get_speed_span_duration() -> float:
-	var shift = Settings.speed_span_level_shift_sec * (Settings.current_level - 1)
+	var shift = Settings.speed_span_level_shift_sec * (State.current_level - 1)
 	var duration = Settings.speed_span_max_sec - shift
 	duration = max(duration, Settings.speed_span_min_sec)
 	return duration
 
 func get_start_enter_interval() -> float:
 	var interval = Settings.npc_enter_max_sec
-	interval -= (Settings.current_level - 1) * Settings.npc_enter_shift_sec
+	interval -= (State.current_level - 1) * Settings.npc_enter_shift_sec
 	interval = max(interval, Settings.npc_enter_min_sec)
 	return interval
 
@@ -65,11 +65,11 @@ func _on_npcs_timer_timeout() -> void:
 	NPCs.add_random_npc()
 
 func _on_door_state_changed(state: int) -> void:
-	if state == $Elevator/Door.State.open:
+	if state == $Elevator/Door.DoorState.open:
 		$Elevator.remove_persons_in_dest()
 		_on_elevator_enter_timer_timeout()
 		$Timers/ElevatorEnterTimer.start()
-	elif state == $Elevator/Door.State.closing:
+	elif state == $Elevator/Door.DoorState.closing:
 		$Timers/ElevatorEnterTimer.stop()
 
 func _on_elevator_enter_timer_timeout():
@@ -90,7 +90,7 @@ func _on_angries_reached() -> void:
 	var prompt
 	if life == null:
 		prompt = prompts.game_over
-		Settings.current_level = 1
+		State.current_level = 1
 	else:
 		prompt = prompts.used_life
 		$Closet.remove_item(life)
@@ -99,7 +99,7 @@ func _on_angries_reached() -> void:
 
 func _on_money_reached() -> void:
 	$Overlay/Prompt.text = prompts.level_up
-	Settings.current_level += 1
+	State.current_level += 1
 	show_overlay()
 
 func _on_continue_pressed() -> void:

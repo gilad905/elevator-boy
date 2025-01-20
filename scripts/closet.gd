@@ -3,7 +3,7 @@ extends Control
 const item_limit: int = 7
 
 func _ready() -> void:
-	for item_type in Settings.closet:
+	for item_type in State.closet:
 		var item = Item.create(item_type)
 		$Items.add_child(item)
 
@@ -30,6 +30,6 @@ func add_random_item() -> Item:
 	return item
 
 func _update_global_closet() -> void:
-	Settings.closet.clear()
+	State.closet.clear()
 	for item in $Items.get_children():
-		Settings.closet.append(item.type)
+		State.closet.append(item.type)

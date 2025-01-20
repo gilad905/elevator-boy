@@ -27,14 +27,14 @@ func go_to_floor(floor_num: int) -> void:
 		return
 
 	Nodes.Floors.set_floor_pressed(floor_num)
-	if $Door.current_state != $Door.State.closed:
-		$Door.set_state($Door.State.closing)
+	if $Door.current_state != $Door.DoorState.closed:
+		$Door.set_state($Door.DoorState.closing)
 		await $Door.has_closed
 
 	current_floor_num = MOVING
 	await $Mover.move_to(floor_num)
 	current_floor_num = floor_num
-	$Door.set_state($Door.State.opening)
+	$Door.set_state($Door.DoorState.opening)
 
 func move_one_floor(go_up: bool) -> void:
 	var target_floor: int = current_floor_num + (1 if go_up else -1)
