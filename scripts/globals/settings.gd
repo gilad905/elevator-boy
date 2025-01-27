@@ -45,13 +45,7 @@ const speed_span_max_sec: float = 45.0
 const speed_span_min_sec: float = 5.0
 const speed_span_level_shift_sec: float = 5.0
 
-# static var current_level: int = 1
-static var current_level: int = 5 if debugging else 1
-static var closet: Array = [Item.Type.Life, Item.Type.Life]
 static var floor_count: int
 
 func _ready() -> void:
 	floor_count = Nodes.Floors.get_child_count()
-	if debugging:
-		closet.resize(Nodes.Closet.item_limit)
-		closet.fill(Item.Type.Broom)

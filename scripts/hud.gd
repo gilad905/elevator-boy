@@ -11,7 +11,7 @@ func _ready() -> void:
 	start_outline = $Money/Amount.get_theme_constant("outline_size")
 	$Money/Amount.text = "0"
 	$Angries/Amount.text = "0"
-	$Level/Value.text = str(Settings.current_level)
+	$Level/Value.text = str(State.current_level)
 	$Money/Total.text = "/" + str(Settings.win_on_amount)
 	$Angries/Total.text = "/" + str(Settings.lose_on_angries)
 	# _debug_test_increments()

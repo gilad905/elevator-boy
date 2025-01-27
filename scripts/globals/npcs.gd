@@ -9,7 +9,7 @@ static func _static_init() -> void:
 
 static func update_frequencies() -> void:
 	npc_frequencies = _get_npc_frequencies()
-	# print(Settings.current_level, " ", npc_frequencies)
+	# print(State.current_level, " ", npc_frequencies)
 
 static func add_random_npc() -> Node2D:
 	var floor_num = get_random_free_floor_num()
@@ -69,9 +69,9 @@ static func _get_npc_frequency(type: Npc.Type) -> int:
 	var start_freq = Settings.npc_meta[type].start_frequency
 	if start_freq <= 0:
 		return start_freq
-	if Settings.current_level == 1:
+	if State.current_level == 1:
 		return 0
-	var level = min(Settings.current_level, 10)
+	var level = min(State.current_level, 10)
 	var freq = start_freq + (level - 2) * -2
 	freq = max(freq, 1)
 	return freq
