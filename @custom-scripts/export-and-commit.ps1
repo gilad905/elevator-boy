@@ -1,7 +1,8 @@
 $path = "@exports/web"
 $settings = "./resources/export_settings.gd"
 $date = Get-Date -Format "MM-dd HH:mm"
-$godot = "C:\Users\gilad\Documents\Programming\Game dev\Godot_v4.3-stable_win64\Godot_v4.3-stable_win64.exe"
+$godot = Invoke-Command -ScriptBlock { node ./@custom-scripts/find-godot.mjs }
+# Write-Output "Godot path: $godot"
 Write-Output "version: $date"
 
 (Get-Content $settings) -replace '(?<=version = ")[^"]*', $date | Set-Content $settings

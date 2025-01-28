@@ -1,16 +1,4 @@
-$godotPaths = @(
-	"C:\Users\gilad\Documents\Programming\Game dev\Godot_v4.3-stable_win64\Godot_v4.3-stable_win64.exe",
-	"D:\DEV\Own\Godot\Godot_v4.3-stable_win64.exe\Godot_v4.3-stable_win64.exe"
-)
-
-$godot = $null
-foreach ($path in $godotPaths) {
-	if (Test-Path $path) {
-		$godot = $path
-		break
-	}
-}
-
+$godot = Invoke-Command -ScriptBlock { node ./@custom-scripts/find-godot.mjs }
 $cwd = Get-Location
 
 Start-Job {
