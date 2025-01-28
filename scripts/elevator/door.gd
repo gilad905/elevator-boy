@@ -27,7 +27,7 @@ func toggle_state() -> void:
 	var target_state = DoorState.closing if is_opening else DoorState.opening
 	set_state(target_state)
 
-func set_state(state: State) -> void:
+func set_state(state: DoorState) -> void:
 	var is_opening = [DoorState.open, DoorState.opening].has(state)
 	var target_state = DoorState.opening if is_opening else DoorState.closing
 	current_state = target_state
