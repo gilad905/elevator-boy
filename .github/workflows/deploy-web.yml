@@ -55,8 +55,8 @@ jobs:
         run: |
           # coi-serviceworker enables SharedArrayBuffer on GitHub Pages by setting
           # the required cross-origin isolation headers via a service worker.
-          # Pinned to v0.1.7 release tag for supply-chain safety.
-          wget -q https://raw.githubusercontent.com/nickvdp/coi-serviceworker/v0.1.7/coi-serviceworker.min.js -O public/coi-serviceworker.min.js
+          # Pinned to commit SHA for supply-chain safety (gzuidhof/coi-serviceworker).
+          wget -q https://raw.githubusercontent.com/gzuidhof/coi-serviceworker/7b1d2a092d0d2dd2b7270b6f12f13605de26f214/coi-serviceworker.min.js -O public/coi-serviceworker.min.js
           sed -i 's|<head>|<head>\n\t<script src="coi-serviceworker.min.js"></script>|' public/index.html
 
       - name: Setup Pages
