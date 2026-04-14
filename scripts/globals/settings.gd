@@ -7,7 +7,7 @@ const version = _export_settings.version
 const money_by_happy_count: Array[int] = [0, 1, 5, 10, 20]
 const angry_money_loss: int = 5
 # const win_on_amount: int = 1 if debugging else 100
-const win_on_amount: int = 100
+const win_on_amount: int = 50
 const lose_on_angries: int = 100 if debugging else 5
 # const lose_on_angries: int = 5
 
