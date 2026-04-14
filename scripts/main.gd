@@ -27,7 +27,6 @@ func init_level() -> void:
 	span_duration = get_speed_span_duration()
 	start_enter_interval = get_start_enter_interval()
 	NPCs.update_frequencies()
-	$Overlay.modulate.a = 0
 	$Timers/ElevatorEnterTimer.wait_time = Settings.elevator_check_interval_sec
 	$Timers/SpeedSpanTimer.wait_time = span_duration
 	$Timers/NPCsTimer.wait_time = start_enter_interval
@@ -43,11 +42,6 @@ func set_time_scale(to_increase: bool):
 	time_scale = clamp(time_scale * shift, 0.125, 32.0)
 	Engine.set_time_scale(time_scale)
 	$Debug.update_dynamic_labels()
-
-func show_overlay() -> void:
-	get_tree().paused = true
-	$Overlay.show()
-	$Overlay.create_tween().tween_property($Overlay, "modulate:a", 1, 1)
 
 func get_speed_span_duration() -> float:
 	var shift = Settings.speed_span_level_shift_sec * (State.current_level - 1)
@@ -94,14 +88,13 @@ func _on_angries_reached() -> void:
 	else:
 		prompt = prompts.used_life
 		$Closet.remove_item(life)
-	$Overlay/Prompt.text = prompt
-	show_overlay()
+	$Modal.show_modal(prompt)
 
 func _on_money_reached() -> void:
-	$Overlay/Prompt.text = prompts.level_up
 	State.current_level += 1
-	show_overlay()
+	$Modal.show_modal(prompts.level_up)
 
 func _on_continue_pressed() -> void:
+	await $Modal.hide_modal()
 	get_tree().paused = false
 	get_tree().reload_current_scene()
