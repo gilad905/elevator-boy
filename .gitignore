@@ -1,8 +1,8 @@
 /.godot/
 /android/
-/@other/
-/@exports/
-/@raw-assets/
+/.other/
+/.exports/
+/.raw-assets/
 /test
 /resources/export_settings.gd
 *.import
