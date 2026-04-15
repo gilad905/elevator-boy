@@ -1,4 +1,4 @@
 const obj = {
   version = "",
-  debugging = false,
+  is_dev = true,
 }
