@@ -1,7 +1,7 @@
 $path = "@exports/web"
 $settings = "./resources/export_settings.gd"
 $date = Get-Date -Format "MM-dd HH:mm"
-$godot = Invoke-Command -ScriptBlock { node ./@custom-scripts/find-godot.mjs }
+$godot = Invoke-Command -ScriptBlock { node ./.custom-scripts/find-godot.mjs }
 # Write-Output "Godot path: $godot"
 Write-Output "version: $date"
 
