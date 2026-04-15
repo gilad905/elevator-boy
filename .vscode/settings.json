@@ -1,6 +1,11 @@
 {
   "editor.insertSpaces": false,
   "search.exclude": {
-      "**/*.import": true
+    "**/*.import": true,
+    "**/*.uid": true
   },
+  "files.exclude": {
+    "**/*.import": true,
+    "**/*.uid": true
+  }
 }

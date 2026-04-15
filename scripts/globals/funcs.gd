@@ -18,3 +18,6 @@ static func get_scenes_by_type(base_path, types) -> Dictionary:
 static func get_scene_by_type(base_path, type_name) -> PackedScene:
 	var path = base_path % type_name.to_lower()
 	return load(path)
+
+static func get_random_by_frequency(frequency: int) -> bool:
+	return frequency != 0 and (randi() % frequency == 0)

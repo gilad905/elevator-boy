@@ -28,6 +28,15 @@ const npc_meta = {
 	},
 }
 
+const item_meta = {
+	Item.Type.Life: {
+		frequency = 0,
+	},
+	Item.Type.Broom: {
+		frequency = 3,
+	},
+}
+
 const npc_spacing: int = 7
 const npc_speed: int = 200
 const patience_radius: int = 15

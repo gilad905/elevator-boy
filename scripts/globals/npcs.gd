@@ -31,7 +31,7 @@ static func add_random_npc() -> Node2D:
 static func get_random_type() -> Npc.Type:
 	for type in npc_frequencies:
 		var frequency = npc_frequencies[type]
-		if frequency != 0 and (randi() % frequency == 0):
+		if Funcs.get_random_by_frequency(frequency):
 			return type
 	return Npc.Type.Person
 
