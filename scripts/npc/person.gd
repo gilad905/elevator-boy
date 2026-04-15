@@ -11,7 +11,7 @@ func _ready() -> void:
 	to_animate = $Face
 	$AngryResult/Amount.text = "-%s" % Settings.angry_money_loss
 	super()
-	# if Settings.debugging:
+	# if Settings.is_dev:
 	# 	await get_tree().create_timer(2).timeout
 	# 	remove(Npc.RemovalType.Fall)
 	# 	show_result(false)

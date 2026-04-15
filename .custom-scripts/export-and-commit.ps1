@@ -4,7 +4,7 @@ $date = Get-Date -Format "MM-dd HH:mm"
 Write-Output "version: $date"
 
 (Get-Content $settings) -replace '(?<=version = ")[^"]*', $date | Set-Content $settings
-(Get-Content $settings) -replace '(?<=debugging = )true', 'false' | Set-Content $settings
+(Get-Content $settings) -replace '(?<=is_dev = )true', 'false' | Set-Content $settings
 Remove-Item $path/* -exclude .git
 Start-Process godot.exe -ArgumentList "--headless --export-debug Web" -NoNewWindow -Wait
 
