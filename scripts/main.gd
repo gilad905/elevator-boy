@@ -1,10 +1,5 @@
 extends Node
 
-var prompts: Dictionary = {
-	game_over = "GAME OVER",
-	level_up = "LEVEL COMPLETED",
-	used_life = "YOU USED ONE LIFE.\nRETRY LEVEL.",
-}
 var span_duration: float
 var start_enter_interval: float
 var current_span: int = 1
@@ -83,16 +78,16 @@ func _on_angries_reached() -> void:
 	var life = $Closet.find_item(Item.Type.Life)
 	var prompt
 	if life == null:
-		prompt = prompts.game_over
+		prompt = Settings.prompts.game_over
 		State.current_level = 1
 	else:
-		prompt = prompts.used_life
+		prompt = Settings.prompts.used_life
 		$Closet.remove_item(life)
 	$Modal.show_modal(prompt)
 
 func _on_money_reached() -> void:
 	State.current_level += 1
-	$Modal.show_modal(prompts.level_up)
+	$Modal.show_modal(Settings.prompts.level_up)
 
 func _on_continue_pressed() -> void:
 	await $Modal.hide_modal()

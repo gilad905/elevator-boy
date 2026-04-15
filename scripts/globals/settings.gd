@@ -54,6 +54,12 @@ const speed_span_max_sec: float = 45.0
 const speed_span_min_sec: float = 5.0
 const speed_span_level_shift_sec: float = 5.0
 
+const prompts: Dictionary = {
+	game_over = "GAME OVER",
+	level_up = "LEVEL COMPLETED",
+	used_life = "YOU USED ONE LIFE.\nRETRY LEVEL.",
+}
+
 static var floor_count: int
 
 func _ready() -> void:
