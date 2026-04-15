@@ -5,7 +5,11 @@ static var npc_frequencies
 static var scenes = {}
 
 static func _static_init() -> void:
-	scenes = Funcs.get_scenes_by_type(scene_path, Npc.Type)
+	for type_name in Npc.Type:
+		if type_name != "Unset":
+			var type_val = Npc.Type[type_name]
+			var type_scene = Funcs.get_scene_by_type(scene_path, type_name)
+			scenes[type_val] = type_scene
 
 static func update_frequencies() -> void:
 	npc_frequencies = _get_npc_frequencies()

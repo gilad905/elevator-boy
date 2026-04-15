@@ -10,7 +10,11 @@ static func snap_two(val: float) -> float:
 static func get_scenes_by_type(base_path, types) -> Dictionary:
 	var scenes = {}
 	for type_name in types:
-		var _type = types[type_name]
-		var path = base_path % type_name.to_lower()
-		scenes[_type] = load(path)
+		var type_val = types[type_name]
+		var _scene = get_scene_by_type(base_path, type_name)
+		scenes[type_val] = _scene
 	return scenes
+
+static func get_scene_by_type(base_path, type_name) -> PackedScene:
+	var path = base_path % type_name.to_lower()
+	return load(path)
