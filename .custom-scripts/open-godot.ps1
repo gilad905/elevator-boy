@@ -1,10 +1,9 @@
 $ErrorActionPreference = "Stop"
 
-$godot = Invoke-Command -ScriptBlock { node ./.custom-scripts/find-godot.mjs }
 $cwd = Get-Location
 
 Start-Job {
-	param($cwd, $godot)
+	param($cwd)
 	Set-Location "$cwd"
-	Start-Process -FilePath "$godot" .\project.godot
-} -ArgumentList $cwd, $godot
+	Start-Process godot.exe .\project.godot
+} -ArgumentList $cwd
