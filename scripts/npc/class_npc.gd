@@ -52,12 +52,6 @@ func redraw_patience(angle: float) -> void:
 	current_angle = angle
 	queue_redraw()
 
-func move_to(_position):
-	var duration = position.distance_to(_position) / Settings.npc_speed
-	movement_tween = create_tween()
-	movement_tween.tween_property(self , "position", _position, duration)
-	await movement_tween.finished
-
 func is_moving() -> bool:
 	return movement_tween and movement_tween.is_running()
 

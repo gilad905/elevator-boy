@@ -21,3 +21,9 @@ static func get_scene_by_type(base_path, type_name) -> PackedScene:
 
 static func get_random_by_frequency(frequency: int) -> bool:
 	return frequency != 0 and (randi() % frequency == 0)
+
+static func fly_node_to(_node, _position, _speed) -> void:
+	var duration = _node.position.distance_to(_position) / _speed
+	var movement_tween = _node.create_tween()
+	movement_tween.tween_property(_node , "position", _position, duration)
+	await movement_tween.finished

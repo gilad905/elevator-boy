@@ -7,9 +7,8 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jgeia"]
 
 [node name="Item" type="Button"]
-custom_minimum_size = Vector2(50, 50)
-offset_right = 84.0
-offset_bottom = 82.0
+offset_right = 50.0
+offset_bottom = 50.0
 size_flags_horizontal = 8
 size_flags_vertical = 4
 theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)

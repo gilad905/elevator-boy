@@ -5,13 +5,16 @@ const path: String = "user://state._save_file"
 static var _default = {
 	current_level = 1,
 	# current_level = 5 if Settings.is_dev else 1,
-	closet = [Item.Type.Life, Item.Type.Life, Item.Type.Broom],
+	closet = [Item.Type.Life, Item.Type.Life],
 }
 
 static var current_level: int = _default.current_level
-static var closet: Array = _default.closet
+static var closet: Array = _default.closet.duplicate()
 
 static func _static_init() -> void:
+	if Settings.is_dev:
+		_default.closet = [Item.Type.Life, Item.Type.Broom, Item.Type.Life]
+		closet = _default.closet.duplicate()
 	_load()
 
 static func _load() -> void:

@@ -61,6 +61,10 @@ const speed_span_max_sec: float = 45.0
 const speed_span_min_sec: float = 5.0
 const speed_span_level_shift_sec: float = 5.0
 
+const item_spacing: int = 2
+const item_size: int = 50
+const item_speed: int = 600
+
 static var floor_count: int
 
 func _ready() -> void:

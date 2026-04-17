@@ -5,10 +5,10 @@ var start_enter_interval: float
 var current_span: int = 1
 
 func _ready() -> void:
-	if not Settings.is_dev:
-		var choice = await $Modal.show_menu(Settings.modal_meta.welcome)
-		if choice == "new_game":
-			State.reset()
+	# if not Settings.is_dev:
+	var choice = await $Modal.show_menu(Settings.modal_meta.welcome)
+	if choice == "new_game":
+		State.reset()
 	init_level()
 	$Debug.load_labels()
 	if not Settings.is_dev:
@@ -25,6 +25,7 @@ func _input(event: InputEvent) -> void:
 		set_time_scale(false)
 
 func init_level() -> void:
+	$Closet.load_from_state()
 	span_duration = get_speed_span_duration()
 	start_enter_interval = get_start_enter_interval()
 	NPCs.update_frequencies()
