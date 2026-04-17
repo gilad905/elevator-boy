@@ -5,7 +5,7 @@ const path: String = "user://state._save_file"
 static var _default = {
 	current_level = 1,
 	# current_level = 5 if Settings.is_dev else 1,
-	closet = [Item.Type.Life, Item.Type.Life],
+	closet = [Item.Type.Life, Item.Type.Life, Item.Type.Broom],
 }
 
 static var current_level: int = _default.current_level

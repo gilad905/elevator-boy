@@ -44,7 +44,7 @@ func start_patience_tween() -> void:
 		var callback = to_animate.set_frame.bind(i + 1)
 		patience_tween.tween_callback(callback).set_delay(delay)
 	await patience_tween.finished
-	patience_ended.emit(self)
+	patience_ended.emit(self )
 	to_animate.frame = 3
 	is_patience_ended = true
 
@@ -55,7 +55,7 @@ func redraw_patience(angle: float) -> void:
 func move_to(_position):
 	var duration = position.distance_to(_position) / Settings.npc_speed
 	movement_tween = create_tween()
-	movement_tween.tween_property(self, "position", _position, duration)
+	movement_tween.tween_property(self , "position", _position, duration)
 	await movement_tween.finished
 
 func is_moving() -> bool:
@@ -78,24 +78,21 @@ func remove(_type: RemovalType = RemovalType.Fade) -> Signal:
 
 func fade_out() -> Tween:
 	var tween = create_tween()
-	tween.tween_property(self, "modulate:a", 0, result_sec)
+	tween.tween_property(self , "modulate:a", 0, result_sec)
 	return tween
 
 func fall() -> Tween:
-	var params = {
-		"position:x" = _randi_range_signed(50, 300),
-		"rotation_degrees" = _randi_range_signed(50, 200),
-	}
 	var tween = create_tween()
 	tween.set_parallel()
-	tween.tween_property(self, "position:y", fall_y, result_sec).as_relative().set_trans(Tween.TRANS_BACK)
-	for key in params:
-		# print("%s %s" % [key, params[key]])
-		tween.tween_property(self, key, params[key], result_sec).as_relative()
+	tween.tween_property(self , "position:y", fall_y, result_sec).as_relative().set_trans(Tween.TRANS_BACK)
+	var _x = _randi_range_signed(50, 300)
+	var _rotation = _randi_range_signed(50, 200)
+	tween.tween_property(self , "position:x", _x, result_sec).as_relative()
+	tween.tween_property(self , "rotation_degrees", _rotation, result_sec).as_relative()
 	return tween
 
 func _remove_node() -> void:
-	get_parent().remove_child(self)
+	get_parent().remove_child(self )
 	self.queue_free()
 
 func _randi_range_signed(_min: int, _max: int) -> int:

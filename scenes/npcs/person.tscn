@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://d3nwxoaqa8m7h" path="res://assets/images/emojis/angry_3.png" id="4_mgaqt"]
 [ext_resource type="Texture2D" uid="uid://vr7d0jyby2tx" path="res://assets/images/emojis/happy.png" id="5_23j7k"]
 [ext_resource type="Texture2D" uid="uid://cy4u6vra65nxn" path="res://assets/images/emojis/smile.png" id="6_duemu"]
-[ext_resource type="Texture2D" uid="uid://bwy8vnk6nn1fb" path="res://assets/images/dollars.png" id="7_0nnqu"]
+[ext_resource type="Texture2D" path="res://assets/images/dollars.png" id="7_0nnqu"]
 [ext_resource type="Texture2D" uid="uid://cups2bitlff3u" path="res://assets/images/emojis/shock.png" id="7_h8iud"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dj0us"]

@@ -1,9 +1,6 @@
 extends Item
 
-func _on_click() -> void:
-	activate()
-
-func activate() -> void:
+func _on_pressed() -> void:
 	var rooms = [Nodes.Elevator]
 	var floor_num = Nodes.Elevator.current_floor_num
 	if floor_num != Nodes.Elevator.MOVING:

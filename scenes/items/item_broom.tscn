@@ -2,10 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://blg36gj8xe4kv" path="res://scenes/items/item.tscn" id="1_1n448"]
 [ext_resource type="Texture2D" uid="uid://dk6lsa82xad4a" path="res://assets/images/items/broom.png" id="2_06xwr"]
-[ext_resource type="Script" path="res://scripts/item/item_broom.gd" id="3_8bwf3"]
+[ext_resource type="Script" uid="uid://duwnrcq3o2d3m" path="res://scripts/item/item_broom.gd" id="3_8bwf3"]
 
 [node name="Item" instance=ExtResource("1_1n448")]
-offset_right = 84.0
-offset_bottom = 82.0
-texture = ExtResource("2_06xwr")
+icon = ExtResource("2_06xwr")
 script = ExtResource("3_8bwf3")

@@ -41,6 +41,7 @@ const modal_meta: Dictionary = {
 	welcome = "ELEVATOR BOY",
 	game_over = "GAME OVER",
 	used_life = "YOU USED ONE LIFE.\nRETRY LEVEL.",
+	paused = "PAUSED",
 }
 
 const npc_spacing: int = 7
