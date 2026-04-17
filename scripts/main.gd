@@ -5,10 +5,11 @@ var start_enter_interval: float
 var current_span: int = 1
 
 func _ready() -> void:
+	var choice = await $Modal.show_menu(Settings.modal_meta.welcome)
+	if choice == "new_game":
+		State.reset()
 	init_level()
 	$Debug.load_labels()
-	if State.current_level == 1:
-		await $Modal.show_modal(Settings.modal_meta.welcome)
 	await $Modal.show_modal("LEVEL %d - GET READY" % State.current_level)
 	await get_tree().create_timer(1, false).timeout
 	start_level()

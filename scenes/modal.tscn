@@ -1,6 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://petc2tsv10q2"]
+[gd_scene load_steps=4 format=3 uid="uid://petc2tsv10q2"]
 
 [ext_resource type="Script" uid="uid://13n2mq03rhne" path="res://scripts/modal.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_disabled"]
+bg_color = Color(0.3, 0.3, 0.3, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn"]
 bg_color = Color(0, 0.616, 0.489, 1)
@@ -19,41 +22,80 @@ script = ExtResource("1_script")
 layout_mode = 2
 color = Color(0, 0, 0, 0.890196)
 
-[node name="Image" type="TextureRect" parent="Content"]
+[node name="MarginContainer" type="MarginContainer" parent="Content"]
 layout_mode = 2
-offset_left = 40.0
-offset_top = 40.0
-offset_right = 460.0
-offset_bottom = 263.0
+offset_right = 500.0
+offset_bottom = 700.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Image" type="TextureRect" parent="Content/MarginContainer"]
+layout_mode = 2
 size_flags_vertical = 0
 expand_mode = 3
 stretch_mode = 5
 
+[node name="Menu" type="VBoxContainer" parent="Content/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_constants/separation = 20
+
+[node name="ResumeGame" type="Button" parent="Content/MarginContainer/Menu"]
+visible = false
+custom_minimum_size = Vector2(250, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_disabled_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_colors/font_color = Color(0, 1, 0.8, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/disabled = SubResource("StyleBoxFlat_btn_disabled")
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "RESUME GAME"
+
+[node name="NewGame" type="Button" parent="Content/MarginContainer/Menu"]
+visible = false
+custom_minimum_size = Vector2(250, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 1, 0.8, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "NEW GAME"
+
+[node name="Continue" type="Button" parent="Content/MarginContainer/Menu"]
+visible = false
+custom_minimum_size = Vector2(250, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0, 1, 0.8, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "CONTINUE"
+
 [node name="Prompt" type="Label" parent="Content"]
 custom_minimum_size = Vector2(10, 10)
-layout_mode = 2
-offset_left = 40.0
-offset_top = 191.0
-offset_right = 460.0
-offset_bottom = 254.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -230.0
+offset_top = -190.0
+offset_right = 230.0
+offset_bottom = -127.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_font_sizes/font_size = 63
 text = "PROMPT"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="Continue" type="Button" parent="Content"]
-custom_minimum_size = Vector2(250, 100)
-layout_mode = 2
-offset_left = 125.0
-offset_top = 560.0
-offset_right = 375.0
-offset_bottom = 660.0
-size_flags_horizontal = 4
-size_flags_vertical = 8
-theme_override_colors/font_color = Color(0, 1, 0.8, 1)
-theme_override_font_sizes/font_size = 42
-theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
-text = "CONTINUE"
-
-[connection signal="pressed" from="Content/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="Content/MarginContainer/Menu/ResumeGame" to="." method="_on_button_pressed" binds= [NodePath(".")]]
+[connection signal="pressed" from="Content/MarginContainer/Menu/NewGame" to="." method="_on_button_pressed" binds= [NodePath(".")]]
+[connection signal="pressed" from="Content/MarginContainer/Menu/Continue" to="." method="_on_button_pressed" binds= [NodePath(".")]]

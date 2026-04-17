@@ -28,6 +28,11 @@ static func save() -> void:
 	}
 	_save_file(state)
 
+static func reset() -> void:
+	current_level = _default.current_level
+	closet = _default.closet.duplicate()
+	save()
+
 static func _load_file() -> Dictionary:
 	if not FileAccess.file_exists(path):
 		return {}
