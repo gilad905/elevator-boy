@@ -16,7 +16,7 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("exit"):
-		get_tree().quit()
+		pause()
 	elif event.is_action_pressed("time_scale_increase"):
 		set_time_scale(true)
 	elif event.is_action_pressed("time_scale_decrease"):
@@ -92,3 +92,8 @@ func _on_angries_reached() -> void:
 func _on_money_reached() -> void:
 	State.current_level += 1
 	get_tree().reload_current_scene()
+
+func pause() -> void:
+	if $Modal.visible:
+		return
+	await $Modal.show_modal("PAUSED")

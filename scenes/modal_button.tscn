@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://crex7lriduh8y"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_disabled"]
+bg_color = Color(0.3, 0.3, 0.3, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_frui0"]
+bg_color = Color(0, 0.741403, 0.590667, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_normal"]
+bg_color = Color(0, 0.616, 0.489, 1)
+
+[node name="ModalButton" type="Button"]
+custom_minimum_size = Vector2(250, 80)
+size_flags_horizontal = 4
+theme_override_colors/font_disabled_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_colors/font_color = Color(0, 1, 0.8, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/disabled = SubResource("StyleBoxFlat_disabled")
+theme_override_styles/hover = SubResource("StyleBoxFlat_frui0")
+theme_override_styles/normal = SubResource("StyleBoxFlat_normal")

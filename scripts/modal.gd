@@ -1,19 +1,35 @@
 extends MarginContainer
 
-signal continue_pressed
 signal menu_selected(choice: String)
 
 const ANIM_DURATION: float = 0.4
 const SLIDE_OFFSET: float = 200.0
+const BUTTON_SCENE: PackedScene = preload("res://scenes/modal_button.tscn")
+const BUTTONS: Dictionary = {
+	"continue": "CONTINUE",
+	"resume_game": "RESUME GAME",
+	"new_game": "NEW GAME",
+}
+
+var _buttons: Dictionary = {}
 
 func _ready() -> void:
+	var menu = $Content/MarginContainer/Menu
+	for id in BUTTONS:
+		var button = BUTTON_SCENE.instantiate()
+		button.name = id
+		button.text = BUTTONS[id]
+		button.visible = false
+		button.pressed.connect(_on_button_pressed.bind(id))
+		menu.add_child(button)
+		_buttons[id] = button
 	hide()
 
 func _show(text: String = "", texture: Texture2D = null) -> void:
 	get_tree().paused = true
 
 	var prompt = $Content/Prompt
-	var image = $Content/Image
+	var image = $Content/MarginContainer/Image
 
 	prompt.visible = text != ""
 	prompt.text = text
@@ -33,15 +49,13 @@ func _show(text: String = "", texture: Texture2D = null) -> void:
 		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 
 func show_modal(text: String = "", texture: Texture2D = null) -> Signal:
-	$Content/Continue.visible = true
-	$Content/Menu.visible = false
+	_set_visible_buttons(["continue"])
 	_show(text, texture)
-	return continue_pressed
+	return menu_selected
 
 func show_menu(text: String = "", texture: Texture2D = null) -> Signal:
-	$Content/Continue.visible = false
-	$Content/Menu.visible = true
-	$Content/Menu/ResumeGame.disabled = State.current_level <= 1
+	_set_visible_buttons(["resume_game", "new_game"])
+	_buttons["resume_game"].disabled = State.current_level <= 1
 	_show(text, texture)
 	return menu_selected
 
@@ -54,8 +68,11 @@ func hide_modal() -> void:
 	await tween.finished
 	hide()
 
-func _on_button_pressed(caller: Control) -> void:
-	var button_name = caller.name
+func _set_visible_buttons(visible_ids: Array) -> void:
+	for id in _buttons:
+		_buttons[id].visible = id in visible_ids
+
+func _on_button_pressed(button_id: String) -> void:
 	await hide_modal()
 	get_tree().paused = false
-	menu_selected.emit(button_name)
+	menu_selected.emit(button_id)
