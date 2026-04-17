@@ -7,7 +7,9 @@ var current_span: int = 1
 func _ready() -> void:
 	init_level()
 	$Debug.load_labels()
-	$Modal.show_modal("LEVEL %d - GET READY" % State.current_level)
+	if State.current_level == 1:
+		await $Modal.show_modal(Settings.modal_meta.welcome)
+	await $Modal.show_modal("LEVEL %d - GET READY" % State.current_level)
 	await get_tree().create_timer(1, false).timeout
 	start_level()
 
@@ -79,17 +81,13 @@ func _on_angries_reached() -> void:
 	var life = $Closet.find_item(Item.Type.Life)
 	var prompt
 	if life == null:
-		prompt = Settings.prompts.game_over
+		prompt = Settings.modal_meta.game_over
 		State.current_level = 1
 	else:
-		prompt = Settings.prompts.used_life
+		prompt = Settings.modal_meta.used_life
 		$Closet.remove_item(life)
-	$Modal.show_modal(prompt)
+	await $Modal.show_modal(prompt)
 
 func _on_money_reached() -> void:
 	State.current_level += 1
 	get_tree().reload_current_scene()
-
-func _on_continue_pressed() -> void:
-	await $Modal.hide_modal()
-	get_tree().paused = false
