@@ -1,0 +1,51 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://bbvtfxs18w5lp"]
+
+[ext_resource type="Texture2D" uid="uid://ca2ep48303deh" path="res://assets/images/items/broom_anim.png" id="1_k3pnr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fat2f"]
+atlas = ExtResource("1_k3pnr")
+region = Rect2(0, 0, 189, 251)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tfqyq"]
+atlas = ExtResource("1_k3pnr")
+region = Rect2(189, 251, 189, 251)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u6xce"]
+atlas = ExtResource("1_k3pnr")
+region = Rect2(189, 0, 189, 251)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_27fjs"]
+atlas = ExtResource("1_k3pnr")
+region = Rect2(0, 251, 189, 251)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fat2f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tfqyq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u6xce")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_27fjs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fat2f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tfqyq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u6xce")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_27fjs")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]

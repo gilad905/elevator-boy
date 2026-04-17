@@ -3,16 +3,23 @@ extends Node
 var span_duration: float
 var start_enter_interval: float
 var current_span: int = 1
+var modal: MarginContainer
 
 func _ready() -> void:
-	# if not Settings.is_dev:
-	var choice = await $Modal.show_menu(Settings.modal_meta.welcome)
+	modal = $Foreground/Modal
+	var choice = await modal.show_menu(Settings.modal_meta.welcome)
 	if choice == "new_game":
 		State.reset()
+	# if Settings.is_dev:
+		# State.reset()
+	# else:
+		# var choice = await modal.show_menu(Settings.modal_meta.welcome)
+		# if choice == "new_game":
+		# 	State.reset()
 	init_level()
 	$Debug.load_labels()
 	if not Settings.is_dev:
-		await $Modal.show_modal("LEVEL %d - GET READY" % State.current_level)
+		await modal.show_modal("LEVEL %d - GET READY" % State.current_level)
 	await get_tree().create_timer(1, false).timeout
 	start_level()
 
@@ -90,13 +97,13 @@ func _on_angries_reached() -> void:
 	else:
 		prompt = Settings.modal_meta.used_life
 		$Closet.remove_item(life)
-	await $Modal.show_modal(prompt)
+	await modal.show_modal(prompt)
 
 func _on_money_reached() -> void:
 	State.current_level += 1
 	get_tree().reload_current_scene()
 
 func pause() -> void:
-	if $Modal.visible:
+	if modal.visible:
 		return
-	await $Modal.show_modal(Settings.modal_meta.paused)
+	await modal.show_modal(Settings.modal_meta.paused)

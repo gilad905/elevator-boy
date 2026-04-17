@@ -287,9 +287,6 @@ position = Vector2(0, 90)
 
 [node name="Floor_5" parent="Floors" instance=ExtResource("1_ec1if")]
 
-[node name="Modal" parent="." instance=ExtResource("23_modal")]
-visible = false
-
 [node name="Debug" type="VBoxContainer" parent="."]
 offset_left = 354.0
 offset_top = 3.0
@@ -305,6 +302,11 @@ layout_mode = 2
 
 [node name="Dynamic" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
+
+[node name="Foreground" type="Node2D" parent="."]
+
+[node name="Modal" parent="Foreground" instance=ExtResource("23_modal")]
+visible = false
 
 [node name="Timers" type="Node" parent="."]
 

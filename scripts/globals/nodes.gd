@@ -4,8 +4,9 @@ static var HUD: Node2D
 static var Floors: Node2D
 static var Elevator: Node2D
 static var Closet: Control
+static var Foreground: Node2D
 
 func _enter_tree() -> void:
 	var path = "/root/Main/%s"
-	for key in ["HUD", "Floors", "Elevator", "Closet"]:
+	for key in ["HUD", "Floors", "Elevator", "Closet", "Foreground"]:
 		self[key] = get_node(path % key)
