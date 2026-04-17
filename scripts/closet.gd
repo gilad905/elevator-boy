@@ -1,4 +1,4 @@
-extends ColorRect
+extends TextureRect
 
 const item_limit: int = 7
 var items: Control

@@ -153,11 +153,15 @@ theme_override_constants/outline_size = 5
 text = "10
 "
 
-[node name="Closet" type="ColorRect" parent="."]
+[node name="Closet" type="TextureRect" parent="."]
+self_modulate = Color(0.596245, 0.302948, 0.0450801, 1)
 offset_left = 85.0
 offset_top = 245.0
 offset_right = 495.0
 offset_bottom = 305.0
+texture = ExtResource("2_6k6yx")
+expand_mode = 1
+stretch_mode = 1
 script = ExtResource("13_ee0je")
 
 [node name="MarginContainer" type="MarginContainer" parent="Closet"]
