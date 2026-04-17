@@ -1,13 +1,13 @@
 [gd_scene load_steps=10 format=3 uid="uid://cvr2vq3jarlk6"]
 
 [ext_resource type="Script" path="res://scripts/npc/person.gd" id="1_x0uka"]
-[ext_resource type="Texture2D" uid="uid://d1lw4w04v6wnd" path="res://assets/emojis/angry_1.png" id="2_n5ofk"]
-[ext_resource type="Texture2D" uid="uid://2mn5452lkrlp" path="res://assets/emojis/angry_2.png" id="3_oa4a5"]
-[ext_resource type="Texture2D" uid="uid://d3nwxoaqa8m7h" path="res://assets/emojis/angry_3.png" id="4_mgaqt"]
-[ext_resource type="Texture2D" uid="uid://vr7d0jyby2tx" path="res://assets/emojis/happy.png" id="5_23j7k"]
-[ext_resource type="Texture2D" uid="uid://cy4u6vra65nxn" path="res://assets/emojis/smile.png" id="6_duemu"]
-[ext_resource type="Texture2D" uid="uid://bwy8vnk6nn1fb" path="res://assets/dollars.png" id="7_0nnqu"]
-[ext_resource type="Texture2D" uid="uid://cups2bitlff3u" path="res://assets/emojis/shock.png" id="7_h8iud"]
+[ext_resource type="Texture2D" uid="uid://d1lw4w04v6wnd" path="res://assets/images/emojis/angry_1.png" id="2_n5ofk"]
+[ext_resource type="Texture2D" uid="uid://2mn5452lkrlp" path="res://assets/images/emojis/angry_2.png" id="3_oa4a5"]
+[ext_resource type="Texture2D" uid="uid://d3nwxoaqa8m7h" path="res://assets/images/emojis/angry_3.png" id="4_mgaqt"]
+[ext_resource type="Texture2D" uid="uid://vr7d0jyby2tx" path="res://assets/images/emojis/happy.png" id="5_23j7k"]
+[ext_resource type="Texture2D" uid="uid://cy4u6vra65nxn" path="res://assets/images/emojis/smile.png" id="6_duemu"]
+[ext_resource type="Texture2D" uid="uid://bwy8vnk6nn1fb" path="res://assets/images/dollars.png" id="7_0nnqu"]
+[ext_resource type="Texture2D" uid="uid://cups2bitlff3u" path="res://assets/images/emojis/shock.png" id="7_h8iud"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dj0us"]
 animations = [{

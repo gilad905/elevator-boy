@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://blg36gj8xe4kv" path="res://scenes/items/item.tscn" id="1_gy3bb"]
 [ext_resource type="Script" path="res://scripts/item/item_life.gd" id="2_0apcs"]
-[ext_resource type="Texture2D" uid="uid://7onjqqtqr81h" path="res://assets/items/heart.png" id="2_opyvf"]
+[ext_resource type="Texture2D" uid="uid://7onjqqtqr81h" path="res://assets/images/items/heart.png" id="2_opyvf"]
 
 [node name="Item" instance=ExtResource("1_gy3bb")]
 offset_right = 84.0
