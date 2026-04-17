@@ -18,4 +18,4 @@ func remove() -> void:
 	Nodes.Closet.remove_item(self)
 
 func _on_pressed() -> void:
-	pass # Replace with function body.
+	pass

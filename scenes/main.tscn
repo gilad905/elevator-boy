@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://cx6ocur83tfii" path="res://scenes/framed_polygon.tscn" id="7_ccv1v"]
 [ext_resource type="Script" uid="uid://djcn6qh6kcs3h" path="res://scripts/elevator/door.gd" id="9_gfnck"]
 [ext_resource type="Script" uid="uid://cmhipkvsjl85i" path="res://scripts/hud.gd" id="9_oiqtx"]
-[ext_resource type="Texture2D" path="res://assets/images/dollars.png" id="10_sj0jc"]
+[ext_resource type="Texture2D" uid="uid://c1y8lpl8nnl3a" path="res://assets/images/dollars.png" id="10_sj0jc"]
 [ext_resource type="Texture2D" uid="uid://cglb4avfyikfx" path="res://assets/images/level.png" id="11_pd4if"]
 [ext_resource type="Script" uid="uid://b7y14nw2w38bu" path="res://scripts/closet.gd" id="13_ee0je"]
 [ext_resource type="Texture2D" uid="uid://dh2v6osh6msqe" path="res://assets/images/logo.png" id="13_j173s"]
