@@ -29,7 +29,7 @@ window/handheld/orientation=1
 
 [gui]
 
-theme/custom_font="res://assets/Jersey15-Regular.ttf"
+theme/custom_font="res://assets/Jersey20-Regular.ttf"
 
 [input]
 

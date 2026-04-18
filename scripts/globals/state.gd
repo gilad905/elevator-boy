@@ -16,6 +16,7 @@ static var on_welcome_screen: bool = true
 
 static func _static_init() -> void:
 	if Env.is_dev:
+		print("DEV - adding broom to closet")
 		_default.closet = [Item.Type.Life, Item.Type.Broom, Item.Type.Life]
 		closet = _default.closet.duplicate()
 	_load()

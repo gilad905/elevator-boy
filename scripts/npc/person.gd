@@ -5,13 +5,14 @@ var dest: int = -1
 func _init() -> void:
 	if type == Npc.Type.Unset:
 		type = Npc.Type.Person
-	super()
+	super ()
 
 func _ready() -> void:
 	to_animate = $Face
 	$AngryResult/Amount.text = "-%s" % Settings.angry_money_loss
-	super()
+	super ()
 	# if Env.is_dev:
+	# 	print("DEV - making person fall")
 	# 	await get_tree().create_timer(2).timeout
 	# 	remove(Npc.RemovalType.Fall)
 	# 	show_result(false)

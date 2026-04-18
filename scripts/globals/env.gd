@@ -9,6 +9,7 @@ static func _resolve_is_dev() -> bool:
 		return false
 	return OS.has_feature("editor") or OS.is_debug_build()
 
-# static var is_dev: bool = false
-static var is_dev: bool = _resolve_is_dev()
+# cannot be in settings.gd because of cyclic dependency
+static var is_dev: bool = false
+# static var is_dev: bool = _resolve_is_dev()
 static var version: String = "1"

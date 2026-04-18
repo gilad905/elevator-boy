@@ -2,6 +2,7 @@ extends Room
 
 var door: Node2D
 var right_edge: int
+var floor_num: int
 const npc_y: int = 38
 const pressed_font_color: Color = Color("4af502")
 
@@ -10,7 +11,8 @@ func _ready() -> void:
 	self.npc_limit = 4
 	right_edge = get_right_edge()
 	npc_start_position = Vector2(right_edge, npc_y)
-	$FloorNum.text = str(get_index() + 1)
+	floor_num = get_index() + 1
+	$FloorNum.text = str(floor_num)
 
 func get_npc_position(i: int) -> Vector2:
 	var spacing: int = Settings.npc_spacing
@@ -21,15 +23,16 @@ func get_npc_position(i: int) -> Vector2:
 func enter_elevator_next():
 	# if Env.is_dev:
 	# 	print("enter_elevator_next check")
-
-	if $NPCs.get_child_count() == 0:
-		return
-	var npc = $NPCs.get_child(0)
-	if npc.is_moving():
+	if not floor_num == Nodes.Elevator.current_floor_num:
 		return
 	if door.current_state != door.DoorState.open:
 		return
 	if not Nodes.Elevator.has_room():
+		return
+	if $NPCs.get_child_count() == 0:
+		return
+	var npc = $NPCs.get_child(0)
+	if npc.is_moving():
 		return
 
 	# if Env.is_dev:

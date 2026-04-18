@@ -17,9 +17,9 @@ static func update_frequencies() -> void:
 
 static func add_random_npc() -> Node2D:
 	var floor_num = get_random_free_floor_num()
-	if Env.is_dev:
-		print("DEV - Adding at floor 5")
-		floor_num = 5
+	# if Env.is_dev:
+	# 	print("DEV - Adding at floor 5")
+	# 	floor_num = 5
 		
 	if not floor_num:
 		return
@@ -73,6 +73,7 @@ static func _get_npc_frequencies() -> Dictionary:
 
 static func _get_npc_frequency(type: Npc.Type) -> int:
 	# if Env.is_dev and type == Npc.Type.Bomb:
+	# 	print("DEV - Returning 2 for bomb frequency")
 	# 	return 2
 	var start_freq = Settings.npc_meta[type].start_frequency
 	if start_freq <= 0:

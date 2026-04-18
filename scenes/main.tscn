@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://c1y8lpl8nnl3a" path="res://assets/images/dollars.png" id="10_sj0jc"]
 [ext_resource type="Texture2D" uid="uid://cglb4avfyikfx" path="res://assets/images/level.png" id="11_pd4if"]
 [ext_resource type="Script" uid="uid://b7y14nw2w38bu" path="res://scripts/closet.gd" id="13_ee0je"]
-[ext_resource type="Texture2D" uid="uid://dh2v6osh6msqe" path="res://assets/images/logo.png" id="13_j173s"]
+[ext_resource type="Texture2D" uid="uid://mvd752rnwmr" path="res://assets/images/logo.png" id="13_j173s"]
 [ext_resource type="PackedScene" uid="uid://ct8epc8jjcsl1" path="res://scenes/items/item_life.tscn" id="13_jscy8"]
 [ext_resource type="Theme" uid="uid://b5g3ibj2wp6sw" path="res://resources/hud_theme.tres" id="13_mf7yv"]
 [ext_resource type="Texture2D" uid="uid://d3nwxoaqa8m7h" path="res://assets/images/emojis/angry_3.png" id="14_3f3du"]
@@ -83,8 +83,8 @@ polygon = PackedVector2Array(68, 306, 504, 306, 504, 755, 68, 755)
 
 [node name="Logo" type="Sprite2D" parent="Background"]
 texture_filter = 1
-position = Vector2(285, 122)
-scale = Vector2(0.38, 0.38)
+position = Vector2(287, 123)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("13_j173s")
 
 [node name="HUD" type="Node2D" parent="."]
@@ -311,7 +311,6 @@ visible = false
 [node name="Timers" type="Node" parent="."]
 
 [node name="NPCsTimer" type="Timer" parent="Timers"]
-
 
 [node name="SpeedSpanTimer" type="Timer" parent="Timers"]
 
