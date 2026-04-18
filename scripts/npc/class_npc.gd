@@ -4,7 +4,8 @@ signal patience_ended(npc: Node2D)
 
 const zero_angle: float = PI * -0.5
 const full_angle: float = PI * 1.5
-const result_sec: float = Settings.npc_result_sec
+const result_duration: float = Settings.npc_result_duration
+const fall_duration: float = Settings.npc_fall_duration
 enum Type {Unset, Person, Bomb, Businessman}
 enum RemovalType {Fade, Fall}
 
@@ -72,17 +73,18 @@ func remove(_type: RemovalType = RemovalType.Fade) -> Signal:
 
 func fade_out() -> Tween:
 	var tween = create_tween()
-	tween.tween_property(self , "modulate:a", 0, result_sec)
+	tween.tween_property(self , "modulate:a", 0, result_duration)
 	return tween
 
 func fall() -> Tween:
 	var tween = create_tween()
 	tween.set_parallel()
-	tween.tween_property(self , "position:y", fall_y, result_sec).as_relative().set_trans(Tween.TRANS_BACK)
+	tween.tween_property(self , "position:y", fall_y, fall_duration).as_relative() \
+		.set_trans(Tween.TRANS_BACK)	
 	var _x = _randi_range_signed(50, 300)
 	var _rotation = _randi_range_signed(50, 200)
-	tween.tween_property(self , "position:x", _x, result_sec).as_relative()
-	tween.tween_property(self , "rotation_degrees", _rotation, result_sec).as_relative()
+	tween.tween_property(self , "position:x", _x, fall_duration).as_relative()
+	tween.tween_property(self , "rotation_degrees", _rotation, fall_duration).as_relative()
 	return tween
 
 func _remove_node() -> void:

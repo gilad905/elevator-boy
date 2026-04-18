@@ -56,7 +56,7 @@ static func get_random_dest(source_floor_num: int) -> int:
 
 static func add_result_tweener(tween: Tween, result: Node2D):
 	var scale = result.scale.x
-	var duration = Settings.npc_result_sec
+	var duration = Settings.npc_result_duration
 	for type in ["x", "y"]:
 		tween.tween_property(result, "scale:" + type, scale * 2, duration)
 	await tween.finished

@@ -43,7 +43,8 @@ const modal_meta: Dictionary = {
 const npc_spacing: int = 7
 const npc_speed: int = 200
 const patience_radius: int = 15
-const npc_result_sec: float = 1.0
+const npc_result_duration: float = 1.0
+const npc_fall_duration: float = 2
 
 const half_floor_sec: float = 0.4
 const door_speed: int = 3

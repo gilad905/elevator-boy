@@ -18,7 +18,7 @@ Godot 4.4 game project using GDScript. An elevator-themed game with NPCs, items,
 ### Naming
 - Classes: PascalCase (`Npc`, `Person`, `Item`, `Room`)
 - Functions and variables: snake_case (`init_level`, `patience_sec`, `fall_y`)
-- Constants: snake_case (`zero_angle`, `full_angle`, `result_sec`)
+- Constants: snake_case (`zero_angle`, `full_angle`, `result_duration`)
 - Enums: PascalCase type name, PascalCase values (`Npc.Type.Person`, `Item.Type.Life`)
 - Private/internal members: leading underscore (`_ready`, `_on_npc_patience_ended`)
 
