@@ -10,7 +10,7 @@ func _ready() -> void:
 	var choice = await modal.show_menu(Settings.modal_meta.welcome)
 	if choice == "new_game":
 		State.reset()
-	# if Settings.is_dev:
+	# if Env.is_dev:
 		# State.reset()
 	# else:
 		# var choice = await modal.show_menu(Settings.modal_meta.welcome)
@@ -18,7 +18,7 @@ func _ready() -> void:
 		# 	State.reset()
 	init_level()
 	$Debug.load_labels()
-	if not Settings.is_dev:
+	if not Env.is_dev:
 		await modal.show_modal("LEVEL %d - GET READY" % State.current_level)
 	await get_tree().create_timer(1, false).timeout
 	start_level()

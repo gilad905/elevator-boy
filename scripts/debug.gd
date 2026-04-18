@@ -1,8 +1,8 @@
 extends VBoxContainer
 
 func load_labels() -> void:
-	var pref = "DEBUG " if Settings.is_dev else ""
-	$Version.text = pref + Settings.version
+	var pref = "DEBUG " if Env.is_dev else ""
+	$Version.text = pref + Env.version
 	var level_desc = get_level_desc()
 	$Level.text = level_desc
 	update_dynamic_labels()

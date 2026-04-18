@@ -1,3 +1,5 @@
+throw "Old - doesn't work"
+
 $path = "@exports/web"
 $settings = "./resources/export_settings.gd"
 $date = Get-Date -Format "MM-dd HH:mm"

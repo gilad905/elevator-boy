@@ -2,6 +2,5 @@
 /.other/
 /.exports/
 /.assets-raw/
-/resources/export_settings.gd
 *.import
 *.uid

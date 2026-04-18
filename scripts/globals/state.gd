@@ -4,7 +4,7 @@ const path: String = "user://state._save_file"
 
 static var _default = {
 	current_level = 1,
-	# current_level = 5 if Settings.is_dev else 1,
+	# current_level = 5 if Env.is_dev else 1,
 	closet = [Item.Type.Life, Item.Type.Life],
 }
 
@@ -12,7 +12,7 @@ static var current_level: int = _default.current_level
 static var closet: Array = _default.closet.duplicate()
 
 static func _static_init() -> void:
-	if Settings.is_dev:
+	if Env.is_dev:
 		_default.closet = [Item.Type.Life, Item.Type.Broom, Item.Type.Life]
 		closet = _default.closet.duplicate()
 	_load()
