@@ -11,6 +11,9 @@ static var _default = {
 static var current_level: int = _default.current_level
 static var closet: Array = _default.closet.duplicate()
 
+# not saved, only for runtime
+static var on_welcome_screen: bool = true
+
 static func _static_init() -> void:
 	if Env.is_dev:
 		_default.closet = [Item.Type.Life, Item.Type.Broom, Item.Type.Life]

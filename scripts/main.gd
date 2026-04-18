@@ -7,19 +7,14 @@ var modal: MarginContainer
 
 func _ready() -> void:
 	modal = $Foreground/Modal
-	var choice = await modal.show_menu(Settings.modal_meta.welcome)
-	if choice == "new_game":
-		State.reset()
-	# if Env.is_dev:
-		# State.reset()
-	# else:
-		# var choice = await modal.show_menu(Settings.modal_meta.welcome)
-		# if choice == "new_game":
-		# 	State.reset()
+	if State.on_welcome_screen:
+		State.on_welcome_screen = false
+		var choice = await modal.show_menu(Settings.modal_meta.welcome)
+		if choice == "new_game":
+			State.reset()
 	init_level()
 	$Debug.load_labels()
-	if not Env.is_dev:
-		await modal.show_modal("LEVEL %d - GET READY" % State.current_level)
+	await modal.show_modal("LEVEL %d - GET READY" % State.current_level)
 	await get_tree().create_timer(1, false).timeout
 	start_level()
 
@@ -101,6 +96,7 @@ func _on_angries_reached() -> void:
 
 func _on_money_reached() -> void:
 	State.current_level += 1
+	State.save()
 	get_tree().reload_current_scene()
 
 func pause() -> void:
