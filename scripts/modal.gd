@@ -12,9 +12,15 @@ const BUTTONS: Dictionary = {
 }
 
 var _buttons: Dictionary = {}
+var menu;
+var prompt;
+var image;
 
 func _ready() -> void:
-	var menu = $Content/MarginContainer/Menu
+	menu = $Content/MarginContainer/Menu
+	prompt = $Content/Prompt
+	image = $Content/MarginContainer/Image
+
 	for id in BUTTONS:
 		var button = BUTTON_SCENE.instantiate()
 		button.name = id
@@ -28,9 +34,6 @@ func _ready() -> void:
 func _show(text: String = "", texture: Texture2D = null) -> void:
 	get_tree().paused = true
 
-	var prompt = $Content/Prompt
-	var image = $Content/MarginContainer/Image
-
 	prompt.visible = text != ""
 	prompt.text = text
 
@@ -38,15 +41,16 @@ func _show(text: String = "", texture: Texture2D = null) -> void:
 	if texture:
 		image.texture = texture
 
-	modulate.a = 0
+	self.modulate.a = 0
 	self.position.y = SLIDE_OFFSET
 	show()
 
 	var tween = create_tween().set_parallel(true)
 	tween.tween_property(self , "modulate:a", 1.0, ANIM_DURATION) \
 		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-	tween.tween_property(self, "position:y", 0.0, ANIM_DURATION) \
+	tween.tween_property(self , "position:y", 0.0, ANIM_DURATION) \
 		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	await Nodes.Foreground.show_foreground()
 
 func show_modal(text: String = "", texture: Texture2D = null) -> Signal:
 	_set_visible_buttons(["continue"])
@@ -63,9 +67,9 @@ func hide_modal() -> void:
 	var tween = create_tween().set_parallel(true)
 	tween.tween_property(self , "modulate:a", 0.0, ANIM_DURATION) \
 		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
-	tween.tween_property(self, "position:y", SLIDE_OFFSET, ANIM_DURATION) \
+	tween.tween_property(self , "position:y", SLIDE_OFFSET, ANIM_DURATION) \
 		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
-	await tween.finished
+	await Nodes.Foreground.hide_foreground()
 	hide()
 
 func _set_visible_buttons(visible_ids: Array) -> void:
