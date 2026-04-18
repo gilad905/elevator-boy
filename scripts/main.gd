@@ -3,7 +3,7 @@ extends Node
 var span_duration: float
 var start_enter_interval: float
 var current_span: int = 1
-var modal: MarginContainer
+var modal
 
 func _ready() -> void:
 	modal = $Foreground/Modal

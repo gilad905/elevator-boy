@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://b4x3k3rw7jlkp"]
+[gd_scene load_steps=25 format=3 uid="uid://b4x3k3rw7jlkp"]
 
 [ext_resource type="PackedScene" uid="uid://6ump4l8coktj" path="res://scenes/floor.tscn" id="1_ec1if"]
 [ext_resource type="Script" uid="uid://cm8bn13gebovj" path="res://scripts/main.gd" id="1_u3v8c"]
@@ -21,7 +21,6 @@
 [ext_resource type="PackedScene" uid="uid://dvwnl8ut4fgso" path="res://scenes/debug_label.tscn" id="14_p4ui5"]
 [ext_resource type="Script" uid="uid://dxu0yaltx4clx" path="res://scripts/debug.gd" id="18_n87vm"]
 [ext_resource type="Script" uid="uid://byxa5dh1b7vrc" path="res://scripts/globals/nodes.gd" id="20_digeb"]
-[ext_resource type="Script" uid="uid://402gk7hbu2n3" path="res://scripts/foreground.gd" id="21_pm3ni"]
 [ext_resource type="PackedScene" uid="uid://petc2tsv10q2" path="res://scenes/modal.tscn" id="23_modal"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pause_normal"]
@@ -217,6 +216,24 @@ layout_mode = 2
 [node name="Item" parent="Closet/MarginContainer/Items" instance=ExtResource("13_jscy8")]
 layout_mode = 0
 
+[node name="Floors" type="Node2D" parent="."]
+position = Vector2(191, 315)
+script = ExtResource("2_pfc4s")
+
+[node name="Floor_1" parent="Floors" instance=ExtResource("1_ec1if")]
+position = Vector2(0, 360)
+
+[node name="Floor_2" parent="Floors" instance=ExtResource("1_ec1if")]
+position = Vector2(0, 270)
+
+[node name="Floor_3" parent="Floors" instance=ExtResource("1_ec1if")]
+position = Vector2(0, 180)
+
+[node name="Floor_4" parent="Floors" instance=ExtResource("1_ec1if")]
+position = Vector2(0, 90)
+
+[node name="Floor_5" parent="Floors" instance=ExtResource("1_ec1if")]
+
 [node name="Elevator" type="Node2D" parent="."]
 position = Vector2(105, 330)
 script = ExtResource("4_iffau")
@@ -270,24 +287,6 @@ theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 18
 text = "x4"
 
-[node name="Floors" type="Node2D" parent="."]
-position = Vector2(191, 315)
-script = ExtResource("2_pfc4s")
-
-[node name="Floor_1" parent="Floors" instance=ExtResource("1_ec1if")]
-position = Vector2(0, 360)
-
-[node name="Floor_2" parent="Floors" instance=ExtResource("1_ec1if")]
-position = Vector2(0, 270)
-
-[node name="Floor_3" parent="Floors" instance=ExtResource("1_ec1if")]
-position = Vector2(0, 180)
-
-[node name="Floor_4" parent="Floors" instance=ExtResource("1_ec1if")]
-position = Vector2(0, 90)
-
-[node name="Floor_5" parent="Floors" instance=ExtResource("1_ec1if")]
-
 [node name="Debug" type="VBoxContainer" parent="."]
 offset_left = 354.0
 offset_top = 3.0
@@ -304,24 +303,10 @@ layout_mode = 2
 [node name="Dynamic" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
 
-[node name="Foreground" type="ColorRect" parent="."]
-process_mode = 2
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 580.0
-offset_bottom = 780.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-color = Color(0.0745098, 0.0745098, 0.0745098, 0.615686)
-script = ExtResource("21_pm3ni")
+[node name="Foreground" type="Node2D" parent="."]
 
 [node name="Modal" parent="Foreground" instance=ExtResource("23_modal")]
 visible = false
-layout_mode = 0
 
 [node name="Timers" type="Node" parent="."]
 
