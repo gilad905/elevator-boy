@@ -15,7 +15,12 @@ func update_npc_position(npc: Node2D):
 	var _position = get_npc_position(i)
 	# if name == "Elevator":
 	# 	Funcs._print("moving %s at %s to %s" % [npc, i, _position])
-	Funcs.fly_node_to(npc, _position, Settings.npc_speed)
+	npc.movement_tween = Funcs.fly_node_to(npc, _position, Settings.npc_speed)
+	npc.movement_tween.finished.connect(_on_npc_movement_finished.bind(npc))
+
+func _on_npc_movement_finished(_npc: Node2D) -> void:
+	# implemented in floor.gd
+	pass
 
 func update_npc_positions() -> void:
 	for npc in $NPCs.get_children():

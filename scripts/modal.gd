@@ -42,20 +42,23 @@ func _ready() -> void:
 
 func show_modal(text: String = "", texture: Texture2D = null) -> Signal:
 	_set_visible_buttons(["continue"])
-	_update_fields(text, texture)
-
-	get_tree().paused = true
-	_tween_in()
+	_show(text, texture)
 	return menu_selected
 
 func show_menu(text: String = "", texture: Texture2D = null) -> Signal:
 	_set_visible_buttons(["resume_game", "new_game"])
 	_buttons["resume_game"].disabled = State.current_level <= 1
-	_update_fields(text, texture)
-
-	get_tree().paused = true
-	_tween_in()
+	_show(text, texture)
 	return menu_selected
+
+func _show(text, texture) -> void:
+	_update_fields(text, texture)
+	if Env.is_dev:
+		print("DEV - Skipping modal")
+		get_tree().create_timer(.2).timeout.connect(menu_selected.emit.bind("continue"))
+	else:
+		get_tree().paused = true
+		_tween_in()
 
 func hide_modal() -> void:
 	await _tween_out()

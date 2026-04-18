@@ -312,7 +312,6 @@ visible = false
 
 [node name="NPCsTimer" type="Timer" parent="Timers"]
 
-[node name="ElevatorEnterTimer" type="Timer" parent="Timers"]
 
 [node name="SpeedSpanTimer" type="Timer" parent="Timers"]
 
@@ -324,5 +323,4 @@ script = ExtResource("20_digeb")
 [connection signal="pressed" from="HUD/PauseButton" to="." method="pause"]
 [connection signal="state_changed" from="Elevator/Door" to="." method="_on_door_state_changed"]
 [connection signal="timeout" from="Timers/NPCsTimer" to="." method="_on_npcs_timer_timeout"]
-[connection signal="timeout" from="Timers/ElevatorEnterTimer" to="." method="_on_elevator_enter_timer_timeout"]
 [connection signal="timeout" from="Timers/SpeedSpanTimer" to="." method="_on_speed_span_timer_timeout"]

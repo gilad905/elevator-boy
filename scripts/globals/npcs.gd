@@ -17,6 +17,10 @@ static func update_frequencies() -> void:
 
 static func add_random_npc() -> Node2D:
 	var floor_num = get_random_free_floor_num()
+	if Env.is_dev:
+		print("DEV - Adding at floor 5")
+		floor_num = 5
+		
 	if not floor_num:
 		return
 	var _floor = Nodes.Floors.get_floor(floor_num)

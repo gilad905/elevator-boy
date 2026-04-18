@@ -31,7 +31,6 @@ func init_level() -> void:
 	span_duration = get_speed_span_duration()
 	start_enter_interval = get_start_enter_interval()
 	NPCs.update_frequencies()
-	$Timers/ElevatorEnterTimer.wait_time = Settings.elevator_check_interval_sec
 	$Timers/SpeedSpanTimer.wait_time = span_duration
 	$Timers/NPCsTimer.wait_time = start_enter_interval
 
@@ -65,15 +64,9 @@ func _on_npcs_timer_timeout() -> void:
 func _on_door_state_changed(state: int) -> void:
 	if state == $Elevator/Door.DoorState.open:
 		$Elevator.remove_persons_in_dest()
-		_on_elevator_enter_timer_timeout()
-		$Timers/ElevatorEnterTimer.start()
-	elif state == $Elevator/Door.DoorState.closing:
-		$Timers/ElevatorEnterTimer.stop()
-
-func _on_elevator_enter_timer_timeout():
-	var floor_num = $Elevator.current_floor_num
-	var _floor = $Floors.get_floor(floor_num)
-	_floor.enter_elevator_next()
+		var floor_num = $Elevator.current_floor_num
+		var _floor = $Floors.get_floor(floor_num)
+		_floor.enter_elevator_next()
 
 func _on_speed_span_timer_timeout() -> void:
 	current_span += 1

@@ -55,6 +55,7 @@ func _update_item_positions(fly: bool) -> void:
 		var x = spacing * i
 		var end_position = Vector2(x, item.position.y)
 		if fly:
-			await Funcs.fly_node_to(item, end_position, Settings.item_speed)
+			var tween = Funcs.fly_node_to(item, end_position, Settings.item_speed)
+			await tween.finished
 		else:
 			item.position = end_position

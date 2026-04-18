@@ -19,12 +19,30 @@ func get_npc_position(i: int) -> Vector2:
 	return Vector2(x, npc_y)
 
 func enter_elevator_next():
-	if $NPCs.get_child_count() > 0:
-		var npc = $NPCs.get_child(0)
-		if not npc.is_moving() and Nodes.Elevator.has_room():
-			npc.patience_ended.disconnect(_on_npc_patience_ended)
-			Nodes.Elevator.add_npc(npc)
-			update_npc_positions()
+	# if Env.is_dev:
+	# 	print("enter_elevator_next check")
+
+	if $NPCs.get_child_count() == 0:
+		return
+	var npc = $NPCs.get_child(0)
+	if npc.is_moving():
+		return
+	if door.current_state != door.DoorState.open:
+		return
+	if not Nodes.Elevator.has_room():
+		return
+
+	# if Env.is_dev:
+	# 	print("enter_elevator_next passed")
+
+	npc.patience_ended.disconnect(_on_npc_patience_ended)
+	Nodes.Elevator.add_npc(npc)
+	update_npc_positions()
+
+func _on_npc_movement_finished(_npc: Node2D) -> void:
+	var i = _npc.get_index()
+	if i == 0:
+		enter_elevator_next()
 
 func set_pressed(is_on: bool) -> void:
 	if is_on:
@@ -38,7 +56,7 @@ func add_npc(npc) -> void:
 	assert(has_room(), name + " is full")
 	$NPCs.add_child(npc)
 	npc.position = npc_start_position
-	super(npc)
+	super (npc)
 
 func get_right_edge() -> int:
 	var _right_edge = $TouchScreenButton.position.x
