@@ -66,6 +66,7 @@ func remove_persons_in_dest() -> void:
 	update_hud_by_result(happy_count, angry_count)
 	if removed:
 		await removed
+		Nodes.Floors.enter_elevator_next()
 		update_npc_positions()
 
 func update_hud_by_result(happy_count: int, angry_count: int) -> void:
@@ -95,3 +96,6 @@ func add_npc(npc) -> void:
 func _on_door_toggle_pressed() -> void:
 	if current_floor_num != MOVING:
 		$Door.toggle_state()
+
+func _on_npc_movement_finished(_npc: Node2D) -> void:
+	Nodes.Floors.enter_elevator_next()

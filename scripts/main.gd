@@ -64,9 +64,7 @@ func _on_npcs_timer_timeout() -> void:
 func _on_door_state_changed(state: int) -> void:
 	if state == $Elevator/Door.DoorState.open:
 		$Elevator.remove_persons_in_dest()
-		var floor_num = $Elevator.current_floor_num
-		var _floor = $Floors.get_floor(floor_num)
-		_floor.enter_elevator_next()
+		$Floors.enter_elevator_next()
 
 func _on_speed_span_timer_timeout() -> void:
 	current_span += 1

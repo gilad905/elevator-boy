@@ -17,3 +17,8 @@ func set_floor_pressed(floor_num: int) -> void:
 
 func floor_exists(floor_num: int) -> bool:
 	return floor_num >= 1 and floor_num <= Settings.floor_count
+
+func enter_elevator_next() -> void:
+	var floor_num = Nodes.Elevator.current_floor_num
+	var _floor = get_floor(floor_num)
+	_floor.enter_elevator_next()
