@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://b6x0grs23fobj"]
+
+[ext_resource type="PackedScene" uid="uid://bj1ofntpwdkm2" path="res://scenes/modals/modal_content.tscn" id="1_n5yx6"]
+[ext_resource type="PackedScene" uid="uid://crex7lriduh8y" path="res://scenes/modals/modal_button.tscn" id="2_7b146"]
+[ext_resource type="Texture2D" uid="uid://c5y2babcc0yt8" path="res://assets/images/guides/guide-money.png" id="2_ax16s"]
+
+[node name="ModalIntroduction" instance=ExtResource("1_n5yx6")]
+
+[node name="continue" parent="ColorRect/MarginContainer/Menu" index="0" instance=ExtResource("2_7b146")]
+layout_mode = 2
+text = "CONTINUE"
+
+[node name="Prompt" parent="ColorRect" index="1"]
+offset_left = 10.0
+offset_top = 19.0
+offset_right = 410.0
+offset_bottom = 164.0
+theme_override_font_sizes/font_size = 34
+text = "Collect 50 bucks in tip to beat the level. Don't make your customers mad!"
+
+[node name="Image" parent="ColorRect" index="2"]
+offset_top = 162.0
+offset_bottom = 501.0
+texture = ExtResource("2_ax16s")

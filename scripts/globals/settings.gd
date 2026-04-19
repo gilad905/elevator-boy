@@ -33,13 +33,13 @@ const item_meta = {
 	},
 }
 
-const modal_meta: Dictionary = {
+var modal_meta: Dictionary = {
 	"welcome": {
 		texture = preload("res://assets/images/logo.png"),
 		buttons = ["resume_game", "new_game"],
 	},
 	"introduction": {
-		texture = preload("res://assets/images/guides/guide-money.png"),
+		content = preload("res://scenes/modals/modal_introduction.tscn"),
 	},
 	"businessman": {
 		texture = preload("res://assets/images/guides/guide-businessman.png"),

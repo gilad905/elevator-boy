@@ -22,7 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://dvwnl8ut4fgso" path="res://scenes/debug_label.tscn" id="14_p4ui5"]
 [ext_resource type="Script" uid="uid://dxu0yaltx4clx" path="res://scripts/debug.gd" id="18_n87vm"]
 [ext_resource type="Script" uid="uid://byxa5dh1b7vrc" path="res://scripts/globals/nodes.gd" id="20_digeb"]
-[ext_resource type="PackedScene" uid="uid://petc2tsv10q2" path="res://scenes/modal.tscn" id="23_modal"]
+[ext_resource type="PackedScene" uid="uid://petc2tsv10q2" path="res://scenes/modals/modal.tscn" id="23_modal"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pause_normal"]
 content_margin_left = 4.0

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://petc2tsv10q2"]
+
+[ext_resource type="Script" uid="uid://13n2mq03rhne" path="res://scripts/modal.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://bj1ofntpwdkm2" path="res://scenes/modals/modal_content.tscn" id="2_wawic"]
+
+[node name="Modal" type="ColorRect"]
+process_mode = 2
+offset_right = 580.0
+offset_bottom = 780.0
+color = Color(0.0745098, 0.0745098, 0.0745098, 0.615686)
+script = ExtResource("1_script")
+
+[node name="Content" parent="." instance=ExtResource("2_wawic")]
+layout_mode = 2
