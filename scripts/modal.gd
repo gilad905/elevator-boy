@@ -11,7 +11,7 @@ const BUTTONS: Dictionary = {
 	"new_game": "NEW GAME",
 }
 
-var _buttons: Dictionary = {}
+var buttons: Dictionary = {}
 var content;
 var menu;
 var prompt;
@@ -23,13 +23,15 @@ func _ready() -> void:
 
 	content = $Content
 	prompt = $Content/ColorRect/Prompt
+	image = $Content/ColorRect/Image
 	menu = $Content/ColorRect/MarginContainer/Menu
-	image = $Content/ColorRect/MarginContainer/Image
 	content_y = content.position.y
 	
 	self.self_modulate.a = 0
 	content.modulate.a = 0
 	content.position.y = SLIDE_OFFSET
+	prompt.text = ""
+	image.texture = null
 
 	for id in BUTTONS:
 		var button = BUTTON_SCENE.instantiate()
@@ -38,27 +40,31 @@ func _ready() -> void:
 		button.visible = false
 		button.pressed.connect(_on_button_pressed.bind(id))
 		menu.add_child(button)
-		_buttons[id] = button
+		buttons[id] = button
 
-func show_modal(text: String = "", texture: Texture2D = null) -> Signal:
-	_set_visible_buttons(["continue"])
+func show_modal(modal_meta: Dictionary) -> Signal:
+	var button_ids = modal_meta["buttons"] if "buttons" in modal_meta else ["continue"]
+	_set_visible_buttons(button_ids)
+	if "resume_game" in button_ids:
+		buttons["resume_game"].disabled = State.current_level <= 1
+	var text = modal_meta["text"] if "text" in modal_meta else ""
+	var texture = modal_meta["texture"] if "texture" in modal_meta else null
 	_show(text, texture)
 	return menu_selected
 
-func show_menu(text: String = "", texture: Texture2D = null) -> Signal:
-	_set_visible_buttons(["resume_game", "new_game"])
-	_buttons["resume_game"].disabled = State.current_level <= 1
+func show_dynamic(text: String = "", texture: Texture2D = null) -> Signal:
+	_set_visible_buttons(["continue"])
 	_show(text, texture)
 	return menu_selected
 
 func _show(text, texture) -> void:
 	_update_fields(text, texture)
-	if Env.is_dev:
-		print("DEV - Skipping modal")
-		get_tree().create_timer(.2).timeout.connect(menu_selected.emit.bind("continue"))
-	else:
-		get_tree().paused = true
-		_tween_in()
+	# if Env.is_dev:
+	# 	print("DEV - Skipping modal")
+	# 	get_tree().create_timer(.2).timeout.connect(menu_selected.emit.bind("continue"))
+	# else:
+	get_tree().paused = true
+	_tween_in()
 
 func hide_modal() -> void:
 	await _tween_out()
@@ -93,8 +99,8 @@ func _tween_property(tween, target, property, value) -> void:
 		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 
 func _set_visible_buttons(visible_ids: Array) -> void:
-	for id in _buttons:
-		_buttons[id].visible = id in visible_ids
+	for id in buttons:
+		buttons[id].visible = id in visible_ids
 
 func _on_button_pressed(button_id: String) -> void:
 	await hide_modal()

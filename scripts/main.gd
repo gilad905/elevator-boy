@@ -9,12 +9,16 @@ func _ready() -> void:
 	modal = $Foreground/Modal
 	if State.on_welcome_screen:
 		State.on_welcome_screen = false
-		var choice = await modal.show_menu(Settings.modal_meta.welcome)
+		if Env.is_dev:
+			print("DEV - setting current_level to 2")
+			State.current_level = 2
+		var choice = await modal.show_modal(Settings.modal_meta.welcome)
 		if choice == "new_game":
 			State.reset()
+			await modal.show_modal(Settings.modal_meta.introduction)
 	init_level()
 	$Debug.load_labels()
-	await modal.show_modal("LEVEL %d - GET READY" % State.current_level)
+	await modal.show_dynamic("LEVEL %d - GET READY" % State.current_level)
 	await get_tree().create_timer(1, false).timeout
 	start_level()
 
@@ -76,14 +80,14 @@ func _on_speed_span_timer_timeout() -> void:
 
 func _on_angries_reached() -> void:
 	var life = $Closet.find_item(Item.Type.Life)
-	var prompt
+	var modal_meta
 	if life == null:
-		prompt = Settings.modal_meta.game_over
+		modal_meta = Settings.modal_meta.game_over
 		State.current_level = 1
 	else:
-		prompt = Settings.modal_meta.used_life
+		modal_meta = Settings.modal_meta.used_life
 		$Closet.remove_item(life)
-	await modal.show_modal(prompt)
+	await modal.show_modal(modal_meta)
 
 func _on_money_reached() -> void:
 	State.current_level += 1

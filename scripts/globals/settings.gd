@@ -34,10 +34,25 @@ const item_meta = {
 }
 
 const modal_meta: Dictionary = {
-	welcome = "ELEVATOR BOY",
-	game_over = "GAME OVER",
-	used_life = "YOU USED ONE LIFE.\nRETRY LEVEL.",
-	paused = "PAUSED",
+	"welcome": {
+		texture = preload("res://assets/images/logo.png"),
+		buttons = ["resume_game", "new_game"],
+	},
+	"introduction": {
+		texture = preload("res://assets/images/guides/guide-money.png"),
+	},
+	"businessman": {
+		texture = preload("res://assets/images/guides/guide-businessman.png"),
+	},
+	"game_over": {
+		text = "GAME OVER",
+	},
+	"used_life": {
+		text = "YOU USED ONE LIFE.\nRETRY LEVEL.",
+	},
+	"paused": {
+		text = "PAUSED",
+	},
 }
 
 const npc_spacing: int = 7
