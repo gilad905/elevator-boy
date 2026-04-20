@@ -6,12 +6,14 @@ static var _default = {
 	current_level = 1,
 	# current_level = 5 if Env.is_dev else 1,
 	closet = [Item.Type.Life, Item.Type.Life],
+	angry_count = 0,
 }
 
 static var current_level: int = _default.current_level
 static var closet: Array = _default.closet.duplicate()
+static var angry_count: int = 0
 
-# not saved, only for runtime
+# reset on every run, not saved
 static var on_welcome_screen: bool = true
 
 static func _static_init() -> void:
@@ -27,17 +29,21 @@ static func _load() -> void:
 		current_level = state.current_level
 	if state.has("closet"):
 		closet = state.closet
+	if state.has("angry_count"):
+		angry_count = state.angry_count
 
 static func save() -> void:
 	var state = {
 		current_level = current_level,
 		closet = closet,
+		angry_count = angry_count,
 	}
 	_save_file(state)
 
 static func reset() -> void:
 	current_level = _default.current_level
 	closet = _default.closet.duplicate()
+	angry_count = _default.angry_count
 	save()
 
 static func _load_file() -> Dictionary:

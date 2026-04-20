@@ -322,9 +322,9 @@ visible = false
 [node name="Nodes" type="Node" parent="."]
 script = ExtResource("20_digeb")
 
-[connection signal="angries_reached" from="HUD" to="." method="_on_angries_reached"]
-[connection signal="money_reached" from="HUD" to="." method="_on_money_reached"]
 [connection signal="pressed" from="HUD/PauseButton" to="." method="pause"]
+[connection signal="angries_reached" from="Elevator" to="." method="_on_angries_reached"]
+[connection signal="money_reached" from="Elevator" to="." method="_on_money_reached"]
 [connection signal="state_changed" from="Elevator/Door" to="." method="_on_door_state_changed"]
 [connection signal="timeout" from="Timers/NPCsTimer" to="." method="_on_npcs_timer_timeout"]
 [connection signal="timeout" from="Timers/SpeedSpanTimer" to="." method="_on_speed_span_timer_timeout"]

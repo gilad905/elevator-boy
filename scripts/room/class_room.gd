@@ -1,5 +1,8 @@
 class_name Room extends Node2D
 
+signal money_reached
+signal angries_reached
+
 var npc_limit: int = 0
 var npc_start_position: Vector2
 
@@ -36,10 +39,16 @@ func update_hud_by_result(happy_count: int, angry_count: int) -> void:
 		money_shift += happy_money
 	if angry_count > 0:
 		var angry_money = Settings.angry_money_loss * angry_count
-		Nodes.HUD.increment_angries(angry_count)
 		money_shift -= angry_money
+		var new_angries = Nodes.HUD.increment_angries(angry_count)
+		State.angry_count = new_angries
+		State.save()
+		if new_angries >= Settings.lose_on_angries:
+			angries_reached.emit()
 	if money_shift != 0:
-		Nodes.HUD.increment_money(money_shift)
+		var new_money = Nodes.HUD.increment_money(money_shift)
+		if new_money >= Settings.win_on_amount:
+			money_reached.emit()
 
 func bomb_explode() -> Signal:
 	var removed: Signal

@@ -21,4 +21,5 @@ func floor_exists(floor_num: int) -> bool:
 func enter_elevator_next() -> void:
 	var floor_num = Nodes.Elevator.current_floor_num
 	var _floor = get_floor(floor_num)
-	_floor.enter_elevator_next()
+	if _floor:
+		_floor.enter_elevator_next()

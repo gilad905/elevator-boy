@@ -31,7 +31,8 @@ func show_result(is_happy: bool) -> Signal:
 		$Face.play("happy")
 	else:
 		$Face.play("angry")
-		$AngryResult.show()
-		tween.set_parallel()
-		NPCs.add_result_tweener(tween, $AngryResult)
+		if Settings.angry_money_loss > 0:
+			$AngryResult.show()
+			tween.set_parallel()
+			NPCs.add_result_tweener(tween, $AngryResult)
 	return tween.finished

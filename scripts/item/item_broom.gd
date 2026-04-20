@@ -20,10 +20,10 @@ func activate() -> void:
 		for npc: Npc in room.get_node("NPCs").get_children():
 			_sweep_npc(npc)
 
-	if Env.is_dev:
-		print("DEV - not removing broom")
-	else:
-		super ()
+	# if Env.is_dev:
+	# 	print("DEV - not removing broom")
+	# else:
+	super ()
 
 func _show_animation(elevator_only: bool) -> void:
 	var x_end = 50 if elevator_only else 300

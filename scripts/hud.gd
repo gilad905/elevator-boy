@@ -1,8 +1,5 @@
 extends Node2D
 
-signal money_reached
-signal angries_reached
-
 const glow_outline: int = 18
 const glow_shadow: int = 40
 var start_outline: float
@@ -16,15 +13,13 @@ func _ready() -> void:
 	$Angries/Total.text = "/" + str(Settings.lose_on_angries)
 	# _debug_test_increments()
 	
-func increment_money(amount: int) -> void:
+func increment_money(amount: int) -> int:
 	var new_amount = _increment_counter($Money, amount)
-	if new_amount >= Settings.win_on_amount:
-		money_reached.emit()
+	return new_amount
 
-func increment_angries(amount: int) -> void:
+func increment_angries(amount: int) -> int:
 	var new_amount = _increment_counter($Angries, amount)
-	if new_amount >= Settings.lose_on_angries:
-		angries_reached.emit()
+	return new_amount
 
 func _increment_counter(field: Node2D, amount: int) -> int:
 	var counter = field.get_node("Amount")

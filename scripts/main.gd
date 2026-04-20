@@ -9,9 +9,9 @@ func _ready() -> void:
 	modal = $Foreground/Modal
 	if State.on_welcome_screen:
 		State.on_welcome_screen = false
-		if Env.is_dev:
-			print("DEV - setting current_level to 2")
-			State.current_level = 2
+		# if Env.is_dev:
+		# 	print("DEV - setting current_level to 2")
+		# 	State.current_level = 2
 		var choice = await modal.show_modal(Settings.modal_meta.welcome)
 		if choice == "new_game":
 			State.reset()
@@ -25,16 +25,24 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("exit"):
 		pause()
-	elif event.is_action_pressed("time_scale_increase"):
-		set_time_scale(true)
-	elif event.is_action_pressed("time_scale_decrease"):
-		set_time_scale(false)
+	elif Env.is_dev:
+		if event.is_action_pressed("time_scale_increase"):
+			print("DEV - increasing time scale")
+			set_time_scale(true)
+		elif event.is_action_pressed("time_scale_decrease"):
+			print("DEV - decreasing time scale")
+			set_time_scale(false)
 
 func init_level() -> void:
+	for _floor in $Floors.get_children():
+		_floor.angries_reached.connect(_on_angries_reached)
+		_floor.money_reached.connect(_on_money_reached)
 	$Closet.load_from_state()
 	span_duration = get_speed_span_duration()
 	start_enter_interval = get_start_enter_interval()
 	NPCs.update_frequencies()
+	# print("angry_count: %d" % State.angry_count)
+	$HUD/Angries/Amount.text = str(State.angry_count)
 	$Timers/SpeedSpanTimer.wait_time = span_duration
 	$Timers/NPCsTimer.wait_time = start_enter_interval
 
@@ -83,11 +91,14 @@ func _on_angries_reached() -> void:
 	var modal_meta
 	if life == null:
 		modal_meta = Settings.modal_meta.game_over
-		State.current_level = 1
+		State.reset()
 	else:
 		modal_meta = Settings.modal_meta.used_life
 		$Closet.remove_item(life)
+		State.angry_count = 0
+		State.save()
 	await modal.show_modal(modal_meta)
+	get_tree().reload_current_scene()
 
 func _on_money_reached() -> void:
 	State.current_level += 1
@@ -97,4 +108,7 @@ func _on_money_reached() -> void:
 func pause() -> void:
 	if modal.visible:
 		return
-	await modal.show_modal(Settings.modal_meta.paused)
+	var choice = await modal.show_modal(Settings.modal_meta.paused)
+	if choice == "new_game":
+		State.reset()
+		get_tree().reload_current_scene()
