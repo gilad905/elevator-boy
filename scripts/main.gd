@@ -15,6 +15,7 @@ func _ready() -> void:
 		var choice = await modal.show_modal(Settings.modal_meta.welcome)
 		if choice == "new_game":
 			State.reset()
+			State.save()
 			await modal.show_modal(Settings.modal_meta.introduction)
 	init_level()
 	$Debug.load_labels()
@@ -92,6 +93,7 @@ func _on_angries_reached() -> void:
 	if life == null:
 		modal_meta = Settings.modal_meta.game_over
 		State.reset()
+		State.save()
 	else:
 		modal_meta = Settings.modal_meta.used_life
 		$Closet.remove_item(life)
@@ -101,6 +103,9 @@ func _on_angries_reached() -> void:
 	get_tree().reload_current_scene()
 
 func _on_money_reached() -> void:
+	goto_next_level()
+
+func goto_next_level() -> void:
 	State.current_level += 1
 	State.save()
 	get_tree().reload_current_scene()
@@ -111,4 +116,5 @@ func pause() -> void:
 	var choice = await modal.show_modal(Settings.modal_meta.paused)
 	if choice == "new_game":
 		State.reset()
+		State.save()
 		get_tree().reload_current_scene()

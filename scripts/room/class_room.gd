@@ -42,7 +42,6 @@ func update_hud_by_result(happy_count: int, angry_count: int) -> void:
 		money_shift -= angry_money
 		var new_angries = Nodes.HUD.increment_angries(angry_count)
 		State.angry_count = new_angries
-		State.save()
 		if new_angries >= Settings.lose_on_angries:
 			angries_reached.emit()
 	if money_shift != 0:

@@ -5,19 +5,13 @@ var items: Control
 
 func _ready() -> void:
 	items = $MarginContainer/Items
-	print("items count on ready: ", items.get_child_count())
 	for item in items.get_children():
 		item.queue_free()
 		items.remove_child(item)
-	print("items count on ready end: ", items.get_child_count())
 
 func load_from_state() -> void:
-	print("items count before: ", items.get_child_count())
-	print(items.get_child(0).type if items.get_child_count() > 0 else "no items")
 	for item_type in State.closet:
 		_add_item(item_type)
-	print("items count after: ", items.get_child_count())
-	_update_state()
 	_update_item_positions(false)
 
 func find_item(type: Item.Type) -> Item:
@@ -43,7 +37,6 @@ func has_room() -> bool:
 	return items.get_child_count() < ITEM_LIMIT
 
 func _add_item(item_type: Item.Type) -> void:
-	print("Adding item to closet: ", item_type)
 	var item = Item.create(item_type)
 	var entrance_x = self.size.x + item.size.x
 	item.position.x = entrance_x
@@ -53,7 +46,6 @@ func _update_state() -> void:
 	State.closet.clear()
 	for item in items.get_children():
 		State.closet.append(item.type)
-	State.save()
 
 func _update_item_positions(fly: bool) -> void:
 	var spacing = Settings.item_spacing + Settings.item_size

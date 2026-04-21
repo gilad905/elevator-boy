@@ -7,13 +7,15 @@ static var _default = {
 	# current_level = 5 if Env.is_dev else 1,
 	closet = [Item.Type.Life, Item.Type.Life],
 	angry_count = 0,
+	viewed_guides = [],
 }
 
 static var current_level: int = _default.current_level
 static var closet: Array = _default.closet.duplicate()
 static var angry_count: int = 0
+static var viewed_guides: Array = _default.viewed_guides.duplicate()
 
-# reset on every run, not saved
+# not persistent - resets on every run
 static var on_welcome_screen: bool = true
 
 static func _static_init() -> void:
@@ -21,22 +23,26 @@ static func _static_init() -> void:
 		print("DEV - adding broom to closet")
 		_default.closet = [Item.Type.Life, Item.Type.Broom, Item.Type.Life]
 		closet = _default.closet.duplicate()
-	_load()
+	_load_state_file()
 
-static func _load() -> void:
-	var state = _load_file()
-	if state.has("current_level"):
-		current_level = state.current_level
-	if state.has("closet"):
-		closet = state.closet
-	if state.has("angry_count"):
-		angry_count = state.angry_count
+static func _load_state_file() -> void:
+	var file_state = _get_state_from_file()
+	reset()
+	if file_state.has("current_level"):
+		current_level = file_state.current_level
+	if file_state.has("closet"):
+		closet = file_state.closet
+	if file_state.has("angry_count"):
+		angry_count = file_state.angry_count
+	if file_state.has("viewed_guides"):
+		viewed_guides = file_state.viewed_guides
 
 static func save() -> void:
 	var state = {
 		current_level = current_level,
 		closet = closet,
 		angry_count = angry_count,
+		viewed_guides = viewed_guides,
 	}
 	_save_file(state)
 
@@ -44,9 +50,9 @@ static func reset() -> void:
 	current_level = _default.current_level
 	closet = _default.closet.duplicate()
 	angry_count = _default.angry_count
-	save()
+	viewed_guides = _default.viewed_guides.duplicate()
 
-static func _load_file() -> Dictionary:
+static func _get_state_from_file() -> Dictionary:
 	if not FileAccess.file_exists(path):
 		return {}
 

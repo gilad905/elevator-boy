@@ -25,12 +25,32 @@ static func add_random_npc() -> Node2D:
 		return
 	var _floor = Nodes.Floors.get_floor(floor_num)
 	var type = get_random_type()
+	# if Env.is_dev:
+	# 	temp_npc_count += 1
+	# 	if temp_npc_count % 3 == 0:
+	# 		print("DEV - Adding businessman")
+	# 		type = Npc.Type.Businessman
 	var npc = scenes[type].instantiate()
+	await show_npc_guide(type)
 	if npc is Person:
 		var dest = get_random_dest(floor_num)
 		npc.set_dest(dest)
 	_floor.add_npc(npc)
 	return npc
+
+static func show_npc_guide(type: Npc.Type) -> void:
+	var npc_meta = Settings.npc_meta[type]
+	if "guide" not in npc_meta:
+		return
+	
+	var guide_viewed = State.viewed_guides.has(npc_meta.guide)
+	if guide_viewed:
+		return
+	
+	State.viewed_guides.append(npc_meta.guide)
+	var modal_meta = Settings.modal_meta[npc_meta.guide]
+	var modal = Nodes.Main.get_node("Foreground/Modal")
+	await modal.show_modal(modal_meta)
 
 static func get_random_type() -> Npc.Type:
 	for type in npc_frequencies:

@@ -21,6 +21,7 @@ const npc_meta = {
 		# start_frequency = -1 if is_dev else 30,
 		start_frequency = 30,
 		patience_sec = 20,
+		guide = "businessman",
 	},
 }
 
@@ -30,6 +31,7 @@ const item_meta = {
 	},
 	Item.Type.Broom: {
 		frequency = 3,
+		# guide = "broom",
 	},
 }
 
@@ -42,8 +44,13 @@ var modal_meta: Dictionary = {
 		content = preload("res://scenes/modals/modal_introduction.tscn"),
 	},
 	"businessman": {
-		texture = preload("res://assets/images/guides/guide-businessman.png"),
+		content = preload("res://scenes/modals/modal_businessman.tscn"),
+		# text = "THE BUSINESSMAN",
+		# texture = preload("res://assets/images/guides/guide-businessman.png"),
 	},
+	# "broom": {
+	# 	texture = preload("res://assets/images/guides/guide-broom.png"),
+	# },
 	"game_over": {
 		text = "GAME OVER",
 		buttons = ["new_game"],
