@@ -31,7 +31,7 @@ static func add_random_npc() -> Node2D:
 	# 	print("DEV - Adding bomb")
 	# 	type = Npc.Type.Bomb
 	var npc = scenes[type].instantiate()
-	Nodes.Audio.play_sound("Door")
+	Nodes.Audio.play_sound("Footsteps")
 	await show_npc_guide(type)
 	if npc is Person:
 		var dest = get_random_dest(floor_num)

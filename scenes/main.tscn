@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://b4x3k3rw7jlkp"]
+[gd_scene load_steps=34 format=3 uid="uid://b4x3k3rw7jlkp"]
 
 [ext_resource type="PackedScene" uid="uid://6ump4l8coktj" path="res://scenes/floor.tscn" id="1_ec1if"]
 [ext_resource type="Script" uid="uid://cm8bn13gebovj" path="res://scripts/main.gd" id="1_u3v8c"]
@@ -30,6 +30,7 @@
 [ext_resource type="AudioStream" uid="uid://tr7vpm5jg3yx" path="res://assets/sounds/kaching.wav" id="28_qkpxi"]
 [ext_resource type="AudioStream" uid="uid://b3010po1fy4er" path="res://assets/sounds/tada.wav" id="29_yq6so"]
 [ext_resource type="AudioStream" uid="uid://cg2urwu10igk7" path="res://assets/music/bossa-radio-1.ogg" id="30_fv21b"]
+[ext_resource type="AudioStream" uid="uid://djri553u8kvbc" path="res://assets/sounds/footsteps.wav" id="30_tel4y"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pause_normal"]
 content_margin_left = 4.0
@@ -352,6 +353,9 @@ stream = ExtResource("28_qkpxi")
 
 [node name="Tada" type="AudioStreamPlayer" parent="Audio/Sounds"]
 stream = ExtResource("29_yq6so")
+
+[node name="Footsteps" type="AudioStreamPlayer" parent="Audio/Sounds"]
+stream = ExtResource("30_tel4y")
 
 [node name="Music" type="Node" parent="Audio"]
 
