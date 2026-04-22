@@ -20,16 +20,16 @@ static func add_random_npc() -> Node2D:
 	# if Env.is_dev:
 	# 	print("DEV - Adding at floor 5")
 	# 	floor_num = 5
-		
+
 	if not floor_num:
 		return
 	var _floor = Nodes.Floors.get_floor(floor_num)
 	var type = get_random_type()
 	# if Env.is_dev:
-	# 	temp_npc_count += 1
-	# 	if temp_npc_count % 3 == 0:
-	# 		print("DEV - Adding businessman")
-	# 		type = Npc.Type.Businessman
+	# 	# temp_npc_count += 1
+	# 	# if temp_npc_count % 3 == 0:
+	# 	print("DEV - Adding bomb")
+	# 	type = Npc.Type.Bomb
 	var npc = scenes[type].instantiate()
 	Nodes.Audio.play_sound("Door")
 	await show_npc_guide(type)
