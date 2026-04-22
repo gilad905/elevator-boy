@@ -6,9 +6,9 @@ const ANIM_DURATION: float = 0.4
 const SLIDE_OFFSET: float = 200.0
 const BUTTON_SCENE: PackedScene = preload("res://scenes/modals/modal_button.tscn")
 const BUTTONS: Dictionary = {
-	"continue": "CONTINUE",
-	"resume_game": "RESUME GAME",
 	"new_game": "NEW GAME",
+	"resume_game": "RESUME GAME",
+	"continue": "CONTINUE",
 }
 
 var buttons: Dictionary = {}

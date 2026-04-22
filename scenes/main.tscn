@@ -357,7 +357,7 @@ stream = ExtResource("29_yq6so")
 
 [node name="Bossa-radio-1" type="AudioStreamPlayer" parent="Audio/Music"]
 stream = ExtResource("30_fv21b")
-parameters/looping = false
+parameters/looping = true
 
 [connection signal="pressed" from="HUD/PauseButton" to="." method="pause"]
 [connection signal="angries_reached" from="Elevator" to="." method="_on_angries_reached"]

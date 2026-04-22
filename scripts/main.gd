@@ -5,7 +5,15 @@ var start_enter_interval: float
 var current_span: int = 1
 var modal
 
+signal angries_reached
+signal money_reached
+signal npcs_timer_timeout
+
 func _ready() -> void:
+	angries_reached.connect(_on_angries_reached)
+	money_reached.connect(_on_money_reached)
+	npcs_timer_timeout.connect(_on_npcs_timer_timeout)
+	
 	modal = $Foreground/Modal
 	if State.on_welcome_screen:
 		State.on_welcome_screen = false
@@ -17,11 +25,11 @@ func _ready() -> void:
 			State.reset()
 			State.save()
 			await modal.show_modal(Settings.modal_meta.introduction)
-	init_level()
+	LevelManager.init_level(angries_reached, money_reached, npcs_timer_timeout)
 	$Debug.load_labels()
 	await modal.show_dynamic("LEVEL %d - GET READY" % State.current_level)
 	await get_tree().create_timer(1, false).timeout
-	start_level()
+	LevelManager.start_level()
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("exit"):
@@ -34,43 +42,12 @@ func _input(event: InputEvent) -> void:
 			print("DEV - decreasing time scale")
 			set_time_scale(false)
 
-func init_level() -> void:
-	for _floor in $Floors.get_children():
-		_floor.angries_reached.connect(_on_angries_reached)
-		_floor.money_reached.connect(_on_money_reached)
-	$Closet.load_from_state()
-	span_duration = get_speed_span_duration()
-	start_enter_interval = get_start_enter_interval()
-	NPCs.update_frequencies()
-	# print("angry_count: %d" % State.angry_count)
-	$HUD/Angries/Amount.text = str(State.angry_count)
-	$Timers/SpeedSpanTimer.wait_time = span_duration
-	$Timers/NPCsTimer.wait_time = start_enter_interval
-
-func start_level() -> void:
-	_on_npcs_timer_timeout()
-	$Timers/NPCsTimer.start()
-	$Timers/SpeedSpanTimer.start()
-	$Audio.play_music("Bossa-radio-1")
-
 func set_time_scale(to_increase: bool):
 	var time_scale = Engine.get_time_scale()
 	var shift = 2.0 if to_increase else 0.5
 	time_scale = clamp(time_scale * shift, 0.125, 32.0)
 	Engine.set_time_scale(time_scale)
 	$Debug.update_dynamic_labels()
-
-func get_speed_span_duration() -> float:
-	var shift = Settings.speed_span_level_shift_sec * (State.current_level - 1)
-	var duration = Settings.speed_span_max_sec - shift
-	duration = max(duration, Settings.speed_span_min_sec)
-	return duration
-
-func get_start_enter_interval() -> float:
-	var interval = Settings.npc_enter_max_sec
-	interval -= (State.current_level - 1) * Settings.npc_enter_shift_sec
-	interval = max(interval, Settings.npc_enter_min_sec)
-	return interval
 
 func _on_npcs_timer_timeout() -> void:
 	NPCs.add_random_npc()
@@ -89,6 +66,7 @@ func _on_speed_span_timer_timeout() -> void:
 	$Debug.update_dynamic_labels()
 
 func _on_angries_reached() -> void:
+	LevelManager.end_level()
 	var life = $Closet.find_item(Item.Type.Life)
 	var modal_meta
 	if life == null:
