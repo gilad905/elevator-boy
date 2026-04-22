@@ -103,6 +103,8 @@ func _on_angries_reached() -> void:
 	get_tree().reload_current_scene()
 
 func _on_money_reached() -> void:
+	await get_tree().create_timer(0.8).timeout
+	await $Audio.play_sound("Tada")
 	goto_next_level()
 
 func goto_next_level() -> void:

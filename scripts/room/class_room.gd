@@ -32,7 +32,8 @@ func update_npc_positions() -> void:
 func has_room() -> bool:
 	return $NPCs.get_child_count() < npc_limit
 
-func update_hud_by_result(happy_count: int, angry_count: int) -> void:
+func apply_npc_result(happy_count: int, angry_count: int) -> void:
+	play_happy_sounds(happy_count)
 	var money_shift = 0
 	if happy_count > 0:
 		var happy_money = Settings.money_by_happy_count[happy_count]
@@ -49,6 +50,11 @@ func update_hud_by_result(happy_count: int, angry_count: int) -> void:
 		if new_money >= Settings.win_on_amount:
 			money_reached.emit()
 
+func play_happy_sounds(happy_count: int) -> void:
+	for i in happy_count:
+		Nodes.Audio.play_sound("Kaching")
+		await get_tree().create_timer(0.2).timeout
+
 func bomb_explode() -> Signal:
 	var removed: Signal
 	var angry_count = 0
@@ -61,7 +67,7 @@ func bomb_explode() -> Signal:
 			angry_count += 1
 			removed = npc.remove(Npc.RemovalType.Fall)
 			npc.show_result(false)
-	update_hud_by_result(0, angry_count)
+	apply_npc_result(0, angry_count)
 	return removed
 
 func _on_npc_patience_ended(npc: Node2D) -> void:

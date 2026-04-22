@@ -45,6 +45,7 @@ func start_patience_tween() -> void:
 		var callback = to_animate.set_frame.bind(i + 1)
 		patience_tween.tween_callback(callback).set_delay(delay)
 	await patience_tween.finished
+	Nodes.Audio.play_sound("Grunt")
 	patience_ended.emit(self )
 	to_animate.frame = 3
 	is_patience_ended = true

@@ -63,13 +63,13 @@ func remove_persons_in_dest() -> void:
 				angry_count += 1
 			removed = npc.remove(Npc.RemovalType.Fade)
 			npc.show_result(is_happy)
-	update_hud_by_result(happy_count, angry_count)
+	apply_npc_result(happy_count, angry_count)
 	if removed:
 		await removed
 		Nodes.Floors.enter_elevator_next()
 		update_npc_positions()
 
-func update_hud_by_result(happy_count: int, angry_count: int) -> void:
+func apply_npc_result(happy_count: int, angry_count: int) -> void:
 	super(happy_count, angry_count)
 	if happy_count > 0:
 		var happy_money = Settings.money_by_happy_count[happy_count]

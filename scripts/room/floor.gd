@@ -69,7 +69,7 @@ func get_right_edge() -> int:
 
 func _on_npc_patience_ended(npc: Node2D) -> void:
 	if npc is Person:
-		update_hud_by_result(0, 1)
+		apply_npc_result(0, 1)
 		var removed = npc.remove(Npc.RemovalType.Fade)
 		npc.show_result(false)
 		await removed

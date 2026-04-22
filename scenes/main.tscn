@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://b4x3k3rw7jlkp"]
+[gd_scene load_steps=32 format=3 uid="uid://b4x3k3rw7jlkp"]
 
 [ext_resource type="PackedScene" uid="uid://6ump4l8coktj" path="res://scenes/floor.tscn" id="1_ec1if"]
 [ext_resource type="Script" uid="uid://cm8bn13gebovj" path="res://scripts/main.gd" id="1_u3v8c"]
@@ -23,6 +23,12 @@
 [ext_resource type="Script" uid="uid://dxu0yaltx4clx" path="res://scripts/debug.gd" id="18_n87vm"]
 [ext_resource type="Script" uid="uid://byxa5dh1b7vrc" path="res://scripts/globals/nodes.gd" id="20_digeb"]
 [ext_resource type="PackedScene" uid="uid://petc2tsv10q2" path="res://scenes/modals/modal.tscn" id="23_modal"]
+[ext_resource type="Script" uid="uid://bfgjwcap3ur2q" path="res://scripts/audio.gd" id="24_2f3dj"]
+[ext_resource type="AudioStream" uid="uid://dp5ekffixh4df" path="res://assets/sounds/ding.wav" id="25_yq6so"]
+[ext_resource type="AudioStream" uid="uid://d4lyj6pe0c4ib" path="res://assets/sounds/door.wav" id="26_fv21b"]
+[ext_resource type="AudioStream" uid="uid://chawxo66bai10" path="res://assets/sounds/grunt.wav" id="27_tel4y"]
+[ext_resource type="AudioStream" uid="uid://tr7vpm5jg3yx" path="res://assets/sounds/kaching.wav" id="28_qkpxi"]
+[ext_resource type="AudioStream" uid="uid://b3010po1fy4er" path="res://assets/sounds/tada.wav" id="29_yq6so"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pause_normal"]
 content_margin_left = 4.0
@@ -322,6 +328,24 @@ visible = false
 
 [node name="Nodes" type="Node" parent="."]
 script = ExtResource("20_digeb")
+
+[node name="Audio" type="Node" parent="."]
+script = ExtResource("24_2f3dj")
+
+[node name="Ding" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("25_yq6so")
+
+[node name="Door" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("26_fv21b")
+
+[node name="Grunt" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("27_tel4y")
+
+[node name="Kaching" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("28_qkpxi")
+
+[node name="Tada" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("29_yq6so")
 
 [connection signal="pressed" from="HUD/PauseButton" to="." method="pause"]
 [connection signal="angries_reached" from="Elevator" to="." method="_on_angries_reached"]
