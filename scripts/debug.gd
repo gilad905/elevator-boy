@@ -17,8 +17,11 @@ func update_dynamic_labels() -> void:
 	if not Env.is_dev:
 		return
 	var npcs_timer = get_node("/root/Main/Timers/NPCsTimer")
-	var args = [npcs_timer.wait_time, Engine.get_time_scale()]
-	$Dynamic.text = "enter interval: %ss\ntime scale: x%s" % args
+	$Dynamic.text = ""
+	$Dynamic.text += "enter interval: %ss\n" % npcs_timer.wait_time
+	$Dynamic.text += "time scale: x%s\n" % Engine.get_time_scale()
+	$Dynamic.text += "Q -> faster\n"
+	$Dynamic.text += "A -> slower"
 
 func _get_level_desc() -> String:
 	# var total_shift = (start_enter_interval - Settings.npc_enter_min_sec)
@@ -26,7 +29,8 @@ func _get_level_desc() -> String:
 	# var time_sec = span_count * span_duration
 	# var time_min = Funcs.snap_two(time_sec / 60)
 	# return "span time: %ss\nmin enter: %sm" % [span_duration, time_min]
-	var desc = ""
+	var lines = []
 	for type in ["Bomb", "Businessman"]:
-		desc += "%s: 1:%s\n" % [type, NPCs.npc_frequencies[Npc.Type[type]]]
-	return desc
+		var freq = NPCs.npc_frequencies[Npc.Type[type]]
+		lines.append("%s: 1:%s" % [type, freq])
+	return "\n".join(lines)

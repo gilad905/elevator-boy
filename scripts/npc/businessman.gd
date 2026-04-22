@@ -2,9 +2,9 @@ extends Person
 
 func _init() -> void:
 	type = Npc.Type.Businessman
-	super()
+	super ()
 
-func show_result(is_happy: bool) -> Signal:
+func show_result(is_happy: bool) -> void:
 	if is_happy and Nodes.Closet.has_room():
 		Nodes.Closet.add_random_item()
-	return super(is_happy)
+	super (is_happy)

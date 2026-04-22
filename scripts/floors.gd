@@ -13,13 +13,14 @@ func get_floor(floor_num: int) -> Node:
 func set_floor_pressed(floor_num: int) -> void:
 	for _floor in get_children():
 		_floor.set_pressed(false)
-	get_floor(floor_num).set_pressed(true)
+	if floor_exists(floor_num):
+		get_floor(floor_num).set_pressed(true)
 
 func floor_exists(floor_num: int) -> bool:
 	return floor_num >= 1 and floor_num <= Settings.floor_count
 
 func enter_elevator_next() -> void:
 	var floor_num = Nodes.Elevator.current_floor_num
-	var _floor = get_floor(floor_num)
-	if _floor:
+	if floor_num != Nodes.Elevator.MOVING:
+		var _floor = get_floor(floor_num)
 		_floor.enter_elevator_next()

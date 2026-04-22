@@ -32,7 +32,7 @@ func update_npc_positions() -> void:
 func has_room() -> bool:
 	return $NPCs.get_child_count() < npc_limit
 
-func apply_npc_result(happy_count: int, angry_count: int) -> void:
+func apply_npc_results(happy_count: int, angry_count: int) -> void:
 	play_happy_sounds(happy_count)
 	var money_shift = 0
 	if happy_count > 0:
@@ -67,7 +67,7 @@ func bomb_explode() -> Signal:
 			angry_count += 1
 			removed = npc.remove(Npc.RemovalType.Fall)
 			npc.show_result(false)
-	apply_npc_result(0, angry_count)
+	apply_npc_results(0, angry_count)
 	return removed
 
 func _on_npc_patience_ended(npc: Node2D) -> void:

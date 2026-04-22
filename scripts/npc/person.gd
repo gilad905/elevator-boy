@@ -9,7 +9,7 @@ func _init() -> void:
 
 func _ready() -> void:
 	to_animate = $Face
-	$AngryResult/Amount.text = "-%s" % Settings.angry_money_loss
+	$AngryFloater/Amount.text = "-%s" % Settings.angry_money_loss
 	super ()
 	# if Env.is_dev:
 	# 	print("DEV - making person fall")
@@ -24,15 +24,12 @@ func set_dest(_dest: int) -> void:
 	dest = _dest
 	$Dest.text = str(_dest)
 
-func show_result(is_happy: bool) -> Signal:
+func show_result(is_happy: bool) -> void:
 	$Dest.hide()
-	var tween = create_tween()
 	if is_happy:
 		$Face.play("happy")
 	else:
 		$Face.play("angry")
 		if Settings.angry_money_loss > 0:
-			$AngryResult.show()
-			tween.set_parallel()
-			NPCs.add_result_tweener(tween, $AngryResult)
-	return tween.finished
+			$AngryFloater.show()
+			NPCs.tween_floater($AngryFloater)

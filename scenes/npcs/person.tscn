@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://fiune5ofhg64" path="res://assets/images/hud/dollars.png" id="7_0nnqu"]
 [ext_resource type="Texture2D" uid="uid://cups2bitlff3u" path="res://assets/images/emojis/shock.png" id="7_h8iud"]
 
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_dj0us"]
 animations = [{
 "frames": [{
@@ -74,16 +73,16 @@ theme_override_font_sizes/font_size = 23
 text = "1"
 horizontal_alignment = 1
 
-[node name="AngryResult" type="Node2D" parent="."]
+[node name="AngryFloater" type="Node2D" parent="."]
 visible = false
 position = Vector2(1, -23)
 
-[node name="Icon" type="Sprite2D" parent="AngryResult"]
+[node name="Icon" type="Sprite2D" parent="AngryFloater"]
 position = Vector2(-12, 0)
 scale = Vector2(0.22, 0.22)
 texture = ExtResource("7_0nnqu")
 
-[node name="Amount" type="Label" parent="AngryResult"]
+[node name="Amount" type="Label" parent="AngryFloater"]
 offset_left = 0.22
 offset_top = -10.8
 offset_right = 22.73

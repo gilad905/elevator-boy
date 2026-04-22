@@ -51,6 +51,7 @@ func start_level() -> void:
 	_on_npcs_timer_timeout()
 	$Timers/NPCsTimer.start()
 	$Timers/SpeedSpanTimer.start()
+	$Audio.play_music("Bossa-radio-1")
 
 func set_time_scale(to_increase: bool):
 	var time_scale = Engine.get_time_scale()

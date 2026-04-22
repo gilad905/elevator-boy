@@ -63,26 +63,23 @@ func remove_persons_in_dest() -> void:
 				angry_count += 1
 			removed = npc.remove(Npc.RemovalType.Fade)
 			npc.show_result(is_happy)
-	apply_npc_result(happy_count, angry_count)
+	apply_npc_results(happy_count, angry_count)
 	if removed:
 		await removed
 		Nodes.Floors.enter_elevator_next()
 		update_npc_positions()
 
-func apply_npc_result(happy_count: int, angry_count: int) -> void:
+func apply_npc_results(happy_count: int, angry_count: int) -> void:
 	super(happy_count, angry_count)
 	if happy_count > 0:
 		var happy_money = Settings.money_by_happy_count[happy_count]
-		show_happy_result(happy_money)
+		show_happy_floater(happy_money)
 
-func show_happy_result(money: int) -> void:
-	$HappyResult/Amount.text = "x" + str(money)
-	$HappyResult.show()
-	var tween = create_tween()
-	tween.set_parallel()
-	NPCs.add_result_tweener(tween, $HappyResult)
-	await tween.finished
-	$HappyResult.hide()
+func show_happy_floater(money: int) -> void:
+	$HappyFloater/Amount.text = "x" + str(money)
+	$HappyFloater.show()
+	await NPCs.tween_floater($HappyFloater)
+	$HappyFloater.hide()
 
 func add_npc(npc) -> void:
 	# Funcs._print("adding %s of %s" % [npc, NPCs.get_child_count()])

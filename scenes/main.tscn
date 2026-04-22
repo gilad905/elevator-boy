@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://b4x3k3rw7jlkp"]
+[gd_scene load_steps=33 format=3 uid="uid://b4x3k3rw7jlkp"]
 
 [ext_resource type="PackedScene" uid="uid://6ump4l8coktj" path="res://scenes/floor.tscn" id="1_ec1if"]
 [ext_resource type="Script" uid="uid://cm8bn13gebovj" path="res://scripts/main.gd" id="1_u3v8c"]
@@ -29,6 +29,7 @@
 [ext_resource type="AudioStream" uid="uid://chawxo66bai10" path="res://assets/sounds/grunt.wav" id="27_tel4y"]
 [ext_resource type="AudioStream" uid="uid://tr7vpm5jg3yx" path="res://assets/sounds/kaching.wav" id="28_qkpxi"]
 [ext_resource type="AudioStream" uid="uid://b3010po1fy4er" path="res://assets/sounds/tada.wav" id="29_yq6so"]
+[ext_resource type="AudioStream" uid="uid://cg2urwu10igk7" path="res://assets/music/bossa-radio-1.ogg" id="30_fv21b"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pause_normal"]
 content_margin_left = 4.0
@@ -279,16 +280,16 @@ end_cap_mode = 1
 [node name="NPCs" type="Node2D" parent="Elevator"]
 position = Vector2(15, 15)
 
-[node name="HappyResult" type="Node2D" parent="Elevator"]
+[node name="HappyFloater" type="Node2D" parent="Elevator"]
 visible = false
 position = Vector2(42, 39)
 
-[node name="Icon" type="Sprite2D" parent="Elevator/HappyResult"]
+[node name="Icon" type="Sprite2D" parent="Elevator/HappyFloater"]
 position = Vector2(-14, 0)
 scale = Vector2(0.22, 0.22)
 texture = ExtResource("10_sj0jc")
 
-[node name="Amount" type="Label" parent="Elevator/HappyResult"]
+[node name="Amount" type="Label" parent="Elevator/HappyFloater"]
 offset_left = 1.5
 offset_top = -12.0
 offset_right = 24.0
@@ -308,12 +309,15 @@ script = ExtResource("18_n87vm")
 
 [node name="Version" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
+text = "version"
 
 [node name="Level" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
+text = "level"
 
 [node name="Dynamic" parent="Debug" instance=ExtResource("14_p4ui5")]
 layout_mode = 2
+text = "dynamic"
 
 [node name="Foreground" type="Node2D" parent="."]
 
@@ -332,20 +336,28 @@ script = ExtResource("20_digeb")
 [node name="Audio" type="Node" parent="."]
 script = ExtResource("24_2f3dj")
 
-[node name="Ding" type="AudioStreamPlayer" parent="Audio"]
+[node name="Sounds" type="Node" parent="Audio"]
+
+[node name="Ding" type="AudioStreamPlayer" parent="Audio/Sounds"]
 stream = ExtResource("25_yq6so")
 
-[node name="Door" type="AudioStreamPlayer" parent="Audio"]
+[node name="Door" type="AudioStreamPlayer" parent="Audio/Sounds"]
 stream = ExtResource("26_fv21b")
 
-[node name="Grunt" type="AudioStreamPlayer" parent="Audio"]
+[node name="Grunt" type="AudioStreamPlayer" parent="Audio/Sounds"]
 stream = ExtResource("27_tel4y")
 
-[node name="Kaching" type="AudioStreamPlayer" parent="Audio"]
+[node name="Kaching" type="AudioStreamPlayer" parent="Audio/Sounds"]
 stream = ExtResource("28_qkpxi")
 
-[node name="Tada" type="AudioStreamPlayer" parent="Audio"]
+[node name="Tada" type="AudioStreamPlayer" parent="Audio/Sounds"]
 stream = ExtResource("29_yq6so")
+
+[node name="Music" type="Node" parent="Audio"]
+
+[node name="Bossa-radio-1" type="AudioStreamPlayer" parent="Audio/Music"]
+stream = ExtResource("30_fv21b")
+parameters/looping = false
 
 [connection signal="pressed" from="HUD/PauseButton" to="." method="pause"]
 [connection signal="angries_reached" from="Elevator" to="." method="_on_angries_reached"]

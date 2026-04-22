@@ -75,14 +75,16 @@ static func get_random_dest(source_floor_num: int) -> int:
 		random_floor += 1
 	return random_floor
 
-static func add_result_tweener(tween: Tween, result: Node2D):
-	var scale = result.scale.x
+static func tween_floater(floater: Node2D) -> void:
+	var scale = floater.scale.x
 	var duration = Settings.npc_result_duration
+	var tween = floater.create_tween()
+	tween.set_parallel()
 	for type in ["x", "y"]:
-		tween.tween_property(result, "scale:" + type, scale * 2, duration)
+		tween.tween_property(floater, "scale:" + type, scale * 2, duration)
 	await tween.finished
 	for type in ["x", "y"]:
-		result.scale[type] = scale
+		floater.scale[type] = scale
 
 static func _get_npc_frequencies() -> Dictionary:
 	var frequencies = {}
