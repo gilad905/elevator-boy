@@ -13,12 +13,6 @@ func _ready() -> void:
 	$Content.queue_free()
 	hide()
 
-# func _set_audio_by_state(button) -> void:
-# 	var is_on = State.sounds_on if button.name == "Sounds" else State.music_on
-# 	var icon_prefix = button.name.to_lower()
-# 	var icon_name = icon_prefix + ("_on" if is_on else "_off")
-# 	button.icon = audio_icons[icon_name]
-
 func show_modal(modal_name, prompt_text = null) -> Signal:
 	# if Env.is_dev:
 	# 	print("DEV - Skipping modal")

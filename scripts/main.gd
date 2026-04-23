@@ -36,17 +36,31 @@ func _input(event: InputEvent) -> void:
 	if Env.is_dev:
 		if event.is_action_pressed("time_scale_increase"):
 			print("DEV - increasing time scale")
-			set_time_scale(true)
+			_set_time_scale(true)
 		elif event.is_action_pressed("time_scale_decrease"):
 			print("DEV - decreasing time scale")
-			set_time_scale(false)
+			_set_time_scale(false)
 
-func set_time_scale(to_increase: bool):
+func _set_time_scale(to_increase: bool):
 	var time_scale = Engine.get_time_scale()
 	var shift = 2.0 if to_increase else 0.5
 	time_scale = clamp(time_scale * shift, 0.125, 32.0)
 	Engine.set_time_scale(time_scale)
 	$Debug.update_dynamic_labels()
+
+func _goto_next_level() -> void:
+	State.current_level += 1
+	State.save()
+	get_tree().reload_current_scene()
+
+func _pause() -> void:
+	if modal.visible:
+		return
+	var choice = await modal.show_modal("paused")
+	if choice == "NewGame":
+		State.reset()
+		State.save()
+		get_tree().reload_current_scene()
 
 func _on_npcs_timer_timeout() -> void:
 	NPCs.add_random_npc()
@@ -83,29 +97,7 @@ func _on_angries_reached() -> void:
 func _on_money_reached() -> void:
 	await get_tree().create_timer(0.8).timeout
 	await $Audio.play_sound("Tada")
-	goto_next_level()
-
-func goto_next_level() -> void:
-	State.current_level += 1
-	State.save()
-	get_tree().reload_current_scene()
-
-func pause() -> void:
-	if modal.visible:
-		return
-	var choice = await modal.show_modal("paused")
-	if choice == "NewGame":
-		State.reset()
-		State.save()
-		get_tree().reload_current_scene()
-
-func _on_audio_toggled(audio_type: String, is_on: bool) -> void:
-	if audio_type == "Music":
-		if is_on:
-			$Audio.play_music("Bossa-radio-1")
-		else:
-			$Audio.stop_music()
-	# sounds are handled directly audio.gd
+	_goto_next_level()
 
 func _on_pause_pressed() -> void:
-	pause()
+	_pause()

@@ -2,6 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://bu05cd0lq1jrv" path="res://assets/images/icons/pause_60dp_000000_FILL0_wght400_GRAD0_opsz48.png" id="2_pa5w5"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lsq0m"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pause_normal"]
 content_margin_left = 4.0
 content_margin_top = 2.0
@@ -13,25 +15,13 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pause_pressed"]
-content_margin_left = 4.0
-content_margin_top = 2.0
-content_margin_right = 4.0
-content_margin_bottom = 2.0
-bg_color = Color(0, 0, 0, 0.6)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
 [node name="HudButton" type="Button"]
 custom_minimum_size = Vector2(40, 40)
 offset_right = 40.0
 offset_bottom = 40.0
 scale = Vector2(1.5, 1.5)
 mouse_default_cursor_shape = 2
-theme_override_styles/hover = SubResource("StyleBoxFlat_pause_normal")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_pause_pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_lsq0m")
 theme_override_styles/normal = SubResource("StyleBoxFlat_pause_normal")
 icon = ExtResource("2_pa5w5")
 icon_alignment = 1

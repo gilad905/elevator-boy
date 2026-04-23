@@ -22,10 +22,10 @@ static func start_level() -> void:
 	_npcs_timer_timeout.emit()
 	Nodes.Timers.get_node("NPCsTimer").start()
 	Nodes.Timers.get_node("SpeedSpanTimer").start()
-	Nodes.Audio.play_music("Bossa-radio-1")
+	Nodes.AudioManager.play_music("Bossa-radio-1")
 
 static func end_level() -> void:
-	Nodes.Audio.stop_music()
+	Nodes.AudioManager.stop_music()
 	Nodes.Timers.get_node("NPCsTimer").stop()
 	Nodes.Timers.get_node("SpeedSpanTimer").stop()
 

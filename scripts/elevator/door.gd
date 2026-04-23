@@ -15,7 +15,7 @@ func _process(delta: float) -> void:
 			current_state = DoorState.open if is_opening else DoorState.closed
 			state_changed.emit(current_state)
 			# if current_state == DoorState.open:
-			# 	Nodes.Audio.play_sound("Ding")
+			# 	Nodes.AudioManager.play_sound("Ding")
 			if current_state == DoorState.closed:
 				has_closed.emit()
 

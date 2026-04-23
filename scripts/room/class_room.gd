@@ -52,7 +52,7 @@ func apply_npc_results(happy_count: int, angry_count: int) -> void:
 
 func play_happy_sounds(happy_count: int) -> void:
 	for i in happy_count:
-		Nodes.Audio.play_sound("Kaching")
+		Nodes.AudioManager.play_sound("Kaching")
 		await get_tree().create_timer(0.2).timeout
 
 func bomb_explode() -> Signal:
