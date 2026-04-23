@@ -15,21 +15,20 @@ func _ready() -> void:
 	npcs_timer_timeout.connect(_on_npcs_timer_timeout)
 	
 	modal = $Foreground/Modal
-	modal.audio_toggled.connect(_on_audio_toggled)
 
-	if State.on_welcome_screen:
-		State.on_welcome_screen = false
+	if State.show_welcome_screen:
+		State.show_welcome_screen = false
 		# if Env.is_dev:
 		# 	print("DEV - setting current_level to 2")
 		# 	State.current_level = 2
-		var choice = await modal.show_modal(Settings.modal_meta.welcome)
+		var choice = await modal.show_modal("welcome")
 		if choice == "NewGame":
 			State.reset()
 			State.save()
-			await modal.show_modal(Settings.modal_meta.introduction)
+			await modal.show_modal("introduction")
 	LevelManager.init_level(angries_reached, money_reached, npcs_timer_timeout)
 	$Debug.load_labels()
-	await modal.show_dynamic("LEVEL %d - GET READY" % State.current_level)
+	await modal.show_modal("start_level", "LEVEL %d\nGET READY" % State.current_level)
 	await get_tree().create_timer(1, false).timeout
 	LevelManager.start_level()
 
@@ -70,17 +69,17 @@ func _on_speed_span_timer_timeout() -> void:
 func _on_angries_reached() -> void:
 	LevelManager.end_level()
 	var life = $Closet.find_item(Item.Type.Life)
-	var modal_meta
+	var modal_name
 	if life == null:
-		modal_meta = Settings.modal_meta.game_over
+		modal_name = "game_over"
 		State.reset()
 		State.save()
 	else:
-		modal_meta = Settings.modal_meta.used_life
+		modal_name = "used_life"
 		$Closet.remove_item(life)
 		State.angry_count = 0
 		State.save()
-	await modal.show_modal(modal_meta)
+	await modal.show_modal(modal_name)
 	get_tree().reload_current_scene()
 
 func _on_money_reached() -> void:
@@ -96,7 +95,7 @@ func goto_next_level() -> void:
 func pause() -> void:
 	if modal.visible:
 		return
-	var choice = await modal.show_modal(Settings.modal_meta.paused)
+	var choice = await modal.show_modal("paused")
 	if choice == "NewGame":
 		State.reset()
 		State.save()

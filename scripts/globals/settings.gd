@@ -35,6 +35,16 @@ const item_meta = {
 	},
 }
 
+var modal_meta: Dictionary = {
+	"welcome": preload("res://scenes/modals/modal_welcome.tscn"),
+	"introduction": preload("res://scenes/modals/modal_introduction.tscn"),
+	"start_level": preload("res://scenes/modals/modal_start_level.tscn"),
+	"used_life": preload("res://scenes/modals/modal_used_life.tscn"),
+	"game_over": preload("res://scenes/modals/modal_game_over.tscn"),
+	"paused": preload("res://scenes/modals/modal_paused.tscn"),
+	"businessman": preload("res://scenes/modals/modal_businessman.tscn"),
+}
+
 const npc_spacing: int = 7
 const npc_speed: int = 200
 const patience_radius: int = 15

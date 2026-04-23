@@ -4,8 +4,5 @@
 
 [node name="Content" instance=ExtResource("1_ibwll")]
 
-[node name="ResumeGame" parent="ColorRect/MarginContainer/Menu" index="2"]
-visible = false
-
 [node name="Prompt" parent="ColorRect" index="1"]
 visible = false

@@ -4,16 +4,7 @@
 
 [node name="Content" instance=ExtResource("1_1g1yk")]
 
-[node name="Audio" parent="ColorRect/MarginContainer/Menu" index="0"]
-visible = false
-
-[node name="NewGame" parent="ColorRect/MarginContainer/Menu" index="1"]
-visible = true
-
 [node name="ResumeGame" parent="ColorRect/MarginContainer/Menu" index="2"]
-visible = false
-
-[node name="Continue" parent="ColorRect/MarginContainer/Menu" index="3"]
 visible = false
 
 [node name="Prompt" parent="ColorRect" index="1"]

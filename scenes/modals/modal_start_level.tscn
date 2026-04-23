@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://dn80ifhprhg5r"]
+
+[ext_resource type="PackedScene" uid="uid://bj1ofntpwdkm2" path="res://scenes/modals/modal_content.tscn" id="1_4amvd"]
+[ext_resource type="Texture2D" uid="uid://cipobdi2t0aaj" path="res://assets/images/guides/guide-businessman.png" id="2_yj0d3"]
+
+[node name="Content" instance=ExtResource("1_4amvd")]
+
+[node name="NewGame" parent="ColorRect/MarginContainer/Menu" index="1"]
+visible = false
+
+[node name="ResumeGame" parent="ColorRect/MarginContainer/Menu" index="2"]
+visible = false
+
+[node name="Continue" parent="ColorRect/MarginContainer/Menu" index="3"]
+visible = true
+
+[node name="Prompt" parent="ColorRect" index="1"]
+offset_left = 10.0
+offset_top = 124.0
+offset_right = 410.0
+offset_bottom = 269.0
+text = "LEVEL 1
+GET READY"
+
+[node name="Image" parent="ColorRect" index="2"]
+visible = false
+offset_top = 162.0
+offset_bottom = 332.0
+texture = ExtResource("2_yj0d3")

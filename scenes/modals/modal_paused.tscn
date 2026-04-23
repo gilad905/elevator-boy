@@ -4,14 +4,14 @@
 
 [node name="Content" instance=ExtResource("1_bm3v7")]
 
-[node name="Audio" parent="ColorRect/MarginContainer/Menu" index="0"]
-visible = false
-
 [node name="NewGame" parent="ColorRect/MarginContainer/Menu" index="1"]
-visible = true
+visible = false
 
 [node name="ResumeGame" parent="ColorRect/MarginContainer/Menu" index="2"]
 visible = false
+
+[node name="Continue" parent="ColorRect/MarginContainer/Menu" index="3"]
+visible = true
 
 [node name="Prompt" parent="ColorRect" index="1"]
 text = "PAUSED"

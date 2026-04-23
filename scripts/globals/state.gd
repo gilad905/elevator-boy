@@ -18,7 +18,7 @@ static var angry_count: int = 0
 ## interface ##
 static var viewed_guides: Array = _default.viewed_guides.duplicate()
 # not persistent
-static var on_welcome_screen: bool = true
+static var show_welcome_screen: bool = true
 # does not reset
 static var sounds_on: bool = true
 static var music_on: bool = true

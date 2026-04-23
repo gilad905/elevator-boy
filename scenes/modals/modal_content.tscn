@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://mvd752rnwmr" path="res://assets/images/logo.png" id="1_3c0l7"]
 [ext_resource type="PackedScene" uid="uid://crex7lriduh8y" path="res://scenes/modals/modal_button.tscn" id="1_fk6vv"]
-[ext_resource type="Texture2D" uid="uid://eirh1fqvkpm0" path="res://assets/images/audio/sounds-on.png" id="2_6dvp5"]
-[ext_resource type="Texture2D" uid="uid://comvewwu1c41g" path="res://assets/images/audio/music-on.png" id="3_wsri6"]
+[ext_resource type="Texture2D" path="res://assets/images/audio/sounds-on.png" id="2_6dvp5"]
+[ext_resource type="Texture2D" path="res://assets/images/audio/music-on.png" id="3_wsri6"]
 
 [node name="Content" type="MarginContainer"]
 offset_left = 80.0
@@ -55,7 +55,6 @@ icon = ExtResource("3_wsri6")
 icon_alignment = 1
 
 [node name="NewGame" parent="ColorRect/MarginContainer/Menu" instance=ExtResource("1_fk6vv")]
-visible = false
 layout_mode = 2
 text = "NEW GAME"
 
@@ -64,6 +63,7 @@ layout_mode = 2
 text = "RESUME GAME"
 
 [node name="Continue" parent="ColorRect/MarginContainer/Menu" instance=ExtResource("1_fk6vv")]
+visible = false
 layout_mode = 2
 text = "CONTINUE"
 
