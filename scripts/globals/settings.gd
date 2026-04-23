@@ -1,7 +1,7 @@
 extends Node
 
 const money_by_happy_count: Array[int] = [0, 1, 5, 10, 20]
-const win_on_amount: int = 1
+const win_on_amount: int = 50
 # static var win_on_amount: int = 1 if Env.is_dev else 50
 const lose_on_angries: int = 5
 # var lose_on_angries: int = 100 if Env.is_dev else 5
