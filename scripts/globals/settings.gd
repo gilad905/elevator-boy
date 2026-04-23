@@ -1,28 +1,32 @@
 extends Node
 
 const money_by_happy_count: Array[int] = [0, 1, 5, 10, 20]
-const angry_money_loss: int = 0
-const win_on_amount: int = 50
+const win_on_amount: int = 1
 # static var win_on_amount: int = 1 if Env.is_dev else 50
 const lose_on_angries: int = 5
-# var lose_on_angries: int = 100 if is_dev else 5
+# var lose_on_angries: int = 100 if Env.is_dev else 5
 
-const npc_meta = {
+static var npc_meta = {
 	Npc.Type.Person: {
 		start_frequency = 0,
 		patience_sec = 30,
 	},
 	Npc.Type.Bomb: {
-		# start_frequency = 2 if is_dev else 20,
 		start_frequency = 20,
 		patience_sec = 20,
 	},
 	Npc.Type.Businessman: {
-		# start_frequency = -1 if is_dev else 30,
 		start_frequency = 30,
 		patience_sec = 20,
 		guide = "businessman",
 	},
+	Npc.Type.Karen: {
+		start_frequency = 40,
+		patience_sec = 20,
+		guide = "karen",
+		money_loss = 50,
+		angry_sound = "WomanGrunt",
+	}
 }
 
 const item_meta = {
@@ -35,7 +39,7 @@ const item_meta = {
 	},
 }
 
-var modal_meta: Dictionary = {
+static var modal_meta: Dictionary = {
 	"welcome": preload("res://scenes/modals/modal_welcome.tscn"),
 	"introduction": preload("res://scenes/modals/modal_introduction.tscn"),
 	"start_level": preload("res://scenes/modals/modal_start_level.tscn"),
@@ -43,6 +47,7 @@ var modal_meta: Dictionary = {
 	"game_over": preload("res://scenes/modals/modal_game_over.tscn"),
 	"paused": preload("res://scenes/modals/modal_paused.tscn"),
 	"businessman": preload("res://scenes/modals/modal_businessman.tscn"),
+	"karen": preload("res://scenes/modals/modal_karen.tscn"),
 }
 
 const npc_spacing: int = 7

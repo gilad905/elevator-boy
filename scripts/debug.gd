@@ -30,7 +30,7 @@ func _get_level_desc() -> String:
 	# var time_min = Funcs.snap_two(time_sec / 60)
 	# return "span time: %ss\nmin enter: %sm" % [span_duration, time_min]
 	var lines = []
-	for type in ["Bomb", "Businessman"]:
+	for type in ["Bomb", "Businessman", "Karen"]:
 		var freq = NPCs.npc_frequencies[Npc.Type[type]]
 		lines.append("%s: 1:%s" % [type, freq])
 	return "\n".join(lines)

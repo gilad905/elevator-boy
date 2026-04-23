@@ -91,12 +91,16 @@ func _on_angries_reached() -> void:
 		$Closet.remove_item(life)
 		State.angry_count = 0
 		State.save()
-	await modal.show_modal(modal_name)
+	var choice = await modal.show_modal(modal_name)
+	if choice == "NewGame":
+		State.reset()
+		State.save()
 	get_tree().reload_current_scene()
 
 func _on_money_reached() -> void:
+	LevelManager.end_level()
 	await get_tree().create_timer(0.8).timeout
-	await $Audio.play_sound("Tada")
+	await $AudioManager.play_sound("Tada")
 	_goto_next_level()
 
 func _on_pause_pressed() -> void:

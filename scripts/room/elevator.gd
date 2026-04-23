@@ -50,29 +50,27 @@ func get_npc_position(i: int) -> Vector2:
 
 func remove_persons_in_dest() -> void:
 	var removed: Signal
-	var happy_count: int = 0
-	var angry_count: int = 0
+	var removed_npcs = []
 	for npc in $NPCs.get_children():
 		if not npc is Person:
 			continue
 		if npc.dest == current_floor_num:
 			var is_happy = not npc.is_patience_ended
-			if is_happy:
-				happy_count += 1
-			else:
-				angry_count += 1
 			removed = npc.remove(Npc.RemovalType.Fade)
 			npc.show_result(is_happy)
-	apply_npc_results(happy_count, angry_count)
+			removed_npcs.append(npc)
+	if removed_npcs.size() > 0:
+		apply_npc_results(removed_npcs)
 	if removed:
 		await removed
 		Nodes.Floors.enter_elevator_next()
 		update_npc_positions()
 
-func apply_npc_results(happy_count: int, angry_count: int) -> void:
-	super(happy_count, angry_count)
-	if happy_count > 0:
-		var happy_money = Settings.money_by_happy_count[happy_count]
+func apply_npc_results(npcs) -> void:
+	super(npcs)
+	var happies = npcs.filter(func(npc): return not npc.is_patience_ended)
+	if happies.size() > 0:
+		var happy_money = Settings.money_by_happy_count[happies.size()]
 		show_happy_floater(happy_money)
 
 func show_happy_floater(money: int) -> void:

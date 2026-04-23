@@ -6,7 +6,7 @@ const zero_angle: float = PI * -0.5
 const full_angle: float = PI * 1.5
 const result_duration: float = Settings.npc_result_duration
 const fall_duration: float = Settings.npc_fall_duration
-enum Type {Unset, Person, Bomb, Businessman}
+enum Type {Unset, Person, Bomb, Businessman, Karen}
 enum RemovalType {Fade, Fall}
 
 static var radius = Settings.patience_radius
@@ -45,10 +45,9 @@ func start_patience_tween() -> void:
 		var callback = to_animate.set_frame.bind(i + 1)
 		patience_tween.tween_callback(callback).set_delay(delay)
 	await patience_tween.finished
-	Nodes.AudioManager.play_sound("Grunt")
-	patience_ended.emit(self )
 	to_animate.frame = 3
 	is_patience_ended = true
+	patience_ended.emit(self )
 
 func redraw_patience(angle: float) -> void:
 	current_angle = angle
@@ -81,7 +80,7 @@ func fall() -> Tween:
 	var tween = create_tween()
 	tween.set_parallel()
 	tween.tween_property(self , "position:y", fall_y, fall_duration).as_relative() \
-		.set_trans(Tween.TRANS_BACK)	
+		.set_trans(Tween.TRANS_BACK)
 	var _x = _randi_range_signed(50, 300)
 	var _rotation = _randi_range_signed(50, 200)
 	tween.tween_property(self , "position:x", _x, fall_duration).as_relative()

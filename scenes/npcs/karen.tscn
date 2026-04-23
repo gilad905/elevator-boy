@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://djsi3wj64n6ss"]
+
+[ext_resource type="PackedScene" uid="uid://cvr2vq3jarlk6" path="res://scenes/npcs/person.tscn" id="1_8l2gb"]
+[ext_resource type="Script" uid="uid://dlwwts1kwkpoi" path="res://scripts/npc/karen.gd" id="2_8l2gb"]
+[ext_resource type="Texture2D" uid="uid://0iqmxffblcuy" path="res://assets/images/npcs/karen.png" id="3_8l2gb"]
+
+[node name="Karen" instance=ExtResource("1_8l2gb")]
+script = ExtResource("2_8l2gb")
+
+[node name="Face" parent="." index="0"]
+frame = 1
+
+[node name="Karen" type="Sprite2D" parent="Face" index="0"]
+position = Vector2(3.0303, -24.0303)
+texture = ExtResource("3_8l2gb")

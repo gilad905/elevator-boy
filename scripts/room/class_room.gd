@@ -32,23 +32,35 @@ func update_npc_positions() -> void:
 func has_room() -> bool:
 	return $NPCs.get_child_count() < npc_limit
 
-func apply_npc_results(happy_count: int, angry_count: int) -> void:
-	play_happy_sounds(happy_count)
-	var money_shift = 0
-	if happy_count > 0:
-		var happy_money = Settings.money_by_happy_count[happy_count]
-		money_shift += happy_money
-	if angry_count > 0:
-		var angry_money = Settings.angry_money_loss * angry_count
-		money_shift -= angry_money
-		var new_angries = Nodes.HUD.increment_angries(angry_count)
+func _get_npcs_money_loss(npcs) -> int:
+	var money_loss = 0
+	for npc in npcs:
+		var meta = Settings.npc_meta[npc.type]
+		if meta.has("money_loss"):
+			money_loss += meta.money_loss
+	return money_loss
+
+func apply_npc_results(npcs) -> void:
+	var happies = npcs.filter(func(npc): return not npc.is_patience_ended)
+	var angries = npcs.filter(func(npc): return npc.is_patience_ended)
+	play_happy_sounds(happies.size())
+
+	var money_gain = Settings.money_by_happy_count[happies.size()]
+	var money_loss = _get_npcs_money_loss(angries)
+	var money_shift = money_gain - money_loss
+	if money_shift != 0:
+		var new_money = Nodes.HUD.increment_money(money_shift)
+		#print("new_money:", new_money)
+		#print("Settings.win_on_amount:", Settings.win_on_amount)
+		#print(new_money >= Settings.win_on_amount)
+		if new_money >= Settings.win_on_amount:
+			money_reached.emit()
+
+	if angries.size() > 0:
+		var new_angries = Nodes.HUD.increment_angries(angries.size())
 		State.angry_count = new_angries
 		if new_angries >= Settings.lose_on_angries:
 			angries_reached.emit()
-	if money_shift != 0:
-		var new_money = Nodes.HUD.increment_money(money_shift)
-		if new_money >= Settings.win_on_amount:
-			money_reached.emit()
 
 func play_happy_sounds(happy_count: int) -> void:
 	for i in happy_count:
@@ -57,17 +69,18 @@ func play_happy_sounds(happy_count: int) -> void:
 
 func bomb_explode() -> Signal:
 	var removed: Signal
-	var angry_count = 0
-	for npc in $NPCs.get_children():
+	var npcs = $NPCs.get_children()
+	for npc in npcs:
 		if npc.type == Npc.Type.Bomb:
 			var exploded = npc.show_explode()
 			if not removed:
 				removed = exploded
 		elif npc is Person:
-			angry_count += 1
+			npc.is_patience_ended = true
 			removed = npc.remove(Npc.RemovalType.Fall)
 			npc.show_result(false)
-	apply_npc_results(0, angry_count)
+	if npcs.size() > 0:
+		apply_npc_results(npcs)
 	return removed
 
 func _on_npc_patience_ended(npc: Node2D) -> void:

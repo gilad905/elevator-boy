@@ -3,9 +3,13 @@ class_name LevelManager extends Node
 static var _npcs_timer_timeout
 static var span_duration: float
 static var start_enter_interval: float
+static var _money_reached
 
 static func init_level(angries_reached, money_reached, npcs_timer_timeout) -> void:
 	_npcs_timer_timeout = npcs_timer_timeout
+	_money_reached = money_reached
+	Nodes.Elevator.angries_reached.connect(angries_reached.emit)
+	Nodes.Elevator.money_reached.connect(money_reached.emit)
 	for _floor in Nodes.Floors.get_children():
 		_floor.angries_reached.connect(angries_reached.emit)
 		_floor.money_reached.connect(money_reached.emit)
