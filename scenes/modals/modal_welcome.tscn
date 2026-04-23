@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dr6lbnif0udl3"]
+
+[ext_resource type="PackedScene" uid="uid://bj1ofntpwdkm2" path="res://scenes/modals/modal_content.tscn" id="1_ibwll"]
+
+[node name="Content" instance=ExtResource("1_ibwll")]
+
+[node name="ResumeGame" parent="ColorRect/MarginContainer/Menu" index="2"]
+visible = false
+
+[node name="Prompt" parent="ColorRect" index="1"]
+visible = false

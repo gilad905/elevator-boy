@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://dxpwgnijo0swq"]
+
+[ext_resource type="PackedScene" uid="uid://bj1ofntpwdkm2" path="res://scenes/modals/modal_content.tscn" id="1_1g1yk"]
+
+[node name="Content" instance=ExtResource("1_1g1yk")]
+
+[node name="Audio" parent="ColorRect/MarginContainer/Menu" index="0"]
+visible = false
+
+[node name="NewGame" parent="ColorRect/MarginContainer/Menu" index="1"]
+visible = true
+
+[node name="ResumeGame" parent="ColorRect/MarginContainer/Menu" index="2"]
+visible = false
+
+[node name="Continue" parent="ColorRect/MarginContainer/Menu" index="3"]
+visible = false
+
+[node name="Prompt" parent="ColorRect" index="1"]
+text = "GAME OVER"
+
+[node name="Image" parent="ColorRect" index="2"]
+visible = false

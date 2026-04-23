@@ -13,7 +13,9 @@
 [ext_resource type="Script" uid="uid://cmhipkvsjl85i" path="res://scripts/hud.gd" id="9_oiqtx"]
 [ext_resource type="Texture2D" uid="uid://fiune5ofhg64" path="res://assets/images/hud/dollars.png" id="10_sj0jc"]
 [ext_resource type="Texture2D" uid="uid://cgbn3wrhk6g31" path="res://assets/images/hud/level.png" id="11_pd4if"]
-[ext_resource type="Texture2D" uid="uid://cbchpgy3yxnef" path="res://assets/images/hud/pause-button.png" id="11_pm3ni"]
+[ext_resource type="PackedScene" uid="uid://bhlinxoso4ag6" path="res://scenes/hud_button.tscn" id="11_tel4y"]
+[ext_resource type="Texture2D" uid="uid://dpyb7cq11umqe" path="res://assets/images/icons/volume_up_60dp_000000_FILL0_wght400_GRAD0_opsz48.png" id="12_5q0nq"]
+[ext_resource type="Texture2D" uid="uid://boj7xphxfclov" path="res://assets/images/icons/music_note_60dp_000000_FILL0_wght400_GRAD0_opsz48.png" id="13_dgi5k"]
 [ext_resource type="Script" uid="uid://b7y14nw2w38bu" path="res://scripts/closet.gd" id="13_ee0je"]
 [ext_resource type="Texture2D" uid="uid://mvd752rnwmr" path="res://assets/images/logo.png" id="13_j173s"]
 [ext_resource type="PackedScene" uid="uid://ct8epc8jjcsl1" path="res://scenes/items/item_life.tscn" id="13_jscy8"]
@@ -31,28 +33,6 @@
 [ext_resource type="AudioStream" uid="uid://b3010po1fy4er" path="res://assets/sounds/tada.wav" id="29_yq6so"]
 [ext_resource type="AudioStream" uid="uid://cg2urwu10igk7" path="res://assets/music/bossa-radio-1.ogg" id="30_fv21b"]
 [ext_resource type="AudioStream" uid="uid://djri553u8kvbc" path="res://assets/sounds/footsteps.wav" id="30_tel4y"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pause_normal"]
-content_margin_left = 4.0
-content_margin_top = 2.0
-content_margin_right = 4.0
-content_margin_bottom = 2.0
-bg_color = Color(0, 0, 0, 0.4)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pause_pressed"]
-content_margin_left = 4.0
-content_margin_top = 2.0
-content_margin_right = 4.0
-content_margin_bottom = 2.0
-bg_color = Color(0, 0, 0, 0.6)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_u3v8c")
@@ -184,21 +164,22 @@ theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 5
 text = "10"
 
-[node name="PauseButton" type="Button" parent="HUD"]
-offset_left = -54.0
-offset_top = -188.0
-offset_right = -9.0
-offset_bottom = -149.0
-scale = Vector2(1.5, 1.5)
-mouse_default_cursor_shape = 2
-theme = ExtResource("13_mf7yv")
-theme_override_styles/hover = SubResource("StyleBoxFlat_pause_normal")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_pause_pressed")
-theme_override_styles/normal = SubResource("StyleBoxFlat_pause_normal")
-icon = ExtResource("11_pm3ni")
-flat = true
-icon_alignment = 1
-expand_icon = true
+[node name="Buttons" type="VBoxContainer" parent="HUD"]
+offset_left = -92.0
+offset_top = -197.0
+offset_right = -52.0
+offset_bottom = -69.0
+
+[node name="Pause" parent="HUD/Buttons" instance=ExtResource("11_tel4y")]
+layout_mode = 2
+
+[node name="Sounds" parent="HUD/Buttons" instance=ExtResource("11_tel4y")]
+layout_mode = 2
+icon = ExtResource("12_5q0nq")
+
+[node name="Music" parent="HUD/Buttons" instance=ExtResource("11_tel4y")]
+layout_mode = 2
+icon = ExtResource("13_dgi5k")
 
 [node name="Closet" type="TextureRect" parent="."]
 self_modulate = Color(0.596245, 0.302948, 0.0450801, 1)
@@ -229,6 +210,11 @@ layout_mode = 2
 
 [node name="Item" parent="Closet/MarginContainer/Items" instance=ExtResource("13_jscy8")]
 layout_mode = 0
+
+[node name="Item2" parent="Closet/MarginContainer/Items" instance=ExtResource("13_jscy8")]
+layout_mode = 0
+offset_left = 52.0
+offset_right = 102.0
 
 [node name="Floors" type="Node2D" parent="."]
 position = Vector2(191, 315)
@@ -363,7 +349,6 @@ stream = ExtResource("30_tel4y")
 stream = ExtResource("30_fv21b")
 parameters/looping = true
 
-[connection signal="pressed" from="HUD/PauseButton" to="." method="pause"]
 [connection signal="angries_reached" from="Elevator" to="." method="_on_angries_reached"]
 [connection signal="money_reached" from="Elevator" to="." method="_on_money_reached"]
 [connection signal="state_changed" from="Elevator/Door" to="." method="_on_door_state_changed"]

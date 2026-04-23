@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1i1p1x3v43un"]
+
+[ext_resource type="PackedScene" uid="uid://bj1ofntpwdkm2" path="res://scenes/modals/modal_content.tscn" id="1_7lako"]
+[ext_resource type="PackedScene" uid="uid://crex7lriduh8y" path="res://scenes/modals/modal_button.tscn" id="2_t1njn"]
+
+[node name="Content" instance=ExtResource("1_7lako")]
+
+[node name="Audio" parent="ColorRect/MarginContainer/Menu" index="0"]
+visible = false
+
+[node name="NewGame" parent="ColorRect/MarginContainer/Menu" index="1"]
+visible = true
+
+[node name="ResumeGame" parent="ColorRect/MarginContainer/Menu" index="2"]
+visible = false
+
+[node name="Continue" parent="ColorRect/MarginContainer/Menu" index="3"]
+visible = false
+
+[node name="Retry" parent="ColorRect/MarginContainer/Menu" index="4" instance=ExtResource("2_t1njn")]
+layout_mode = 2
+text = "RETRY"
+
+[node name="Prompt" parent="ColorRect" index="1"]
+text = "YOU USED
+ONE LIFE"
+
+[node name="Image" parent="ColorRect" index="2"]
+visible = false

@@ -1,61 +1,70 @@
 extends ColorRect
 
 signal menu_selected(choice: String)
+signal audio_toggled(audio_type: String, is_on: bool)
 
 const ANIM_DURATION: float = 0.4
 const SLIDE_OFFSET: float = 200.0
-const BUTTON_SCENE: PackedScene = preload("res://scenes/modals/modal_button.tscn")
-const BUTTONS: Dictionary = {
-	"new_game": "NEW GAME",
-	"resume_game": "RESUME GAME",
-	"continue": "CONTINUE",
-}
 
-var buttons: Dictionary = {}
 var content;
 var menu;
 var prompt;
 var image;
 var content_y;
 var custom_content;
+var audio_icons = {
+	"sounds_on": preload("res://assets/images/audio/sounds-on.png"),
+	"sounds_off": preload("res://assets/images/audio/sounds-off.png"),
+	"music_on": preload("res://assets/images/audio/music-on.png"),
+	"music_off": preload("res://assets/images/audio/music-off.png"),
+}
 
 func _ready() -> void:
 	hide()
-
-	content = $Content
-	prompt = $Content/ColorRect/Prompt
-	image = $Content/ColorRect/Image
-	menu = $Content/ColorRect/MarginContainer/Menu
+	_set_nodes($Content)
 	content_y = content.position.y
-	
 	prompt.text = ""
 	image.texture = null
+	_init_audio_buttons()
+	_bind_menu_buttons()
 
-	for _name in BUTTONS:
-		var button = BUTTON_SCENE.instantiate()
-		button.name = _name
-		button.text = BUTTONS[_name]
-		button.visible = false
-		button.pressed.connect(_on_button_pressed.bind(_name))
-		menu.add_child(button)
-		buttons[_name] = button
+func _init_audio_buttons() -> void:
+	var sounds = menu.get_node("Audio/Sounds")
+	var music = menu.get_node("Audio/Music")
+	_set_audio_by_state(sounds)
+	_set_audio_by_state(music)
+	sounds.pressed.connect(_on_audio_pressed.bind(sounds))
+	music.pressed.connect(_on_audio_pressed.bind(music))
+
+func _set_audio_by_state(button) -> void:
+	var is_on = State.sounds_on if button.name == "Sounds" else State.music_on
+	var icon_prefix = button.name.to_lower()
+	var icon_name = icon_prefix + ("_on" if is_on else "_off")
+	button.icon = audio_icons[icon_name]
+
+func _set_nodes(_content) -> void:
+	content = _content
+	prompt = content.get_node("ColorRect/Prompt")
+	image = content.get_node("ColorRect/Image")
+	menu = content.get_node("ColorRect/MarginContainer/Menu")
 
 func show_modal(modal_meta: Dictionary) -> Signal:
 	if "content" in modal_meta:
 		_attach_custom_content(modal_meta)
 		_show()
 	else:
-		var button_ids = modal_meta["buttons"] if "buttons" in modal_meta else ["continue"]
-		_set_visible_buttons(button_ids)
-		if "resume_game" in button_ids:
-			buttons["resume_game"].disabled = State.current_level <= 1
+		var button_names = modal_meta["buttons"] if "buttons" in modal_meta else ["Continue"]
+		_set_visible_buttons(button_names)
+		var resume_button = menu.get_node("ResumeGame")
+		resume_button.disabled = State.current_level <= 1
+		resume_button.mouse_default_cursor_shape = Control.CURSOR_FORBIDDEN if resume_button.disabled else Control.CURSOR_POINTING_HAND
 		var text = modal_meta["text"] if "text" in modal_meta else ""
 		var texture = modal_meta["texture"] if "texture" in modal_meta else null
 		_show(text, texture)
 	return menu_selected
 
 func show_dynamic(text: String = "", texture: Texture2D = null) -> Signal:
-	_set_visible_buttons(["continue"])
+	_set_visible_buttons(["Continue"])
 	_show(text, texture)
 	return menu_selected
 
@@ -63,9 +72,8 @@ func _show(text: String = "", texture: Texture2D = null) -> void:
 	_update_fields(text, texture)
 	# if Env.is_dev:
 	# 	print("DEV - Skipping modal")
-	# 	get_tree().create_timer(.2).timeout.connect(menu_selected.emit.bind("continue"))
+	# 	get_tree().create_timer(.2).timeout.connect(menu_selected.emit.bind("Continue"))
 	# else:
-	# print("pausing")
 	get_tree().paused = true
 	_tween_in()
 
@@ -74,9 +82,8 @@ func hide_modal() -> void:
 	if custom_content:
 		custom_content.queue_free()
 		custom_content = null
-		content = $Content
+		_set_nodes($Content)
 		content.show()
-	# print("unpausing")
 	get_tree().paused = false
 
 func _attach_custom_content(modal_meta: Dictionary) -> void:
@@ -84,9 +91,13 @@ func _attach_custom_content(modal_meta: Dictionary) -> void:
 	custom_content = scene.instantiate()
 	content.hide()
 	self.add_child(custom_content)
-	content = custom_content
-	for button in content.find_child("Menu").get_children():
-		button.pressed.connect(_on_button_pressed.bind(button.name))
+	_set_nodes(custom_content)
+	_bind_menu_buttons()
+
+func _bind_menu_buttons() -> void:
+	for button in menu.get_children():
+		if button is Button:
+			button.pressed.connect(_on_button_pressed.bind(button))
 
 func _update_fields(text: String = "", texture: Texture2D = null) -> void:
 	prompt.visible = text != ""
@@ -121,10 +132,18 @@ func _tween_property(tween, target, property, value) -> void:
 	tween.tween_property(target, property, value, ANIM_DURATION) \
 		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 
-func _set_visible_buttons(visible_ids: Array) -> void:
-	for id in buttons:
-		buttons[id].visible = id in visible_ids
-
-func _on_button_pressed(button_id: String) -> void:
+func _on_button_pressed(button: Button) -> void:
 	await hide_modal()
-	menu_selected.emit(button_id)
+	menu_selected.emit(button.name)
+
+func _on_audio_pressed(button: Button) -> void:
+	match button.name:
+		"Sounds":
+			State.sounds_on = not State.sounds_on
+			_set_audio_by_state(menu.get_node("Audio/Sounds"))
+			audio_toggled.emit("Sounds", State.sounds_on)
+		"Music":
+			State.music_on = not State.music_on
+			_set_audio_by_state(menu.get_node("Audio/Music"))
+			audio_toggled.emit("Music", State.music_on)
+	State.save()

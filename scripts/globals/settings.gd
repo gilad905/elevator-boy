@@ -35,35 +35,6 @@ const item_meta = {
 	},
 }
 
-var modal_meta: Dictionary = {
-	"welcome": {
-		texture = preload("res://assets/images/logo.png"),
-		buttons = ["resume_game", "new_game"],
-	},
-	"introduction": {
-		content = preload("res://scenes/modals/modal_introduction.tscn"),
-	},
-	"businessman": {
-		content = preload("res://scenes/modals/modal_businessman.tscn"),
-		# text = "THE BUSINESSMAN",
-		# texture = preload("res://assets/images/guides/guide-businessman.png"),
-	},
-	# "broom": {
-	# 	texture = preload("res://assets/images/guides/guide-broom.png"),
-	# },
-	"game_over": {
-		text = "GAME OVER",
-		buttons = ["new_game"],
-	},
-	"used_life": {
-		text = "YOU USED ONE LIFE.\nRETRY LEVEL.",
-	},
-	"paused": {
-		text = "PAUSED",
-		buttons = ["new_game", "continue"],
-	},
-}
-
 const npc_spacing: int = 7
 const npc_speed: int = 200
 const patience_radius: int = 15

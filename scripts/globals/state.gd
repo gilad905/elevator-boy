@@ -10,13 +10,18 @@ static var _default = {
 	viewed_guides = [],
 }
 
+## game progress ##
 static var current_level: int = _default.current_level
 static var closet: Array = _default.closet.duplicate()
 static var angry_count: int = 0
-static var viewed_guides: Array = _default.viewed_guides.duplicate()
 
-# not persistent - resets on every run
+## interface ##
+static var viewed_guides: Array = _default.viewed_guides.duplicate()
+# not persistent
 static var on_welcome_screen: bool = true
+# does not reset
+static var sounds_on: bool = true
+static var music_on: bool = true
 
 static func _static_init() -> void:
 	if Env.is_dev:
@@ -36,6 +41,10 @@ static func _load_state_file() -> void:
 		angry_count = file_state.angry_count
 	if file_state.has("viewed_guides"):
 		viewed_guides = file_state.viewed_guides
+	if file_state.has("sounds_on"):
+		sounds_on = file_state.sounds_on
+	if file_state.has("music_on"):
+		music_on = file_state.music_on
 
 static func save() -> void:
 	var state = {
@@ -43,6 +52,8 @@ static func save() -> void:
 		closet = closet,
 		angry_count = angry_count,
 		viewed_guides = viewed_guides,
+		sounds_on = sounds_on,
+		music_on = music_on,
 	}
 	_save_file(state)
 

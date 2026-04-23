@@ -15,13 +15,15 @@ func _ready() -> void:
 	npcs_timer_timeout.connect(_on_npcs_timer_timeout)
 	
 	modal = $Foreground/Modal
+	modal.audio_toggled.connect(_on_audio_toggled)
+
 	if State.on_welcome_screen:
 		State.on_welcome_screen = false
 		# if Env.is_dev:
 		# 	print("DEV - setting current_level to 2")
 		# 	State.current_level = 2
 		var choice = await modal.show_modal(Settings.modal_meta.welcome)
-		if choice == "new_game":
+		if choice == "NewGame":
 			State.reset()
 			State.save()
 			await modal.show_modal(Settings.modal_meta.introduction)
@@ -95,7 +97,15 @@ func pause() -> void:
 	if modal.visible:
 		return
 	var choice = await modal.show_modal(Settings.modal_meta.paused)
-	if choice == "new_game":
+	if choice == "NewGame":
 		State.reset()
 		State.save()
 		get_tree().reload_current_scene()
+
+func _on_audio_toggled(audio_type: String, is_on: bool) -> void:
+	if audio_type == "Music":
+		if is_on:
+			$Audio.play_music("Bossa-radio-1")
+		else:
+			$Audio.stop_music()
+	# sounds are handled directly audio.gd

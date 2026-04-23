@@ -1,14 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://b6x0grs23fobj"]
+[gd_scene load_steps=3 format=3 uid="uid://b6x0grs23fobj"]
 
 [ext_resource type="PackedScene" uid="uid://bj1ofntpwdkm2" path="res://scenes/modals/modal_content.tscn" id="1_n5yx6"]
-[ext_resource type="PackedScene" uid="uid://crex7lriduh8y" path="res://scenes/modals/modal_button.tscn" id="2_7b146"]
 [ext_resource type="Texture2D" uid="uid://c5y2babcc0yt8" path="res://assets/images/guides/guide-money.png" id="2_ax16s"]
 
-[node name="ModalIntroduction" instance=ExtResource("1_n5yx6")]
+[node name="Content" instance=ExtResource("1_n5yx6")]
 
-[node name="continue" parent="ColorRect/MarginContainer/Menu" index="0" instance=ExtResource("2_7b146")]
-layout_mode = 2
-text = "CONTINUE"
+[node name="Audio" parent="ColorRect/MarginContainer/Menu" index="0"]
+visible = false
+
+[node name="ResumeGame" parent="ColorRect/MarginContainer/Menu" index="2"]
+visible = false
 
 [node name="Prompt" parent="ColorRect" index="1"]
 offset_left = 10.0

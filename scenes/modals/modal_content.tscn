@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://bj1ofntpwdkm2"]
+[gd_scene load_steps=5 format=3 uid="uid://bj1ofntpwdkm2"]
 
 [ext_resource type="Texture2D" uid="uid://mvd752rnwmr" path="res://assets/images/logo.png" id="1_3c0l7"]
+[ext_resource type="PackedScene" uid="uid://crex7lriduh8y" path="res://scenes/modals/modal_button.tscn" id="1_fk6vv"]
+[ext_resource type="Texture2D" uid="uid://eirh1fqvkpm0" path="res://assets/images/audio/sounds-on.png" id="2_6dvp5"]
+[ext_resource type="Texture2D" uid="uid://comvewwu1c41g" path="res://assets/images/audio/music-on.png" id="3_wsri6"]
 
 [node name="Content" type="MarginContainer"]
 offset_left = 80.0
@@ -27,7 +30,42 @@ theme_override_constants/margin_bottom = 20
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
-theme_override_constants/separation = 20
+theme_override_constants/separation = 10
+
+[node name="Audio" type="HBoxContainer" parent="ColorRect/MarginContainer/Menu"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Sounds" parent="ColorRect/MarginContainer/Menu/Audio" instance=ExtResource("1_fk6vv")]
+custom_minimum_size = Vector2(80, 70)
+layout_mode = 2
+size_flags_horizontal = 7
+theme_override_constants/icon_max_width = 50
+icon = ExtResource("2_6dvp5")
+icon_alignment = 1
+
+[node name="Music" parent="ColorRect/MarginContainer/Menu/Audio" instance=ExtResource("1_fk6vv")]
+custom_minimum_size = Vector2(80, 70)
+layout_mode = 2
+size_flags_horizontal = 7
+theme_override_constants/icon_max_width = 50
+icon = ExtResource("3_wsri6")
+icon_alignment = 1
+
+[node name="NewGame" parent="ColorRect/MarginContainer/Menu" instance=ExtResource("1_fk6vv")]
+visible = false
+layout_mode = 2
+text = "NEW GAME"
+
+[node name="ResumeGame" parent="ColorRect/MarginContainer/Menu" instance=ExtResource("1_fk6vv")]
+layout_mode = 2
+text = "RESUME GAME"
+
+[node name="Continue" parent="ColorRect/MarginContainer/Menu" instance=ExtResource("1_fk6vv")]
+layout_mode = 2
+text = "CONTINUE"
 
 [node name="Prompt" type="Label" parent="ColorRect"]
 custom_minimum_size = Vector2(10, 10)
@@ -47,7 +85,7 @@ layout_mode = 2
 offset_left = 20.0
 offset_top = 20.0
 offset_right = 400.0
-offset_bottom = 400.0
+offset_bottom = 347.0
 size_flags_vertical = 0
 texture = ExtResource("1_3c0l7")
 expand_mode = 2
