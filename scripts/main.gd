@@ -33,9 +33,7 @@ func _ready() -> void:
 	LevelManager.start_level()
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("exit"):
-		pause()
-	elif Env.is_dev:
+	if Env.is_dev:
 		if event.is_action_pressed("time_scale_increase"):
 			print("DEV - increasing time scale")
 			set_time_scale(true)
@@ -108,3 +106,6 @@ func _on_audio_toggled(audio_type: String, is_on: bool) -> void:
 		else:
 			$Audio.stop_music()
 	# sounds are handled directly audio.gd
+
+func _on_pause_pressed() -> void:
+	pause()

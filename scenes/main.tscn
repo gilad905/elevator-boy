@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://b4x3k3rw7jlkp"]
+[gd_scene load_steps=37 format=3 uid="uid://b4x3k3rw7jlkp"]
 
 [ext_resource type="PackedScene" uid="uid://6ump4l8coktj" path="res://scenes/floor.tscn" id="1_ec1if"]
 [ext_resource type="Script" uid="uid://cm8bn13gebovj" path="res://scripts/main.gd" id="1_u3v8c"]
@@ -34,6 +34,13 @@
 [ext_resource type="AudioStream" uid="uid://b3010po1fy4er" path="res://assets/sounds/tada.wav" id="29_yq6so"]
 [ext_resource type="AudioStream" uid="uid://cg2urwu10igk7" path="res://assets/music/bossa-radio-1.ogg" id="30_fv21b"]
 [ext_resource type="AudioStream" uid="uid://djri553u8kvbc" path="res://assets/sounds/footsteps.wav" id="30_tel4y"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_dgi5k"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_j8jky"]
+events = [SubResource("InputEventKey_dgi5k")]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_u3v8c")
@@ -173,6 +180,7 @@ offset_bottom = -69.0
 
 [node name="Pause" parent="HUD/Buttons" instance=ExtResource("11_tel4y")]
 layout_mode = 2
+shortcut = SubResource("Shortcut_j8jky")
 
 [node name="Sounds" parent="HUD/Buttons" instance=ExtResource("11_tel4y")]
 layout_mode = 2
@@ -358,6 +366,7 @@ stream = ExtResource("30_tel4y")
 stream = ExtResource("30_fv21b")
 parameters/looping = true
 
+[connection signal="pressed" from="HUD/Buttons/Pause" to="." method="_on_pause_pressed"]
 [connection signal="angries_reached" from="Elevator" to="." method="_on_angries_reached"]
 [connection signal="money_reached" from="Elevator" to="." method="_on_money_reached"]
 [connection signal="state_changed" from="Elevator/Door" to="." method="_on_door_state_changed"]
