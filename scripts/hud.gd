@@ -6,20 +6,22 @@ var start_outline: float
 
 func _ready() -> void:
 	start_outline = $Money/Amount.get_theme_constant("outline_size")
-	$Money/Amount.text = "0"
-	$Angries/Amount.text = "0"
+	State.money_count = 0
+	$Money/Amount.text = str(State.money_count)
+	$Angries/Amount.text = str(State.angry_count)
 	$Level/Value.text = str(State.current_level)
 	$Money/Total.text = "/" + str(Settings.win_on_amount)
 	$Angries/Total.text = "/" + str(Settings.lose_on_angries)
 	# _debug_test_increments()
 	
-func increment_money(amount: int) -> int:
-	var new_amount = _increment_counter($Money, amount)
-	return new_amount
-
-func increment_angries(amount: int) -> int:
-	var new_amount = _increment_counter($Angries, amount)
-	return new_amount
+func increment_money(amount: int) -> void:
+	var new_money = _increment_counter($Money, amount)
+	State.money_count = new_money
+	
+func increment_angries(amount: int) -> void:
+	var new_angries = _increment_counter($Angries, amount)
+	State.angry_count = new_angries
+	State.save()
 
 func _increment_counter(field: Node2D, amount: int) -> int:
 	var counter = field.get_node("Amount")

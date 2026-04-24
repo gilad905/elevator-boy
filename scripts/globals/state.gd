@@ -10,15 +10,16 @@ static var _default = {
 	viewed_guides = [],
 }
 
-## game progress ##
+# game progress
 static var current_level: int = _default.current_level
 static var closet: Array = _default.closet.duplicate()
 static var angry_count: int = 0
-
-## interface ##
 static var viewed_guides: Array = _default.viewed_guides.duplicate()
+
 # not persistent
-static var show_welcome_screen: bool = true
+static var show_welcome_modal: bool = true
+static var money_count: int = 0
+
 # does not reset
 static var sounds_on: bool = true
 static var music_on: bool = true

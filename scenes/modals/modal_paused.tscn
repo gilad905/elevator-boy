@@ -4,9 +4,6 @@
 
 [node name="Content" instance=ExtResource("1_bm3v7")]
 
-[node name="NewGame" parent="ColorRect/MarginContainer/Menu" index="1"]
-visible = false
-
 [node name="ResumeGame" parent="ColorRect/MarginContainer/Menu" index="2"]
 visible = false
 

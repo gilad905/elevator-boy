@@ -49,17 +49,13 @@ func apply_npc_results(npcs) -> void:
 	var money_loss = _get_npcs_money_loss(angries)
 	var money_shift = money_gain - money_loss
 	if money_shift != 0:
-		var new_money = Nodes.HUD.increment_money(money_shift)
-		#print("new_money:", new_money)
-		#print("Settings.win_on_amount:", Settings.win_on_amount)
-		#print(new_money >= Settings.win_on_amount)
-		if new_money >= Settings.win_on_amount:
+		Nodes.HUD.increment_money(money_shift)
+		if State.money_count >= Settings.win_on_amount:
 			money_reached.emit()
 
 	if angries.size() > 0:
-		var new_angries = Nodes.HUD.increment_angries(angries.size())
-		State.angry_count = new_angries
-		if new_angries >= Settings.lose_on_angries:
+		Nodes.HUD.increment_angries(angries.size())
+		if State.angry_count >= Settings.lose_on_angries:
 			angries_reached.emit()
 
 func play_happy_sounds(happy_count: int) -> void:

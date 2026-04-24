@@ -16,21 +16,24 @@ func _ready() -> void:
 	
 	modal = $Foreground/Modal
 
-	if State.show_welcome_screen:
-		State.show_welcome_screen = false
+	if State.show_welcome_modal:
+		State.show_welcome_modal = false
 		# if Env.is_dev:
 		# 	print("DEV - setting current_level to 2")
 		# 	State.current_level = 2
 		var choice = await modal.show_modal("welcome")
 		if choice == "NewGame":
-			State.reset()
-			State.save()
-			await modal.show_modal("introduction")
+			await new_game()
 	LevelManager.init_level(angries_reached, money_reached, npcs_timer_timeout)
 	$Debug.load_labels()
 	await modal.show_modal("start_level", "LEVEL %d\nGET READY" % State.current_level)
-	await get_tree().create_timer(1, false).timeout
+	await get_tree().create_timer(.6, false).timeout
 	LevelManager.start_level()
+
+func new_game() -> void:
+	State.reset()
+	State.save()
+	await modal.show_modal("introduction")
 
 func _input(event: InputEvent) -> void:
 	if Env.is_dev:
@@ -58,8 +61,7 @@ func _pause() -> void:
 		return
 	var choice = await modal.show_modal("paused")
 	if choice == "NewGame":
-		State.reset()
-		State.save()
+		await new_game()
 		get_tree().reload_current_scene()
 
 func _on_npcs_timer_timeout() -> void:
@@ -99,8 +101,8 @@ func _on_angries_reached() -> void:
 
 func _on_money_reached() -> void:
 	LevelManager.end_level()
-	await get_tree().create_timer(0.8).timeout
-	await $AudioManager.play_sound("Tada")
+	$AudioManager.play_sound("Tada")
+	await modal.show_popup("win", 2, str(State.money_count))
 	_goto_next_level()
 
 func _on_pause_pressed() -> void:

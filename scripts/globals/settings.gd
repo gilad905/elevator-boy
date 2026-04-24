@@ -1,8 +1,8 @@
 extends Node
 
 const money_by_happy_count: Array[int] = [0, 1, 5, 10, 20]
-const win_on_amount: int = 50
-# static var win_on_amount: int = 1 if Env.is_dev else 50
+# const win_on_amount: int = 50
+static var win_on_amount: int = 1 if Env.is_dev else 50
 const lose_on_angries: int = 5
 # var lose_on_angries: int = 100 if Env.is_dev else 5
 
@@ -35,7 +35,6 @@ const item_meta = {
 	},
 	Item.Type.Broom: {
 		frequency = 3,
-		# guide = "broom",
 	},
 }
 
@@ -48,6 +47,8 @@ static var modal_meta: Dictionary = {
 	"paused": preload("res://scenes/modals/modal_paused.tscn"),
 	"businessman": preload("res://scenes/modals/modal_businessman.tscn"),
 	"karen": preload("res://scenes/modals/modal_karen.tscn"),
+	
+	"popup_win": preload("res://scenes/popups/popup_win.tscn"),
 }
 
 const npc_spacing: int = 7

@@ -18,7 +18,6 @@ static func init_level(angries_reached, money_reached, npcs_timer_timeout) -> vo
 	start_enter_interval = get_start_enter_interval(State.current_level)
 	NPCs.update_frequencies()
 	# print("angry_count: %d" % State.angry_count)
-	Nodes.HUD.get_node("Angries/Amount").text = str(State.angry_count)
 	Nodes.Timers.get_node("SpeedSpanTimer").wait_time = span_duration
 	Nodes.Timers.get_node("NPCsTimer").wait_time = start_enter_interval
 
