@@ -70,6 +70,7 @@ func play_happy_sounds(happy_count: int) -> void:
 func bomb_explode() -> Signal:
 	var removed: Signal
 	var npcs = $NPCs.get_children()
+	var persons = []
 	for npc in npcs:
 		if npc.type == Npc.Type.Bomb:
 			var exploded = npc.show_explode()
@@ -79,8 +80,9 @@ func bomb_explode() -> Signal:
 			npc.is_patience_ended = true
 			removed = npc.remove(Npc.RemovalType.Fall)
 			npc.show_result(false)
-	if npcs.size() > 0:
-		apply_npc_results(npcs)
+			persons.append(npc)
+	if persons.size() > 0:
+		apply_npc_results(persons)
 	return removed
 
 func _on_npc_patience_ended(npc: Node2D) -> void:

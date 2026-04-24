@@ -50,7 +50,7 @@ func get_npc_position(i: int) -> Vector2:
 
 func remove_persons_in_dest() -> void:
 	var removed: Signal
-	var removed_npcs = []
+	var removed_persons = []
 	for npc in $NPCs.get_children():
 		if not npc is Person:
 			continue
@@ -58,9 +58,9 @@ func remove_persons_in_dest() -> void:
 			var is_happy = not npc.is_patience_ended
 			removed = npc.remove(Npc.RemovalType.Fade)
 			npc.show_result(is_happy)
-			removed_npcs.append(npc)
-	if removed_npcs.size() > 0:
-		apply_npc_results(removed_npcs)
+			removed_persons.append(npc)
+	if removed_persons.size() > 0:
+		apply_npc_results(removed_persons)
 	if removed:
 		await removed
 		Nodes.Floors.enter_elevator_next()
