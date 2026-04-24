@@ -13,7 +13,6 @@ static func _static_init() -> void:
 
 static func update_frequencies() -> void:
 	npc_frequencies = _get_npc_frequencies()
-	# print(State.current_level, " ", npc_frequencies)
 
 static func add_random_npc() -> Node2D:
 	var floor_num = get_random_free_floor_num()
@@ -50,7 +49,7 @@ static func show_npc_guide(type: Npc.Type) -> void:
 static func get_random_type() -> Npc.Type:
 	for type in npc_frequencies:
 		var frequency = npc_frequencies[type]
-		if Funcs.get_random_by_frequency(frequency):
+		if frequency != 0 and (randi() % frequency == 0):
 			return type
 	return Npc.Type.Person
 

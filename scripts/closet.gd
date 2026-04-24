@@ -8,6 +8,12 @@ func _ready() -> void:
 	for item in items.get_children():
 		item.queue_free()
 		items.remove_child(item)
+	
+	# if Env.is_dev:
+	# 	print("DEV - testing item rolls")
+	# 	for i in range(10):
+	# 		await get_tree().create_timer(0.5).timeout
+	# 		add_random_item()
 
 func load_from_state() -> void:
 	for item_type in State.closet:
@@ -15,14 +21,35 @@ func load_from_state() -> void:
 	_update_item_positions(false)
 
 func find_item(type: Item.Type) -> Item:
-	for item in items.get_children():
-		if item.type == type:
-			return item
+	var items_of_type = _get_items_of_type(type)
+	if items_of_type.size() > 0:
+		return items_of_type[0]
 	return null
 
+func _get_items_of_type(type: Item.Type) -> Array:
+	return items.get_children().filter(func(item): return item.type == type)
+
+func _roll_random_item() -> Item.Type:
+	var life_count = _get_items_of_type(Item.Type.Life).size()
+	print("life count: ", life_count)
+	if life_count < Settings.life_min_amount_for_roll:
+		# print("forcing life item roll")
+		return Item.Type.Life
+
+	var weighted_types: Array[Item.Type] = []
+	for type in Item.Type.values():
+		var roll_weight: int = Settings.item_meta[type].roll_weight
+		var type_weights = range(roll_weight).map(func(_n): return type)
+		weighted_types.append_array(type_weights)
+	var type = weighted_types.pick_random()
+	# print("rolled item: ", Item.Type.keys()[type])
+	return type
+
 func add_random_item() -> void:
-	assert(has_room(), name + " is full")
-	var type = Item.Type.values().pick_random()
+	if not has_room():
+		print("Closet is full, cannot add more items.")
+		return
+	var type = _roll_random_item()
 	var item = _add_item(type)
 	
 	if "guide" in item.meta and \

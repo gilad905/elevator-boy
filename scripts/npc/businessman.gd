@@ -5,6 +5,6 @@ func _init() -> void:
 	super ()
 
 func show_result(is_happy: bool) -> void:
-	if is_happy and Nodes.Closet.has_room():
+	if is_happy:
 		Nodes.Closet.add_random_item()
 	super (is_happy)

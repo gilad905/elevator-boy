@@ -31,14 +31,14 @@ static var npc_meta = {
 
 const item_meta = {
 	Item.Type.Life: {
-		frequency = 0,
+		roll_weight = 1,
 	},
 	Item.Type.Broom: {
-		frequency = 3,
+		roll_weight = 6,
 		guide = "broom",
 	},
 	Item.Type.Engine: {
-		frequency = 5,
+		roll_weight = 6,
 		guide = "engine",
 	},
 }
@@ -85,6 +85,8 @@ const speed_span_level_shift_sec: float = 5.0
 const item_spacing: int = 2
 const item_size: int = 50
 const item_speed: int = 600
+
+const life_min_amount_for_roll: int = 2
 
 static var floor_count: int
 
