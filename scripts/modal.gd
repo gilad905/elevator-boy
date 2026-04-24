@@ -31,6 +31,7 @@ func show_modal(modal_name, prompt_text = null) -> Signal:
 	# 	print("DEV - skipping modal")
 	# 	get_tree().create_timer(.2).timeout.connect(menu_selected.emit.bind("Continue"))
 	# 	return menu_selected
+
 	_init_content(modal_name, prompt_text)
 	var menu = content.get_node("ColorRect/MarginContainer/Menu")
 	_bind_menu_buttons(menu)

@@ -11,7 +11,7 @@ func _ready() -> void:
 	
 	# if Env.is_dev:
 	# 	print("DEV - testing item rolls")
-	# 	for i in range(10):
+	# 	for i in range(30):
 	# 		await get_tree().create_timer(0.5).timeout
 	# 		add_random_item()
 
@@ -31,9 +31,7 @@ func _get_items_of_type(type: Item.Type) -> Array:
 
 func _roll_random_item() -> Item.Type:
 	var life_count = _get_items_of_type(Item.Type.Life).size()
-	print("life count: ", life_count)
 	if life_count < Settings.life_min_amount_for_roll:
-		# print("forcing life item roll")
 		return Item.Type.Life
 
 	var weighted_types: Array[Item.Type] = []
@@ -47,8 +45,11 @@ func _roll_random_item() -> Item.Type:
 
 func add_random_item() -> void:
 	if not has_room():
-		print("Closet is full, cannot add more items.")
-		return
+		var oldest_item = items.get_child(0)
+		remove_item(oldest_item)
+		# items.remove_child(oldest_item)
+		# oldest_item.queue_free()
+
 	var type = _roll_random_item()
 	var item = _add_item(type)
 	
@@ -89,7 +90,6 @@ func _update_item_positions(fly: bool) -> void:
 		var x = spacing * i
 		var end_position = Vector2(x, item.position.y)
 		if fly:
-			var tween = Funcs.fly_node_to(item, end_position, Settings.item_speed)
-			await tween.finished
+			Funcs.fly_node_to(item, end_position, Settings.item_speed)
 		else:
 			item.position = end_position

@@ -14,9 +14,9 @@ static func create(_type: Type) -> Button:
 	return item
 
 func activate() -> void:
-	if Env.is_dev and type != Type.Life:
-		print("DEV - not removing item")
-		return
+	# if Env.is_dev and type != Type.Life:
+	# 	print("DEV - not removing ", Item.Type.keys()[type])
+	# 	return
 	remove()
 
 func remove() -> void:
