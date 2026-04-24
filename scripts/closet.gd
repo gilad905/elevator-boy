@@ -23,7 +23,14 @@ func find_item(type: Item.Type) -> Item:
 func add_random_item() -> void:
 	assert(has_room(), name + " is full")
 	var type = Item.Type.values().pick_random()
-	_add_item(type)
+	var item = _add_item(type)
+	
+	if "guide" in item.meta and \
+	not State.viewed_guides.has(item.meta.guide):
+		State.viewed_guides.append(item.meta.guide)
+		var modal = Nodes.Main.get_node("Foreground/Modal")
+		await modal.show_modal(item.meta.guide)
+
 	_update_state()
 	await _update_item_positions(true)
 
@@ -36,11 +43,12 @@ func remove_item(item: Item) -> void:
 func has_room() -> bool:
 	return items.get_child_count() < ITEM_LIMIT
 
-func _add_item(item_type: Item.Type) -> void:
+func _add_item(item_type: Item.Type) -> Item:
 	var item = Item.create(item_type)
 	var entrance_x = self.size.x + item.size.x
 	item.position.x = entrance_x
 	items.add_child(item)
+	return item
 
 func _update_state() -> void:
 	State.closet.clear()

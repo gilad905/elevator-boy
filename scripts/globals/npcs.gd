@@ -18,7 +18,7 @@ static func update_frequencies() -> void:
 static func add_random_npc() -> Node2D:
 	var floor_num = get_random_free_floor_num()
 	# if Env.is_dev:
-	# 	print("DEV - Adding at floor 5")
+	# 	print("DEV - adding at floor 5")
 	# 	floor_num = 5
 
 	if not floor_num:
@@ -28,8 +28,8 @@ static func add_random_npc() -> Node2D:
 	# if Env.is_dev:
 	# 	# temp_npc_count += 1
 	# 	# if temp_npc_count % 3 == 0:
-	# 	print("DEV - Adding Karen")
-	# 	type = Npc.Type.Karen
+	# 	print("DEV - adding businessman")
+	# 	type = Npc.Type.Businessman
 	var npc = scenes[type].instantiate()
 	Nodes.AudioManager.play_sound("Footsteps")
 	await show_npc_guide(type)
@@ -41,16 +41,11 @@ static func add_random_npc() -> Node2D:
 
 static func show_npc_guide(type: Npc.Type) -> void:
 	var npc_meta = Settings.npc_meta[type]
-	if "guide" not in npc_meta:
-		return
-	
-	var guide_viewed = State.viewed_guides.has(npc_meta.guide)
-	if guide_viewed:
-		return
-	
-	State.viewed_guides.append(npc_meta.guide)
-	var modal = Nodes.Main.get_node("Foreground/Modal")
-	await modal.show_modal(npc_meta.guide)
+	if "guide" in npc_meta and \
+	not State.viewed_guides.has(npc_meta.guide):
+		State.viewed_guides.append(npc_meta.guide)
+		var modal = Nodes.Main.get_node("Foreground/Modal")
+		await modal.show_modal(npc_meta.guide)
 
 static func get_random_type() -> Npc.Type:
 	for type in npc_frequencies:
@@ -95,7 +90,7 @@ static func _get_npc_frequencies() -> Dictionary:
 
 static func _get_npc_frequency(type: Npc.Type) -> int:
 	# if Env.is_dev and type == Npc.Type.Bomb:
-	# 	print("DEV - Returning 2 for bomb frequency")
+	# 	print("setting bomb frequency 2")
 	# 	return 2
 	var start_freq = Settings.npc_meta[type].start_frequency
 	if start_freq <= 0:

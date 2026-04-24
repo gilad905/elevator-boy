@@ -28,7 +28,7 @@ func show_popup(popup_name, duration, prompt_text = null) -> void:
 
 func show_modal(modal_name, prompt_text = null) -> Signal:
 	# if Env.is_dev:
-	# 	print("DEV - Skipping modal")
+	# 	print("DEV - skipping modal")
 	# 	get_tree().create_timer(.2).timeout.connect(menu_selected.emit.bind("Continue"))
 	# 	return menu_selected
 	_init_content(modal_name, prompt_text)
