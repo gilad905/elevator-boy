@@ -1,6 +1,6 @@
 class_name Item extends Button
 
-enum Type {Life, Broom}
+enum Type {Life, Broom, Engine}
 const scene_path = "res://scenes/items/item_%s.tscn"
 static var scenes = Funcs.get_scenes_by_type(scene_path, Type)
 
@@ -12,10 +12,13 @@ static func create(_type: Type) -> Button:
 	return item
 
 func activate() -> void:
+	if Env.is_dev and type != Type.Life:
+		print("DEV - not removing " + str(type))
+		return
 	remove()
 
 func remove() -> void:
-	Nodes.Closet.remove_item(self)
+	Nodes.Closet.remove_item(self )
 
 func _on_pressed() -> void:
 	pass

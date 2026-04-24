@@ -1,8 +1,8 @@
 extends Node
 
 const money_by_happy_count: Array[int] = [0, 1, 5, 10, 20]
-# const win_on_amount: int = 50
-static var win_on_amount: int = 1 if Env.is_dev else 50
+const win_on_amount: int = 50
+# static var win_on_amount: int = 1 if Env.is_dev else 50
 const lose_on_angries: int = 5
 # var lose_on_angries: int = 100 if Env.is_dev else 5
 
@@ -35,19 +35,30 @@ const item_meta = {
 	},
 	Item.Type.Broom: {
 		frequency = 3,
+		guide = "broom",
+	},
+	Item.Type.Engine: {
+		frequency = 5,
+		guide = "engine",
 	},
 }
 
 static var modal_meta: Dictionary = {
+	# modals
 	"welcome": preload("res://scenes/modals/modal_welcome.tscn"),
-	"introduction": preload("res://scenes/modals/modal_introduction.tscn"),
 	"start_level": preload("res://scenes/modals/modal_start_level.tscn"),
+	"paused": preload("res://scenes/modals/modal_paused.tscn"),
 	"used_life": preload("res://scenes/modals/modal_used_life.tscn"),
 	"game_over": preload("res://scenes/modals/modal_game_over.tscn"),
-	"paused": preload("res://scenes/modals/modal_paused.tscn"),
-	"businessman": preload("res://scenes/modals/modal_businessman.tscn"),
-	"karen": preload("res://scenes/modals/modal_karen.tscn"),
+
+	# guides
+	"introduction": preload("res://scenes/guides/guide_introduction.tscn"),
+	"businessman": preload("res://scenes/guides/guide_businessman.tscn"),
+	"karen": preload("res://scenes/guides/guide_karen.tscn"),
+	"broom": preload("res://scenes/guides/guide_broom.tscn"),
+	"engine": preload("res://scenes/guides/guide_engine.tscn"),
 	
+	# popups
 	"popup_win": preload("res://scenes/popups/popup_win.tscn"),
 }
 
@@ -57,8 +68,10 @@ const patience_radius: int = 15
 const npc_result_duration: float = 1.0
 const npc_fall_duration: float = 2
 
-const half_floor_sec: float = 0.4
+const elevator_half_floor_sec: float = 0.4
 const door_speed: int = 3
+const engine_multiplier: float = 2
+const engine_duration: float = 10.0
 
 const npc_enter_max_sec: float = 5.0
 const npc_enter_min_sec: float = 1.6

@@ -26,8 +26,8 @@ static var music_on: bool = true
 
 static func _static_init() -> void:
 	if Env.is_dev:
-		print("DEV - adding broom to closet")
-		_default.closet = [Item.Type.Life, Item.Type.Broom, Item.Type.Life]
+		print("DEV - adding hardcoded items to closet")
+		_default.closet.append_array([Item.Type.Broom, Item.Type.Engine])
 		closet = _default.closet.duplicate()
 	_load_state_file()
 
@@ -63,6 +63,7 @@ static func reset() -> void:
 	closet = _default.closet.duplicate()
 	angry_count = _default.angry_count
 	viewed_guides = _default.viewed_guides.duplicate()
+	save()
 
 static func _get_state_from_file() -> Dictionary:
 	if not FileAccess.file_exists(path):

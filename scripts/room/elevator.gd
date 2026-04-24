@@ -94,3 +94,8 @@ func _on_door_toggle_pressed() -> void:
 
 func _on_npc_movement_finished(_npc: Node2D) -> void:
 	Nodes.Floors.enter_elevator_next()
+
+func activate_engine() -> void:
+	# Nodes.AudioManager.play_sound("engine")
+	$Mover.activate_engine()
+	$Door.activate_engine()

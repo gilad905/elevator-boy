@@ -2,7 +2,7 @@ extends Node
 
 const tween_types = preload("res://resources/elevator_mover_tweens.gd").obj
 var half_floor_height: int
-var half_floor_sec: float = Settings.half_floor_sec
+var half_floor_sec: float = Settings.elevator_half_floor_sec
 var current_floor: float
 var current_direction: int
 var current_tween_type: Dictionary
@@ -70,3 +70,8 @@ func create_tween_of_type(type, direction) -> Tween:
 	var distance = half_floor_height * direction
 	tween.tween_property(get_parent(), "position:y", distance, half_floor_sec).as_relative()
 	return tween
+
+func activate_engine() -> void:
+	half_floor_sec = half_floor_sec / Settings.engine_multiplier
+	await get_tree().create_timer(Settings.engine_duration).timeout
+	half_floor_sec = Settings.elevator_half_floor_sec
