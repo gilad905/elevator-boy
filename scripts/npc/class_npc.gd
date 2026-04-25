@@ -6,7 +6,7 @@ const zero_angle: float = PI * -0.5
 const full_angle: float = PI * 1.5
 const result_duration: float = Settings.npc_result_duration
 const fall_duration: float = Settings.npc_fall_duration
-enum Type {Unset, Person, Bomb, Businessman, Karen}
+enum Type {Unset, Person, Businessman, Bomb, Karen}
 enum RemovalType {Fade, Fall}
 
 static var radius = Settings.patience_radius

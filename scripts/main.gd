@@ -18,13 +18,13 @@ func _ready() -> void:
 
 	if State.show_welcome_modal:
 		State.show_welcome_modal = false
-		# if Env.is_dev:
-		# 	print("DEV - setting current_level to 2")
-		# 	State.current_level = 2
 		var choice = await modal.show_modal("welcome")
 		if choice == "NewGame":
 			State.reset()
 			await modal.show_modal("introduction")
+		# if Env.is_dev:
+		# 		print("DEV - setting hardcoded current_level")
+		# 		State.current_level = 10
 	LevelManager.init_level(angries_reached, money_reached, npcs_timer_timeout)
 	$Debug.load_labels()
 	await modal.show_modal("start_level", "LEVEL %d\nGET READY" % State.current_level)
@@ -64,7 +64,7 @@ func _on_speed_span_timer_timeout() -> void:
 	current_span += 1
 	var wait_time = $Timers/NPCsTimer.wait_time
 	var new_time = wait_time - Settings.npc_enter_shift_sec
-	wait_time = clamp(new_time, Settings.npc_enter_min_sec, INF)
+	wait_time = max(Settings.npc_enter_min_sec, new_time)
 	$Timers/NPCsTimer.wait_time = wait_time
 	$Debug.update_dynamic_labels()
 

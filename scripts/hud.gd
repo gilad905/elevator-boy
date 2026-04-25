@@ -6,13 +6,16 @@ var start_outline: float
 
 func _ready() -> void:
 	start_outline = $Money/Amount.get_theme_constant("outline_size")
-	State.money_count = 0
+	$Money/Total.text = "/" + str(Settings.win_on_amount)
+	$Angries/Total.text = "/" + str(Settings.lose_on_angries)
+	$Money/Amount.text = "0"
+	$Angries/Amount.text = "0"
+	$Level/Value.text = "1"
+
+func init_from_state() -> void:
 	$Money/Amount.text = str(State.money_count)
 	$Angries/Amount.text = str(State.angry_count)
 	$Level/Value.text = str(State.current_level)
-	$Money/Total.text = "/" + str(Settings.win_on_amount)
-	$Angries/Total.text = "/" + str(Settings.lose_on_angries)
-	# _debug_test_increments()
 	
 func increment_money(amount: int) -> void:
 	var new_money = _increment_counter($Money, amount)

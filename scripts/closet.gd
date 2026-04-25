@@ -2,8 +2,11 @@ extends TextureRect
 
 const ITEM_LIMIT: int = 7
 var items: Control
+var item_weights: Dictionary = {}
 
 func _ready() -> void:
+	for type in Settings.item_meta.keys():
+		item_weights[type] = Settings.item_meta[type].roll_weight
 	items = $MarginContainer/Items
 	for item in items.get_children():
 		item.queue_free()
@@ -34,12 +37,7 @@ func _roll_random_item() -> Item.Type:
 	if life_count < Settings.life_min_amount_for_roll:
 		return Item.Type.Life
 
-	var weighted_types: Array[Item.Type] = []
-	for type in Item.Type.values():
-		var roll_weight: int = Settings.item_meta[type].roll_weight
-		var type_weights = range(roll_weight).map(func(_n): return type)
-		weighted_types.append_array(type_weights)
-	var type = weighted_types.pick_random()
+	var type = Funcs.roll_by_weights(item_weights) as Item.Type
 	# print("rolled item: ", Item.Type.keys()[type])
 	return type
 
@@ -90,6 +88,8 @@ func _update_item_positions(fly: bool) -> void:
 		var x = spacing * i
 		var end_position = Vector2(x, item.position.y)
 		if fly:
-			Funcs.fly_node_to(item, end_position, Settings.item_speed)
+			var tween = Funcs.fly_node_to(item, end_position, Settings.item_speed)
+			if i == items.get_child_count() - 1:
+				await tween.finished
 		else:
 			item.position = end_position

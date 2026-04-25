@@ -24,13 +24,9 @@ func update_dynamic_labels() -> void:
 	$Dynamic.text += "A -> slower"
 
 func _get_level_desc() -> String:
-	# var total_shift = (start_enter_interval - Settings.npc_enter_min_sec)
-	# var span_count = ceil(total_shift / Settings.npc_enter_shift_sec)
-	# var time_sec = span_count * span_duration
-	# var time_min = Funcs.snap_two(time_sec / 60)
-	# return "span time: %ss\nmin enter: %sm" % [span_duration, time_min]
 	var lines = []
-	for type in ["Bomb", "Businessman", "Karen"]:
-		var freq = NPCs.npc_frequencies[Npc.Type[type]]
-		lines.append("%s: 1:%s" % [type, freq])
+	for type in Settings.npc_meta.keys():
+		var type_name = Npc.Type.keys()[type]
+		var weight = NPCs.npc_weights[type]
+		lines.append("%s weight: %s" % [type_name, weight])
 	return "\n".join(lines)

@@ -1,7 +1,7 @@
 class_name NPCs extends Node
 
 const scene_path = "res://scenes/npcs/%s.tscn"
-static var npc_frequencies
+static var npc_weights
 static var scenes = {}
 
 static func _static_init() -> void:
@@ -11,8 +11,13 @@ static func _static_init() -> void:
 			var type_scene = Funcs.get_scene_by_type(scene_path, type_name)
 			scenes[type_val] = type_scene
 
-static func update_frequencies() -> void:
-	npc_frequencies = _get_npc_frequencies()
+static func update_weights_by_level(level: int) -> void:
+	var weights = {}
+	for type in Settings.npc_meta.keys():
+		var meta = Settings.npc_meta[type]
+		var weight = meta["get_weight"].call(level)
+		weights[type] = weight
+	npc_weights = weights
 
 static func add_random_npc() -> Node2D:
 	var floor_num = get_random_free_floor_num()
@@ -23,7 +28,7 @@ static func add_random_npc() -> Node2D:
 	if not floor_num:
 		return
 	var _floor = Nodes.Floors.get_floor(floor_num)
-	var type = get_random_type()
+	var type = Funcs.roll_by_weights(npc_weights) as Npc.Type
 	# if Env.is_dev:
 	# 	# temp_npc_count += 1
 	# 	# if temp_npc_count % 3 == 0:
@@ -45,13 +50,6 @@ static func show_npc_guide(type: Npc.Type) -> void:
 		State.viewed_guides.append(npc_meta.guide)
 		var modal = Nodes.Main.get_node("Foreground/Modal")
 		await modal.show_modal(npc_meta.guide)
-
-static func get_random_type() -> Npc.Type:
-	for type in npc_frequencies:
-		var frequency = npc_frequencies[type]
-		if frequency != 0 and (randi() % frequency == 0):
-			return type
-	return Npc.Type.Person
 
 static func get_random_free_floor_num() -> int:
 	var all_nums = range(1, Settings.floor_count + 1)
@@ -78,25 +76,3 @@ static func tween_floater(floater: Node2D) -> void:
 	await tween.finished
 	for type in ["x", "y"]:
 		floater.scale[type] = scale
-
-static func _get_npc_frequencies() -> Dictionary:
-	var frequencies = {}
-	for type in Npc.Type.values():
-		if type == Npc.Type.Unset:
-			continue
-		frequencies[type] = _get_npc_frequency(type)
-	return frequencies
-
-static func _get_npc_frequency(type: Npc.Type) -> int:
-	# if Env.is_dev and type == Npc.Type.Bomb:
-	# 	print("setting bomb frequency 2")
-	# 	return 2
-	var start_freq = Settings.npc_meta[type].start_frequency
-	if start_freq <= 0:
-		return start_freq
-	if State.current_level == 1:
-		return 0
-	var level = min(State.current_level, 10)
-	var freq = start_freq + (level - 2) * -2
-	freq = max(freq, 1)
-	return freq

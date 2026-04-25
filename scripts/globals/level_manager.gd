@@ -6,6 +6,8 @@ static var start_enter_interval: float
 static var _money_reached
 
 static func init_level(angries_reached, money_reached, npcs_timer_timeout) -> void:
+	State.money_count = 0
+	Nodes.HUD.init_from_state()
 	_npcs_timer_timeout = npcs_timer_timeout
 	_money_reached = money_reached
 	Nodes.Elevator.angries_reached.connect(angries_reached.emit)
@@ -16,7 +18,7 @@ static func init_level(angries_reached, money_reached, npcs_timer_timeout) -> vo
 	Nodes.Closet.load_from_state()
 	span_duration = get_speed_span_duration(State.current_level)
 	start_enter_interval = get_start_enter_interval(State.current_level)
-	NPCs.update_frequencies()
+	NPCs.update_weights_by_level(State.current_level)
 	# print("angry_count: %d" % State.angry_count)
 	Nodes.Timers.get_node("SpeedSpanTimer").wait_time = span_duration
 	Nodes.Timers.get_node("NPCsTimer").wait_time = start_enter_interval

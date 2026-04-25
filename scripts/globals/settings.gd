@@ -8,23 +8,24 @@ const lose_on_angries: int = 5
 
 static var npc_meta = {
 	Npc.Type.Person: {
-		start_frequency = 0,
+		get_weight = func(_lev): return 10,
 		patience_sec = 30,
 	},
-	Npc.Type.Bomb: {
-		start_frequency = 20,
-		patience_sec = 20,
-	},
 	Npc.Type.Businessman: {
-		start_frequency = 30,
+		get_weight = func(lev): return 0 if lev == 1 else 1,
 		patience_sec = 20,
 		guide = "businessman",
 	},
-	Npc.Type.Karen: {
-		start_frequency = 40,
+	Npc.Type.Bomb: {
+		get_weight = func(lev): return lev - 1,
 		patience_sec = 20,
-		guide = "karen",
+		guide = "bomb",
+	},
+	Npc.Type.Karen: {
+		get_weight = func(lev): return lev - 3,
+		patience_sec = 20,
 		money_loss = 50,
+		guide = "karen",
 		angry_sound = "WomanGrunt",
 	}
 }
