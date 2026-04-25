@@ -1,8 +1,8 @@
 extends Node
 
 const money_by_happy_count: Array[int] = [0, 1, 5, 10, 20]
-const win_on_amount: int = 50
-# static var win_on_amount: int = 1 if Env.is_dev else 50
+# const win_on_amount: int = 50
+static var win_on_amount: int = 1 if Env.is_dev else 50
 const lose_on_angries: int = 5
 # var lose_on_angries: int = 100 if Env.is_dev else 5
 
@@ -25,6 +25,14 @@ const item_spacing: int = 2
 const item_size: int = 50
 const item_speed: int = 600
 const life_min_amount_for_roll: int = 2
+
+const levels_per_building: int = 3
+
+static var buildings = [
+	preload("res://scenes/backgrounds/backyard.tscn"),
+	preload("res://scenes/backgrounds/street.tscn"),
+	preload("res://scenes/backgrounds/stocks.tscn"),
+]
 
 static var npc_meta = {
 	Npc.Type.Person: {

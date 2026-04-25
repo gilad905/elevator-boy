@@ -4,6 +4,7 @@ static var _npcs_timer_timeout
 static var _money_reached
 
 static func init_level(angries_reached, money_reached, npcs_timer_timeout) -> void:
+	_set_level_building(State.current_level)
 	State.money_count = 0
 	_npcs_timer_timeout = npcs_timer_timeout
 	_money_reached = money_reached
@@ -24,3 +25,13 @@ static func start_level() -> void:
 static func end_level() -> void:
 	Nodes.AudioManager.stop_music()
 	Nodes.Timers.get_node("NPCsTimer").stop()
+
+static func _set_level_building(level) -> void:
+	var building_index = int((level - 1) / Settings.levels_per_building)
+	building_index = min(building_index, Settings.buildings.size() - 1)
+	var building_scene = Settings.buildings[building_index]
+	var background = Nodes.Main.get_node("Background")
+	background.get_child(0).queue_free()
+	background.remove_child(background.get_child(0))
+	var new_building = building_scene.instantiate()
+	background.add_child(new_building)

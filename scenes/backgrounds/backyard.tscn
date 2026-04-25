@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://igvepjsj2iwy"]
+
+[ext_resource type="PackedScene" uid="uid://bsebr00whok20" path="res://scenes/backgrounds/level_background.tscn" id="1_sts54"]
+[ext_resource type="Texture2D" uid="uid://pgixe1kgk8g7" path="res://assets/images/backgrounds/backyard.webp" id="2_72esa"]
+
+[node name="Background" instance=ExtResource("1_sts54")]
+
+[node name="Background" parent="." index="0"]
+texture = ExtResource("2_72esa")

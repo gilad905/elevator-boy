@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://bsebr00whok20"]
+
+[ext_resource type="Texture2D" uid="uid://bl7ujhckqe7f1" path="res://assets/images/background.png" id="1_aptxl"]
+[ext_resource type="PackedScene" uid="uid://cx6ocur83tfii" path="res://scenes/framed_polygon.tscn" id="2_vsp0f"]
+[ext_resource type="Texture2D" uid="uid://b4e56rixu0o0y" path="res://assets/images/patterns/attic.png" id="3_oihli"]
+[ext_resource type="Texture2D" uid="uid://mvd752rnwmr" path="res://assets/images/logo.png" id="4_ukxam"]
+
+[node name="Background" type="CanvasLayer"]
+layer = -1
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(0, -71)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("1_aptxl")
+centered = false
+region_rect = Rect2(0, 149, 1233, 1675.48)
+
+[node name="Building" parent="." instance=ExtResource("2_vsp0f")]
+position = Vector2(3, 10)
+color = Color(0.854902, 0.741176, 0.52549, 1)
+polygon = PackedVector2Array(284, 6, 563, 254, 554, 263, 518, 231, 518, 770, 53, 770, 53, 231, 17, 264, 8, 254)
+
+[node name="AtticWall" parent="." instance=ExtResource("2_vsp0f")]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(3, 12)
+color = Color(0.474345, 0.625949, 1, 0.552941)
+texture = ExtResource("3_oihli")
+texture_scale = Vector2(5.3, 5.3)
+polygon = PackedVector2Array(68, 219, 284, 24, 504, 219, 504, 306, 68, 306)
+
+[node name="Wall" parent="." instance=ExtResource("2_vsp0f")]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(3, 12)
+color = Color(0.85, 0.733975, 0.5185, 0.478431)
+texture = ExtResource("3_oihli")
+texture_scale = Vector2(5.3, 5.3)
+polygon = PackedVector2Array(68, 306, 504, 306, 504, 755, 68, 755)
+
+[node name="Logo" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(287, 123)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("4_ukxam")

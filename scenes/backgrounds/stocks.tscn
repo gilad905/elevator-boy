@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://b22giaom15s8q"]
+
+[ext_resource type="PackedScene" uid="uid://bsebr00whok20" path="res://scenes/backgrounds/level_background.tscn" id="1_6gtlh"]
+[ext_resource type="Texture2D" uid="uid://by7p0w6gdt1jr" path="res://assets/images/backgrounds/stocks.webp" id="2_euokw"]
+
+[node name="Background" instance=ExtResource("1_6gtlh")]
+
+[node name="Background" parent="." index="0"]
+position = Vector2(0, -90)
+texture = ExtResource("2_euokw")
+
+[node name="Building" parent="." index="1"]
+color = Color(0.744162, 0.759222, 0.768091, 1)
+
+[node name="AtticWall" parent="." index="2"]
+color = Color(0.36474, 0.00754921, 0.870405, 0.552941)
+
+[node name="Wall" parent="." index="3"]
+color = Color(0.310617, 0.310617, 0.310617, 1)

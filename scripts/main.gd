@@ -20,8 +20,8 @@ func _ready() -> void:
 			State.reset()
 			await modal.show_modal("introduction")
 		# if Env.is_dev:
-		# 		print("DEV - setting hardcoded current_level")
-		# 		State.current_level = 10
+		# 	print("DEV - setting hardcoded current_level")
+		# 	State.current_level = 2
 	LevelManager.init_level(angries_reached, money_reached, npcs_timer_timeout)
 	$Debug.load_labels()
 	await modal.show_modal("start_level", "LEVEL %d\nGET READY" % State.current_level)
