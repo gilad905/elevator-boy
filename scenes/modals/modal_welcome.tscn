@@ -1,8 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://dr6lbnif0udl3"]
+[gd_scene load_steps=3 format=3 uid="uid://dr6lbnif0udl3"]
 
 [ext_resource type="PackedScene" uid="uid://bj1ofntpwdkm2" path="res://scenes/modals/modal_content.tscn" id="1_ibwll"]
+[ext_resource type="Texture2D" uid="uid://b4e56rixu0o0y" path="res://assets/images/patterns/attic.png" id="2_6wn1j"]
 
 [node name="Content" instance=ExtResource("1_ibwll")]
 
-[node name="Prompt" parent="ColorRect" index="1"]
+[node name="TextureRect" type="TextureRect" parent="ColorRect" index="0"]
+layout_mode = 2
+offset_left = 44.0
+offset_top = 16.0
+offset_right = 377.0
+offset_bottom = 350.0
+texture = ExtResource("2_6wn1j")
+stretch_mode = 1
+
+[node name="Prompt" parent="ColorRect" index="2"]
 visible = false
