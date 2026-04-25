@@ -54,6 +54,7 @@ static var modal_meta: Dictionary = {
 	# guides
 	"introduction": preload("res://scenes/guides/guide_introduction.tscn"),
 	"businessman": preload("res://scenes/guides/guide_businessman.tscn"),
+	"bomb": preload("res://scenes/guides/guide_bomb.tscn"),
 	"karen": preload("res://scenes/guides/guide_karen.tscn"),
 	"broom": preload("res://scenes/guides/guide_broom.tscn"),
 	"engine": preload("res://scenes/guides/guide_engine.tscn"),
@@ -71,7 +72,7 @@ const npc_fall_duration: float = 2
 const elevator_half_floor_sec: float = 0.4
 const door_speed: int = 3
 const engine_multiplier: float = 2
-const engine_duration: float = 10.0
+const engine_duration: float = 20.0
 
 const npc_enter_max_sec: float = 5.0
 const npc_enter_min_sec: float = 1.6

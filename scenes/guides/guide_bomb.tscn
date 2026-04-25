@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://d1lt0we0qggs5"]
+[gd_scene load_steps=3 format=3 uid="uid://ds3n8u7v5nrwh"]
 
-[ext_resource type="PackedScene" uid="uid://bj1ofntpwdkm2" path="res://scenes/modals/modal_content.tscn" id="1_12nkd"]
-[ext_resource type="Texture2D" uid="uid://1vgvr6ehqf7e" path="res://assets/images/items/engine.png" id="2_12nkd"]
+[ext_resource type="PackedScene" uid="uid://bj1ofntpwdkm2" path="res://scenes/modals/modal_content.tscn" id="1_gn34h"]
+[ext_resource type="Texture2D" uid="uid://dgo3osk6u46kd" path="res://assets/images/guides/guide-bomb.png" id="2_gn34h"]
 
-[node name="Content" instance=ExtResource("1_12nkd")]
+[node name="Content" instance=ExtResource("1_gn34h")]
 
 [node name="Sounds" parent="ColorRect/MarginContainer/Menu/Audio" index="0"]
 icon = null
@@ -26,7 +26,7 @@ offset_top = 19.0
 offset_right = 410.0
 offset_bottom = 164.0
 theme_override_font_sizes/font_size = 34
-text = "ENGINE"
+text = "THE BOMB"
 
 [node name="Prompt2" type="Label" parent="ColorRect" index="2"]
 custom_minimum_size = Vector2(10, 10)
@@ -37,7 +37,7 @@ offset_right = 410.0
 offset_bottom = 257.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 34
-text = "Get a speed boost for a short time (click to use)"
+text = "Better not have anyone around when it goes off!"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
@@ -45,4 +45,4 @@ autowrap_mode = 2
 [node name="Image" parent="ColorRect" index="3"]
 offset_top = 254.0
 offset_bottom = 424.0
-texture = ExtResource("2_12nkd")
+texture = ExtResource("2_gn34h")
