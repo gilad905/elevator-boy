@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwtl5dvvny66y"
-path="res://.godot/imported/street-eve.webp-c91ad8822202c35b649f225bd25f5f32.ctex"
+uid="uid://v12q8ryuvndt"
+path="res://.godot/imported/street.webp-e7db34d2310046006a440fb00c180104.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/backgrounds/street-eve.webp"
-dest_files=["res://.godot/imported/street-eve.webp-c91ad8822202c35b649f225bd25f5f32.ctex"]
+source_file="res://assets/images/backgrounds/street.webp"
+dest_files=["res://.godot/imported/street.webp-e7db34d2310046006a440fb00c180104.ctex"]
 
 [params]
 
