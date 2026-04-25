@@ -64,30 +64,22 @@ static var modal_meta: Dictionary = {
 	"popup_win": preload("res://scenes/popups/popup_win.tscn"),
 }
 
+const npc_enter_interval: float = 5.0
 const npc_spacing: int = 7
 const npc_speed: int = 200
-const patience_radius: int = 15
+const npc_patience_radius: int = 15
 const npc_result_duration: float = 1.0
 const npc_fall_duration: float = 2
 
 const elevator_half_floor_sec: float = 0.4
-const door_speed: int = 3
+const elevator_door_speed: int = 3
+# const elevator_check_interval_sec: float = 0.5
 const engine_multiplier: float = 2
 const engine_duration: float = 20.0
-
-const npc_enter_max_sec: float = 5.0
-const npc_enter_min_sec: float = 1.6
-const npc_enter_shift_sec: float = 0.2
-const elevator_check_interval_sec: float = 0.5
-
-const speed_span_max_sec: float = 45.0
-const speed_span_min_sec: float = 5.0
-const speed_span_level_shift_sec: float = 5.0
 
 const item_spacing: int = 2
 const item_size: int = 50
 const item_speed: int = 600
-
 const life_min_amount_for_roll: int = 2
 
 static var floor_count: int

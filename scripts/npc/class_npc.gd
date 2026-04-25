@@ -9,7 +9,7 @@ const fall_duration: float = Settings.npc_fall_duration
 enum Type {Unset, Person, Businessman, Bomb, Karen}
 enum RemovalType {Fade, Fall}
 
-static var radius = Settings.patience_radius
+static var radius = Settings.npc_patience_radius
 static var circle_center = Vector2.ZERO
 
 var type: Type = Type.Unset

@@ -359,8 +359,6 @@ layout_mode = 2
 
 [node name="NPCsTimer" type="Timer" parent="Timers"]
 
-[node name="SpeedSpanTimer" type="Timer" parent="Timers"]
-
 [node name="Nodes" type="Node" parent="."]
 script = ExtResource("20_digeb")
 
@@ -401,4 +399,3 @@ stream = ExtResource("30_fv21b")
 [connection signal="pressed" from="HUD/Buttons/Music" to="AudioManager" method="_on_music_pressed"]
 [connection signal="state_changed" from="Elevator/Door" to="." method="_on_door_state_changed"]
 [connection signal="timeout" from="Timers/NPCsTimer" to="." method="_on_npcs_timer_timeout"]
-[connection signal="timeout" from="Timers/SpeedSpanTimer" to="." method="_on_speed_span_timer_timeout"]

@@ -16,9 +16,9 @@ func load_labels() -> void:
 func update_dynamic_labels() -> void:
 	if not Env.is_dev:
 		return
-	var npcs_timer = get_node("/root/Main/Timers/NPCsTimer")
 	$Dynamic.text = ""
-	$Dynamic.text += "enter interval: %ss\n" % npcs_timer.wait_time
+	# var npcs_timer = get_node("/root/Main/Timers/NPCsTimer")
+	# $Dynamic.text += "enter interval: %ss\n" % npcs_timer.wait_time
 	$Dynamic.text += "time scale: x%s\n" % Engine.get_time_scale()
 	$Dynamic.text += "Q -> faster\n"
 	$Dynamic.text += "A -> slower"

@@ -1,8 +1,5 @@
 extends Node
 
-var span_duration: float
-var start_enter_interval: float
-var current_span: int = 1
 var modal
 
 signal angries_reached
@@ -13,7 +10,6 @@ func _ready() -> void:
 	angries_reached.connect(_on_angries_reached)
 	money_reached.connect(_on_money_reached)
 	npcs_timer_timeout.connect(_on_npcs_timer_timeout)
-	
 	modal = $Foreground/Modal
 
 	if State.show_welcome_modal:
@@ -59,14 +55,6 @@ func _on_door_state_changed(state: int) -> void:
 	if state == $Elevator/Door.DoorState.open:
 		$Elevator.remove_persons_in_dest()
 		$Floors.enter_elevator_next()
-
-func _on_speed_span_timer_timeout() -> void:
-	current_span += 1
-	var wait_time = $Timers/NPCsTimer.wait_time
-	var new_time = wait_time - Settings.npc_enter_shift_sec
-	wait_time = max(Settings.npc_enter_min_sec, new_time)
-	$Timers/NPCsTimer.wait_time = wait_time
-	$Debug.update_dynamic_labels()
 
 func _on_angries_reached() -> void:
 	LevelManager.end_level()

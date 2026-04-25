@@ -2,7 +2,7 @@ extends Line2D
 
 enum DoorState {closed, opening, open, closing}
 var current_state: DoorState = DoorState.closed
-var door_speed: float = Settings.door_speed
+var door_speed: float = Settings.elevator_door_speed
 
 signal has_closed
 signal state_changed(state: State)
@@ -39,4 +39,4 @@ func set_state(state: DoorState) -> void:
 func activate_engine() -> void:
 	door_speed = door_speed * Settings.engine_multiplier
 	await get_tree().create_timer(Settings.engine_duration).timeout
-	door_speed = Settings.door_speed
+	door_speed = Settings.elevator_door_speed

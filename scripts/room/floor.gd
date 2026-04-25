@@ -16,7 +16,7 @@ func _ready() -> void:
 
 func get_npc_position(i: int) -> Vector2:
 	var spacing: int = Settings.npc_spacing
-	var radius: int = Settings.patience_radius
+	var radius: int = Settings.npc_patience_radius
 	var x = spacing + (radius * 2 + spacing) * i
 	return Vector2(x, npc_y)
 
@@ -64,7 +64,7 @@ func add_npc(npc) -> void:
 func get_right_edge() -> int:
 	var _right_edge = $TouchScreenButton.position.x
 	_right_edge += $TouchScreenButton.shape.size.x / 2
-	_right_edge -= Settings.patience_radius * 2 + 5
+	_right_edge -= Settings.npc_patience_radius * 2 + 5
 	return _right_edge
 
 func _on_npc_patience_ended(npc: Node2D) -> void:

@@ -11,7 +11,7 @@ func _ready() -> void:
 	Nodes.Floors.set_floor_pressed(current_floor_num)
 	inner_size.x = $Frame.points[0].x - $Frame.points[1].x - $Frame.width
 	inner_size.y = $Frame.points[3].y - $Frame.points[0].y - $Frame.width
-	npcs_offset = Vector2.ONE * ($Frame.width / 2 - Settings.patience_radius)
+	npcs_offset = Vector2.ONE * ($Frame.width / 2 - Settings.npc_patience_radius)
 
 func _process(_delta: float) -> void:
 	if Input.is_action_pressed("elevator_move_up"):
