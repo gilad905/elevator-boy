@@ -5,7 +5,6 @@ static var _money_reached
 
 static func init_level(angries_reached, money_reached, npcs_timer_timeout) -> void:
 	State.money_count = 0
-	Nodes.HUD.init_from_state()
 	_npcs_timer_timeout = npcs_timer_timeout
 	_money_reached = money_reached
 	Nodes.Elevator.angries_reached.connect(angries_reached.emit)
@@ -13,9 +12,9 @@ static func init_level(angries_reached, money_reached, npcs_timer_timeout) -> vo
 	for _floor in Nodes.Floors.get_children():
 		_floor.angries_reached.connect(angries_reached.emit)
 		_floor.money_reached.connect(money_reached.emit)
+	Nodes.HUD.init_from_state()
 	Nodes.Closet.load_from_state()
-	Nodes.Timers.get_node("NPCsTimer").wait_time = Settings.npc_enter_interval
-	NPCs.update_weights_by_level(State.current_level)
+	NPCs.init_level(State.current_level)
 
 static func start_level() -> void:
 	_npcs_timer_timeout.emit()

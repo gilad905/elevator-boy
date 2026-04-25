@@ -25,6 +25,7 @@ func update_dynamic_labels() -> void:
 
 func _get_level_desc() -> String:
 	var lines = []
+	lines.append("patience multiplier: %s" % State.patience_multiplier)
 	for type in Settings.npc_meta.keys():
 		var type_name = Npc.Type.keys()[type]
 		var weight = NPCs.npc_weights[type]

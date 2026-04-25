@@ -19,6 +19,7 @@ static var viewed_guides: Array = _default.viewed_guides.duplicate()
 # not persistent
 static var show_welcome_modal: bool = true
 static var money_count: int = 0
+static var patience_multiplier: float = 1.0
 
 # does not reset
 static var sounds_on: bool = true

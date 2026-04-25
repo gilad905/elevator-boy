@@ -6,6 +6,26 @@ const win_on_amount: int = 50
 const lose_on_angries: int = 5
 # var lose_on_angries: int = 100 if Env.is_dev else 5
 
+const npc_enter_interval: float = 5.0
+const npc_spacing: int = 7
+const npc_speed: int = 200
+const npc_patience_decrease_per_level: float = 0.05
+const npc_patience_decrease_max: float = 0.33
+const npc_patience_radius: int = 15
+const npc_result_duration: float = 1.0
+const npc_fall_duration: float = 2
+
+const elevator_half_floor_sec: float = 0.4
+const elevator_door_speed: int = 3
+# const elevator_check_interval_sec: float = 0.5
+const engine_multiplier: float = 2
+const engine_duration: float = 20.0
+
+const item_spacing: int = 2
+const item_size: int = 50
+const item_speed: int = 600
+const life_min_amount_for_roll: int = 2
+
 static var npc_meta = {
 	Npc.Type.Person: {
 		get_weight = func(_lev): return 10,
@@ -63,24 +83,6 @@ static var modal_meta: Dictionary = {
 	# popups
 	"popup_win": preload("res://scenes/popups/popup_win.tscn"),
 }
-
-const npc_enter_interval: float = 5.0
-const npc_spacing: int = 7
-const npc_speed: int = 200
-const npc_patience_radius: int = 15
-const npc_result_duration: float = 1.0
-const npc_fall_duration: float = 2
-
-const elevator_half_floor_sec: float = 0.4
-const elevator_door_speed: int = 3
-# const elevator_check_interval_sec: float = 0.5
-const engine_multiplier: float = 2
-const engine_duration: float = 20.0
-
-const item_spacing: int = 2
-const item_size: int = 50
-const item_speed: int = 600
-const life_min_amount_for_roll: int = 2
 
 static var floor_count: int
 

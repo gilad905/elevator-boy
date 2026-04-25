@@ -11,7 +11,18 @@ static func _static_init() -> void:
 			var type_scene = Funcs.get_scene_by_type(scene_path, type_name)
 			scenes[type_val] = type_scene
 
-static func update_weights_by_level(level: int) -> void:
+static func init_level(level: int) -> void:
+	_update_weights_by_level(level)
+	_update_patience_multiplier_by_level(level)
+
+static func _update_patience_multiplier_by_level(level: int) -> void:
+	var decrease = Settings.npc_patience_decrease_per_level * (level - 1)
+	decrease = min(decrease, Settings.npc_patience_decrease_max)
+	var level_multiplier = 1 - decrease
+	level_multiplier = snapped(level_multiplier, 0.01)
+	State.patience_multiplier = level_multiplier
+
+static func _update_weights_by_level(level: int) -> void:
 	var weights = {}
 	for type in Settings.npc_meta.keys():
 		var meta = Settings.npc_meta[type]

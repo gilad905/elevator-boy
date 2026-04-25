@@ -4,9 +4,6 @@ static func _print(msg: String) -> void:
 	var time = Time.get_time_string_from_system()
 	print(time + " " + msg)
 
-static func snap_two(val: float) -> float:
-	return snapped(val, 0.01)
-
 static func get_scenes_by_type(base_path, types) -> Dictionary:
 	var scenes = {}
 	for type_name in types:
@@ -35,7 +32,7 @@ static func roll_by_weights(weight_meta: Dictionary) -> int:
 		var key_weights = range(weight).map(func(_n): return key)
 		weighted_keys.append_array(key_weights)
 	var key = weighted_keys.pick_random()
-	print("weights: ", weight_meta)
-	print("weighted_keys: ", weighted_keys)
-	print("picked key: ", key)
+	# print("weights: ", weight_meta)
+	# print("weighted_keys: ", weighted_keys)
+	# print("picked key: ", key)
 	return key

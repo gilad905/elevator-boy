@@ -7,6 +7,7 @@ signal money_reached
 signal npcs_timer_timeout
 
 func _ready() -> void:
+	$Timers/NPCsTimer.wait_time = Settings.npc_enter_interval
 	angries_reached.connect(_on_angries_reached)
 	money_reached.connect(_on_money_reached)
 	npcs_timer_timeout.connect(_on_npcs_timer_timeout)

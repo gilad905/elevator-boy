@@ -14,7 +14,7 @@ static var circle_center = Vector2.ZERO
 
 var type: Type = Type.Unset
 var fall_y: int
-var patience_sec: int = -1
+var patience_sec: float = -1.0
 var face_steps_sec: Array = []
 var is_patience_ended: bool = false
 var patience_tween: Tween
@@ -24,7 +24,9 @@ var _showing_end: bool = false
 var to_animate: AnimatedSprite2D
 
 func _init() -> void:
-	patience_sec = Settings.npc_meta[type].patience_sec
+	var starting_patience_sec = Settings.npc_meta[type].patience_sec
+	patience_sec = starting_patience_sec * State.patience_multiplier
+	# print(Type.keys()[type], " patience sec: ", patience_sec)
 	for percent in [50, 75]:
 		face_steps_sec.append(patience_sec * percent / 100.0)
 
